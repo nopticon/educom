@@ -1,0 +1,204 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN hide -->
+<script type="text/javascript">
+//<![CDATA[
+$(function() {
+	$('#submit_photos_box').hide();
+
+	$('#submit_photos').click(function() {
+		$('#submit_photos_box').toggle('slow');
+	});
+});
+//]]>
+</script>
+<!-- END hide -->
+
+<div class="el_left ctl z">
+	<!-- BEGIN poll -->
+	<div class="poll pad_left pad_top ctl">
+	<!-- BEGIN results -->
+	<!-- BEGIN item -->
+	<!-- IF item.S_ROW_COUNT -->, <!-- ENDIF -->{item.RESULT} {item.CAPTION}
+	<!-- END item -->
+	<!-- END results -->
+
+	<!-- BEGIN options -->
+	<form action="{options.S_VOTE_ACTION}" method="post" id="event_poll" name="event_poll">
+	<!-- BEGIN item -->
+	<input type="submit" id="choice_{item.ID}" name="choice[{item.ID}]" value="{item.CAPTION}" />
+	<!-- END item -->
+	</form>
+	<!-- END options -->
+	</div>
+	<!-- END poll -->
+</div>
+
+<div class="is_left">
+	<div class="h"><h3>{EVENT_NAME}</h3></div>
+	<div class="pad_top pad_left _">{EVENT_DATE}</div>
+</div>
+
+<!-- BEGIN event_flyer -->
+<span class="clear"></span>
+
+<div id="placeholder">
+	<div class="a_mid"><img id="thumbnail" src="{event_flyer.IMAGE_SRC}" style="margin-right: 10px;" alt="" /></div>
+</div>
+
+<!-- BEGIN thumbnail -->
+<div class="pad_top thumbnail_view a_mid"><img src="{event_flyer.IMAGE_SRC}" alt="" /></div>
+
+<form action="{thumbnail.ACTION}" method="post">
+	<input type="hidden" name="x1" value="" id="x1" />
+	<input type="hidden" name="y1" value="" id="y1" />
+	<input type="hidden" name="x2" value="" id="x2" />
+	<input type="hidden" name="y2" value="" id="y2" />
+	<input type="hidden" name="w" value="" id="w" />
+	<input type="hidden" name="h" value="" id="h" />
+
+	<div class="pad_top"><input type="submit" class="ctl" name="create_thumbnail" value="{L_SAVE_CHANGES}" id="save_thumb" /></div>
+</form>
+
+<script type="text/javascript">
+	function preview(img, selection) {
+		var scaleX = {thumbnail.THUMB_WIDTH} / selection.width;
+		var scaleY = {thumbnail.THUMB_HEIGHT} / selection.height;
+
+		$('.thumbnail_view img').css({
+			width: Math.round(scaleX * {thumbnail.LARGE_WIDTH}) + 'px',
+			height: Math.round(scaleY * {thumbnail.LARGE_HEIGHT}) + 'px',
+			marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+			marginTop: '-' + Math.round(scaleY * selection.y1) + 'px'
+		});
+
+		$('#x1').val(selection.x1);
+		$('#y1').val(selection.y1);
+		$('#x2').val(selection.x2);
+		$('#y2').val(selection.y2);
+		$('#w').val(selection.width);
+		$('#h').val(selection.height);
+	}
+	$(function () {
+		$('#save_thumb').click(save_thumb);
+	});
+
+	$(window).load(function () {
+		$('#thumbnail').imgAreaSelect({ aspectRatio: '1:{thumbnail.SCALE}', onSelectChange: preview, show: true, handles: true, hide: false });
+	});
+</script>
+<!-- END thumbnail -->
+<!-- END event_flyer -->
+
+<!-- BEGIN selected -->
+<div class="pad_top a_center">
+	<div><!-- BEGIN download --><a href="{download.URL}"><!-- END download --><img src="{selected.IMAGE}" width="{selected.WIDTH}" height="{selected.HEIGHT}" alt="" /><!-- BEGIN download --></a><!-- END download --></div>
+	<div id="footer" class="pad_top a_mid"><!-- IF selected.FOOTER != '' -->{selected.FOOTER}<!-- ENDIF --></div>
+	<!-- BEGIN hide -->
+	<!-- BEGIN update -->
+	<script type="text/javascript">
+	//<![CDATA[
+	new Ajax.InPlaceEditor('footer', '{update.URL}', {callback: function(form, value) { return 'ajax=1&event_id={update.EID}&image_id={update.PID}&image_footer=' + escape(value) }, cols:55,okText:"Aceptar",cancelText:"Cancelar",clickToEditText:"Editar",emptyText:"Editar",highlightcolor:"#e8e8e8",highlightendcolor:"#e8e8e8"});
+	//]]>
+	</script>
+	<!-- END update -->
+	<!-- END hide -->
+</div>
+<!-- END selected -->
+
+<!-- BEGIN thumbnails -->
+<span class="clear"></span>
+
+<div class="x3 pad_left ln l5 lf2">
+<ul>
+	<!-- BEGIN item -->
+	<li class="a_mid"><a class="fancy" href="{item.RIMAGE}" title="{item.FOOTER}"><img src="{item.IMAGE}" alt="" /></a></li>
+	<!-- END item -->
+</ul>
+</div>
+
+<span class="clear"></span>
+
+<!-- IF IMG_PAGES_NUMS != '' -->
+<div class="pad_top p a_mid">{IMG_PAGES_NUMS}</div>
+<!-- ENDIF -->
+
+<span class="clear"></span>
+<!-- END thumbnails -->
+
+<!-- BEGIN publish -->
+<div class="x2">
+<div class="publish">
+	<div class="h"><h3>{L_SEND_POST} <a class="smile" href="{U_EMOTICONS}">@</a></h3></div>
+	<form action="{EVENT_PUBLISH}" method="post" name="post">
+		<!-- BEGIN hide -->
+		<input type="hidden" name="ref" value="{publish.REF}" />
+		<!-- END hide -->
+		<textarea id="comment" name="message"></textarea>
+		<!-- BEGIN reply -->
+		<div class="pad_top"><label for="comment_reply">{L_ORIGINAL_POST}</label></div>
+		<div class="pad_top"><textarea class="x2" id="comment_reply" name="reply_message" rows="2">{reply.MESSAGE}</textarea></div>
+		<!-- END reply -->
+		<input type="submit" name="post" value="{L_SUBMIT}" />
+	</form>
+</div>
+</div>
+
+<!-- BEGIN reply -->
+<script type="text/javascript">
+function sss() {
+	$.scrollTo('.publish');
+}
+
+$(function() {
+	setTimeout("sss();", 100);
+});
+</script>
+<!-- END reply -->
+<!-- END publish -->
+
+<!-- BEGIN messages -->
+<!-- IF MSG_PAGES_NUMS != '' -->
+<div class="p">{MSG_PAGES_NUMS}</div>
+<!-- ENDIF -->
+
+<div class="comments">
+	<!-- BEGIN row -->
+	<div id="comment-{row.S_ROW_COUNT}">
+		<h3><strong>{row.S_ROW_COUNT}</strong><span>.</span> <em><a href="{row.PROFILE}"><img src="{row.USER_AVATAR}" alt="{row.USERNAME}'s Avatar" /></a></em><cite><a href="{row.PROFILE}">{row.USERNAME}</a></cite> <span>dijo:</span></h3>
+
+		<blockquote>
+			<div class="x3 col_fr nowraptext">
+				{row.MESSAGE}
+			</div>
+
+			<!-- BEGIN controls -->
+			<p class="controls">
+				<!-- BEGIN reply --><a href="{reply.URL}">{L_CMT_REPLY}</a><!-- END reply -->
+				<!-- BEGIN report --><a href="{report.URL}">{L_CMT_REPORT}</a><!-- END report -->
+				<!-- BEGIN edit --><a href="{edit.URL}">{L_CMT_EDIT}</a><!-- END edit -->
+				<!-- BEGIN restore --><a href="{restore.URL}">{L_CMT_RESTORE}</a><!-- END restore -->
+				<!-- BEGIN delete --><a class="ask_remove" href="{delete.URL}">{L_CMT_DELETE}</a><!-- END delete -->
+			</p>
+			<!-- END controls -->
+
+			<p class="dtposted">{row.DATETIME}</p>
+		</blockquote>
+	<hr /></div>
+	<!-- END row -->
+</div>
+
+<!-- IF MSG_PAGES_NUMS != '' -->
+<div class="p">{MSG_PAGES_NUMS}</div>
+<!-- ENDIF -->
+<!-- END messages -->
+
+<!-- BEGIN thumbnails -->
+<div id="cache" class="z">
+	<!-- BEGIN item -->
+	<div><img src="{item.RIMAGE}" alt="" /></div>
+	<!-- END item -->
+</div>
+<!-- END thumbnails -->
+
+<!-- INCLUDE page.footer.htm -->

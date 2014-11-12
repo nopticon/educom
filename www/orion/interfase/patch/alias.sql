@@ -1,0 +1,1 @@
+ALTER TABLE _events ADD event_alias VARCHAR(255) NOT NULL DEFAULT '' AFTER id;

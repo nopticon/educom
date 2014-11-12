@@ -1,0 +1,29 @@
+<!-- INCLUDE page.header.htm -->
+<!-- INCLUDE acp/artist_header.htm -->
+
+<div class="h"><h3>{L_ACP_ARTIST_GALLERY}</h3></div>
+
+<form action="{_SELF}" method="post" enctype="multipart/form-data" name="post">
+	{S_HIDDEN}
+	<div class="">
+		<div class="">{L_ACP_ARTIST_GALLERY_ADD}</div>
+		<div class="pad_top"><input type="hidden" name="MAX_FILE_SIZE" value="{MAX_FILESIZE}" /><input type="file" name="add_image" size="25" /></div>
+		<div class="pad_top"><input class="submit" type="submit" name="submit" value="{L_SUBMIT}" /></div>
+		
+		<!-- BEGIN gallery -->
+		<div class="pad_top ln l4 a_mid">
+			<ul>
+				<!-- BEGIN row -->
+				<li><input type="checkbox" name="ls_images[]" value="{row.ITEM}" /><br /><a class="fancy" href="{row.RIMAGE}"><img src="{row.IMAGE}" alt="" /></a></li>
+				<!-- END row -->
+			</ul>
+		</div>
+		
+		<span class="clear"></span>
+		
+		<div class="x2"><input type="submit" class="remove" name="submit" value="{L_DELETE_MARKED}" /></div>
+		<!-- END gallery -->
+	</div>
+</form>
+
+<!-- INCLUDE page.footer.htm -->

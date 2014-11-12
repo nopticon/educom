@@ -1,0 +1,19 @@
+<!-- INCLUDE page.header.htm -->
+
+<form action="{MODULE_URL}" method="post">
+	<!-- BEGIN team -->
+	Equipo: <select name="team">
+		<!-- BEGIN row -->
+		<option value="{row.TEAM_ID}">{row.TEAM_NAME}</option>
+		<!-- END row -->
+	</select>
+	<!-- END team -->
+	<br />
+	
+	Usuario: <input type="text" name="username" value="" /><br />
+	Nombre real: <input type="text" name="realname" value="" /><br />
+	Moderador: <input type="checkbox" name="ismod" value="1" /><br />
+	<input type="submit" name="submit" value="Agregar usuario" />
+</form>
+
+<!-- INCLUDE page.footer.htm -->

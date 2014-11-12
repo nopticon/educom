@@ -1,0 +1,20 @@
+<!-- INCLUDE page.header.htm -->
+<!-- INCLUDE acp/artist_header.htm -->
+
+<div class="h"><h3>Eliminar artista</h3></div>
+
+<div class="publish">
+	<form action="{MODULDE_URL}" method="post">
+		<!-- BEGIN artists -->
+		<select name="name">
+			<!-- BEGIN row -->
+			<option value="{row.UB}">{row.NAME}</option>
+			<!-- END row -->
+		</select>
+		<!-- END artists -->
+		
+		<input type="submit" name="submit" value="Eliminar artista" />
+	</form>
+</div>
+
+<!-- INCLUDE page.footer.htm -->

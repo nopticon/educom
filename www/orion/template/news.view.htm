@@ -1,0 +1,64 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="is_left">
+	<div class="h"><h3>{POST_SUBJECT}</h3></div>
+	<div class="pad_top pad_left _"><a href="{CAT_URL}">{CAT_NAME}</a></div>
+</div>
+
+<span class="clear"></span>
+
+<div class="comments">
+<a name="mainpost"></a>
+<!-- BEGIN mainpost -->
+<div id="comment-{item.S_ROW_COUNT}">
+	<h3><strong>f</strong><span>.</span> <em><a href="{mainpost.PROFILE}"><img src="{mainpost.USER_AVATAR}" alt="{mainpost.USERNAME}'s Avatar" /></a></em><cite><a href="{mainpost.PROFILE}">{mainpost.USERNAME}</a></cite> <span>dijo:</span></h3>
+	<blockquote>
+		<div class="nowraptext">{mainpost.MESSAGE}</div>
+		<p class="dtposted">{mainpost.POST_TIME}</p>
+	</blockquote>
+	<hr />
+</div>
+<!-- END mainpost -->
+
+<!-- IF PAGES_NUMS != '' -->
+<div class="p">{PAGES_NUMS}</div>
+
+<span class="clear"></span>
+<!-- ENDIF -->
+</div>
+
+<div class="comments">
+<!-- BEGIN posts -->
+<div class="rows5_top">
+<!-- BEGIN item -->
+<a name="{item.POST_ID}"></a>
+<div id="comment-{item.S_ROW_COUNT}">
+<h3><strong>{item.S_ROW_COUNT}</strong><span>.</span> <em><!-- BEGIN username --><a href="{item.PROFILE}"><!-- END username --><img src="{item.USER_AVATAR}" alt="{item.USERNAME}'s Avatar" /><!-- BEGIN username --></a><!-- END username --></em><cite><!-- BEGIN username --><a href="{item.PROFILE}"><!-- END username -->{item.USERNAME}<!-- BEGIN username --></a><!-- END username --></cite> <span>dijo:</span></h3>
+<blockquote>
+<div class="col_fr nowraptext">{item.MESSAGE}</div>
+<p class="dtposted">{item.DATETIME}</p>
+</blockquote>
+<hr /></div>
+<!-- END item -->
+</div>
+<!-- END posts -->
+</div>
+
+<!-- IF PAGES_NUMS != '' -->
+<div class="p">{PAGES_NUMS}</div>
+
+<span class="clear"></span>
+<!-- ENDIF -->
+
+<!-- BEGIN publish -->
+<div class="pad_top publish">
+	<div class="h"><h3>{L_SEND_POST} <a class="smile" href="{U_EMOTICONS}">@</a></h3></div>
+	<form action="{U_COMMENTS}" method="post" name="post">
+		<input type="hidden" name="ref" value="{publish.REF}" />
+		<textarea id="comment" name="message"></textarea>
+		<input type="submit" name="post" value="{L_SUBMIT}" />
+	</form>
+</div>
+<!-- END publish -->
+
+<!-- INCLUDE page.footer.htm -->

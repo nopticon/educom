@@ -1,0 +1,30 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="h"><h3>{L_NEWS}</h1></div>
+
+<div class="is_left">
+	<!-- BEGIN cat -->
+	<div class="pad_top ls">
+		<ul>
+			<!-- BEGIN row -->
+			<li class="pad_top">
+				<ul>
+					<li><a class="subtitle"href="{row.URL}">{row.SUBJECT}</a></li>
+					<li class="_ pad_top">{row.DESC}</li>
+				</ul>
+			</li>
+			<!-- END row -->
+		</ul>
+	</div>
+	<!-- END cat -->
+
+	<span class="clear"></span>
+
+	<!-- IF PAGES_NUMS != '' -->
+	<div class="p">{PAGES_NUMS}</div>
+	<!-- ENDIF -->
+</div>
+
+<div class="is_right"></div>
+
+<!-- INCLUDE page.footer.htm -->

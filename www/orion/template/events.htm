@@ -1,0 +1,62 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN gallery -->
+<div id="gallery" class="ln l3 lf">
+<ul>
+	<!-- BEGIN item -->
+	<li class="el_left a_mid">
+		<ul>
+			<li><a href="{item.URL}">{item.TITLE}</a></li>
+			<!-- <li class="__">{item.DATETIME}</li> -->
+			<li><a href="{item.URL}"><img src="{item.IMAGE}" alt="{item.TITLE}" /></a></li>
+		</ul>
+	</li>
+	<!-- END item -->
+</ul>
+</div>
+
+<span class="clear"></span>
+
+<!-- IF PAGES_NUMS != '' -->
+<div class="p">{PAGES_NUMS}</div>
+<!-- ENDIF -->
+
+<span class="clear"></span>
+<!-- END gallery -->
+
+<!-- BEGIN hide -->
+<script type="text/javascript"><!--
+	google_ad_client = "pub-5371491382621943";
+	google_ad_slot = "4769966849";
+	google_ad_width = 728;
+	google_ad_height = 90;
+	//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+<!-- END hide -->
+
+<!-- BEGIN future -->
+<div class="pad_top ln l3">
+	<!-- BEGIN set -->
+	<div class="pad_top">
+		<div class="h"><h3>{set.L_TITLE}</h3></div>
+		<ul>
+			<!-- BEGIN item -->
+			<li class="a_mid">
+				<ul>
+					<li><a href="{item.U_TOPIC}">{item.TITLE}</a></li>
+					<li class="__">{item.DATE}</li>
+					<li><a href="{item.U_TOPIC}"><img src="{item.SRC}" alt="" /></a></li>
+				</ul>
+			</li>
+			<!-- END item -->
+		</ul>
+	</div>
+	<span class="clear"></span>
+	<!-- END set -->
+</div>
+<!-- END future -->
+
+<span class="clear"></span>
+
+<!-- INCLUDE page.footer.htm -->

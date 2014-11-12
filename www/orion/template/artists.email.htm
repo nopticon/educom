@@ -1,0 +1,9 @@
+<form action="{S_ACTION}" method="post" name="post">{S_HIDDEN}
+	<span class="gen"><b>{L_SUBJECT}</b></span>
+	<input type="text" name="subject" size="45" maxlength="100" value="{SUBJECT}" />
+	
+	<span class="gen"><b>{L_MESSAGE_BODY}</b></span><br /><span class="gensmall">{L_MESSAGE_BODY_DESC}</span>
+	<textarea name="message" rows="25" cols="40" wrap="virtual" class="post">{MESSAGE}</textarea>
+	
+	<input type="submit" name="submit" value="{L_SEND_EMAIL}" />
+</form>

@@ -1,0 +1,19 @@
+<!-- INCLUDE page.header.htm -->
+
+<form action="{MODULE_URL}" method="post">
+	Nombre de usuario: <input type="text" name="username" value="" /><br />
+	Correo: <input type="test" name="user_email" value="" /><br />
+	<input type="submit" name="submit" value="Cambiar" />
+</form>
+
+<br /><br /><br />
+
+<!-- BEGIN list -->
+
+<!-- BEGIN row -->
+<a href="{row.LINK}">Activar</a> -- {row.USERNAME} -- {row.EMAIL} -- {row.DATE} -- {row.IP}<br />
+<!-- END row -->
+
+<!-- END list -->
+
+<!-- INCLUDE page.footer.htm -->

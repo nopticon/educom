@@ -1,0 +1,28 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="pad_top">
+	<div class="is_mid">
+		<div class="h"><h3>{L_CHAT} (#{CH_NAME})</h3></div>
+		<div><a href="{U_PROFILE}">{S_USERNAME}</a></div>
+	</div>
+	<div class="is_mid">
+		<!-- BEGIN manage -->
+		<a href="/chat/{CH_INT_NAME}/manage/">{L_CHAT_MANAGE_CHANNEL}</a>
+		<!-- END manage -->
+		<div><a href="">{L_CHAT_LOGOUT}</a></div>
+	</div>
+	
+	<span class="clear"></span>
+</div>
+
+<div id="window" class="pad6">
+	<div id="chatArea"></div>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+intitializeChat('chatArea', '{CH_INT_NAME}', '{CH_SID}');
+//]]>
+</script>
+
+<!-- INCLUDE page.footer.htm -->

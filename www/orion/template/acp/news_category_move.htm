@@ -1,0 +1,17 @@
+<!-- INCLUDE page.header.htm -->
+
+<form action="{MODULE_URL}" method="post">
+	# Noticia: <input type="text" name="news_id" /><br /><br />
+	<!-- BEGIN categories -->
+	Categoria: <select name="cat_id">
+		<!-- BEGIN row -->
+		<option value="{row.CAT_ID}">{row.CAT_NAME}</option>
+		<!-- END row -->
+	</select>
+	<!-- END categories -->
+
+	<br /><br />
+	<input type="submit" name="submit" value="Enviar" />
+</form>
+
+<!-- INCLUDE page.footer.htm -->

@@ -1,0 +1,124 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN hide -->
+<div class="a_mid">
+	<script type="text/javascript"><!--
+	google_ad_client = "pub-5371491382621943";
+	google_ad_slot = "8783292401";
+	google_ad_width = 728;
+	google_ad_height = 90;
+	//-->
+	</script>
+	<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+</div>
+<!-- END hide -->
+
+<div class="is_left ls_none">
+	<div class="h b"><h3>{UNAME}</h3></div>
+	<div class="_ pad_left">{GENRE} &mdash; {LOCATION} &mdash; {FANS} {L_FANS}</div>
+</div>
+
+<span class="clear"></span>
+
+<div class="pad_top ctl ctl_lf">
+	<ul>
+		<!-- BEGIN make_fans -->
+		<li><a href="{make_fans.FAV_URL}">{make_fans.FAV_LANG}</a></li>
+		<!-- END make_fans -->
+		<!-- BEGIN nav -->
+		<!-- BEGIN strong -->
+		<li><span>{nav.LANG}</span></li>
+		<!-- END strong -->
+		<!-- BEGIN a -->
+		<li><a href="{a.URL}">{nav.LANG}</a></li>
+		<!-- END a -->
+		<!-- END nav -->
+	</ul>
+</div>
+
+<span class="clear"></span>
+
+<!-- IF INACTIVE -->
+<div class="w">
+	<h3>{L_ARTIST_INACTIVE}</h3>
+	<p>{L_ARTIST_INACTIVE_DESC}</p>
+</div>
+<!-- ENDIF -->
+
+<div class="is_left">
+	{UB_BODY}
+</div>
+
+<div class="is_right">
+	<!-- BEGIN ub_poll -->
+	<div class="poll ls">
+		<div class="h"><h3>{L_UB_RATE}</h3></div>
+		<!-- BEGIN options -->
+		<form action="{options.S_VOTE_ACTION}" method="post" name="vote_ub" onsubmit="return _.glob.in_sending('avote');">
+		<!-- END options -->
+		<ul>
+			<!-- BEGIN results -->
+			<!-- BEGIN item -->
+			<li>
+				<div class="caption">{item.CAPTION} <span class="_">({item.RESULT})</span></div>
+				<div class="bar"><div style="width: {item.PERCENT}%;">&nbsp;</div></div>
+			</li>
+			<!-- END item -->
+			<!-- END results -->
+			<!-- BEGIN options -->
+			<!-- BEGIN item -->
+			<li><input class="none" type="radio" id="vo_{item.ID}" name="vote_id" value="{item.ID}" /> <label for="vo_{item.ID}">{item.CAPTION}</label></li>
+			<!-- END item -->
+			<!-- END options -->
+		</ul>
+		<!-- BEGIN options -->
+		<div class="pad_top a_mid"><input class="submit" type="submit" name="vote" value="{L_VOTE}" /></div>
+		<!-- END options -->
+		<!-- BEGIN options -->
+		</form>
+		<!-- END options -->
+	</div>
+	<!-- END ub_poll -->
+
+	<!-- BEGIN ud_block -->
+	<div class="<!-- IF ud_block.S_ROW_COUNT -->pad_top<!-- ENDIF --> ls">
+		<div class="h"><h3>{ud_block.LANG}</h3></div>
+		<ul>
+			<!-- BEGIN item -->
+			<li class="<!-- BEGIN strong -->hg<!-- END strong -->"><!-- BEGIN a --><a href="{a.URL}"><!-- END a -->{item.TITLE}<!-- BEGIN a --></a><!-- END a --></li>
+			<!-- END item -->
+		</ul>
+	</div>
+	<!-- END ud_block -->
+	
+	<!-- BEGIN events_gallery -->
+	<div class="pad_top ls">
+		<div class="h"><h3>{L_UE_GALLERY}</h3></div>
+		<ul>
+			<!-- BEGIN item -->
+			<li>
+				<a href="{item.URL}">{item.TITLE}</a>
+				<div class="_">{item.DATETIME}</div>
+			</li>
+			<!-- END item -->
+		</ul>
+	</div>
+	<!-- END events_gallery -->
+	
+	<!-- BEGIN mods -->
+	<div class="pad_top ls">
+		<div class="h"><h3>{L_UB_AUTH_MEMBERS}</h3></div>
+		<ul>
+			<!-- BEGIN item -->
+			<li><a href="{item.PROFILE}">{item.USERNAME}</a></li>
+			<!-- END item -->
+		</ul>
+		
+		<!-- BEGIN manage -->
+		<div class="pad_top a_mid"><a href="{manage.URL}">{L_UB_MANAGE_MODS}</a></div>
+		<!-- END manage -->
+	</div>
+	<!-- END mods -->
+</div>
+
+<!-- INCLUDE page.footer.htm -->

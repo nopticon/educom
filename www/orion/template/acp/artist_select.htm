@@ -1,0 +1,22 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="h"><h3>{L_ACP_ARTIST_SELECT}</h3></div>
+
+<!-- BEGIN artist_list -->
+<div class="ln l6">
+	<ul>
+		<!-- BEGIN row -->
+		<li class="el_left a_mid">
+			<ul>
+				<!-- BEGIN hide -->
+				<li><a href="{row.URL}"><img src="{S_ASSETS}style/acp/{row.IMAGE}.png" alt="{row.NAME}" /></a></li>
+				<!-- END hide -->
+				<li><a href="{row.URL}">{row.NAME}</a></li>
+			</ul>
+		</li>
+		<!-- END row -->
+	</ul>
+</div>
+<!-- END artist_list -->
+
+<!-- INCLUDE page.footer.htm -->

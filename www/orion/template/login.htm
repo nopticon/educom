@@ -1,0 +1,124 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="is_mid">
+	<div class="h"><h3>{L_LOGIN2}</h3></div>
+
+	<form action="{U_SESSION}" method="post" id="account_login">
+	<input type="hidden" name="ref" value="{S_REDIRECT}" />{S_HIDDEN_FIELDS}
+
+	<div class="pad_top x3">
+		<div class="is_mid a_right"><label for="username" class="in_right">{L_USERNAME} / {L_EMAIL}</label></div>
+		<div class="is_mid"><input type="text" id="username" name="username" size="20" maxlength="20" /></div>
+	</div>
+
+	<span class="clear"></span>
+
+	<div class="pad_top">
+		<div class="is_mid a_right"><label for="password" class="in_right">{L_PASSWORD}</label></div>
+		<div class="is_mid"><input type="password" id="password" name="password" size="20" maxlength="32" value="" /></div>
+	</div>
+
+	<span class="clear"></span>
+
+	<div class="pad_top a_mid ctl"><input type="submit" name="login" value="{L_LOGIN}" /></div>
+	</form>
+</div>
+
+<div class="is_mid">
+	<div class="h x3"><h3>{L_SENDPASSWORD_EXPLAIN}</h3></div>
+
+	<form action="{U_PASSWORD}" method="post">
+		<input type="hidden" id="code" name="code" value="{S_CODE}" />
+		<div class="pad_top a_mid x2">
+			<!-- IF PAGE_MODE == '' -->
+			<!-- ELSEIF PAGE_MODE == 'nomatch' -->
+			{L_SENDPASSWORD5_EXPLAIN}
+			<!-- ELSEIF PAGE_MODE == 'nokey' -->
+			{L_SENDPASSWORD6_EXPLAIN}
+			<!-- ELSEIF PAGE_MODE == 'submit' -->
+			{L_SENDPASSWORD2_EXPLAIN}
+			<!-- ELSEIF PAGE_MODE == 'updated' -->
+			<input type="hidden" id="r" name="r" value="1" />
+			{L_SENDPASSWORD4_EXPLAIN}
+			<!-- ELSEIF PAGE_MODE == 'verify' -->
+			{L_SENDPASSWORD3_EXPLAIN}
+			<!-- ENDIF -->
+		</div>
+
+		<span class="clear"></span>
+
+		<!-- IF PAGE_MODE == 'verify' || PAGE_MODE == 'nomatch' || PAGE_MODE == 'nokey' -->
+		<div class="pad_top">
+			<div class="is_mid a_right"><label for="newkey" class="in_right">{L_NEW_PASSWORD}</label></div>
+			<div class="is_mid"><input type="password" id="newkey" name="newkey" size="20" maxlength="100" value="" /></div>
+		</div>
+
+		<span class="clear"></span>
+
+		<div class="pad_top">
+			<div class="is_mid a_right"><label for="newkey2" class="in_right">{L_CONFIRM_PASSWORD}</label></div>
+			<div class="is_mid"><input type="password" id="newkey2" name="newkey2" size="20" maxlength="100" value="" /></div>
+		</div>
+		<!-- ELSEIF PAGE_MODE == '' -->
+		<div class="pad_top">
+			<div class="is_mid a_right"><label for="address" class="in_right">{L_EMAIL}</label></div>
+			<div class="is_mid"><input type="text" id="address" name="address" size="20" maxlength="100" value="" /></div>
+		</div>
+		<!-- ENDIF -->
+
+		<span class="clear"></span>
+
+		<div class="pad_top a_mid ctl"><input type="submit" name="submit" value="{L_CONTINUE}" /></div>
+	</form>
+
+	<!-- BEGIN hide -->
+	<div class="h"><h3>{L_NEW_ACCOUNT_SUBJECT}</h3></div>
+
+	<form action="{U_REGISTER}" method="post">
+		{S_HIDDEN_FIELDS}
+
+		<div class="pad_top x3">
+			<div class="is_mid a_right"><label for="username" class="in_right">{L_USERNAME2}</label></div>
+			<div class="is_mid"><input<!-- IF E_USERNAME --> class="error"<!-- ENDIF --> type="text" id="username" name="username" size="20" autocomplete="off" maxlength="32" value="{V_USERNAME}" /></div>
+		</div>
+
+		<span class="clear"></span>
+
+		<div class="pad_top">
+			<div class="is_mid a_right"><label for="email" class="in_right">{L_EMAIL}</label></div>
+			<div class="is_mid"><input<!-- IF E_EMAIL --> class="error"<!-- ENDIF --> type="text" id="email" name="email" size="20" autocomplete="off" maxlength="32" value="{V_EMAIL}" /></div>
+		</div>
+
+		<span class="clear"></span>
+
+		<div class="pad_top">
+			<div class="is_mid a_right"><label for="email_confirm" class="in_right">{L_CONFIRM_EMAIL}</label></div>
+			<div class="is_mid"><input<!-- IF E_EMAIL_CONFIRM --> class="error"<!-- ENDIF --> type="text" id="email_confirm" name="email_confirm" size="20" autocomplete="off" maxlength="32" value="{V_EMAIL_CONFIRM}" /></div>
+		</div>
+
+		<span class="clear"></span>
+
+		<div class="pad_top">
+			<div class="is_mid a_right"><label for="key" class="in_right">{L_PASSWORD}</label></div>
+			<div class="is_mid"><input<!-- IF E_KEY --> class="error"<!-- ENDIF --> type="password" id="key" name="key" size="20" autocomplete="off" maxlength="32" value="{V_KEY}" /></div>
+		</div>
+
+		<span class="clear"></span>
+
+		<div class="pad_top">
+			<div class="is_mid a_right"><label for="key_confirm" class="in_right">{L_CONFIRM_PASSWORD}</label></div>
+			<div class="is_mid"><input<!-- IF E_KEY_CONFIRM --> class="error"<!-- ENDIF --> type="password" id="key_confirm" name="key_confirm" size="20" autocomplete="off" maxlength="32" value="{V_KEY_CONFIRM}" /></div>
+		</div>
+
+		<span class="clear"></span>
+
+		<div class="pad_top a_mid ctl"><input type="submit" name="submit" value="{L_CREATE_USER}" /></div>
+	</form>
+	<!-- END hide -->
+</div>
+
+<span class="clear"></span>
+
+<div class="a_mid x2">{L_REQUIRE_REGISTRATION}</div>
+
+<!-- INCLUDE page.footer.htm -->

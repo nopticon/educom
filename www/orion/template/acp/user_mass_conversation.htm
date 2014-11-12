@@ -1,0 +1,27 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN error -->
+<div class="error_block"><h2>{L_ERROR}</h2><p>{error.MESSAGE}</p></div>
+<!-- END error -->
+
+<form action="{MODULE_URL}" method="post">
+	<div>
+		Modo<br />
+		<select name="post_mode">
+			<option value="1">Todos</option>
+			<option value="2">Artistas</option>
+			<option value="3">Amigos</option>
+		</select>
+	</div>
+	
+	<div class="pad_top"><label for="comment_np">{L_TOPIC_TITLE}</label></div>
+	<div class="pad_top"><input id="comment_title" name="post_subject" size="150" value="" /></div>
+	<div class="pad_top"><label for="comment">{L_POST}</label></div>
+	<div class="pad_top"><textarea id="comment" name="post_message" cols="150" rows="10"></textarea></div>
+	<div class="pad_top"><label for="excl">Excluir</label></div>
+	<div class="pad_top"><textarea id="excl" name="post_skip" cols="150" rows="10"></textarea></div>
+	<div class="pad_top">&iquest;Puede responder? <input type="checkbox" name="post_reply" value="1" /></div>
+	<div class="pad_top a_center"><input class="submit" type="submit" name="submit" value="{L_SUBMIT}" /></div>
+</form>
+
+<!-- INCLUDE page.footer.htm -->

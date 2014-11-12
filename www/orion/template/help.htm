@@ -1,0 +1,34 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="h"><h3>{L_HELP}<!-- BEGIN module --> &mdash; {module.TITLE}<!-- END module --></h3></div>
+
+<!-- BEGIN categories -->
+<div class="is_left_i ls">
+	<ul>
+		<!-- BEGIN row -->
+		<li><a href="{row.URL}">{row.TITLE}</a></li>
+		<!-- END row -->
+	</ul>
+</div>
+<!-- END categories -->
+
+<!-- BEGIN module -->
+<div class="is_right_i ls">
+	<ul id="faq">
+		<!-- BEGIN row -->
+		<li>
+			<h3 class="question"><a href="#">{row.QUESTION}</a></h3>
+			<p class="answer">{row.ANSWER}</p>
+		</li>
+		<!-- END row -->
+	</ul>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+$(function(){
+	$('#faq').faq();
+});
+</script>
+<!-- END module -->
+
+<!-- INCLUDE page.footer.htm -->

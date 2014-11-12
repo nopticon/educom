@@ -1,0 +1,29 @@
+<!-- INCLUDE page.header.htm -->
+<!-- INCLUDE acp/artist_header.htm -->
+
+<div class="h"><h3>{L_ACP_ARTIST_AUTH}</h3></div>
+
+<form action="{_SELF}" method="post" enctype="multipart/form-data" name="post">
+	{S_HIDDEN}
+	<div class="">
+		<div class="">{L_ACP_ARTIST_AUTH_DESC}</div>
+		<div class="pad_top"><label for="member">{L_MEMBER}</label>: <input type="text" id="member" name="s_member" size="35" maxlength="20" /></div>
+		<div class="pad_top"><input class="submit" type="submit" name="submit" value="{L_SUBMIT}" /></div>
+		
+		<!-- BEGIN members -->
+		<div class="pad_top ln l4 a_mid">
+			<ul>
+				<!-- BEGIN row -->
+				<li><input type="checkbox" class="none" name="s_members[]" value="{row.USER_ID}"<!-- IF !(row.DELETE) --> disabled="true"<!-- ENDIF --><!-- IF row.CHECK --> checked="true"<!-- ENDIF --> /><br /><a href="{row.PROFILE}"><img src="{row.AVATAR}" alt="{row.USERNAME}" /></a><br /><a href="{row.PROFILE}">{row.USERNAME}</a></li>
+				<!-- END row -->
+			</ul>
+		</div>
+		
+		<span class="clear"></span>
+		
+		<div class="x2"><input type="submit" class="remove" name="remove" value="{L_DELETE_MARKED}" /></div>
+		<!-- END members -->
+	</div>
+</form>
+
+<!-- INCLUDE page.footer.htm -->

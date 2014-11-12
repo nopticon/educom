@@ -1,0 +1,167 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN hide -->
+<div class="a_center">
+	<script type="text/javascript"><!--
+	google_ad_client = "pub-5371491382621943";
+	google_ad_slot = "0211009699";
+	google_ad_width = 728;
+	google_ad_height = 90;
+	//-->
+	</script>
+	<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+</div>
+<!-- END hide -->
+
+<ul id="expand_account">
+	<li><a id="account" href="{U_PROFILE}"></a></li>
+	<li class="mb"><a href="{U_PROFILE}" title="{S_USERNAME}"><i class="icon-user"></i> {S_USERNAME}</a>
+	<li><a href="{U_DC}">{L_USERPAGE_DC}</a></li>
+	<li><a href="{U_EDITPROFILE}">{L_PREFERENCES}</a></li>
+	<li><a href="{U_SESSION}">{L_LOGOUT2}</a></li>
+</ul>
+
+<div class="el_left"><img src="{AVATAR_IMG}" alt="{USERNAME}" /></div>
+
+<div class="el_left pad_left">
+	<div class="">
+		<div class="profile"><h3>{USERNAME}</h3></div>
+		<div class="rows5_top">{POSTER_RANK}</div>
+	</div>
+	
+	<div class="pad_top ls ctl">
+	<ul>
+		<!-- BEGIN selected_panel -->
+		<!-- BEGIN strong -->
+		<li><strong>{selected_panel.LANG}</strong></li>
+		<!-- END strong -->
+		<!-- BEGIN a -->
+		<li><a href="{a.URL}">{selected_panel.LANG}</a></li>
+		<!-- END a -->
+		<!-- END selected_panel -->
+		<!-- BEGIN messages -->
+		<li><a href="{PM}">{L_DCONV_START}</a></li>
+		<!-- END messages -->
+		<!-- BEGIN block_member -->
+		<li><a href="{block_member.URL}">{block_member.LANG}</a></li>
+		<!-- END block_member -->
+		<!-- BEGIN friend -->
+		<li><a href="{friend.U_FRIEND}">{friend.L_FRIENDS_ADD}</a></li>
+		<!-- END friend -->
+		<!-- IF WEBSITE -->
+		<li><a href="{WEBSITE}">Sitio web</a></li>
+		<!-- ENDIF -->
+	</ul>
+	</div>
+</div>
+
+<span class="clear"></span>
+
+<!-- BEGIN main -->
+<div class="pad_top">
+	<div class="is_left_i">
+		<!-- BEGIN general -->
+		<div class="ls">
+		<ul>
+			<!-- BEGIN item -->
+			<li><strong>{item.KEY}:</strong> {item.VALUE}</li>
+			<!-- END item -->
+		</ul>
+		</div>
+		<!-- END general -->
+		
+		<!-- BEGIN lastfm -->
+		<div class="pad_top ls">
+		<div class="h"><h3>Canciones en Last.FM</h3></div>	
+		<ul>
+			<!-- BEGIN row -->
+			<li><strong>{row.TIME}</strong>: <a href="{row.URL}" title="{row.ALBUM}" target="_blank">{row.ARTIST} - {row.NAME}</a></li>
+			<!-- END row -->
+		</ul>
+		
+		<div class="pad_top ctl"><a href="{lastfm.URL}" target="_blank">Visitar perfil de {lastfm.NAME}</a></div>
+		</div>
+		<!-- END lastfm -->
+		
+		<!-- BEGIN thumbnails -->
+		<div class="<!-- IF !(thumbnails.S_ROW_COUNT) -->pad_top <!-- ENDIF -->ln">
+			<div class="h"><h3>{thumbnails.L_TITLE}</h1></div>
+			<ul>
+				<!-- BEGIN row -->
+				<li class="pad_top a_mid">
+					<ul>
+						<li><a href="{row.URL}">{row.NAME}</a></li>
+						<li class="__">{row.GENRE}</li>
+						<li class="pad_top"><a href="{row.URL}"><img src="{row.IMAGE}" alt="{row.NAME}" /></a></li>
+					</ul>
+				</li>
+				<!-- END row -->
+			</ul>
+		</div>
+		<!-- END thumbnails -->
+		
+		<!-- BEGIN lastboard -->
+		<div class="pad_top ls">
+		<div class="h"><h3>{L_BOARD_LATEST}</h3></div>	
+		<ul>
+			<!-- BEGIN row -->
+			<li>
+				<div><a<!-- IF row.TOPIC_COLOR --> style="color:#{row.TOPIC_COLOR};"<!-- ENDIF --> href="{row.URL}">{row.TITLE}</a></div>
+				<div class="_">{row.DATE} a las {row.TIME}</div>
+			</li>
+			<!-- END row -->
+		</ul>
+		</div>
+		<!-- END lastboard -->
+	</div>
+	
+	<div class="is_right_i">
+		<!-- BEGIN post_comment_box -->
+		<div class="publish">
+		<div class="h"><h3>{L_SEND_POST} <a class="smile" href="{U_EMOTICONS}">@</a></a></h3></div>
+		<form action="{U_COMMENTS}" method="post" name="m-messages">
+		<input type="hidden" name="ref" value="{post_comment_box.REF}" />
+		<textarea id="a-comments" name="message"></textarea>
+		<input class="submit" type="submit" name="submit" value="{L_SEND_MESSAGE}" />
+		</form>
+		</div>
+		<!-- END post_comment_box -->
+		
+		<!-- BEGIN posts -->
+		<div class="comments pad_top">
+		<a name="first"></a>
+		<!-- BEGIN item -->
+		<a name="{item.POST_ID}"></a>
+		<div id="comment-{item.S_ROW_COUNT}">
+		<h3><strong>{item.S_ROW_COUNT}</strong><span>.</span> <em><!-- BEGIN username --><a href="{item.PROFILE}"><!-- END username --><img src="{item.USER_AVATAR}" alt="{item.USERNAME}'s Avatar" /><!-- BEGIN username --></a><!-- END username --></em><cite><!-- BEGIN username --><a href="{item.PROFILE}"><!-- END username -->{item.USERNAME}<!-- BEGIN username --></a><!-- END username --></cite> <span>dijo:</span></h3>
+		<blockquote>
+		<!-- IF item.S_DELETE -->
+		<div class="pad_top ctl a_right"><a href="{item.S_DELETE}">{L_DELETE}</a></div>
+		<!-- ENDIF -->
+		<div class="nowraptext">{item.MESSAGE}</div>
+		<!-- IF item.USER_SIG != '' -->
+		<div class="nowraptext"><p>--{item.USER_SIG}</p></div>
+		<!-- ENDIF -->
+		<p class="dtposted">{item.DATETIME}</p>
+		</blockquote>
+		<hr /></div>
+		<!-- END item -->
+		</div>
+		<!-- END posts -->
+	</div>
+</div>
+<!-- END main -->
+
+<!-- BEGIN friends -->
+<div class="pad_top ln l6">
+	<ul>
+		<!-- BEGIN row -->
+		<li class="a_mid pad_top">
+			<div><a href="{row.PROFILE}">{row.USERNAME}</a><br />{row.DATETIME}</div>
+			<div class="pad_top"><a href="{row.PROFILE}"><img src="{row.AVATAR}" alt="{row.USERNAME}" /></a></div></li>
+		<!-- END row -->
+	</ul>
+</div>
+<!-- END friends -->
+
+<!-- INCLUDE page.footer.htm -->

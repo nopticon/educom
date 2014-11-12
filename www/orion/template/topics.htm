@@ -1,0 +1,56 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="h"><h3><a href="{U_VIEW_FORUM}">{FORUM_NAME}</a></h3></div>
+
+<!-- BEGIN topic_create -->
+<div class="ctl"><a href="#create">{topic_create.L_POST_NEWTOPIC}</a></div>
+<!-- END topic_create -->
+<span class="clear"></span>
+
+<!-- IF PAGES_NUMS != '' -->
+<div class="p">{PAGES_NUMS}</div>
+<span class="clear"></span>
+<!-- ENDIF -->
+
+<!-- BEGIN topics -->
+<!-- BEGIN alias -->
+<!-- IF alias.SHOW -->
+<div class="x2">
+	<div class="h"><h3>{alias.NAME}</h3></div>
+</div>
+<!-- ENDIF -->
+
+<div class="pad_top ls">
+<ul>
+	<!-- BEGIN row -->
+	<li>
+		<a href="{row.U_TOPIC}">{row.TOPIC_TITLE}</a>
+		<div class="_">{row.TOPIC_AUTHOR} @ {row.LAST_POST_TIME}</div>
+	</li>
+	<!-- END row -->
+</ul>
+</div>
+<!-- END alias -->
+<!-- END topics -->
+
+<!-- IF PAGES_NUMS != '' -->
+<div class="p">{PAGES_NUMS}</div>
+<!-- ENDIF -->
+
+<!-- BEGIN publish -->
+<span class="clear"></span>
+
+<div class="pad_top publish">
+	<div class="h"><h3>{L_POST_NEWTOPIC} <a class="smile" href="{U_EMOTICONS}">@</a></h3></div>
+	<form action="{publish.S_POST_ACTION}" method="post">
+		<label for="comment_title">{L_TOPIC_TITLE}</label>
+		<input class="f ff" id="comment_title" name="topic_title" value="{publish.TOPIC_TITLE}" />
+		<textarea id="comment" name="message">{publish.MESSAGE}</textarea>
+		<label for="comment_np">{L_NOWPLAYING}</label>
+		<input class="f" id="comment_np" name="np" value="{publish.NP}" />
+		<input type="submit" name="post" value="{L_SUBMIT}" />
+	</form>
+</div>
+<!-- END publish -->
+
+<!-- INCLUDE page.footer.htm -->

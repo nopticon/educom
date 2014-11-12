@@ -1,0 +1,37 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN log -->
+<table border="1">
+	<tr>
+		<td>uid</td>
+		<td>Usuario</td>
+		<td>Inicio</td>
+		<td>Fin</td>
+		<td>Tiempo</td>
+		<td>IP</td>
+		<td>Agent</td>
+	</tr>
+	<!-- BEGIN row -->
+	<tr>
+		<td>{row.UID}</td>
+		<td>{row.USERNAME}</td>
+		<td>{row.TIME}</td>
+		<td>{row.ENDTIME}</td>
+		<td>{row.DIFFTIME}</td>
+		<td>{row.IP}</td>
+		<td>{row.AGENT}</td>
+	</tr>
+	<!-- END row -->
+	
+	</table>
+	
+	<br /><br />
+<!-- END log -->
+
+<form action="{MODULE_URL}" method="post">
+	Usuario: <input type="text" name="username" /><br /><br />
+	IP: <input type="text" name="ip" /><br /><br />
+	<input type="submit" name="submit" value="Enviar" />
+</form>
+
+<!-- INCLUDE page.footer.htm -->

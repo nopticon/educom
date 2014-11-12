@@ -1,0 +1,59 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="is_left">
+	<div class="h"><h3><a href="{U_CHAT}rk/">{L_CHAT_NOW}</a></h3></div>
+	
+	<div><h1>{CHATTERS} {L_CHATTERS}</h1></div>
+	
+	<!-- BEGIN cat -->
+	<div class="pad_top">
+		<div class="h"><h3>{cat.NAME}</h3></div>
+		
+		<!-- BEGIN item -->
+		<div>
+			<div><a href="{item.U_CHANNEL}">#{item.CH_NAME}</a> {L_HAS} {item.CH_USERS}</div>
+			<div>{item.CH_DESC}</div>
+		</div>
+		<!-- END item -->
+	</div>
+	<!-- END cat -->
+	</div>
+</div>
+
+<div class="is_right">
+	<div class="h"><h3><a href="{CREATE_CHAT}">{L_CHAT_CREATE}</a></h3></div>
+	
+	<form action="{S_ACTION}" method="post">
+	<div class="pad_top">
+	<table cellpadding="1" cellspacing="8">
+		<tr>
+			<td width="110">{L_CHAT_CREATE_NAME}</td>
+			<td><input type="text" name="ch_name" size="25" maxlength="25" value="{CH_NAME}" /></td>
+		</tr>
+		<tr>
+			<td>{L_CHAT_CREATE_DESC}</td>
+			<td><input type="text" name="ch_desc" size="25" maxlength="255" value="{CH_DESC}" /></td>
+		</tr>
+		<!-- BEGIN select_cat -->
+		<tr>
+			<td>{L_CHAT_CREATE_CAT}</td>
+			<td><select name="ch_cat">{select_cat.CHAT_SELECT_CAT}</select></td>
+		</tr>
+		<!-- END select_cat -->
+		<tr>
+			<td>{L_CHAT_CREATE_AUTH}</td>
+			<td><select name="ch_auth">{CHAT_SELECT_AUTH}</select></td>
+		</tr>
+		<!-- BEGIN select_type -->
+		<tr>
+			<td>{L_CHAT_CREATE_TYPE}</td>
+			<td><select name="ch_type">{select_type.CHAT_SELECT_TYPE}</select></td>
+		</tr>
+		<!-- END select_type -->
+	</table>
+	<div class="a_mid"><input type="submit" class="bold w100p" name="submit" value="{L_SUBMIT}" /></div>
+	</div>
+	</form>
+</div>
+
+<!-- INCLUDE page.footer.htm -->

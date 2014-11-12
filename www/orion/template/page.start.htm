@@ -1,0 +1,65 @@
+<div class="page">
+	<div class="header">
+		<div class="brand">
+			<h1><a href="{U_HOME}" title="{L_APPLICATION}">{L_APPLICATION}</a></h1>
+			<!-- <h2>{L_APPLICATION_DESC}</h2> -->
+		</div>
+
+		<!-- IF S_MEMBER -->
+		<!-- BEGIN hide -->
+		<div id="search">
+			<form id="searchForm" method="post">
+				<fieldset>
+					<input id="s" type="text" title="{SEARCH_IN} {L_APPLICATION}">
+					<input id="sb" type="submit" value=" &gt; " />
+				</fieldset>
+			</form>
+		</div>
+		<!-- END hide -->
+		<!-- ELSE -->
+		<form action="{U_SESSION}" method="get">
+			<div class="a_right ctl"><input type="submit" value="{L_USER_IDENTITY}" /></div>
+		</form>
+		<!-- ENDIF -->
+
+		<!-- BEGIN main_menu -->
+		<!-- BEGIN row -->
+		<!-- IF row.TITLE == 'Administrador' -->
+		<form action="{row.HREF}" method="get">
+			<div class="a_right ctl"><input type="submit" value="{row.TITLE}" /></div>
+		</form>
+		<!-- ENDIF -->
+		<!-- END row -->
+		<!-- END main_menu -->
+
+		<!-- BEGIN main_menu -->
+		<div id="menu">
+			<ul>
+				<!-- BEGIN row -->
+				<!-- IF row.TITLE != 'Administrador' -->
+				<li><a href="{row.HREF}" title="{row.TITLE}">{row.TITLE}</a></li>
+				<!-- ENDIF -->
+				<!-- END row -->
+			</ul>
+		</div>
+		<!-- END main_menu -->
+
+		<span class="clear"></span>
+	</div>
+
+	<hr />
+	<div id="search_result"></div>
+
+	<div class="pad_top ls">
+		<!-- BEGIN error -->
+		<ul>
+			<li>{L_LOGIN_ERROR}</li>
+		</ul>
+		<!-- END error -->
+	</div>
+
+	<!-- IF CUSTOM_MESSAGE -->
+	<div class="pad_top a_mid">{CUSTOM_MESSAGE}</div>
+	<!-- ENDIF -->
+
+	<div id="content">

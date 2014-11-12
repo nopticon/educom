@@ -1,0 +1,134 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="is_left">
+	<div class="h"><h3><a href="{U_VIEW_FORUM}">{FORUM_NAME}</a> &mdash; <a href="{S_TOPIC_ACTION}">{TOPIC_TITLE}</a></h3></div>
+
+	<!-- ctl -->
+	<div class="pad_top pad_left ls">
+		<ul>
+			<!-- BEGIN post_box -->
+			<li><a class="pub" href="#reply">{L_POST_REPLY}</a></li>
+			<!-- END post_box -->
+			<!-- BEGIN mcppoints2 -->
+			<li><a href="{mcppoints.U_FEAT}">{mcppoints.V_LANG}</a></li>
+			<!-- END mcppoints2 -->
+			<!-- BEGIN feature2 -->
+			<li><a href="{feature.U_FEAT}">{feature.V_LANG}</a></li>
+			<!-- END feature2 -->
+		</ul>
+	</div>
+</div>
+
+<span class="clear"></span>
+
+<!-- BEGIN poll -->
+<div class="poll ls pad_top">
+	<div class="h"><h3>{poll.POLL_TITLE}</h3></div>
+	<!-- BEGIN options -->
+	<form action="{options.S_VOTE_ACTION}" method="post" name="vote_ub" onsubmit="return _.glob.in_sending('avote');">
+	<!-- END options -->
+	<ul>
+		<!-- BEGIN results -->
+		<!-- BEGIN item -->
+		<li>
+			<div class="caption">{item.CAPTION} <span class="_">({item.RESULT})</span></div>
+			<div class="bar"><div style="width: {item.PERCENT}%;">&nbsp;</div></div>
+		</li>
+		<!-- END item -->
+		<!-- END results -->
+		<!-- BEGIN options -->
+		<!-- BEGIN item -->
+		<li><input class="none" type="radio" id="vo_{item.ID}" name="vote_id" value="{item.ID}" /> <label for="vo_{item.ID}">{item.CAPTION}</label></li>
+		<!-- END item -->
+		<!-- END options -->
+	</ul>
+	<!-- BEGIN options -->
+	<div class="pad_top a_mid"><input class="submit" type="submit" name="vote" value="{L_VOTE}" /></div>
+	<!-- END options -->
+	<!-- BEGIN options -->
+	</form>
+	<!-- END options -->
+</div>
+<!-- END poll -->
+
+<!-- IF PAGES_NUMS != '' -->
+<span class="clear"></span>
+
+<div class="p">{PAGES_NUMS}</div>
+<!-- ENDIF -->
+
+<!-- BEGIN posts -->
+<div class="comments">
+	<a name="first"></a>
+	<!-- BEGIN item -->
+	<a name="{item.POST_ID}"></a>
+	<div id="comment-{item.S_ROW_COUNT}">
+		<h3><strong>{item.S_ROW_COUNT}</strong><span>.</span> <em><!-- BEGIN username --><a href="{item.PROFILE}"><!-- END username --><img src="{item.USER_AVATAR}" alt="{item.USERNAME}'s Avatar" /><!-- BEGIN username --></a><!-- END username --></em><cite><!-- BEGIN username --><a href="{item.PROFILE}"><!-- END username -->{item.USERNAME}<!-- BEGIN username --></a><!-- END username --></cite> <span>dijo:</span></h3>
+
+		<blockquote>
+			<div class="x3 col_fr nowraptext">
+				{item.MESSAGE}
+
+				<!-- IF item.PLAYING != '' -->
+				<div class="a_right nowplay">{item.PLAYING} &nbsp;<img src="{S_ASSETS}/emoticon/arkane.png" alt="" /></div>
+				<!-- ENDIF -->
+			</div>
+
+			<!-- IF item.USER_SIG != '' -->
+			<!-- <div class="col_fr nowraptext"><p>--{item.USER_SIG}</p></div> -->
+			<!-- ENDIF -->
+
+			<!-- BEGIN controls -->
+			<p class="controls">
+				<!-- BEGIN reply --><a href="{reply.URL}">{L_CMT_REPLY}</a><!-- END reply -->
+				<!-- BEGIN report --><a href="{report.URL}">{L_CMT_REPORT}</a><!-- END report -->
+				<!-- BEGIN edit --><a href="{edit.URL}">{L_CMT_EDIT}</a><!-- END edit -->
+				<!-- BEGIN restore --><a href="{restore.URL}">{L_CMT_RESTORE}</a><!-- END restore -->
+				<!-- BEGIN delete --><a class="ask_remove" href="{delete.URL}">{L_CMT_DELETE}</a><!-- END delete -->
+			</p>
+			<!-- END controls -->
+
+			<p class="dtposted">{item.POST_DATE}</p>
+		</blockquote>
+		<hr />
+	</div>
+	<!-- END item -->
+</div>
+<!-- END posts -->
+
+<!-- IF PAGES_NUMS != '' -->
+<span class="clear"></span>
+<div class="p">{PAGES_NUMS}</div>
+<!-- ENDIF -->
+
+<!-- BEGIN post_box -->
+<span class="clear"></span>
+
+<div class="pad_top publish">
+	<div class="h"><h3>{L_SEND_POST} <a class="smile" href="{U_EMOTICONS}">@</a></h3></div>
+	<form action="{post_box.S_POST_ACTION}" method="post">
+		<textarea id="comment" name="message"></textarea>
+		<!-- BEGIN reply -->
+		<div class="pad_top"><label for="comment_reply">{L_ORIGINAL_POST}</label></div>
+		<div class="pad_top"><textarea class="x2" id="comment_reply" name="reply_message" rows="2">{reply.MESSAGE}</textarea></div>
+		<!-- END reply -->
+		<label for="comment_np">{L_NOWPLAYING}</label>
+		<input class="f" id="comment_np" name="np" value="{post_box.NP}" />
+		<input type="submit" name="post" value="{L_SUBMIT}" />
+	</form>
+</div>
+
+<!-- BEGIN reply -->
+<script type="text/javascript">
+function sss() {
+	$.scrollTo('.publish');
+}
+
+$(function() {
+	setTimeout("sss();", 100);
+});
+</script>
+<!-- END reply -->
+<!-- END post_box -->
+
+<!-- INCLUDE page.footer.htm -->

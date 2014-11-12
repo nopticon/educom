@@ -1,0 +1,18 @@
+.awards {
+	
+}
+.awards .contain {
+	margin-top: 5px;
+	width: 100%;
+	height: auto;
+	display: block;
+}
+.awards .header {
+	margin: 0 auto;
+	display: block;
+	width: 920px;
+	height: 421px;
+	background: url(style/rk-awards-2012.jpg) no-repeat;
+	opacity: 0.7;
+	text-indent: -10000px;
+}
