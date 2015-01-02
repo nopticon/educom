@@ -1,0 +1,71 @@
+<?php
+
+require('../conexion.php');
+
+encabezado_simple('Carta para editar notas');
+
+?>
+
+<table width="100%">
+	<tr>
+		<td width="208"><img src="/public/images/logo.jpg" width="150" height="150" /></td>
+		<td class="a_center">
+			<p>
+				<span class="Estilo3"><br />
+				<span class="Estilo8">INEB Adscrito a la Escuela Normal<br />
+					Rural No. 5 Prof. &quot;Julio Edmundo Rosado Pinelo&quot; <br />
+					Santa Elena, Pet&eacute;n.</span></span><br />
+			</p>
+		</td>
+	</tr>
+</table>
+
+<table width="100%">
+	<tr>
+		<td>
+			<p class="a_right">Fecha: <?php echo str_repeat('_', 30); ?></p>
+
+			<p>
+				Se&ntilde;or Director<br />
+				INEB Adscrito Escuela Normal.<br />
+				Presente.
+			</p>
+
+			<br />
+			<p>
+				Por este medio me dirijo a usted, en mi calidad de Catedr&aacute;tico de la asignatura de:
+				<?php echo str_repeat('_', 41); ?>
+				<br /><br />
+				de: <?php echo str_repeat('_', 30); ?> Grado, Secci&oacute;n: <?php echo str_repeat('_', 6); ?>, para la correcci&oacute;n
+				de la calificaci&oacute;n del alumno(a):
+				<br /><br />
+				<?php echo str_repeat('_', 90); ?>
+				<br /><br />
+				en vista que la nota actual es de: _________ puntos, siendo la nota correcta: _________ puntos;
+				y la cual justifico por motivo de:
+				<br /><br />
+				<?php echo str_repeat('_', 135); ?>
+				<br /><br />
+				<?php echo str_repeat('_', 135); ?>
+				<br /><br />
+				<?php echo str_repeat('_', 135); ?>
+			</p>
+
+			<br />
+			<p class="a_center">Atentamente,</p>
+
+			<p class="a_center">(f) <?php echo str_repeat('_', 30); ?></p>
+
+			<p class="a_center">
+				<?php echo str_repeat('_', 30); ?><br />
+				Nombre Catedr&aacute;tico
+			</p>
+
+			<br />
+			<p><?php echo str_repeat('_', 30); ?></p>
+			<p>Autorizado</p>
+		</td>
+	</tr>
+</table>
+
+<?php pie(); ?>

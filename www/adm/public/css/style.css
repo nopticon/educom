@@ -1,0 +1,71 @@
+
+body {
+	margin: 25px 0;
+}
+
+thead td {
+	text-align: center;
+	font-weight: bold;
+}
+
+td {
+	padding: 3px;
+}
+
+input, textarea {
+	margin: 0;
+	padding: 3px;
+	border-radius: 5px;
+	border: 1px solid #aaa;
+	color: #555;
+}
+.a_center {
+	text-align: center;
+}
+.a_left {
+	text-align: left;
+}
+.a_right {
+	text-align: right;
+}
+.sub {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	text-align: center;
+}
+.p_mid {
+	padding: 10px;
+}
+
+.small-box {
+	width: 50%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.float-holder:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+.f_left {
+	float: left;
+}
+
+.f_right {
+	float: right;
+}
+.clear {
+	clear: both;
+	display: block;
+}
+.w_50 {
+	width: 50%;
+}
+
+.normal { }
+.highlight { color: #ff0000 !important; }
