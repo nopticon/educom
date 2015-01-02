@@ -176,7 +176,7 @@ $lang += array(
 	'LOGIN_TO_CHAT' => 'Para tener acceso al chat, debes ser miembro registrado.<br /><br />Por favor <a href="#top">inicia sesi&oacute;n</a> &oacute; <a href="/my/register/">Crea tu cuenta de usuario aqui.</a>',
 	'LOGIN_BE_FAN' => 'Para agregar a tus favoritos la banda <strong>%s</strong>, debes ser miembro registrado',
 	'LOGOUT_THANKS' => 'Tu sesi&oacute;n se ha cerrado correctamente, esperamos que vuelvas pronto',
-	'REQUIRE_REGISTRATION' => 'Para crear tu cuenta de acceso, por favor contactanos.',
+	'REQUIRE_REGISTRATION' => 'Para crear tu cuenta de usuario, por favor cont&aacute;ctanos.',
 
 	'MEMBERLIST' => 'Miembros',
 	'HELP' => 'Ayuda',
@@ -930,6 +930,7 @@ $lang += array(
 	'ACP_LIST_NEWS' => 'Noticias',
 	'ACP_LIST_UNREAD' => 'Actualidad',
 	'ACP_LIST_USER' => 'Usuarios',
+	'ACP_LIST_STUDENT' => 'Estudiantes',
 
 	// ACP KEYS
 	'ACP_ARTIST_GALLERY_CREATE' => 'Agregar fotos',
@@ -1004,6 +1005,8 @@ $lang += array(
 	'ACP_ARTIST_BIOGRAPHY' => 'Editar biograf&iacute;a',
 	'ACP_ARTIST_BIOGRAPHY_UPDATE' => 'La biograf&iacute;a fue actualizada.',
 	'ACP_ARTIST_SELECT' => 'Selecciona perfil de artista',
+
+	'ACP_STUDENT_INSCRIPTION' => 'Crear inscripci&oacute;n',
 
 	'ACP_ARTIST_BIO_UPDATED' => 'La biograf&iacute;a fue actualizada',
 	'ACP_ARTIST_VIDEO_ADD_L' => 'Publica tus videos por medio del servicio de Youtube.<br /><br />Ingresa la URL de Youtube o el c&oacute;digo donde se encuentra el video.<br />Ejemplo: http://www.youtube.com/watch?v=<strong>VXytaD5AKyM</strong>',

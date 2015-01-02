@@ -1868,9 +1868,9 @@ function fatal_error($mode = '404', $bp_message = '') {
 	if ($mode != '600') {
 		$error .= ', puedes regresar a<br /><a href="/">p&aacute;gina de inicio de Rock Republik</a> para encontrar informaci&oacute;n.';
 
-		if (!empty($bp_message) && $user->d('user_id') == 2) {
+		// if (!empty($bp_message) && $user->d('user_id') == 2) {
 			$error .= '<br /><br />' . $bp_message;
-		}
+		// }
 	}
 
 	sql_close();

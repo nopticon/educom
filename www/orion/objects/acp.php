@@ -249,7 +249,9 @@ class acp {
 		foreach ($group as $name => $list) {
 			if (!$i) _style('acp_list');
 
-			sort($row);
+			sort($list);
+
+			if ($name == 'artist') continue;
 
 			_style('acp_list.group', array(
 				'TITLE' => lang('acp_list_' . $name, $name)

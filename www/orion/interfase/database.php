@@ -55,17 +55,18 @@ function sql_field($sql, $field, $def = false) {
 	return sql_error($a);
 }
 
-function sql_fieldrow($sql, $result_type = MYSQL_ASSOC) {
+function sql_fieldrow($sql, $result_type = MYSQLI_ASSOC) {
 	global $db;
 
 	$a = $db->sql_fieldrow($sql, $result_type);
 	return sql_error($a);
 }
 
-function sql_rowset($sql, $a = false, $b = false, $global = false, $type = MYSQL_ASSOC) {
+function sql_rowset($sql, $a = false, $b = false, $global = false, $type = MYSQLI_ASSOC) {
 	global $db;
 
 	$a = $db->sql_rowset($sql, $a, $b, $global, $type);
+
 	return sql_error($a);
 }
 
