@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . '/../../vendor/npi/cliws.php');
 
-$db = npi('adm:mysql');
+$db = npi('htrd:mysql');
 
 session_start();
 

@@ -1,5 +1,9 @@
 <?php
 
+function a($href = '') {
+	return '/adm/' . $href;
+}
+
 function redirect($to) {
 	header('Location: ' . $to);
 	exit;
@@ -91,102 +95,94 @@ function submit($value = 'Continuar') {
 }
 
 function pie() {
-	echo '</div></div></body></html>';
+?>
+<span class="clear"></span>
+
+</div>
+</div>
+
+</body>
+</html>
+<?php
 }
 
 function encabezado($page_title = '', $ruta = '', $full = true) {
 	$nombre = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : '';
 
 	$real_page_title = 'ECP' . (($page_title) ? ': ' . $page_title : '');
-	$real_page_title = '.';
 
 ?><!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="iso-8859-1" />
+<meta charset="utf-8" />
 <title><?php echo $real_page_title; ?></title>
 <!-- <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'> -->
-<link rel="stylesheet" type="text/css" href="/public/flat-ui/bootstrap/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="/public/flat-ui/css/flat-ui.css" />
-<link rel="stylesheet" type="text/css" href="/public/css/style.css" />
-<link rel="stylesheet" type="text/css" href="/public/kendo/css/kendo.flat.min.css" />
-<link rel="stylesheet" type="text/css" href="/public/kendo/css/kendo.common.min.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo a('public/flat-ui/bootstrap/css/bootstrap.css'); ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo a('public/flat-ui/css/flat-ui.css'); ?>" />
+<link rel="stylesheet" type="text/css" href="/assets/default.css?g=1368227590" />
+<link rel="stylesheet" type="text/css" href="<?php echo a('public/kendo/css/kendo.flat.min.css'); ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo a('public/kendo/css/kendo.common.min.css'); ?>" />
 
-<script src="/public/js/jquery.js" type="text/javascript"></script>
-<script src="/public/flat-ui/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="/public/flat-ui/js/jquery.ui.touch-punch.min.js"></script>
-<script src="/public/flat-ui/js/bootstrap-select.js"></script>
-<script src="/public/flat-ui/js/bootstrap-switch.js"></script>
-<script src="/public/flat-ui/js/flatui-checkbox.js"></script>
-<script src="/public/flat-ui/js/flatui-radio.js"></script>
-<script src="/public/flat-ui/js/jquery.tagsinput.js"></script>
-<script src="/public/flat-ui/js/jquery.placeholder.js"></script>
-<script src="/public/flat-ui/bootstrap/js/google-code-prettify/prettify.js"></script>
-<script src="/public/flat-ui/js/application.js"></script>
-<script src="/public/kendo/js/kendo.web.min.js"></script>
-<script src="/public/js/ff.js" type="text/javascript"></script>
+<script src="<?php echo a('public/js/jquery.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo a('public/flat-ui/js/bootstrap.min.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo a('public/flat-ui/js/jquery.ui.touch-punch.min.js'); ?>"></script>
+<script src="<?php echo a('public/flat-ui/js/bootstrap-select.js'); ?>"></script>
+<script src="<?php echo a('public/flat-ui/js/bootstrap-switch.js'); ?>"></script>
+<script src="<?php echo a('public/flat-ui/js/flatui-checkbox.js'); ?>"></script>
+<script src="<?php echo a('public/flat-ui/js/flatui-radio.js'); ?>"></script>
+<script src="<?php echo a('public/flat-ui/js/jquery.tagsinput.js'); ?>"></script>
+<script src="<?php echo a('public/flat-ui/js/jquery.placeholder.js'); ?>"></script>
+<script src="<?php echo a('public/flat-ui/bootstrap/js/google-code-prettify/prettify.js'); ?>"></script>
+<script src="<?php echo a('public/flat-ui/js/application.js'); ?>"></script>
+<script src="<?php echo a('public/kendo/js/kendo.web.min.js'); ?>"></script>
+<script src="<?php echo a('public/js/ff.js" type="text/javascript'); ?>"></script>
 </head>
 
 <body>
-	<div class="container">
-		<nav class="navbar navbar-inverse" role="navigation">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
+	<div class="page">
+	<div class="header">
+		<div class="brand">
+			<h1><a href=".">Colegio San Gabriel</a></h1>
+		</div>
 
-				<a class="navbar-brand" href="/">Administraci&oacute;n Escolar</a>
-			</div>
+		<?php if (empty($nombre)) { ?>
+		<form action="/signin/" method="get">
+			<div class="a_right ctl"><input type="submit" value="{L_USER_IDENTITY}" /></div>
+		</form>
+		<?php } else if (isset($_SESSION['userlog']) && $_SESSION['userlog'] == 'Director') { ?>
+		<form action="/acp/" method="get">
+			<div class="a_right ctl"><input type="submit" value="Administrador" /></div>
+		</form>
+		<?php } ?>
 
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<ul class="nav navbar-nav">
-					<?php
-
-					if (!empty($nombre) && $full) {
-						echo '<li><a href="#">' . $nombre . '</a></li>';
-					}
-
-					?>
-					<li class="dropdown active">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Acciones <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="/alumnos/index.php" title="Inscripci&oacute;n de Nuevo Alumno">Inscripci&oacute;n</a></li>
-							<li><a href="/reinscripcion/index.php" title="Re-Inscripci&oacute;n de Alumno Existente">Re-inscripci&oacute;n</a></li>
-							<li><a href="/notas/index.php" title="Visualizaci&oacute;n de Notas">Notas</a></li>
-							<li><a href="/historial/index.php" title="Record Acad&eacute;mico del Alumno">Historial de alumno</a></li>
-							<li><a href="/reportes/index.php" title="Visualizaci&oacute;n de Reportes Varios">Reportes</a></li>
-							<li><a href="/faltas/index.php" title="Visualizaci&oacute;n de Faltas / Ingreso de Faltas Acad&eacute;micas">Faltas acad&eacute;micas</a></li>
-							<li><a href="/codigo_alumno/index.php" title="Ingreso de Codigo / Matricula del Alumno">Codigos de alumnos</a></li>
-							<li><a href="/ocupacional/index.php" title="Ingreso de Areas Ocupacionales para Alumnos">Cursos ocupacionales</a></li>
+		<div id="menu">
+			<ul>
+				<li><a href="/news/" title="Noticias">Noticias</a></li>
+				<li><a href="/events/" title="Eventos">Eventos</a></li>
+				<li><a href="/board/" title="Foro">Foro</a></li>
+				<li><a href="/community/" title="Comunidad">Comunidad</a></li>
+				<li>
+					<div class="collapse navbar-ex1-collapse" style="display: block;">
+						<ul>
+							<?php require_once(__DIR__ . '/../menu.php'); ?>
 						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="/mantenimientos/alumnos/">Modificaci&oacute;n de alumnos</a></li>
-							<li><a href="/aux_search/index.php">B&uacute;squeda de alumnos</a></li>
-							<li><a href="/ingreso_index.php" title="Ingreso de datos">Ingreso de datos</a></li>
-							<li><a href="/editar/index.php" title="Edicion de notas">Edicion de notas</a></li>
-							<li><a href="/mantenimientos/index.php" title="Mantenimientos">Mantenimientos</a></li>
-						</ul>
-					</li>
-				</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
 
-				<?php
+		<span class="clear"></span>
+	</div>
 
-				if (!empty($nombre) && $full) {
-					echo '<ul class="nav navbar-nav navbar-right"><li><a href="exit.php">Cerrar sesi&oacute;n</a></li></ul>';
-				}
+	<div id="content">
+		<br />
 
-				?>
-			</div><!-- /.navbar-collapse -->
-		</nav>
+		<div class="h">
+			<h3><?php echo $page_title; ?></h3>
+		</div>
 
-		<div id="content">
-			<h5><?php echo $page_title; ?></h5>
+		<br />
+
 <?php
 
 }
@@ -195,7 +191,6 @@ function encabezado_simple($page_title = '', $ruta = '', $full = true) {
 	$nombre = $_SESSION['nombre'];
 
 	$real_page_title = 'ECP' . (($page_title) ? ': ' . $page_title : '');
-	$real_page_title = '.';
 
 ?><!DOCTYPE HTML>
 <html>
@@ -203,25 +198,25 @@ function encabezado_simple($page_title = '', $ruta = '', $full = true) {
 <meta charset="iso-8859-1" />
 <title><?php echo $real_page_title; ?></title>
 <!-- <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'> -->
-<link rel="stylesheet" type="text/css" href="/public/flat-ui/bootstrap/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="/public/flat-ui/css/flat-ui.css" />
-<link rel="stylesheet" type="text/css" href="/public/css/style.css" />
-<link rel="stylesheet" type="text/css" href="/public/kendo/css/kendo.flat.min.css" />
-<link rel="stylesheet" type="text/css" href="/public/kendo/css/kendo.common.min.css" />
+<link rel="stylesheet" type="text/css" href="public/flat-ui/bootstrap/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="public/flat-ui/css/flat-ui.css" />
+<link rel="stylesheet" type="text/css" href="public/css/style.css" />
+<link rel="stylesheet" type="text/css" href="public/kendo/css/kendo.flat.min.css" />
+<link rel="stylesheet" type="text/css" href="public/kendo/css/kendo.common.min.css" />
 
-<script src="/public/js/jquery.js" type="text/javascript"></script>
-<script src="/public/flat-ui/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="/public/flat-ui/js/jquery.ui.touch-punch.min.js"></script>
-<script src="/public/flat-ui/js/bootstrap-select.js"></script>
-<script src="/public/flat-ui/js/bootstrap-switch.js"></script>
-<script src="/public/flat-ui/js/flatui-checkbox.js"></script>
-<script src="/public/flat-ui/js/flatui-radio.js"></script>
-<script src="/public/flat-ui/js/jquery.tagsinput.js"></script>
-<script src="/public/flat-ui/js/jquery.placeholder.js"></script>
-<script src="/public/flat-ui/bootstrap/js/google-code-prettify/prettify.js"></script>
-<script src="/public/flat-ui/js/application.js"></script>
-<script src="/public/kendo/js/kendo.web.min.js"></script>
-<script src="/public/js/ff.js" type="text/javascript"></script>
+<script src="public/js/jquery.js" type="text/javascript"></script>
+<script src="public/flat-ui/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="public/flat-ui/js/jquery.ui.touch-punch.min.js"></script>
+<script src="public/flat-ui/js/bootstrap-select.js"></script>
+<script src="public/flat-ui/js/bootstrap-switch.js"></script>
+<script src="public/flat-ui/js/flatui-checkbox.js"></script>
+<script src="public/flat-ui/js/flatui-radio.js"></script>
+<script src="public/flat-ui/js/jquery.tagsinput.js"></script>
+<script src="public/flat-ui/js/jquery.placeholder.js"></script>
+<script src="public/flat-ui/bootstrap/js/google-code-prettify/prettify.js"></script>
+<script src="public/flat-ui/js/application.js"></script>
+<script src="public/kendo/js/kendo.web.min.js"></script>
+<script src="public/js/ff.js" type="text/javascript"></script>
 </head>
 
 <body>

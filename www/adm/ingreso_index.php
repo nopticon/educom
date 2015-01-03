@@ -12,7 +12,7 @@ encabezado('Ingreso de datos');
 	$show = w('areas catedraticos examenes grados secciones cursos usuarios');
 
 	foreach ($show as $row) {
-		echo '<li><a href="/' . $row . '/index.php">' . ucfirst($row) . '</a></li>';
+		echo '<li><a href="' . a($row . '/index.php') . '">' . ucfirst($row) . '</a></li>';
 	}
 
 	?>

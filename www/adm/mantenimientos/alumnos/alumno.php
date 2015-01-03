@@ -163,7 +163,7 @@ $form = array(
 ?>
 
 <br />
-<form class="form-horizontal" action="/mantenimientos/cod_mant/cod_man_alumno.php" method="post">
+<form class="form-horizontal" action="mantenimientos/cod_mant/cod_man_alumno.php" method="post">
 	<input name="id_alumno" type="hidden" id="id_alumno" value="<?php echo $alumno->id_alumno; ?>" />
 
 	<?php build($form); submit('Guardar cambios'); ?>

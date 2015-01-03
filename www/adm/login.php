@@ -12,8 +12,7 @@ if (isset($_REQUEST['submit'])) {
 
 	$sql = 'SELECT *
 		FROM usuarios
-		WHERE usuario = ?
-			AND password = ?';
+		WHERE usuario = ? AND password = ?';
 	if ($row = $db->sql_fieldrow($db->__prepare($sql, $username, $key))) {
 		$_SESSION['userlog'] = $row->usuario;
 		$_SESSION['nombre'] = $row->nombre;
@@ -28,7 +27,7 @@ encabezado('Administracion Escolar', '', 'login');
 ?>
 
 <div class="small-box">
-	<form class="form-horizontal" action="/login.php" method="post" role="form">
+	<form class="form-horizontal" action="login.php" method="post" role="form">
 	  <div class="form-group">
 	    <label for="inputUsername" class="col-lg-2 control-label">Usuario</label>
 	    <div class="col-lg-10">

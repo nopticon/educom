@@ -1,6 +1,5 @@
 <?php
 
-$toproot = '../../';
 require_once('../../conexion.php');
 
 encabezado('Promedio de Alumnos', '../');

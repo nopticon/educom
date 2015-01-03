@@ -58,8 +58,6 @@ foreach ($examen as $row) {
 
 ?>
 
-<h6>Edici&oacute;n de notas</h6>
-
 <form class="form-horizontal" action="notas.php" method="post">
 	<?php build($form); submit(); ?>
 </form>
