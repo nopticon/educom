@@ -29,6 +29,10 @@ function app_autoload($filename) {
 	}
 }
 
+function a($href = '') {
+	return '/adm/' . $href;
+}
+
 function htmlencode($str) {
 	$result = trim(htmlentities(str_replace(array(nr(1), nr(true), '\xFF'), array(nr(), nr(), ' '), $str)));
 	$result = (STRIP) ? stripslashes($result) : $result;

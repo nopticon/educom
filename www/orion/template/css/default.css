@@ -90,6 +90,19 @@ hr {
 	line-height: 0.1em;
 }
 
+.dropdown-menu {
+	min-width: 190px !important;
+}
+.dropdown-menu li {
+	float: none !important;
+	margin: 0 !important;
+}
+.dropdown-menu li a {
+	display: block !important;
+	margin: 0 !important;
+	color: inherit !important;
+}
+
 #content {
 	padding: 10px;
 	clear: both;

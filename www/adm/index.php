@@ -2,15 +2,8 @@
 
 require_once('./conexion.php');
 
-if (!isset($_SESSION['userlog'])) {
-	header('Location: login.php');
-	exit;
+if (!$user->is('member')) {
+	do_login();
 }
 
-encabezado();
-
-?>
-
-<div id="logo"></div>
-
-<?php pie(); ?>
+page_layout('HOME', 'home', false, false);

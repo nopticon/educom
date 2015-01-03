@@ -1,5 +1,5 @@
 <li class="dropdown active">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Acciones <b class="caret"></b></a>
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Acciones</a>
 	<ul class="dropdown-menu">
 		<li><a href="<?php echo a('alumnos/index.php'); ?>" title="Inscripci&oacute;n de Nuevo Alumno">Inscripci&oacute;n</a></li>
 		<li><a href="<?php echo a('reinscripcion/index.php'); ?>" title="Re-Inscripci&oacute;n de Alumno Existente">Re-inscripci&oacute;n</a></li>
@@ -10,7 +10,7 @@
 		<li><a href="<?php echo a('codigo_alumno/index.php'); ?>" title="Ingreso de Codigo / Matricula del Alumno">Codigos de alumnos</a></li>
 		<li><a href="<?php echo a('ocupacional/index.php'); ?>" title="Ingreso de Areas Ocupacionales para Alumnos">Cursos ocupacionales</a></li>
 
-		<?php if (isset($_SESSION['userlog']) && $_SESSION['userlog'] == 'Director') { ?>
+		<?php if ($user->is('founder')) { ?>
 		<li><a href="<?php echo a('mantenimientos/alumnos/'); ?>">Modificaci&oacute;n de alumnos</a></li>
 		<li><a href="<?php echo a('aux_search/index.php'); ?>">B&uacute;squeda de alumnos</a></li>
 		<li><a href="<?php echo a('ingreso_index.php'); ?>" title="Ingreso de datos">Ingreso de datos</a></li>

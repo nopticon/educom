@@ -1,13 +1,9 @@
 <?php
 
-function a($href = '') {
-	return '/adm/' . $href;
-}
-
-function redirect($to) {
-	header('Location: ' . $to);
-	exit;
-}
+// function redirect($to) {
+// 	header('Location: ' . $to);
+// 	exit;
+// }
 
 function build($fields) {
 	foreach ($fields as $field_block => $ary) {
@@ -107,21 +103,21 @@ function pie() {
 }
 
 function encabezado($page_title = '', $ruta = '', $full = true) {
-	$nombre = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : '';
+	global $config, $user;
 
-	$real_page_title = 'ECP' . (($page_title) ? ': ' . $page_title : '');
+	$is_member = $user->is('member');
+	$real_page_title = $config->sitename . (($page_title) ? ': ' . $page_title : '');
 
 ?><!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8" />
 <title><?php echo $real_page_title; ?></title>
-<!-- <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'> -->
 <link rel="stylesheet" type="text/css" href="<?php echo a('public/flat-ui/bootstrap/css/bootstrap.css'); ?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo a('public/flat-ui/css/flat-ui.css'); ?>" />
-<link rel="stylesheet" type="text/css" href="/assets/default.css?g=1368227590" />
 <link rel="stylesheet" type="text/css" href="<?php echo a('public/kendo/css/kendo.flat.min.css'); ?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo a('public/kendo/css/kendo.common.min.css'); ?>" />
+<link rel="stylesheet" type="text/css" href="/assets/default.css?g=1368227590" />
 
 <script src="<?php echo a('public/js/jquery.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo a('public/flat-ui/js/bootstrap.min.js'); ?>" type="text/javascript"></script>
@@ -135,26 +131,27 @@ function encabezado($page_title = '', $ruta = '', $full = true) {
 <script src="<?php echo a('public/flat-ui/bootstrap/js/google-code-prettify/prettify.js'); ?>"></script>
 <script src="<?php echo a('public/flat-ui/js/application.js'); ?>"></script>
 <script src="<?php echo a('public/kendo/js/kendo.web.min.js'); ?>"></script>
-<script src="<?php echo a('public/js/ff.js" type="text/javascript'); ?>"></script>
+<script src="<?php echo a('public/js/ff.js'); ?>" type="text/javascript"></script>
 </head>
 
 <body>
 	<div class="page">
 	<div class="header">
 		<div class="brand">
-			<h1><a href=".">Colegio San Gabriel</a></h1>
+			<h1><a href="."><?php echo $config->sitename; ?></a></h1>
 		</div>
 
-		<?php if (empty($nombre)) { ?>
+		<?php if (!$is_member) { ?>
 		<form action="/signin/" method="get">
 			<div class="a_right ctl"><input type="submit" value="{L_USER_IDENTITY}" /></div>
 		</form>
-		<?php } else if (isset($_SESSION['userlog']) && $_SESSION['userlog'] == 'Director') { ?>
+		<?php } else if ($user->is('founder')) { ?>
 		<form action="/acp/" method="get">
 			<div class="a_right ctl"><input type="submit" value="Administrador" /></div>
 		</form>
 		<?php } ?>
 
+		<?php if ($is_member) { ?>
 		<div id="menu">
 			<ul>
 				<li><a href="/news/" title="Noticias">Noticias</a></li>
@@ -170,6 +167,7 @@ function encabezado($page_title = '', $ruta = '', $full = true) {
 				</li>
 			</ul>
 		</div>
+		<?php } ?>
 
 		<span class="clear"></span>
 	</div>
@@ -188,8 +186,6 @@ function encabezado($page_title = '', $ruta = '', $full = true) {
 }
 
 function encabezado_simple($page_title = '', $ruta = '', $full = true) {
-	$nombre = $_SESSION['nombre'];
-
 	$real_page_title = 'ECP' . (($page_title) ? ': ' . $page_title : '');
 
 ?><!DOCTYPE HTML>
