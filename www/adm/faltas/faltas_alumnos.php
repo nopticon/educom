@@ -2,10 +2,11 @@
 
 require_once('../conexion.php');
 
-$sql = 'SELECT *
+$sql = 'SELECT DISTINCT *	
 	FROM alumno a, faltas f
 	WHERE a.id_alumno = f.id_alumno
-	ORDER BY f.id_falta DESC
+	GROUP BY a.carne
+	ORDER BY a.apellido, a.nombre_alumno DESC
 	LIMIT 300';
 $list = $db->sql_rowset($sql);
 
@@ -13,27 +14,20 @@ encabezado('Historial de Faltas Acad&eacute;micas');
 
 ?>
 
-<table width="100%">
+<table width="100%" class="tr_x0">
 	<thead>
 		<td>Carn&eacute;</td>
 		<td>Apellido</td>
 		<td>Nombre</td>
-		<td>Ver falta</td>
 	</thead>
-	<?php
-
-	foreach ($list as $row) {
-	?>
+	
+	<?php foreach ($list as $row) { ?>
 		<tr>
-			<td width="20%" class="a_center"><?php echo $row->carne; ?></td>
-			<td><?php echo $row->apellido; ?></td>
-			<td><?php echo $row->nombre_alumno; ?></td>
-			<td width="15%" class="a_center"><a href="ver_faltas.php?id_falta=<?php echo $row->id_falta; ?>" target="_blank">Ver Faltas</a></td>
+			<td width="20%" class="a_center"><a href="ver_faltas.php?id_falta=<?php echo $row->id_falta; ?>" target="_blank"><?php echo $row->carne; ?></a></td>
+			<td><a href="ver_faltas.php?id_falta=<?php echo $row->id_falta; ?>" target="_blank"><?php echo $row->apellido; ?></a></td>
+			<td><a href="ver_faltas.php?id_falta=<?php echo $row->id_falta; ?>" target="_blank"><?php echo $row->nombre_alumno; ?></a></td>
 		</tr>
-	<?php
-	}
-
-	?>
+	<?php } ?>
 </table>
 
 <?php pie(); ?>

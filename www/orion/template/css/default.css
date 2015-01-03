@@ -62,6 +62,9 @@ select, optgroup {
 h1, h2 {
 	color: #868670;
 }
+h6 {
+	font-size: 1.5em;
+}
 a {
 	color: #888;
 }
@@ -88,6 +91,13 @@ hr {
 	visibility: hidden;
 	height: 0.1em;
 	line-height: 0.1em;
+}
+
+.tr_x0 td {
+	padding-top: 5px;
+}
+.tr_x1 td {
+	padding-top: 10px;
 }
 
 .dropdown-menu {

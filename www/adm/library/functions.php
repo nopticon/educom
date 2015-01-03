@@ -1,14 +1,9 @@
 <?php
 
-// function redirect($to) {
-// 	header('Location: ' . $to);
-// 	exit;
-// }
-
 function build($fields) {
 	foreach ($fields as $field_block => $ary) {
 		if (!is_numeric($field_block)) {
-			echo '<h6>' . $field_block . '</h6>';
+			echo '<h6>' . $field_block . '</h6><br />';
 		}
 
 		foreach ($ary as $field_name => $field_data) {

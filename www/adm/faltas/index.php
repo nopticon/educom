@@ -24,19 +24,11 @@ $form2 = array(
 
 ?>
 
-<?php
-
-if (!empty($_SESSION['guardar'])) {
-	unset($_SESSION['guardar']);
-?>
-	<div class="highlight a_center">
-		<img src="../images/falta1.png" />
-		<?php echo 'Falta guardada con &Eacute;xito.'; ?>
-	</div>
+<?php if (!empty($_SESSION['guardar'])) { unset($_SESSION['guardar']); ?>
+	<div class="highlight a_center"><?php echo 'Falta guardada con &Eacute;xito.'; ?></div>
 <?php } ?>
 
-<div class="a_center"><img src="/public/images/list.png" /></div>
-<div class="a_center"><a href="faltas_alumnos.php">Ver &uacute;ltimas faltas</a></div>
+<div class="a_center"><a class="btn btn-warning" href="faltas_alumnos.php">Ver historial de faltas</a></div>
 
 <br />
 <table width="100%">
