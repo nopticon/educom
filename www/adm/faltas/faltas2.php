@@ -27,6 +27,8 @@ encabezado('Historial de Faltas ' . date('Y'));
 
 ?>
 
+<div class="a_right"><a href="/adm/faltas/faltas_alumnos.php">Regresar</a><br /><br /></div>
+
 <table width="100%" class="tr_x1">
 	<tr>
 		<td width="127" class="text1">Carn&eacute;:</td>

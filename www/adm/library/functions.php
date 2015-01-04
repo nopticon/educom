@@ -136,16 +136,6 @@ function encabezado($page_title = '', $ruta = '', $full = true) {
 			<h1><a href="."><?php echo $config->sitename; ?></a></h1>
 		</div>
 
-		<?php if (!$is_member) { ?>
-		<form action="/signin/" method="get">
-			<div class="a_right ctl"><input type="submit" value="{L_USER_IDENTITY}" /></div>
-		</form>
-		<?php } else if ($user->is('founder')) { ?>
-		<form action="/acp/" method="get">
-			<div class="a_right ctl"><input type="submit" value="Administrador" /></div>
-		</form>
-		<?php } ?>
-
 		<?php if ($is_member) { ?>
 		<div id="menu">
 			<ul>

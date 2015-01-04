@@ -22,6 +22,7 @@
 		</form>
 		<!-- ENDIF -->
 
+		<!-- BEGIN hide -->
 		<!-- BEGIN main_menu -->
 		<!-- BEGIN row -->
 		<!-- IF row.TITLE == 'Administrador' -->
@@ -31,6 +32,7 @@
 		<!-- ENDIF -->
 		<!-- END row -->
 		<!-- END main_menu -->
+		<!-- END hide -->
 
 		<!-- IF S_MEMBER -->
 		<!-- BEGIN main_menu -->
@@ -58,7 +60,6 @@
 
 									<li><a href="<?php echo a('mantenimientos/alumnos/'); ?>">Modificaci&oacute;n de alumnos</a></li>
 									<li><a href="<?php echo a('aux_search/index.php'); ?>">B&uacute;squeda de alumnos</a></li>
-									<li><a href="<?php echo a('ingreso_index.php'); ?>" title="Ingreso de datos">Ingreso de datos</a></li>
 									<li><a href="<?php echo a('editar/index.php'); ?>" title="Edicion de notas">Edicion de notas</a></li>
 									<li><a href="<?php echo a('mantenimientos/index.php'); ?>" title="Mantenimientos">Mantenimientos</a></li>
 								</ul>

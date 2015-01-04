@@ -2,34 +2,34 @@
 
 require_once("../conexion.php");
 
-$codigo = $_REQUEST['codigo_alumno'];
-$nombre = $_REQUEST['nombre'];
-$apellido = $_REQUEST['apellido'];
-$direccion = $_REQUEST['direccion'];
-$orden = $_REQUEST['orden'];
-$registro = $_REQUEST['registro'];
-$telefono1 = $_REQUEST['telefono1'];
-$edad = $_REQUEST['edad'];
-$sexo = $_REQUEST['sexo'];
-$email = $_REQUEST['email'];
+$codigo = request_var('codigo_alumno', '');
+$nombre = request_var('nombre', '');
+$apellido = request_var('apellido', '');
+$direccion = request_var('direccion', '');
+$orden = request_var('orden', '');
+$registro = request_var('registro', '');
+$telefono1 = request_var('telefono1', '');
+$edad = request_var('edad', '');
+$sexo = request_var('sexo', '');
+$email = request_var('email', '');
 
-$padre = $_REQUEST['padre'];
-$madre = $_REQUEST['madre'];
+$padre = request_var('padre', '');
+$madre = request_var('madre', '');
 
-$encargado = $_REQUEST['encargado'];
-$profesion = $_REQUEST['profesion'];
-$laborando = $_REQUEST['labor'];
-$direccion_labora = $_REQUEST['direccion2'];
-$dpi = $_REQUEST['dpi'];
-$extendido = $_REQUEST['extendido'];
+$encargado = request_var('encargado', '');
+$profesion = request_var('profesion', '');
+$laborando = request_var('labor', '');
+$direccion_labora = request_var('direccion2', '');
+$dpi = request_var('dpi', '');
+$extendido = request_var('extendido', '');
 
-$emergencia = $_REQUEST['emergencia'];
-$telefono2 = $_REQUEST['telefono2'];
+$emergencia = request_var('emergencia', '');
+$telefono2 = request_var('telefono2', '');
 
 $status = "Inscrito";
 
-$grado = $_REQUEST['grado'];
-$seccion = $_REQUEST['seccion'];
+$grado = request_var('grado', '');
+$seccion = request_var('seccion', '');
 
 $anio = date('Y');
 $carne = $anio . $sexo;
@@ -40,8 +40,8 @@ $insert_alumno = array(
 	'nombre_alumno' => $nombre,
 	'apellido' => $apellido,
 	'direccion' => $direccion,
-	'orden' => $orden,
-	'registro' => $registro,
+	'orden' => '',
+	'registro' => '',
 	'telefono1' => $telefono1,
 	'edad' => $edad,
 	'sexo' => $sexo,

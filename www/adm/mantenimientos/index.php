@@ -13,6 +13,14 @@ encabezado('Mantenimiento del Sistema');
 		<li><a href="cursos/index.php">Cursos</a></li>
 		<li><a href="catedraticos/index.php">Catedr&aacute;ticos</a></li>
 		<li><a href="examen/index.php">Unidades</a></li>
+		<li>&nbsp;</li>
+		<li><a href="../grados/index.php">Grados</a></li>
+		<li><a href="../secciones/index.php">Secciones</a></li>
+		<li><a href="../catedraticos/index.php">Catedr&aacute;ticos</a></li>
+		<li><a href="../areas/index.php">Areas</a></li>
+		<li><a href="../cursos/index.php">Sub Areas - Cursos</a></li>
+		<li><a href="../examenes/index.php">Unidades para Examenes</a></li>
+		<li><a href="../area_ocupacional/index.php">Areas Ocupacionales</a></li>
 	</ul>
 </div>
 

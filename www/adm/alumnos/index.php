@@ -83,38 +83,6 @@ $form = array(
 			'type' => 'text',
 			'value' => 'Direcci&oacute;n'
 		),
-		'OrdenCedula' => array(
-			'type' => 'select',
-			'show' => 'Orden C&eacute;dula',
-			'value' => array(
-				'A01' => 'A01',
-				'B02' => 'B02',
-				'C03' => 'C03',
-				'D04' => 'D04',
-				'E05' => 'E05',
-				'F06' => 'F06',
-				'G07' => 'G07',
-				'H08' => 'H08',
-				'I09' => 'I09',
-				'J10' => 'J10',
-				'K11' => 'K11',
-				'L12' => 'L12',
-				'M13' => 'M13',
-				'N14' => 'N14',
-				'&Ntilde;15' => '&Ntilde;15',
-				'016' => 'O16',
-				'P17' => 'P17',
-				'Q18' => 'Q18',
-				'R19' => 'R19',
-				'S20' => 'S20',
-				'T21' => 'T21',
-				'U22' => 'U22'
-			)
-		),
-		'Registro' => array(
-			'type' => 'text',
-			'value' => 'Registro C&eacute;dula'
-		),
 		'DPI' => array(
 			'type' => 'text',
 			'value' => 'DPI'

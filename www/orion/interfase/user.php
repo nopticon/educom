@@ -715,7 +715,16 @@ class user extends session {
 			case 'user':
 				$response = true;
 			break;
-			break;
+			case 'teacher':
+				if (!$response = $cache->get('team_teacher')) {
+					$sql = 'SELECT DISTINCT id_catedratico as member_id
+						FROM catedratico
+						WHERE status = ?
+						ORDER BY id_catedratico';
+					$response = sql_rowset(sql_filter($sql, 'Alta'), false, 'member_id');
+					$cache->save('team_teacher', $response);
+				}
+				break;
 			case 'mod':
 				if (!$response = $cache->get('team_mod')) {
 					$sql = 'SELECT DISTINCT member_id

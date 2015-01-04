@@ -23,9 +23,9 @@ encabezado('Historial de Faltas Acad&eacute;micas');
 	
 	<?php foreach ($list as $row) { ?>
 		<tr>
-			<td width="20%" class="a_center"><a href="ver_faltas.php?id_falta=<?php echo $row->id_falta; ?>" target="_blank"><?php echo $row->carne; ?></a></td>
-			<td><a href="ver_faltas.php?id_falta=<?php echo $row->id_falta; ?>" target="_blank"><?php echo $row->apellido; ?></a></td>
-			<td><a href="ver_faltas.php?id_falta=<?php echo $row->id_falta; ?>" target="_blank"><?php echo $row->nombre_alumno; ?></a></td>
+			<td width="20%" class="a_center"><a href="ver_faltas.php?id_falta=<?php echo $row->id_falta; ?>"><?php echo $row->carne; ?></a></td>
+			<td><a href="ver_faltas.php?id_falta=<?php echo $row->id_falta; ?>"><?php echo $row->apellido; ?></a></td>
+			<td><a href="ver_faltas.php?id_falta=<?php echo $row->id_falta; ?>"><?php echo $row->nombre_alumno; ?></a></td>
 		</tr>
 	<?php } ?>
 </table>

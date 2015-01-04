@@ -31,7 +31,7 @@ $form = array(
 			'type' => 'input',
 			'value' => 'Tel&eacute;fonos'
 		),
-		'direction' => array(
+		'direccion' => array(
 			'type' => 'input',
 			'value' => 'Direcci&oacute;n'
 		),

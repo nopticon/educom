@@ -2028,7 +2028,11 @@ function page_layout($page_title, $htmlpage, $custom_vars = false, $js_keepalive
 		'S_SQL' => ($user->d('is_founder')) ? sql_queries() . 'q | ' : '',
 		'S_REDIRECT' => $user->d('session_page'),
 		'S_USERNAME' => $user->d('username'),
+		
 		'S_MEMBER' => $user->is('member'),
+		'S_TEACHER' => $user->is('teacher'),
+		'S_STUDENT' => $user->is('student'),
+		'S_SUPERVISOR' => $user->is('supervisor'),
 		// 'S_TODAY_COUNT' => $user->today_count_text()
 	);
 
