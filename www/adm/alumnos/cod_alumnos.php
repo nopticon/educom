@@ -8,7 +8,7 @@ $apellido = request_var('apellido', '');
 $direccion = request_var('direccion', '');
 $orden = request_var('orden', '');
 $registro = request_var('registro', '');
-$telefono1 = request_var('telefono1', '');
+$telefono1 = request_var('telefono', '');
 $edad = request_var('edad', '');
 $sexo = request_var('sexo', '');
 $email = request_var('email', '');
@@ -18,19 +18,19 @@ $madre = request_var('madre', '');
 
 $encargado = request_var('encargado', '');
 $profesion = request_var('profesion', '');
-$laborando = request_var('labor', '');
+$labor = request_var('labor', '');
 $direccion_labora = request_var('direccion2', '');
+$encargado_email = request_var('email_encargado', '');
 $dpi = request_var('dpi', '');
 $extendido = request_var('extendido', '');
 
 $emergencia = request_var('emergencia', '');
 $telefono2 = request_var('telefono2', '');
 
-$status = "Inscrito";
+$grado = request_var('grado', 0);
+$seccion = request_var('seccion', 0);
 
-$grado = request_var('grado', '');
-$seccion = request_var('seccion', '');
-
+$status = 'Inscrito';
 $anio = date('Y');
 $carne = $anio . $sexo;
 
@@ -50,14 +50,17 @@ $insert_alumno = array(
 	'madre' => $madre,
 	'encargado' => $encargado,
 	'profesion' => $profesion,
-	'labora' => $labora,
+	'labora' => $labor,
 	'direccion_labora' => $direccion_labora,
+	'encargado_email' => $encargado_email,
 	'dpi' => $dpi,
 	'extendida' => $extendido,
 	'emergencia' => $emergencia,
 	'telefono2' => $telefono2,
 	'status' => $status
 );
+
+_pre($insert_alumno, true);
 
 $sql = 'INSERT INTO alumno' . $db->sql_build('INSERT', $insert_alumno);
 $db->sql_query($sql);
@@ -91,4 +94,4 @@ $sql = 'UPDATE alumno' . $db->sql_build('UPDATE', $update_alumno) . $db->__prepa
 	WHERE id_alumno = ?', $id);
 $db->sql_query($sql);
 
-redirect('index2.php');
+redirect('/adm/alumnos/index2.php');

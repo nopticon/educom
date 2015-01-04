@@ -17,39 +17,39 @@ $seccion = $db->sql_rowset($sql);
 //
 // Create fields
 //
-
 $form = array(
 	'Datos de Alumno' => array(
-		'CodigoAlumno' => array(
+		'codigo_alumno' => array(
 			'type' => 'text',
 			'value' => 'C&oacute;digo de alumno'
 		),
-		'Nombre' => array(
+		'nombre' => array(
 			'type' => 'text',
 			'value' => 'Nombre'
 		),
-		'Apellido' => array(
+		'apellido' => array(
 			'type' => 'text',
 			'value' => 'Apellido'
 		),
-		'Direccion' => array(
+		'direccion' => array(
 			'type' => 'text',
 			'value' => 'Direcci&oacute;n'
 		),
-		'Telefono' => array(
+		'telefono' => array(
 			'type' => 'text',
 			'value' => 'Tel&eacute;fono'
 		),
-		'Edad' => array(
+		'edad' => array(
 			'type' => 'text',
 			'value' => 'Edad'
 		),
-		'Email' => array(
+		'email' => array(
 			'type' => 'text',
 			'value' => 'Email'
 		),
-		'Sexo' => array(
-			'type' => 'radio',
+		'sexo' => array(
+			'show' => 'Sexo',
+			'type' => 'select',
 			'value' => array(
 				'M' => 'Masculino',
 				'F' => 'Femenino'
@@ -57,51 +57,56 @@ $form = array(
 		),
 	),
 	'Datos de Padres' => array(
-		'Padre' => array(
+		'padre' => array(
 			'type' => 'text',
 			'value' => 'Padre'
 		),
-		'Madre' => array(
+		'madre' => array(
 			'type' => 'text',
 			'value' => 'Madre'
 		),
 	),
 	'Datos de Encargado' => array(
-		'Encargado' => array(
+		'encargado' => array(
 			'type' => 'text',
 			'value' => 'Encargado'
 		),
-		'Profesion' => array(
+		'profesion' => array(
 			'type' => 'text',
 			'value' => 'Profesi&oacute;n o oficio'
 		),
-		'Labor' => array(
+		'labor' => array(
 			'type' => 'text',
 			'value' => 'Lugar de trabajo'
 		),
-		'Direccion2' => array(
+		'email_encargado' => array(
+			'type' => 'text',
+			'value' => 'Email'
+		),
+		'direccion2' => array(
 			'type' => 'text',
 			'value' => 'Direcci&oacute;n'
 		),
-		'DPI' => array(
+		'dpi' => array(
 			'type' => 'text',
 			'value' => 'DPI'
 		),
-		'Extendido' => array(
+		'extendido' => array(
 			'type' => 'text',
 			'value' => 'Extendido'
 		),
 	),
 	'En caso de emergencia' => array(
-		'Emergencia' => array(
-			'type' => 'radio',
+		'emergencia' => array(
+			'show' => 'Llamar a',
+			'type' => 'select',
 			'value' => array(
+				'Encargado' => 'Encargado',
 				'Padre' => 'Padre',
 				'Madre' => 'Madre',
-				'Encargado' => 'Encargado',
 			)
 		),
-		'Telefono2' => array(
+		'telefono2' => array(
 			'type' => 'text',
 			'value' => 'Tel&eacute;fonos'
 		),

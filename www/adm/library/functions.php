@@ -7,12 +7,14 @@ function build($fields) {
 		}
 
 		foreach ($ary as $field_name => $field_data) {
+			if (!isset($field_data['show'])) $field_data['show'] = $field_name;
+
 			if (!isset($field_data['default'])) $field_data['default'] = '';
 
 			switch ($field_data['type']) {
 				case 'radio':
 					echo '<div class="form-group">
-						<label for="input' . $field_name . '" class="col-lg-2 control-label">' . $field_name . '</label>
+						<label for="input' . $field_name . '" class="col-lg-2 control-label">' . $field_data['show']	 . '</label>
 						<div class="col-lg-10 radio">
 						';
 
