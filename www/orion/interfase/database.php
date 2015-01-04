@@ -26,6 +26,13 @@ if (!function_exists('sql_filter')) {
 	}
 }
 
+function sql_create($table, $insert) {
+	global $db;
+
+	$a = $db->sql_create($table, $insert);
+	return sql_error($a);
+}
+
 function sql_insert($table, $insert) {
 	global $db;
 

@@ -6,8 +6,6 @@ $codigo = request_var('codigo_alumno', '');
 $nombre = request_var('nombre', '');
 $apellido = request_var('apellido', '');
 $direccion = request_var('direccion', '');
-$orden = request_var('orden', '');
-$registro = request_var('registro', '');
 $telefono1 = request_var('telefono', '');
 $edad = request_var('edad', '');
 $sexo = request_var('sexo', '');
@@ -34,6 +32,18 @@ $status = 'Inscrito';
 $anio = date('Y');
 $carne = $anio . $sexo;
 
+// 
+// Process information
+// 
+if (!$nombre || !$apellido) {
+	redirect('/adm/alumnos/index.php');
+}
+
+$edad = sprintf("%02d", $edad);
+
+// 
+// Build array to insert
+// 
 $insert_alumno = array(
 	'carne' => $carne,
 	'codigo_alumno' => $codigo,
@@ -52,29 +62,22 @@ $insert_alumno = array(
 	'profesion' => $profesion,
 	'labora' => $labor,
 	'direccion_labora' => $direccion_labora,
-	'encargado_email' => $encargado_email,
+	'email_encargado' => $encargado_email,
 	'dpi' => $dpi,
 	'extendida' => $extendido,
 	'emergencia' => $emergencia,
 	'telefono2' => $telefono2,
 	'status' => $status
 );
+$student_id = sql_create('alumno', $insert_alumno);
 
-_pre($insert_alumno, true);
-
-$sql = 'INSERT INTO alumno' . $db->sql_build('INSERT', $insert_alumno);
-$db->sql_query($sql);
-
-$sql = 'SELECT id_alumno
-	FROM alumno
-	WHERE carne = ?';
-$id = $db->sql_field($db->__prepare($sql, $carne), 'id_alumno');
-
-// Add $id to carne
-$carne .= $id;
+// 
+// Add student id to carne
+// 
+$carne .= $student_id;
 
 $insert_inscripcion = array(
-	'id_alumno' => $id,
+	'id_alumno' => $student_id,
 	'carne' => $carne,
 	'id_grado' => $grado,
 	'id_seccion' => $seccion,
@@ -83,15 +86,71 @@ $insert_inscripcion = array(
 	'status' => $status,
 	'anio' => $anio
 );
+$reinscription_id = sql_create('reinscripcion', $insert_inscripcion);
 
-$sql = 'INSERT INTO reinscripcion' . $db->sql_build('INSERT', $insert_inscripcion);
-$db->sql_query($sql);
+// 
+// Insert user into main system.
+// 
+$gender_select = array(
+	'M' => 1,
+	'F' => 2
+);
+$gender = isset($gender_select[$sexo]) ? $gender_select[$sexo] : 1;
+
+$country = 90;
+$birthdate = '';
+
+$full_name = $nombre . ' ' . $apellido;
+$username_base = simple_alias($full_name);
+$user_password = substr(md5(unique_id()), 0, 8);
+
+$member_data = array(
+	'user_type' => USER_NORMAL,
+	'user_active' => 1,
+	'username' => $full_name,
+	'username_base' => $username_base,
+	'user_password' => HashPassword($user_password),
+	'user_regip' => $user->ip,
+	'user_session_time' => 0,
+	'user_lastpage' => '',
+	'user_lastvisit' => time(),
+	'user_regdate' => time(),
+	'user_level' => 0,
+	'user_posts' => 0,
+	'userpage_posts' => 0,
+	'user_points' => 0,
+	'user_timezone' => $config->board_timezone,
+	'user_dst' => $config->board_dst,
+	'user_lang' => $config->default_lang,
+	'user_dateformat' => $config->default_dateformat,
+	'user_country' => $country,
+	'user_rank' => 0,
+	'user_avatar' => '',
+	'user_avatar_type' => 0,
+	'user_email' => $email,
+	'user_lastlogon' => 0,
+	'user_totaltime' => 0,
+	'user_totallogon' => 0,
+	'user_totalpages' => 0,
+	'user_gender' => $gender,
+	'user_birthday' => $birthdate,
+	'user_upw' => $user_password,
+	'user_mark_items' => 0,
+	'user_topic_order' => 0,
+	'user_email_dc' => 1,
+	'user_refop' => 0,
+	'user_refby' => ''
+);
+$user_id = sql_insert('members', $member_data);
+
+set_config('max_users', $config->max_users + 1);
 
 $update_alumno = array(
-	'carne' => $carne
+	'carne' => $carne,
+	'id_member' => $user_id
 );
-$sql = 'UPDATE alumno' . $db->sql_build('UPDATE', $update_alumno) . $db->__prepare('
-	WHERE id_alumno = ?', $id);
+$sql = 'UPDATE alumno SET' . $db->sql_build('UPDATE', $update_alumno) . $db->__prepare('
+	WHERE id_alumno = ?', $student_id);
 $db->sql_query($sql);
 
 redirect('/adm/alumnos/index2.php');

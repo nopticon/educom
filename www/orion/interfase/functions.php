@@ -44,6 +44,10 @@ function htmlencode($str) {
 	return $result;
 }
 
+function strip_special_char($s) {
+	return preg_replace('#&([a-zA-Z]+)acute;#is', '\\1', $s);
+}
+
 function compress_html($compress) {
 	$i = array('/>[^S ]+/s','/[^S ]+</s','/(s)+/s');
 	$ii = array('>','<','1');
@@ -118,7 +122,7 @@ function request_var($var_name, $default = false, $multibyte = false) {
 	$var = $_REQUEST[$var_name];
 	if (!is_array($default)) {
 		$type = gettype($default);
-		_utf8($var);
+		// _utf8($var);
 	} else {
 		list($key_type, $type) = each($default);
 		$type = gettype($type);
@@ -511,6 +515,10 @@ function datetime($timestamp = false) {
 function token($length = 50) {
     $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
     return substr(str_shuffle($characters), 0, $length);
+}
+
+function simple_alias($s) {
+	return str_replace('-', '', alias($s));
 }
 
 function alias($s) {

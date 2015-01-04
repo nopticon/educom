@@ -14,8 +14,7 @@ $sql = 'SELECT *
 $row = $db->sql_fieldrow($db->__prepare($sql, $subcarne));
 
 if (!$row) {
-	header('Location: index.php');
-	exit;
+	redirect('/adm/reinscripcion/');
 }
 
 encabezado('Reinscripci&oacute;n del Alumno');
@@ -125,14 +124,22 @@ foreach ($rowset_seccion as $row) {
 	$form['Grado a Cursar']['seccion']['value'][$row->id_seccion] = $row->nombre_seccion;
 }
 
+if (!count($form['Grado a Cursar']['grado']['value'])) {
+	$form['Grado a Cursar'] = array();
+}
+
 ?>
 
+<?php if (count($form['Grado a Cursar'])) { ?>
 <form class="form-horizontal" action="cod_reinscripcion.php" method="post">
 	<input name="id_alumno" type="hidden" id="id_alumno" value="<?php echo $row->id_alumno; ?>" />
 	<input name="carnet" type="hidden" id="carnet" value="<?php echo $row->carne; ?>" />
 
 	<?php build($form); submit(); ?>
 </form>
+<?php } else { ?>
+El alumno ha cursado todos los grados disponibles.<br /><br />
+<?php } ?>
 
 <h6>Historial de Grados</h6>
 <div id="list"></div>

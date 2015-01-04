@@ -17,13 +17,12 @@ $status = 'Alta';
 $country = 90;
 $birthdate = '';
 
-$full_name = $nombre . ' ' . $apellido;
-$username_base = get_username_base($full_name);
-
 if (!$nombre || !$apellido) {
 	redirect('/adm/catedraticos/index.php');
 }
 
+$full_name = $nombre . ' ' . $apellido;
+$username_base = simple_alias($full_name);
 $user_password = substr(md5(unique_id()), 0, 8);
 
 $member_data = array(

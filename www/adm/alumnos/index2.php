@@ -58,11 +58,11 @@ $(function() {
 });
 
 function t_compromiso(a) {
-	return '<a href="../reportes/compromiso.php?id_alumno=' + a.id_alumno + '" target="_blank"><img src="/public/images/printer.png" width="20" /></a> <a href="../reportes/compromiso2.php?id_alumno=' + a.id_alumno + '" target="_blank"><img src="/public/images/printer.png" width="20" /></a>';
+	return '<a href="../reportes/compromiso.php?id_alumno=' + a.id_alumno + '" target="_blank"><img src="/adm/public/images/printer.png" width="20" /></a> <a href="../reportes/compromiso2.php?id_alumno=' + a.id_alumno + '" target="_blank"><img src="/adm/public/images/printer.png" width="20" /></a>';
 }
 
 function t_editar(a) {
-	return '<a href="../mantenimientos/alumnos/alumno.php?carne=' + a.carne + '&amp;Submit2=Buscar"><img src="/public/images/configuration.png" width="20" /></a>';
+	return '<a href="../mantenimientos/alumnos/alumno.php?carne=' + a.carne + '&amp;Submit2=Buscar"><img src="/adm/public/images/configuration.png" width="20" /></a>';
 }
 </script>
 
