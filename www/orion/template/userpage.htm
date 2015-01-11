@@ -1,18 +1,5 @@
 <!-- INCLUDE page.header.htm -->
 
-<!-- BEGIN hide -->
-<div class="a_center">
-	<script type="text/javascript"><!--
-	google_ad_client = "pub-5371491382621943";
-	google_ad_slot = "0211009699";
-	google_ad_width = 728;
-	google_ad_height = 90;
-	//-->
-	</script>
-	<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-</div>
-<!-- END hide -->
-
 <ul id="expand_account">
 	<li><a id="account" href="{U_PROFILE}"></a></li>
 	<li class="mb"><a href="{U_PROFILE}" title="{S_USERNAME}"><i class="icon-user"></i> {S_USERNAME}</a>
@@ -24,11 +11,9 @@
 <div class="el_left"><img src="{AVATAR_IMG}" alt="{USERNAME}" /></div>
 
 <div class="el_left pad_left">
-	<div class="">
-		<div class="profile"><h3>{USERNAME}</h3></div>
-		<div class="rows5_top">{POSTER_RANK}</div>
-	</div>
-	
+	<div class="h wm_ls"><h3>{USERNAME}</h3></div>
+	<div class="rows5_top">{POSTER_RANK}</div>
+
 	<div class="pad_top ls ctl">
 	<ul>
 		<!-- BEGIN selected_panel -->
@@ -70,19 +55,6 @@
 		</div>
 		<!-- END general -->
 		
-		<!-- BEGIN lastfm -->
-		<div class="pad_top ls">
-		<div class="h"><h3>Canciones en Last.FM</h3></div>	
-		<ul>
-			<!-- BEGIN row -->
-			<li><strong>{row.TIME}</strong>: <a href="{row.URL}" title="{row.ALBUM}" target="_blank">{row.ARTIST} - {row.NAME}</a></li>
-			<!-- END row -->
-		</ul>
-		
-		<div class="pad_top ctl"><a href="{lastfm.URL}" target="_blank">Visitar perfil de {lastfm.NAME}</a></div>
-		</div>
-		<!-- END lastfm -->
-		
 		<!-- BEGIN thumbnails -->
 		<div class="<!-- IF !(thumbnails.S_ROW_COUNT) -->pad_top <!-- ENDIF -->ln">
 			<div class="h"><h3>{thumbnails.L_TITLE}</h1></div>
@@ -118,7 +90,7 @@
 	<div class="is_right_i">
 		<!-- BEGIN post_comment_box -->
 		<div class="publish">
-		<div class="h"><h3>{L_SEND_POST} <a class="smile" href="{U_EMOTICONS}">@</a></a></h3></div>
+		<div class="h"><h3>{L_SEND_POST}</h3></div>
 		<form action="{U_COMMENTS}" method="post" name="m-messages">
 		<input type="hidden" name="ref" value="{post_comment_box.REF}" />
 		<textarea id="a-comments" name="message"></textarea>
@@ -129,23 +101,39 @@
 		
 		<!-- BEGIN posts -->
 		<div class="comments pad_top">
-		<a name="first"></a>
-		<!-- BEGIN item -->
-		<a name="{item.POST_ID}"></a>
-		<div id="comment-{item.S_ROW_COUNT}">
-		<h3><strong>{item.S_ROW_COUNT}</strong><span>.</span> <em><!-- BEGIN username --><a href="{item.PROFILE}"><!-- END username --><img src="{item.USER_AVATAR}" alt="{item.USERNAME}'s Avatar" /><!-- BEGIN username --></a><!-- END username --></em><cite><!-- BEGIN username --><a href="{item.PROFILE}"><!-- END username -->{item.USERNAME}<!-- BEGIN username --></a><!-- END username --></cite> <span>dijo:</span></h3>
-		<blockquote>
-		<!-- IF item.S_DELETE -->
-		<div class="pad_top ctl a_right"><a href="{item.S_DELETE}">{L_DELETE}</a></div>
-		<!-- ENDIF -->
-		<div class="nowraptext">{item.MESSAGE}</div>
-		<!-- IF item.USER_SIG != '' -->
-		<div class="nowraptext"><p>--{item.USER_SIG}</p></div>
-		<!-- ENDIF -->
-		<p class="dtposted">{item.DATETIME}</p>
-		</blockquote>
-		<hr /></div>
-		<!-- END item -->
+			<a name="first"></a>
+			<!-- BEGIN item -->
+			<a name="{item.POST_ID}"></a>
+
+			<div id="comment-{item.S_ROW_COUNT}">
+				<h3><strong>{item.S_ROW_COUNT}</strong><span>.</span> <em><a href="{item.PROFILE}"><img src="{item.USER_AVATAR}" alt="{item.USERNAME}'s Avatar" /></em><cite><a href="{item.PROFILE}">{item.USERNAME}</a></cite> <span>dijo:</span></h3>
+
+				<blockquote>
+					<div class="x1 col_fr nowraptext">
+						{item.MESSAGE}
+					</div>
+
+					<!-- IF item.S_DELETE -->
+					<p class="controls">
+						<a href="{item.S_DELETE}">{L_DELETE}</a>
+					</p>
+					<!-- ENDIF -->
+
+					<!-- BEGIN controls -->
+					<p class="controls">
+						<!-- BEGIN reply --><a href="{reply.URL}">{L_CMT_REPLY}</a><!-- END reply -->
+						<!-- BEGIN report --><a href="{report.URL}">{L_CMT_REPORT}</a><!-- END report -->
+						<!-- BEGIN edit --><a href="{edit.URL}">{L_CMT_EDIT}</a><!-- END edit -->
+						<!-- BEGIN restore --><a href="{restore.URL}">{L_CMT_RESTORE}</a><!-- END restore -->
+						<!-- BEGIN delete --><a class="ask_remove" href="{delete.URL}">{L_CMT_DELETE}</a><!-- END delete -->
+					</p>
+					<!-- END controls -->
+
+					<p class="dtposted">{item.DATETIME}</p>
+				</blockquote>
+				<hr />
+			</div>
+			<!-- END item -->
 		</div>
 		<!-- END posts -->
 	</div>

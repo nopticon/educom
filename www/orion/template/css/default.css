@@ -56,9 +56,6 @@ h1, h2, h3 {
 	font-family: 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
 	text-decoration: none;
 }
-select, optgroup {
-	color: #eee;
-}
 h1, h2 {
 	color: #868670;
 }
@@ -79,8 +76,9 @@ img {
 }
 input, button, textarea, select {
 	background: #eee;
-	padding: 2px;
+	padding: 5px;
 	border: 0;
+	border-radius: 5px;
 }
 optgroup {
 	background: #eee;
@@ -367,24 +365,21 @@ hr {
 }
 
 .h {
-	margin: 5px 0 10px;
+	margin: 20px 0 20px;
 }
 .h h3, .h h3 a {
 	display: inline;
-	margin: 0 10px;
-	/*border-bottom: 1px solid #F5B800;*/
-	/*padding-bottom: 3px;*/
+	margin: 0;
 	font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
 	font-size: 18pt;
-	color: #F5B800;
+	color: #f39c12;
 }
-.h h3 a {
-	/*font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;*/
-	/*font-size: 10pt;*/
-	/*color: #F5B800;*/
-}
-.h h3 a:hover {
-	text-decoration: none;
+.h h4, .h h4 a {
+	display: inline;
+	margin: 0;
+	font-family: 'Open Sans', Arial, Helvetica, sans-serif !important;
+	font-size: 15pt;
+	color: #e67e22;
 }
 .b h3 a {
 	padding: 5px;
@@ -604,7 +599,7 @@ hr {
 .pad_right {
 	margin-right: 10px;
 }
-.pad_top {
+.x1, .pad_top {
 	margin-top: 10px;
 }
 .x2 {
@@ -773,7 +768,7 @@ hr {
 	margin: 1em 0 0 0;
 	padding: 1.5em 0 0 0;
 	font-size: 1em;
-	border-top: 1px solid #111;
+	border-top: 1px solid #eee;
 	text-align: center;
 }
 .comments h3 strong {
@@ -801,13 +796,17 @@ hr {
 	line-height: 1.8em;
 	/*color: #d0ced1;*/
 }
+.comments blockquote p {
+	line-height: inherit !important;
+	font-size: inherit !important;
+}
 .comments blockquote p.controls {
 	position: absolute;
 	top: 0;
 	left: 0;
 	margin: 0;
 	padding: 8px;
-	line-height: auto;
+	line-height: auto !important;
 	background: #64AE0A;
 }
 .comments blockquote p.controls a {
@@ -815,9 +814,11 @@ hr {
 	overflow: hidden;
 	top: 0;
 	margin: 0;
-	padding: 0 15px;
+	/*padding: 0 15px;*/
 	height: auto;
 	/*margin-right: 15px;*/
+	font-size: 11pt;
+	line-height: auto !important;
 	border-left: 1px solid #569509;
 	color: #fff;
 }
@@ -833,11 +834,11 @@ hr {
 	margin: 0;
 	padding: 8px;
 	/*color: ;*/
-	/*font-size: 7.5pt;*/
+	font-size: 11pt;
 	line-height: auto;
 	text-align: right;
 	/*background: #161C26;*/
-	background: #222;
+	background: #eee;
 }
 .comments blockquote blockquote {
 	overflow: hidden;
@@ -858,7 +859,7 @@ hr {
 	width: 77%;
 	margin: 1em 0 0 0;
 	padding: 1.5em 0;
-	border-top: 1px solid #222;
+	border-top: 1px solid #eee;
 }
 .comments h3 em img {
 	padding: 1px;

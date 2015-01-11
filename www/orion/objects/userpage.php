@@ -706,7 +706,7 @@ class userpage {
 		}
 
 		$s_year_select = '';
-		for ($i = 2005; $i > 1899; $i--) {
+		for ($i = date('Y'), $end = ($i - 100); $i > $end; $i--) {
 			$s_year_select .= '<option value="' . $i . '"' . (($_fields->birthday_year == $i) ? ' selected="true"' : '') . '>' . $i . '</option>';
 		}
 
@@ -755,7 +755,7 @@ class userpage {
 
 		$mode = request_var('mode', 'main');
 
-		if ($user->d('user_id') != $this->data->user_id && !in_array($mode, w('friend ban'))) {
+		/*if ($user->d('user_id') != $this->data->user_id && !in_array($mode, w('friend ban'))) {
 			$is_blocked = false;
 
 			if (!$user->is('all', $this->data->user_id)) {
@@ -774,7 +774,7 @@ class userpage {
 					'LANG' => lang('blocked_member_' . $banned_lang))
 				);
 			}
-		}
+		}*/
 
 		$profile_fields = $comments->user_profile($this->data);
 
@@ -813,9 +813,15 @@ class userpage {
 			'friends' => array('L' => 'FRIENDS', 'U' => false)
 		);
 
+		if ($user->d('user_id') === $this->data->user_id) {
+			$panel_selection += array(
+				'profile' => array('L' => 'MEMBER_OPTIONS', 'U' => s_link('my profile'))
+			);
+		}
+
 		foreach ($panel_selection as $link => $data) {
 			_style('selected_panel', array(
-				'LANG' => lang('userpage_' . $data['L']))
+				'LANG' => lang('userpage_' . $data['L'], lang($data['L'])))
 			);
 
 			if ($mode == $link) {
@@ -851,7 +857,7 @@ class userpage {
 		//
 		v_style(array(
 			'USERNAME' => $this->data->username,
-			'POSTER_RANK' => $profile_fields->user_rank,
+			'POSTER_RANK' => get_user_role(true, $this->data->user_id),
 			'AVATAR_IMG' => $profile_fields->user_avatar,
 			'USER_ONLINE' => $online,
 
@@ -1115,7 +1121,43 @@ class userpage {
 		//
 		$comments_ref = s_link('m', $this->data->username_base);
 
-		if ($user->is('member')) {
+		$current_teacher = $user->is('teacher', $this->data->user_id);
+		$current_supervisor = $user->is('supervisor', $this->data->user_id);
+
+		$host_user = get_user_role(false, $this->data->user_id);
+		$guest_user = get_user_role(false);
+
+		$can_post_rules = array(
+			'founder' => array(
+				'teacher', 'supervisor', 'student'
+			),
+			'teacher' => array(
+				'founder', 'teacher', 'student'
+			),
+			'supervisor' => array(
+				'founder', 'teacher'
+			),
+			'student' => array(
+				'founder', 'teacher', 'student'
+			)
+		);
+
+		$can_post = false;
+
+		foreach ($can_post_rules as $user_role => $user_access) {
+			if ($user_role !== $host_user) continue;
+
+			foreach ($user_access as $access_role) {
+				if ($access_role !== $guest_user) continue;
+
+				$can_post = true;
+			}
+		}
+
+		// _pre($host_user . ' ' . $guest_user);
+		// _pre($this->data->user_id . ' - ' . $is_current . ' - ' . $user_is_current, true);
+
+		if ($can_post) {
 			_style('main.post_comment_box', array(
 				'REF' => $comments_ref)
 			);
@@ -1178,34 +1220,6 @@ class userpage {
 				'KEY' => lang($key),
 				'VALUE' => $value)
 			);
-		}
-
-		//
-		// Get Last.fm Feed
-		//
-		// http://ws.audioscrobbler.com/1.0/user//recenttracks.xml
-		if (!empty($this->data->user_lastfm)) {
-			include_once('./interfase/scrobbler.php');
-
-			$scrobbler = new EasyScrobbler($this->data->user_lastfm);
-			$list = $scrobbler->getRecentTracs();
-
-			if (count($list)) {
-				_style('main.lastfm', array(
-					'NAME' => $this->data->user_lastfm,
-					'URL' => 'http://www.last.fm/user/' . $this->data->user_lastfm . '/')
-				);
-
-				foreach ($list as $row) {
-					_style('main.lastfm.row', array(
-						'ARTIST' => $row['ARTIST'],
-						'NAME' => $row['NAME'],
-						'ALBUM' => $row['ALBUM'],
-						'URL' => $row['URL'],
-						'TIME' => $user->format_date($row['DATE_UTS'], 'H:i'))
-					);
-				}
-			}
 		}
 
 		//

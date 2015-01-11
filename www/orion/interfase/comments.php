@@ -422,7 +422,8 @@ class comments {
 				's_delete' => false)
 			);
 
-			if (isset($this->data['USER_ID_FIELD']) && ($user->is('founder') || ($user->d('user_id') === $row->{$this->data['USER_ID_FIELD']}))) {
+			// if (isset($this->data['USER_ID_FIELD']) && ($user->is('founder') || ($user->d('user_id') === $row->{$this->data['USER_ID_FIELD']}))) {
+			if (isset($this->data['USER_ID_FIELD']) && $user->is('founder')) {
 				$data->s_delete = sprintf($this->data['S_DELETE_URL'], $row->post_id);
 			}
 
@@ -477,44 +478,10 @@ class comments {
 							if ($value != '') {
 								$value = $config->assets_url . 'avatars/' . $value;
 							} else {
-								$value = $config->assets_url . 'style/avatar.gif';
+								$value = $config->assets_url . 'style/avatar.png';
 							}
 						} else {
-							$value = $config->assets_url . 'style/avatar.gif';
-						}
-
-						$data->$key = $value;
-						break;
-					case 'user_rank':
-						if (!isset($all_ranks)) {
-							$all_ranks = $user->init_ranks();
-						}
-
-						if ($row->user_id == GUEST) {
-							$value = lang('guest');
-							break;
-						}
-
-						if ($value) {
-							foreach ($all_ranks as $rank) {
-								if (($value == $rank->rank_id) && $rank->rank_special) {
-									$rank_e = explode('|', $rank->rank_title);
-									$value = (isset($rank_e[$row->user_gender]) && ($rank_e[$row->user_gender] != '')) ? $rank_e[$row->user_gender] : $rank_e[0];
-									break;
-								}
-							}
-						} else {
-							$value = '';
-
-							if (isset($row->user_gender) && isset($row->user_posts)) {
-								foreach ($all_ranks as $rank) {
-									if (($row->user_posts >= $rank->rank_min) && !$rank->rank_special) {
-										$rank_e = explode('|', $rank->rank_title);
-										$value = (isset($rank_e[$row->user_gender]) && ($rank_e[$row->user_gender] != '')) ? $rank_e[$row->user_gender] : $rank_e[0];
-										break;
-									}
-								}
-							}
+							$value = $config->assets_url . 'style/avatar.png';
 						}
 
 						$data->$key = $value;

@@ -26,6 +26,8 @@ class cache {
 		if (!defined('USE_CACHE')) {
 			$this->use = false;
 		}
+
+		return $this->use;
 	}
 
 	public function config() {
@@ -61,7 +63,7 @@ class cache {
 		return;
 	}
 
-	public function save($var, &$data) {
+	public function save($var, $data) {
 		global $config;
 
 		if (!$this->use) {

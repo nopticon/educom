@@ -3,179 +3,93 @@
 <form action="{U_EDITPROFILE}" method="post" enctype="multipart/form-data">
 {S_HIDDEN_FIELDS}
 
-	<div class="is_left_i ls">
-		<div class="h"><h3>&iexcl;{L_HI} {S_USERNAME}!</h3></div>
-		
-		<div class="pad_top">Puedes cambiar &eacute;stas opciones de tu cuenta:</div>
-		
-		<ul>
-			<li>{L_AVATAR}</li>
-			<li>{L_MEMBER_INFO}</li>
-			<li>{L_CONTACT_INFO}</li>
-			<li>{L_SIGNATURE}</li>
-			<li>{L_MEMBER_OPTIONS}</li>
-		</ul>
-	</div>
+	<div class="h"><h3>&iexcl;{L_HI} {S_USERNAME}!</h3></div>
+
+	<div class="pad_top">Actualiza la informaci&oacute;n de tu cuenta:</div>
+
+	<!-- BEGIN error -->
+	{error.MESSAGE}
+	<!-- END error -->
 	
-	<div class="is_right_i">
-		<!-- BEGIN error -->
-		{error.MESSAGE}
-		<!-- END error -->
-		
-		<div class="set_avatar">
-			<div class="h"><h3>{L_AVATAR}</h3></div>
-			<!-- BEGIN current_avatar -->
-			<div class="is_left_i a_mid">
-				<img src="{current_avatar.IMAGE}" alt="" />
-			</div>
-			<!-- END current_avatar -->
-			<div class="is_right_i">
-				<div class="pad_top"><label for="avatar">{L_AVATAR_EXPLAIN}</label></div>
-				<div class="pad_top">
-					<input type="hidden" name="MAX_FILE_SIZE" value="{AVATAR_MAXSIZE}" />
-					<input type="file" name="avatar" id="avatar" size="20" />
-				</div>
-			</div>
+	<div class="set_avatar">
+		<div class="h"><h4>{L_AVATAR}</h4></div>
+		<!-- BEGIN current_avatar -->
+		<div class="is_left_i a_mid">
+			<img src="{current_avatar.IMAGE}" alt="" />
 		</div>
-		<span class="clear"></span>
-		
-		<div class="set_info pad_top">
-			<div class="h"><h3>{L_MEMBER_INFO}</h3></div>
+		<!-- END current_avatar -->
+		<div class="is_right_i">
+			<div class="pad_top"><label for="avatar">{L_AVATAR_EXPLAIN}</label></div>
 			<div class="pad_top">
-				<div class="is_left_i"><label for="rank">{L_RANK_EXPLAIN}:</label></div>
-				<div class="is_right_i i"><input type="text" id="rank" name="rank" size="20" maxlength="255" value="<!-- IF RANK != '0' -->{RANK}<!-- ENDIF -->" /></div>
-			</div>
-			<span class="clear"></span>
-			
-			<div class="pad_top">
-				<div class="is_left_i"><label for="favbands">{L_FAV_BANDS}:</label></div>
-				<div class="is_right_i i"><input type="text" id="favbands" name="fav_artists" size="20" maxlength="255" value="{FAV_ARTISTS}" /></div>
-			</div>
-			<span class="clear"></span>
-			
-			<div class="pad_top">
-				<div class="is_left_i"><label for="favgenre">{L_FAV_GENRES}:</label></div>
-				<div class="is_right_i i"><input type="text" id="favgenre" name="fav_genres" size="20" maxlength="255" value="{FAV_GENRES}" /></div>
-			</div>
-			<span class="clear"></span>
-			
-			<div class="pad_top">
-				<div class="is_left_i"><label for="location">{L_LOCATION}:</label></div>
-				<div class="is_right_i i"><input type="text" id="location" name="location" class="col90" size="20" maxlength="255" value="{LOCATION}" /></div>
-			</div>
-			<span class="clear"></span>
-			
-			<div class="pad_top">
-				<div class="is_left_i"><label for="occ">{L_OCCUPATION}:</label></div>
-				<div class="is_right_i i"><input type="text" id="occ" name="occ" class="col90" size="20" maxlength="255" value="{OCC}" /></div>
-			</div>
-			<span class="clear"></span>
-			
-			<div class="pad_top">
-				<div class="is_left_i"><label for="interests">{L_INTERESTS}:</label></div>
-				<div class="is_right_i i"><input type="text" id="interests" name="interests" class="col90" size="20" maxlength="255" value="{INTERESTS}" /></div>
-			</div>
-			<span class="clear"></span>
-			
-			<div class="pad_top">
-				<div class="is_left_i"><label for="os">{L_MEMBER_OS}:</label></div>
-				<div class="is_right_i i"><input type="text" id="os" name="os" class="col90" size="20" maxlength="255" value="{OS}" /></div>
-			</div>
-			<span class="clear"></span>
-			
-			<!-- BEGIN hidden -->
-			<div class="pad_top">
-				<div class="is_left_i"><label for="email">{L_EMAIL}:</label></div>
-				<div class="is_right_i i"><input type="text" id="email" name="email" size="20" maxlength="100" value="{EMAIL}" /></div>
-			</div>
-			<span class="clear"></span>
-			
-			<div class="pad_top">
-				<div class="is_left_i"><label for="password1">{L_PASSWORD}:</label></div>
-				<div class="is_right_i i"><input type="password" id="password1" name="password1" size="20" maxlength="32" value="{PASSWORD1}" /></div>
-			</div>
-			<span class="clear"></span>
-			
-			<div class="pad_top">
-				<div class="is_left_i"><label for="password2">{L_CONFIRM_PASSWORD}:</label></div>
-				<div class="is_right_i i"><input type="password" id="password2" name="password2" size="20" maxlength="32" value="{PASSWORD2}" /></div>
-			</div>
-			<!-- END hidden -->
-		</div>
-		
-		<div class="set_contact pad_top">
-			<div class="h"><h3>{L_CONTACT_INFO}</h3></div>
-			
-			<!-- BEGIN gender -->
-			<div class="pad_top">
-				<div class="is_left_i"><label for="gender">{L_GENDER}:</label></div>
-				<div class="is_right_i"><select id="gender" name="gender">{gender.GENDER_SELECT}</select></div>
-			</div>
-			
-			<span class="clear"></span>
-			<!-- END gender -->
-			
-			<!-- BEGIN birthday -->
-			<div class="pad_top">
-				<div class="is_left_i">{L_BIRTHDAY}: (D&iacute;a, Mes, A&ntilde;o)</div>
-				<div class="is_right_i"><select name="birthday_day">{birthday.DAY}</select> <select name="birthday_month">{birthday.MONTH}</select> <select name="birthday_year">{birthday.YEAR}</select></div>
-			</div>
-			
-			<span class="clear"></span>
-			<!-- END birthday -->
-			
-			<div class="pad_top">
-				<div class="is_left_i"><label for="public_email">{L_PUBLIC_EMAIL_ADDR}:</label></div>
-				<div class="is_right_i i"><input type="text" id="public_email" name="public_email" class="col90" size="20" maxlength="255" value="{PUBLIC_EMAIL}" /></div>
-			</div>
-			
-			<span class="clear"></span>
-			
-			<div class="pad_top">
-				<div class="is_left_i"><label for="lastfm">Usuario de <a href="http://www.last.fm/">Last.FM</a>:</label></div>
-				<div class="is_right_i i"><input type="text" id="lastfm" name="lastfm" class="col90" size="20" maxlength="255" value="{LASTFM}" /></div>
-			</div>
-			
-			<span class="clear"></span>
-			
-			<div class="pad_top">
-				<div class="is_left_i"><label for="website">{L_WEBSITE}:</label></div>
-				<div class="is_right_i i"><input type="text" id="website" name="website" class="col90" size="20" maxlength="255" value="{WEBSITE}" /></div>
-			</div>
-		</div>
-		
-		<span class="clear"></span>
-		
-		<div class="set_signature pad_top">
-			<div class="h"><h3>{L_SIGNATURE}</h3></div>
-			
-			<div class="pad_top">
-				<div class="is_left_i"><label for="sig">{L_SIGNATURE_EXPLAIN}:</label></div>
-				<div class="is_right_i i"><textarea id="sig" name="sig" rows="3" cols="60">{SIG}</textarea></div>
-			</div>
-		</div>
-		<span class="clear"></span>
-		
-		<div class="set_options pad_top">
-			<div class="h"><h3>{L_MEMBER_OPTIONS}</h3></div>
-			
-			<div class="pad_top">
-				<div class="pad_top">
-					<div class="is_left_i"><label for="timezone">{L_TIMEZONE}:</label></div>
-					<div class="is_right_i i"><select id="timezone" name="timezone">{TIMEZONE}</select></div>
-				</div>
-				
-				<span class="clear"></span>
-				
-				<div class="pad_top">
-					<div class=""><label for="email_dc"><input class="none" type="checkbox" id="email_dc" name="email_dc"{EMAIL_DC_SELECTED}>&nbsp;{L_EMAIL_DC}</label></div>
-					<div class="pad_top"><label for="hideuser"><input class="none" type="checkbox" id="hideuser" name="hideuser"{HIDEUSER_SELECTED}>&nbsp;{L_HIDE_USER}</label></div>
-				</div>
+				<input type="hidden" name="MAX_FILE_SIZE" value="{AVATAR_MAXSIZE}" />
+				<input type="file" name="avatar" id="avatar" size="20" />
 			</div>
 		</div>
 	</div>
-	
 	<span class="clear"></span>
+	
+	<div class="set_info pad_top">
+		<div class="h"><h4>{L_MEMBER_INFO}</h4></div>
+
+		<!-- BEGIN gender -->
+		<div class="pad_top">
+			<div class="is_left_i"><label for="gender">{L_GENDER}:</label></div>
+			<div class="is_right_i"><select id="gender" name="gender">{gender.GENDER_SELECT}</select></div>
+		</div>
+		<span class="clear"></span>
+		<!-- END gender -->
+		
+		<!-- BEGIN birthday -->
+		<div class="pad_top">
+			<div class="is_left_i">{L_BIRTHDAY}: (D&iacute;a, Mes, A&ntilde;o)</div>
+			<div class="is_right_i"><select name="birthday_day">{birthday.DAY}</select> <select name="birthday_month">{birthday.MONTH}</select> <select name="birthday_year">{birthday.YEAR}</select></div>
+		</div>
+		<span class="clear"></span>
+		<!-- END birthday -->
+		
+		<div class="pad_top">
+			<div class="is_left_i"><label for="location">{L_LOCATION}:</label></div>
+			<div class="is_right_i i"><input type="text" id="location" name="location" class="col90" size="20" maxlength="255" value="{LOCATION}" /></div>
+		</div>
+		<span class="clear"></span>
+		
+		<div class="pad_top">
+			<div class="is_left_i"><label for="occ">{L_OCCUPATION}:</label></div>
+			<div class="is_right_i i"><input type="text" id="occ" name="occ" class="col90" size="20" maxlength="255" value="{OCC}" /></div>
+		</div>
+		<span class="clear"></span>
+		
+		<div class="pad_top">
+			<div class="is_left_i"><label for="interests">{L_INTERESTS}:</label></div>
+			<div class="is_right_i i"><input type="text" id="interests" name="interests" class="col90" size="20" maxlength="255" value="{INTERESTS}" /></div>
+		</div>
+		<span class="clear"></span>
+		
+		<div class="pad_top">
+			<div class="is_left_i"><label for="email">{L_EMAIL}:</label></div>
+			<div class="is_right_i i"><input type="text" id="email" name="email" size="20" maxlength="100" value="{EMAIL}" /></div>
+		</div>
+		<span class="clear"></span>
+
+		<div class="pad_top">
+			<div class="is_left_i"><label for="website">{L_WEBSITE}:</label></div>
+			<div class="is_right_i i"><input type="text" id="website" name="website" class="col90" size="20" maxlength="255" value="{WEBSITE}" /></div>
+		</div>
+		<span class="clear"></span>
+		
+		<!-- BEGIN hidden -->
+		<div class="pad_top">
+			<div class="is_left_i"><label for="password1">{L_PASSWORD}:</label></div>
+			<div class="is_right_i i"><input type="password" id="password1" name="password1" size="20" maxlength="32" value="{PASSWORD1}" /></div>
+		</div>
+		<span class="clear"></span>
+		
+		<div class="pad_top">
+			<div class="is_left_i"><label for="password2">{L_CONFIRM_PASSWORD}:</label></div>
+			<div class="is_right_i i"><input type="password" id="password2" name="password2" size="20" maxlength="32" value="{PASSWORD2}" /></div>
+		</div>
+		<!-- END hidden -->
+	</div>
 	
 	<div class="a_mid pad_top ctl"><input type="submit" name="submit" value="{L_SAVE_CHANGES}" /></div>
 </form>

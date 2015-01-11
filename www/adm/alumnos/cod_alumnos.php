@@ -153,4 +153,62 @@ $sql = 'UPDATE alumno SET' . $db->sql_build('UPDATE', $update_alumno) . $db->__p
 	WHERE id_alumno = ?', $student_id);
 $db->sql_query($sql);
 
+// 
+// Create user login for supervisor
+// 
+if (trim($encargado)) {
+	$supervisor_base = simple_alias($encargado);
+	$supervisor_password = substr(md5(unique_id()), 0, 8);
+
+	$sql = 'SELECT user_id
+		FROM _members
+		WHERE username_base = ?';
+	if (!$supervisor_id = sql_field(sql_filter($sql, $supervisor_base), 'user_id', 0)) {
+		$supervisor_data = array(
+			'user_type' => USER_NORMAL,
+			'user_active' => 1,
+			'username' => $encargado,
+			'username_base' => $supervisor_base,
+			'user_password' => HashPassword($supervisor_password),
+			'user_regip' => $user->ip,
+			'user_session_time' => 0,
+			'user_lastpage' => '',
+			'user_lastvisit' => time(),
+			'user_regdate' => time(),
+			'user_level' => 0,
+			'user_posts' => 0,
+			'userpage_posts' => 0,
+			'user_points' => 0,
+			'user_timezone' => $config->board_timezone,
+			'user_dst' => $config->board_dst,
+			'user_lang' => $config->default_lang,
+			'user_dateformat' => $config->default_dateformat,
+			'user_country' => $country,
+			'user_rank' => 0,
+			'user_avatar' => '',
+			'user_avatar_type' => 0,
+			'user_email' => $encargado_email,
+			'user_lastlogon' => 0,
+			'user_totaltime' => 0,
+			'user_totallogon' => 0,
+			'user_totalpages' => 0,
+			'user_gender' => 1,
+			'user_birthday' => $birthdate,
+			'user_upw' => $supervisor_password,
+			'user_mark_items' => 0,
+			'user_topic_order' => 0,
+			'user_email_dc' => 1,
+			'user_refop' => 0,
+			'user_refby' => ''
+		);
+		$supervisor_id = sql_insert('members', $supervisor_data);
+	}
+
+	$supervisor_student = array(
+		'supervisor' => $supervisor_id,
+		'student' => $user_id
+	);
+	$rel_id = sql_create('alumnos_encargados', $supervisor_student);
+}
+
 redirect('/adm/alumnos/index2.php');

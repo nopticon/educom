@@ -295,47 +295,30 @@ function set_config($config_name, $config_value) {
 	$config->$config_name = $config_value;
 }
 
-function monetize() {
-	global $cache, $config, $user;
+function get_user_role($get_lang = false, $user_id = false) {
+	global $user;
 
-	if (!$monetize = $cache->get('monetize')) {
-		$sql = 'SELECT *
-			FROM _monetize
-			ORDER BY monetize_order';
-		if ($monetize = sql_rowset($sql, 'monetize_id')) {
-			$cache->save('monetize', $monetize);
+	$response = '';
+	$list = w('founder teacher supervisor student user');
+
+	foreach ($list as $row) {
+		$is = $user->is($row, $user_id, true);
+
+		if ($is) {
+			$response = $row;
+			break;
 		}
 	}
 
-	if (!is_array($monetize) || !count($monetize)) {
-		return;
+	if ($get_lang) {
+		$response = lang('role_' . $response, $response);
 	}
 
-	$set_blocks = w();
-	$i = 0;
-
-	foreach ($monetize as $row) {
-		if (!$i) _style('monetize');
-
-		if (!isset($set_blocks[$row->monetize_position])) {
-			_style('monetize.' . $row->monetize_position);
-			$set_blocks[$row->monetize_position] = true;
-		}
-
-		_style('monetize.' . $row->monetize_position . '.row', array(
-			'URL' => $row->monetize_url,
-			'IMAGE' => $config->assets_url . 'base/' . $row->monetize_image,
-			'ALT' => $row->monetize_alt)
-		);
-
-		$i++;
-	}
-
-	return;
+	return $response;
 }
 
 function leading_zero($number) {
-	return (($number < 10) ? '0' : '') . $number;
+	return sprintf('%02d', $number);
 }
 
 function forum_for_team($forum_id) {
@@ -530,6 +513,19 @@ function alias($s) {
 	$s = preg_replace(array("`[^a-z0-9]`i", "`[-]+`") , '-', $s);
 
 	return strtolower(trim($s, '-'));
+}
+
+function object_array_merge() {
+	$response = array();
+
+	foreach (func_get_args() as $ary) {
+		if (is_object($ary)) {
+			$ary = (array) $ary;
+		}
+		$response = array_merge($response, $ary);
+	}
+
+	return $response;
 }
 
 function object_merge() {
@@ -1989,7 +1985,6 @@ function topic_arkane($topic_id, $value) {
 function page_layout($page_title, $htmlpage, $custom_vars = false, $js_keepalive = true) {
 	global $config, $user, $cache, $starttime, $template;
 
-	monetize();
 	build_main_menu();
 
 	//

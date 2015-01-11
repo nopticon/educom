@@ -641,7 +641,7 @@ class user extends session {
 	}
 
 	public function is($name, $user_id = false, $artist = false) {
-		if (isset($this->data->{'is_' . $name})) {
+		if (isset($this->data->{'is_' . $name}) && $user_id === false) {
 			return $this->data->{'is_' . $name};
 		}
 
@@ -650,52 +650,26 @@ class user extends session {
 		}
 
 		$response = false;
-		if ($this->is('member')) {
-			$all = $this->_team_auth_list($name);
-			$response = (is_array($all) && count($all)) ? in_array($user_id, $all) : $all;
+		if ($this->is('member') || $user_id) {
+			$all = $this->_team_auth_list($name, $user_id);
 
-			if ($name == 'artist' && $response && $artist !== false) {
-				$sql = 'SELECT ub
-					FROM _artists_auth
-					WHERE ub = ?
-						AND user_id = ?';
-				if (!sql_field(sql_filter($sql, $artist, $user_id), 'ub', 0)) {
-					$response = false;
-				}
+			if (is_object($all)) {
+				$all = (array) $all;
+			}
+
+			if (is_array($all) && count($all)) {
+				$response = in_array($user_id, $all);
+			} else if (is_numeric($all)) {
+				$response = ($all === $user_id);
+			} else {
+				$response = $all;
 			}
 		}
 
-		return $response;
+		return (bool) $response;
 	}
 
-	public function init_ranks() {
-		global $cache;
-
-		if (!$ranks = $cache->get('ranks')) {
-			$sql = 'SELECT *
-				FROM _ranks
-				ORDER BY rank_special DESC, rank_min';
-			$ranks = sql_rowset($sql);
-			$cache->save('ranks', $ranks);
-		}
-
-		return $ranks;
-	}
-
-	/*
-	 * Auth types
-	 *
-	 * founder
-	 * mod
-	 * colab
-	 * colab_admin
-	 * radio
-	 * user
-	 * all
-	 *
-	 */
-
-	public function _team_auth_list($mode = '') {
+	public function _team_auth_list($mode = '', $user_id = false) {
 		global $cache;
 
 		switch ($mode) {
@@ -708,20 +682,36 @@ class user extends session {
 					$response = sql_rowset(sql_filter($sql, USER_FOUNDER), false, 'user_id');
 					$cache->save('team_founder', $response);
 				}
-			break;
+				break;
 			case 'artist':
 				$response = $this->d('user_auth_control');
-			break;
+				break;
 			case 'user':
 				$response = true;
-			break;
+				break;
+			case 'student':
+				$sql = 'SELECT m.user_id
+					FROM _members m
+					INNER JOIN alumno a ON a.id_member = m.user_id
+					WHERE m.user_id = ?';
+				$response = sql_field(sql_filter($sql, $user_id), 'user_id', 0);
+				break;
+			case 'supervisor':
+				$sql = 'SELECT supervisor
+					FROM alumnos_encargados
+					WHERE supervisor = ?
+					LIMIT 1';
+				$response = sql_field(sql_filter($sql, $user_id), 'supervisor', 0);
+				break;
 			case 'teacher':
 				if (!$response = $cache->get('team_teacher')) {
-					$sql = 'SELECT DISTINCT id_catedratico as member_id
-						FROM catedratico
-						WHERE status = ?
-						ORDER BY id_catedratico';
-					$response = sql_rowset(sql_filter($sql, 'Alta'), false, 'member_id');
+					$sql = 'SELECT DISTINCT m.user_id
+						FROM catedratico c
+						INNER JOIN _members m ON c.id_member = m.user_id
+						WHERE c.status = ?
+						ORDER BY m.user_id';
+					$response = sql_rowset(sql_filter($sql, 'Alta'), false, 'user_id');
+
 					$cache->save('team_teacher', $response);
 				}
 				break;
@@ -734,7 +724,7 @@ class user extends session {
 					$response = sql_rowset($sql, false, 'member_id');
 					$cache->save('team_mod', $response);
 				}
-			break;
+				break;
 			case 'colab':
 				if (!$response = $cache->get('team_colab')) {
 					$sql = 'SELECT DISTINCT member_id
@@ -744,7 +734,7 @@ class user extends session {
 					$response = sql_rowset($sql, false, 'member_id');
 					$cache->save('team_colab', $response);
 				}
-			break;
+				break;
 			case 'colab_admin':
 				if (!$response = $cache->get('team_colab_admin')) {
 					$sql = 'SELECT DISTINCT member_id
@@ -754,7 +744,7 @@ class user extends session {
 					$response = sql_rowset($sql, false, 'member_id');
 					$cache->save('team_colab_admin', $response);
 				}
-			break;
+				break;
 			case 'radio':
 				if (!$response = $cache->get('team_radio')) {
 					$sql = 'SELECT DISTINCT member_id
@@ -763,7 +753,7 @@ class user extends session {
 					$response = sql_rowset($sql, false, 'member_id');
 					$cache->save('team_radio', $response);
 				}
-			break;
+				break;
 			case 'all':
 			default:
 				if (!$response = $cache->get('team_all')) {
@@ -773,42 +763,17 @@ class user extends session {
 					$response = sql_rowset($sql, false, 'member_id');
 					$cache->save('team_all', $response);
 				}
-			break;
+				break;
 		}
 
 		if ($mode != 'founder' && is_array($response)) {
 			if ($response_founder = $this->_team_auth_list('founder')) {
-				$response = object_merge($response, $response_founder);
+				$response = object_array_merge($response, $response_founder);
 			}
 		}
 
 		return $response;
 	}
-
-	/*
-	User Unread Messages (Message Center) Functions
-
-	Who will be receive recently addded items,
-	in their unread message center? If for some
-	reason the item is deleted in original
-	location, then will be removed here too.
-
-	Auth:
-
-	U	USERS				ADM
-	A	ARTISTS				-
-	AF	ARTISTS FANS		ADM / USER_MOD
-	E	EVENTS				-
-	N	NEWS				-
-	NP	NEWS MESSAGES		ADM / USER_MOD / POSTERS
-	P	POSTS				-
-	D	DOWNLOADS			-
-	C	ARTISTS MESSAGES	ADM / USER_MOD / USER_FAN
-	M	DOWNLOADS MESSAGES	ADM / USER_MOD / USER_FAN
-	W	WALLPAPERS / ART	-
-	F	ARTISTS NEWS		-
-	I	ARTISTS IMAGES		-
-	*/
 
 	public function today_type($type) {
 		global $cache;

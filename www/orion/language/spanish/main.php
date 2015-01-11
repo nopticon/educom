@@ -352,8 +352,8 @@ $lang += array(
 	'PASSWORD_IF_CHANGED' => 'S&oacute;lo debes ingresar una contrase&ntilde;a si deseas cambiarla',
 	'PASSWORD_IF_CHANGED_EXPLAIN' => 'Necesitas confirmar tu contrase&ntilde;a si deseas cambiarla',
 
-	'AVATAR' => 'Avatar',
-	'AVATAR_EXPLAIN' => 'Muestra imagen cuando publiques mensajes. Debe ser formato <em>gif, jpg o png</em>.',
+	'AVATAR' => 'Imagen de usuario',
+	'AVATAR_EXPLAIN' => 'Muestra foto en tu perfil y cuando publiques mensajes. Debes usar formato jpg.',
 	'UPLOAD_AVATAR' => 'Enviar nuevo Avatar',
 	'DELETE_AVATAR' => 'Borrar Imagen',
 	'CURRENT_AVATAR' => 'Avatar actual',
@@ -571,6 +571,11 @@ $lang += array(
 		'12.00'	=> 'GMT + 12'
 	),
 
+	'ROLE_FOUNDER' => 'Administrador',
+	'ROLE_TEACHER' => 'Profesor/a',
+	'ROLE_SUPERVISOR' => 'Encargado de estudiante',
+	'ROLE_STUDENT' => 'Estudiante',
+
 	'VISITS_COUNT' => 'N&uacute;mero de visitas',
 	'PAGEVIEWS_COUNT' => 'P&aacute;ginas vistas',
 
@@ -634,7 +639,7 @@ $lang += array(
 	'NEWEST_TOPICS' => 'Temas recientes',
 
 	'VIEW_INFO' => 'Ver Informaci&oacute;n',
-	'SEND_POST' => 'Env&iacute;a tu comentario',
+	'SEND_POST' => 'Env&iacute;a tu mensaje',
 	'SEND_NEWS' => 'Env&iacute;a tu publicaci&oacute;n',
 	'PRIVACY_POLICY' => 'Pol&iacute;tica de Privacidad y T&eacute;rminos de servicio',
 
