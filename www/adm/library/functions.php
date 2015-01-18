@@ -40,7 +40,7 @@ function build($fields) {
 					echo '<div class="form-group">
 						<label for="input' . $field_name . '" class="col-lg-2 control-label">' . $field_data['show'] . '</label>
 						<div class="col-lg-10">
-						<select name="' . $field_name . '" id="input' . $field_name . '">';
+						<select class="form-control select select-primary mbl" name="' . $field_name . '" id="input' . $field_name . '">';
 
 					$select_year = false;
 					if ($field_data['value'] == '*') {
@@ -110,23 +110,15 @@ function encabezado($page_title = '', $ruta = '', $full = true) {
 <head>
 <meta charset="utf-8" />
 <title><?php echo $real_page_title; ?></title>
-<link rel="stylesheet" type="text/css" href="<?php echo a('public/flat-ui/bootstrap/css/bootstrap.css'); ?>" />
-<link rel="stylesheet" type="text/css" href="<?php echo a('public/flat-ui/css/flat-ui.css'); ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo a('public/flat-ui/css/vendor/bootstrap.min.css'); ?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo a('public/flat-ui/css/flat-ui.min.css'); ?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo a('public/kendo/css/kendo.flat.min.css'); ?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo a('public/kendo/css/kendo.common.min.css'); ?>" />
 <link rel="stylesheet" type="text/css" href="/assets/default.css?g=1368227590" />
 
-<script src="<?php echo a('public/js/jquery.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo a('public/flat-ui/js/bootstrap.min.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo a('public/flat-ui/js/jquery.ui.touch-punch.min.js'); ?>"></script>
-<script src="<?php echo a('public/flat-ui/js/bootstrap-select.js'); ?>"></script>
-<script src="<?php echo a('public/flat-ui/js/bootstrap-switch.js'); ?>"></script>
-<script src="<?php echo a('public/flat-ui/js/flatui-checkbox.js'); ?>"></script>
-<script src="<?php echo a('public/flat-ui/js/flatui-radio.js'); ?>"></script>
-<script src="<?php echo a('public/flat-ui/js/jquery.tagsinput.js'); ?>"></script>
-<script src="<?php echo a('public/flat-ui/js/jquery.placeholder.js'); ?>"></script>
-<script src="<?php echo a('public/flat-ui/bootstrap/js/google-code-prettify/prettify.js'); ?>"></script>
-<script src="<?php echo a('public/flat-ui/js/application.js'); ?>"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="<?php echo a('public/js/jquery.js'); ?>">\x3C/script>')</script>
+<script src="<?php echo a('public/flat-ui/js/flat-ui.min.js'); ?>" type="text/javascript"></script>
 <script src="<?php echo a('public/kendo/js/kendo.web.min.js'); ?>"></script>
 <script src="<?php echo a('public/js/ff.js'); ?>" type="text/javascript"></script>
 </head>
@@ -180,24 +172,15 @@ function encabezado_simple($page_title = '', $ruta = '', $full = true) {
 <head>
 <meta charset="iso-8859-1" />
 <title><?php echo $real_page_title; ?></title>
-<!-- <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'> -->
-<link rel="stylesheet" type="text/css" href="public/flat-ui/bootstrap/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="public/flat-ui/css/flat-ui.css" />
+<link rel="stylesheet" type="text/css" href="/adm/public/flat-ui/css/vendor/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/adm/public/flat-ui/css/flat-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="public/css/style.css" />
 <link rel="stylesheet" type="text/css" href="public/kendo/css/kendo.flat.min.css" />
 <link rel="stylesheet" type="text/css" href="public/kendo/css/kendo.common.min.css" />
 
-<script src="public/js/jquery.js" type="text/javascript"></script>
-<script src="public/flat-ui/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="public/flat-ui/js/jquery.ui.touch-punch.min.js"></script>
-<script src="public/flat-ui/js/bootstrap-select.js"></script>
-<script src="public/flat-ui/js/bootstrap-switch.js"></script>
-<script src="public/flat-ui/js/flatui-checkbox.js"></script>
-<script src="public/flat-ui/js/flatui-radio.js"></script>
-<script src="public/flat-ui/js/jquery.tagsinput.js"></script>
-<script src="public/flat-ui/js/jquery.placeholder.js"></script>
-<script src="public/flat-ui/bootstrap/js/google-code-prettify/prettify.js"></script>
-<script src="public/flat-ui/js/application.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{S_ASSETS}j.js">\x3C/script>')</script>
+<script src="/adm/public/flat-ui/js/flat-ui.min.js" type="text/javascript"></script>
 <script src="public/kendo/js/kendo.web.min.js"></script>
 <script src="public/js/ff.js" type="text/javascript"></script>
 </head>

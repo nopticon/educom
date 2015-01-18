@@ -467,7 +467,7 @@ class events {
 						}
 
 						if ($reply && $post_reply_message != '') {
-							$post_message = '<blockquote><strong>' . $post_data->username . "</strong>" . nr(false, 2) . $post_reply_message . '</blockquote><br /> ' . $post_message;
+							$post_message = '<blockquote><strong>' . $post_data->username . "</strong>" . nr(false, 2) . $post_reply_message . '</blockquote> ' . $post_message;
 						} else {
 							$reply = 0;
 						}

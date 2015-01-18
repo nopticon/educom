@@ -317,6 +317,43 @@ function get_user_role($get_lang = false, $user_id = false) {
 	return $response;
 }
 
+function get_user_grade($year = false, $user_id = false) {
+	global $user;
+
+	if ($user_id === false) {
+		$user_id = $user->d('user_id');
+	}
+
+	if ($year === false) {
+		$year = date('Y');
+	}
+
+	$response = array(
+		'grade' => '',
+		'section' => '',
+		'composed' => ''
+	);
+
+	$sql = 'SELECT g.nombre as grade_name, s.nombre_seccion as section_name
+		FROM alumno a, reinscripcion r, grado g, secciones s
+		WHERE a.id_member = ?
+			AND r.anio = ?
+			AND a.id_alumno = r.id_alumno
+			AND r.id_seccion = s.id_seccion
+			AND s.id_grado = g.id_grado';
+	if (!$row = sql_fieldrow(sql_filter($sql, $user_id, $year))) {
+		return $response;
+	}
+
+	$response = array(
+		'grade' => $row->grade_name,
+		'section' => $row->section_name,
+		'composed' => $row->grade_name . ' ' . $row->section_name
+	);
+
+	return $response;
+}
+
 function leading_zero($number) {
 	return sprintf('%02d', $number);
 }
@@ -877,8 +914,9 @@ function build_pagination($url_format, $total_items, $per_page, $offset, $prefix
 function build_num_pagination($url_format, $total_items, $per_page, $offset, $prefix = '', $lang_prefix = '') {
 	global $user;
 
-	$begin_end = 3;
+	$begin_end = 5;
 	$from_middle = 1;
+	$prev = $next = '';
 
 	$total_pages = ceil($total_items/$per_page);
 
@@ -891,11 +929,18 @@ function build_num_pagination($url_format, $total_items, $per_page, $offset, $pr
 	$pages_next = lang((($lang_prefix != '') ? $lang_prefix : '') . 'pages_next');
 
 	$page_string = '<ul>';
+
+	if ($on_page > 1) {
+		$prev = '<li class="previous"><a class="fui-arrow-left" href="' . sprintf($url_format, (($on_page - 2) * $per_page)) . '"></a></li>';
+		$page_string .= $prev;
+	}
+
 	if ($total_pages > ((2 * ($begin_end + $from_middle)) + 2)) {
 		$init_page_max = ($total_pages > $begin_end) ? $begin_end : $total_pages;
 
 		for ($i = 1; $i < $init_page_max + 1; $i++) {
-			$page_string .= ($i == $on_page) ? '<li><strong>' . $i . '</strong></li>' : '<li><a href="' . sprintf($url_format, (($i - 1) * $per_page)) . '">' . $i . '</a></li>';
+			$active = ($i == $on_page) ? 'active' : '';
+			$page_string .= '<li class="' . $active . '"><a href="' . sprintf($url_format, (($i - 1) * $per_page)) . '">' . $i . '</a></li>';
 		}
 
 		if ($total_pages > $begin_end) {
@@ -906,34 +951,33 @@ function build_num_pagination($url_format, $total_items, $per_page, $offset, $pr
 				$init_page_max = ($on_page < $total_pages - ($begin_end + $from_middle)) ? $on_page : $total_pages - ($begin_end + $from_middle);
 
 				for ($i = $init_page_min - $from_middle; $i < $init_page_max + ($from_middle + 1); $i++) {
-					$page_string .= ($i == $on_page) ? '<li><strong>' . $i . '</strong></li>' : '<li><a href="' . sprintf($url_format, (($i - 1) * $per_page)) . '">' . $i . '</a></li>';
+					$active = ($i == $on_page) ? 'active' : '';
+					$page_string .= '<li class="' . $active . '"><a href="' . sprintf($url_format, (($i - 1) * $per_page)) . '">' . $i . '</a></li>';
 				}
 
 				$page_string .= ($on_page < $total_pages - ($begin_end + $from_middle)) ? '<li><span>...</span></li>' : '';
 			} else {
-				$page_string .= '<li><span>...</span></li>';
+				$page_string .= '<li><a href="#">...</a></li>';
 			}
 
 			for ($i = $total_pages - ($begin_end - 1); $i < $total_pages + 1; $i++) {
-				$page_string .= ($i == $on_page) ? '<li><strong>' . $i . '</strong></li>'  : '<li><a href="' . sprintf($url_format, (($i - 1) * $per_page)) . '">' . $i . '</a></li>';
+				$active = ($i == $on_page) ? 'active' : '';
+				$page_string .= '<li class="' . $active . '"><a href="' . sprintf($url_format, (($i - 1) * $per_page)) . '">' . $i . '</a></li>';
 			}
 		}
 	} else {
 		for ($i = 1; $i < $total_pages + 1; $i++) {
-			$page_string .= ($i == $on_page) ? '<li><strong>' . $i . '</strong></li>' : '<li><a href="' . sprintf($url_format, (($i - 1) * $per_page)) . '">' . $i . '</a></li>';
+			$active = ($i == $on_page) ? 'active' : '';
+			$page_string .= '<li class="' . $active . '"><a href="' . sprintf($url_format, (($i - 1) * $per_page)) . '">' . $i . '</a></li>';
 		}
 	}
 
-	$page_string .= '</ul>';
-
-	$prev = $next = '';
-	if ($on_page > 1) {
-		$prev = '<a href="' . sprintf($url_format, (($on_page - 2) * $per_page)) . '">' . sprintf($pages_prev, $per_page) . '</a>';
-	}
-
 	if ($on_page < $total_pages) {
-		$next = '<a href="' . sprintf($url_format, ($on_page * $per_page)) . '">' . sprintf($pages_next, $per_page) . '</a>';
+		$next = '<li class="next"><a class="fui-arrow-right" href="' . sprintf($url_format, ($on_page * $per_page)) . '"></a></li>';
+		$page_string .= $next;
 	}
+	
+	$page_string .= '</ul>';
 
 	if ($page_string == ' <strong>1</strong>') {
 		$page_string = '';

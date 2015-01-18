@@ -59,6 +59,9 @@ h1, h2, h3 {
 h1, h2 {
 	color: #868670;
 }
+h2 {
+	font-size: 30px;
+}
 h6 {
 	font-size: 1.5em;
 }
@@ -641,7 +644,7 @@ hr {
 	float: left;
 	margin-right: 25px;
 }
-.ctl ul li a, .ctl ul li strong, .ctl ul li span, .ctl input, .ctl ul li small, input.ctl, .publish input, .remove {
+.ctl ul li a, .ctl ul li strong, .ctl ul li span, .ctl input, .ctl ul li small, input.ctl/*, .publish input*/, .remove {
 	margin: 10px 0 0;
 	padding: 5px 15px;
 	border-radius: 5px;
@@ -659,6 +662,13 @@ hr {
 }
 .ctl input {
 	padding: 10px;
+}
+
+.pagination a:hover {
+	text-decoration: none;
+}
+.pagination li {
+	margin: 0 !important;
 }
 
 .p {
@@ -692,16 +702,8 @@ hr {
 .publish {
 	margin: 0 auto;
 }
-.publish form {
-	padding: 8px;
-}
 .publish input {
-	display: block;
 	margin: 10px 0 0;
-	padding: 4px 8px;
-	/*border-radius: 4px;*/
-	background: #5DA209;
-	color: #fff;
 }
 .publish textarea, .publish input.f {
 	background: rgba(150,150,150,0.3);
@@ -751,7 +753,7 @@ hr {
 .comments {
 	display: block;
 	clear: both;
-	margin: 0 2%;
+	/*margin: 0 2%;*/
 }
 .comments h3 span {
 	position: absolute;
@@ -844,13 +846,15 @@ hr {
 	overflow: hidden;
 	margin: 1em 0;
 	padding: 0.2em 1.25em 0.2em 24px;
-	background: rgba(0,0,0,0.6);
-	color:#d0ced1;
+	background: #eee;
+	border-radius: 5px;
+	/*color:#d0ced1;*/
 }
 .comments blockquote blockquote {
 	float: none;
 	width: auto;
 	margin: 1em 0;
+	padding: 10px 20px;
 	border: 0;
 }
 .comments blockquote {
@@ -858,7 +862,7 @@ hr {
 	float: right;
 	width: 77%;
 	margin: 1em 0 0 0;
-	padding: 1.5em 0;
+	padding: 0.7em 0;
 	border-top: 1px solid #eee;
 }
 .comments h3 em img {

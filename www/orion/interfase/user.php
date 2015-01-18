@@ -490,6 +490,7 @@ class session {
 * all methods utilised for user functionality during a session.
 */
 class user extends session {
+	public $auth_cache = array();
 	public $lang = array();
 	public $help = array();
 	public $theme = array();
@@ -649,6 +650,10 @@ class user extends session {
 			$user_id = $this->d('user_id');
 		}
 
+		if (isset($this->auth_cache[$user_id][$name])) {
+			return $this->auth_cache[$user_id][$name];
+		}
+
 		$response = false;
 		if ($this->is('member') || $user_id) {
 			$all = $this->_team_auth_list($name, $user_id);
@@ -665,6 +670,8 @@ class user extends session {
 				$response = $all;
 			}
 		}
+
+		$this->auth_cache[$user_id][$name] = (int) $response;
 
 		return (bool) $response;
 	}

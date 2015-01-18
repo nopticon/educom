@@ -7,7 +7,7 @@
 	<li class="el_left a_mid">
 		<ul>
 			<li><a href="{item.URL}">{item.TITLE}</a></li>
-			<!-- <li class="__">{item.DATETIME}</li> -->
+			<li class="__">{item.DATETIME}</li> 
 			<li><a href="{item.URL}"><img src="{item.IMAGE}" alt="{item.TITLE}" /></a></li>
 		</ul>
 	</li>
@@ -18,7 +18,9 @@
 <span class="clear"></span>
 
 <!-- IF PAGES_NUMS != '' -->
-<div class="p">{PAGES_NUMS}</div>
+<div class="pad_top a_mid">
+	<div class="pagination pagination-success">{PAGES_NUMS}</div>
+</div>
 <!-- ENDIF -->
 
 <span class="clear"></span>

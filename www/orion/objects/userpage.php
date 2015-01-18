@@ -753,28 +753,8 @@ class userpage {
 	private function userpage() {
 		global $user, $comments;
 
-		$mode = request_var('mode', 'main');
-
-		/*if ($user->d('user_id') != $this->data->user_id && !in_array($mode, w('friend ban'))) {
-			$is_blocked = false;
-
-			if (!$user->is('all', $this->data->user_id)) {
-				$sql = 'SELECT ban_id
-					FROM _members_ban
-					WHERE user_id = ?
-						AND banned_user = ?';
-				if ($banned_row = sql_fieldrow(sql_filter($sql, $user->d('user_id'), $this->data->user_id))) {
-					$is_blocked = true;
-				}
-
-				$banned_lang = ($is_blocked) ? 'REMOVE' : 'ADD';
-
-				_style('block_member', array(
-					'URL' => s_link('m', $this->data->username_base, 'ban'),
-					'LANG' => lang('blocked_member_' . $banned_lang))
-				);
-			}
-		}*/
+		$mode = request_var('mode', '');
+		$mode = $mode ? : 'main';
 
 		$profile_fields = $comments->user_profile($this->data);
 
@@ -813,9 +793,32 @@ class userpage {
 			'friends' => array('L' => 'FRIENDS', 'U' => false)
 		);
 
+		//
+		// Check if friends
+		//
+		if ($user->d('user_id') != $this->data->user_id) {
+			$friend_add_lang = true;
+
+			if ($user->is('member')) {
+				$friend_add_lang = $this->is_friend($user->d('user_id'), $this->data->user_id);
+			}
+
+			$friend_add_lang = (!$friend_add_lang) ? 'friends_add' : 'friends_del';
+
+			$panel_selection += array(
+				'profile' => array('L' => $friend_add_lang, 'U' => s_link('m', $this->data->username_base, 'friend'))
+			);
+		}
+
 		if ($user->d('user_id') === $this->data->user_id) {
 			$panel_selection += array(
-				'profile' => array('L' => 'MEMBER_OPTIONS', 'U' => s_link('my profile'))
+				'manage_friend' => array('L' => 'MEMBER_OPTIONS', 'U' => s_link('my profile'))
+			);
+		}
+
+		if (!empty($this->data->user_website)) {
+			$panel_selection += array(
+				'website' => array('L' => 'WEBSITE', 'U' => $this->data->user_website)
 			);
 		}
 
@@ -834,23 +837,7 @@ class userpage {
 			);
 		}
 
-		//
-		// Check if friends
-		//
-		if ($user->d('user_id') != $this->data->user_id) {
-			$friend_add_lang = true;
-
-			if ($user->is('member')) {
-				$friend_add_lang = $this->is_friend($user->d('user_id'), $this->data->user_id);
-			}
-
-			$friend_add_lang = ($friend_add_lang) ? 'friends_add' : 'friends_del';
-
-			_style('friend', array(
-				'U_FRIEND' => s_link('m', $this->data->username_base, 'friend'),
-				'L_FRIENDS_ADD' => lang($friend_add_lang))
-			);
-		}
+		$current_grade = get_user_grade(false, $this->data->user_id);
 
 		//
 		// Generate page
@@ -861,8 +848,9 @@ class userpage {
 			'AVATAR_IMG' => $profile_fields->user_avatar,
 			'USER_ONLINE' => $online,
 
+			'CURRENT_GRADE_SECTION' => $current_grade['composed'],
+
 			'PM' => s_link('my dc start', $this->data->username_base),
-			'WEBSITE' => $this->data->user_website,
 			'MSN' => $this->data->user_msnm
 		));
 

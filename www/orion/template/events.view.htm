@@ -120,28 +120,26 @@ $(function() {
 <span class="clear"></span>
 
 <!-- IF IMG_PAGES_NUMS != '' -->
-<div class="pad_top p a_mid">{IMG_PAGES_NUMS}</div>
+<div class="x1 a_mid">
+	<div class="pagination pagination-success">{IMG_PAGES_NUMS}</div>
+</div>
 <!-- ENDIF -->
 
 <span class="clear"></span>
 <!-- END thumbnails -->
 
 <!-- BEGIN publish -->
-<div class="x2">
-<div class="publish">
-	<div class="h"><h3>{L_SEND_POST} <a class="smile" href="{U_EMOTICONS}">@</a></h3></div>
+<div class="x2 publish">
+	<div class="h"><h3>{L_SEND_POST}</h3></div>
+
 	<form action="{EVENT_PUBLISH}" method="post" name="post">
-		<!-- BEGIN hide -->
-		<input type="hidden" name="ref" value="{publish.REF}" />
-		<!-- END hide -->
 		<textarea id="comment" name="message"></textarea>
 		<!-- BEGIN reply -->
 		<div class="pad_top"><label for="comment_reply">{L_ORIGINAL_POST}</label></div>
 		<div class="pad_top"><textarea class="x2" id="comment_reply" name="reply_message" rows="2">{reply.MESSAGE}</textarea></div>
 		<!-- END reply -->
-		<input type="submit" name="post" value="{L_SUBMIT}" />
+		<input type="submit" class="btn btn-danger" name="post" value="{L_SEND_MESSAGE}" />
 	</form>
-</div>
 </div>
 
 <!-- BEGIN reply -->
@@ -159,7 +157,9 @@ $(function() {
 
 <!-- BEGIN messages -->
 <!-- IF MSG_PAGES_NUMS != '' -->
-<div class="p">{MSG_PAGES_NUMS}</div>
+<div class="x1 a_mid">
+	<div class="pagination pagination-warning">{MSG_PAGES_NUMS}</div>
+</div>
 <!-- ENDIF -->
 
 <div class="comments">
@@ -168,28 +168,30 @@ $(function() {
 		<h3><strong>{row.S_ROW_COUNT}</strong><span>.</span> <em><a href="{row.PROFILE}"><img src="{row.USER_AVATAR}" alt="{row.USERNAME}'s Avatar" /></a></em><cite><a href="{row.PROFILE}">{row.USERNAME}</a></cite> <span>dijo:</span></h3>
 
 		<blockquote>
+			<div class="btn-group">
+				<a class="btn btn-default disabled">{row.DATETIME}</a>
+				<!-- BEGIN controls -->
+				<!-- BEGIN reply --><a class="btn btn-default" href="{reply.URL}">{L_CMT_REPLY}</a><!-- END reply -->
+				<!-- BEGIN report --><a class="btn btn-default" href="{report.URL}">{L_CMT_REPORT}</a><!-- END report -->
+				<!-- BEGIN edit --><a class="btn btn-default" href="{edit.URL}">{L_CMT_EDIT}</a><!-- END edit -->
+				<!-- BEGIN restore --><a class="btn btn-default" href="{restore.URL}">{L_CMT_RESTORE}</a><!-- END restore -->
+				<!-- BEGIN delete --><a class="btn btn-default" class="ask_remove" href="{delete.URL}">{L_CMT_DELETE}</a><!-- END delete -->
+				<!-- END controls -->
+			</div>
+
 			<div class="x1 col_fr nowraptext">
 				{row.MESSAGE}
 			</div>
-
-			<!-- BEGIN controls -->
-			<p class="controls">
-				<!-- BEGIN reply --><a href="{reply.URL}">{L_CMT_REPLY}</a><!-- END reply -->
-				<!-- BEGIN report --><a href="{report.URL}">{L_CMT_REPORT}</a><!-- END report -->
-				<!-- BEGIN edit --><a href="{edit.URL}">{L_CMT_EDIT}</a><!-- END edit -->
-				<!-- BEGIN restore --><a href="{restore.URL}">{L_CMT_RESTORE}</a><!-- END restore -->
-				<!-- BEGIN delete --><a class="ask_remove" href="{delete.URL}">{L_CMT_DELETE}</a><!-- END delete -->
-			</p>
-			<!-- END controls -->
-
-			<p class="dtposted">{row.DATETIME}</p>
 		</blockquote>
 	<hr /></div>
 	<!-- END row -->
 </div>
 
 <!-- IF MSG_PAGES_NUMS != '' -->
-<div class="p">{MSG_PAGES_NUMS}</div>
+<div class="x1 a_mid">
+	<div class="pagination pagination-warning">{MSG_PAGES_NUMS}</div>
+</div>
+<!-- <div class="p">{MSG_PAGES_NUMS}</div> -->
 <!-- ENDIF -->
 <!-- END messages -->
 
