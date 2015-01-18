@@ -48,19 +48,4 @@ foreach ($secciones as $row) {
 	<?php build($form); submit(); ?>
 </form>
 
-<script type="text/javascript">
-$(function() {
-	$('#inputgrado').change(function() {
-		$.ajax({
-			type: "POST",
-			url: "../../actseccion.php",
-			data: "grado=" + this.value,
-			success: function(msg) {
-				$('#seccion').html(msg);
-			}
-		});
-	});
-});
-</script>
-
 <?php pie(); ?>

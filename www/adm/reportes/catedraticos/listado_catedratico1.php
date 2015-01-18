@@ -29,19 +29,4 @@ $list = $db->sql_rowset($db->__prepare($sql, $grado));
 	<?php } ?>
 </table>
 
-<script type="text/javascript">
-$(function() {
-	$('#grado').change(function() {
-		$.ajax({
-			type: "POST",
-			url: "../../actseccion.php",
-			data: "grado=" + this.value,
-			success: function(msg) {
-				$('#seccion').html(msg);
-			}
-		});
-	});
-});
-</script>
-
 <?php pie(); ?>

@@ -91,15 +91,14 @@ function pie() {
 ?>
 <span class="clear"></span>
 
-</div>
-</div>
+</div></div>
 
 </body>
 </html>
 <?php
 }
 
-function encabezado($page_title = '', $ruta = '', $full = true) {
+function get_header($page_title = '', $ruta = '', $full = true) {
 	global $config, $user;
 
 	$is_member = $user->is('member');
@@ -125,6 +124,42 @@ function encabezado($page_title = '', $ruta = '', $full = true) {
 
 <body>
 	<div class="page">
+<?php
+}
+
+function encabezado($page_title = '', $ruta = '', $full = true) {
+	global $config, $user;
+
+	$is_member = $user->is('member');
+
+	$menu_list = array(
+		array('href' => 'alumnos/', 'title' => 'Inscripci&oacute;n', 'auth' => 'student'),
+		array('href' => 'reinscripcion/', 'title' => 'Re-Inscripci&oacute;n', 'auth' => 'founder'),
+		array('href' => 'notas/', 'title' => 'Notas', 'auth' => 'founder'),
+		array('href' => 'historial/', 'title' => 'Historial de alumno', 'auth' => 'teacher'),
+		array('href' => 'reportes/', 'title' => 'Reportes', 'auth' => 'teacher'),
+		array('href' => 'faltas/', 'title' => 'Faltas Acad&eacute;micas', 'auth' => 'teacher'),
+		array('href' => 'codigo_alumno/', 'title' => 'C&oacute;digos de alumnos', 'auth' => 'founder'),
+		// array('href' => 'ocupacional/', 'title' => 'Cursos ocupacionales', 'auth' => 'founder'),
+		array('href' => 'mantenimientos/alumnos/', 'title' => 'Modificaci&oacute;n de alumnos', 'auth' => 'founder'),
+		array('href' => 'aux_search/', 'title' => 'B&uacute;squeda de alumnos', 'auth' => 'founder'),
+		array('href' => 'editar/', 'title' => 'Edici&oacute;n de notas', 'auth' => 'founder'),
+		array('href' => 'mantenimientos/', 'title' => 'Mantenimientos', 'auth' => 'founder')
+	);
+
+	$enabled_items = [];
+	foreach ($menu_list as $row) {
+		if (!$user->is($row['auth'])) continue;
+
+		$enabled_items[] = [
+			'href' => a($row['href']),
+			'title' => $row['title']
+		];
+	}
+
+	get_header($page_title, $ruta, $full);
+
+?>
 	<div class="header">
 		<div class="brand">
 			<h1><a href="."><?php echo $config->sitename; ?></a></h1>
@@ -140,7 +175,22 @@ function encabezado($page_title = '', $ruta = '', $full = true) {
 				<li>
 					<div class="collapse navbar-ex1-collapse" style="display: block;">
 						<ul>
-							<?php require_once(__DIR__ . '/../menu.php'); ?>
+							<?php if ($enabled_items) { ?>
+							<li class="dropdown active">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones</a>
+								<ul class="dropdown-menu">
+
+								<?php
+
+								foreach ($enabled_items as $row) {
+									echo '<li><a href="' . $row['href'] . '" title="' . $row['title'] . '">' . $row['title'] . '</a></li>';
+								}
+
+								?>
+
+								</ul>
+							</li>
+							<?php } ?>
 						</ul>
 					</div>
 				</li>
@@ -165,31 +215,7 @@ function encabezado($page_title = '', $ruta = '', $full = true) {
 }
 
 function encabezado_simple($page_title = '', $ruta = '', $full = true) {
-	$real_page_title = 'ECP' . (($page_title) ? ': ' . $page_title : '');
+	get_header($page_title, $ruta, $full);
 
-?><!DOCTYPE HTML>
-<html>
-<head>
-<meta charset="iso-8859-1" />
-<title><?php echo $real_page_title; ?></title>
-<link rel="stylesheet" type="text/css" href="/adm/public/flat-ui/css/vendor/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="/adm/public/flat-ui/css/flat-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="public/css/style.css" />
-<link rel="stylesheet" type="text/css" href="public/kendo/css/kendo.flat.min.css" />
-<link rel="stylesheet" type="text/css" href="public/kendo/css/kendo.common.min.css" />
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="{S_ASSETS}j.js">\x3C/script>')</script>
-<script src="/adm/public/flat-ui/js/flat-ui.min.js" type="text/javascript"></script>
-<script src="public/kendo/js/kendo.web.min.js"></script>
-<script src="public/js/ff.js" type="text/javascript"></script>
-</head>
-
-<body>
-	<div class="container">
-		<div id="content">
-<?php
-
+	echo '<div id="content">';
 }
-
-?>

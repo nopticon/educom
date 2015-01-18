@@ -183,16 +183,6 @@ $(function() {
 		} ]
 	});
 
-	$('#grado').change(function() {
-		$.ajax({
-			type: "POST",
-			url: "../actseccion.php",
-			data: "grado=" + this.value,
-			success: function(msg) {
-				$('#seccion').html(msg);
-			}
-		});
-	});
 });
 </script>
 

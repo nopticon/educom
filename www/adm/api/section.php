@@ -1,8 +1,12 @@
 <?php
 
-require_once("./conexion.php");
+require_once('../conexion.php');
 
-$grado = $_REQUEST['grado'];
+$grado = request_var('grado', 0);
+
+if (!$grado) {
+	exit;
+}
 
 $sql = 'SELECT *
 	FROM secciones

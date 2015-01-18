@@ -139,21 +139,4 @@ foreach ($seccion as $row) {
 	<?php build($form); submit('Crear alumno'); ?>
 </form>
 
-<script type="text/javascript">
-//<![CDATA[
-$(function() {
-	$('#inputgrado').change(function() {
-		$.ajax({
-			type: "POST",
-			url: "../actseccion.php",
-			data: "grado=" + $(this).val(),
-			success: function(msg) {
-				$('#inputseccion').html(msg);
-			}
-		});
-	});
-});
-//]]>
-</script>
-
 <?php pie(); ?>

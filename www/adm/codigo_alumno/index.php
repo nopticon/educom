@@ -48,21 +48,4 @@ encabezado('Ingresar C&oacute;digos de Alumnos');
 	<?php build($form); submit(); ?>
 </form>
 
-<script type="text/javascript">
-//<![CDATA[
-$(function() {
-	$('#grado').change(function() {
-		$.ajax({
-			type: "POST",
-			url: "../actseccion.php",
-			data: "grado=" + $(this).val(),
-			success: function(msg) {
-				$('#seccion').html(msg);
-			}
-		});
-	});
-});
-//]]>
-</script>
-
 <?php pie(); ?>
