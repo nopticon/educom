@@ -7,8 +7,8 @@ $(function() {
 	$('#grado').change(function() {
 		$.ajax({
 			type: "POST",
-			url: '../api/section.php',
-			data: "grado=" + $(this).val(),
+			url: '/adm/api/section.php',
+			data: 'grado=' + $(this).val(),
 			success: function(msg) {
 				$('#seccion').html(msg);
 			}
@@ -18,8 +18,8 @@ $(function() {
 	$('#inputgrado').change(function() {
 		$.ajax({
 			type: "POST",
-			url: '../api/section.php',
-			data: "grado=" + $(this).val(),
+			url: '/adm/api/section.php',
+			data: 'grado=' + $(this).val(),
 			success: function(msg) {
 				$('#inputseccion').html(msg);
 			}
