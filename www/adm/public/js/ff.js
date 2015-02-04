@@ -25,4 +25,23 @@ $(function() {
 			}
 		});
 	});
+
+	$('.input-tags').textext({
+		plugins : 'autocomplete filter tags ajax',
+		ajax : {
+			url : '/adm/api/students.php',
+			dataType : 'json'
+		}
+	}).bind('isTagAllowed', function(e, data) {
+		var formData = $(e.target).textext()[0].tags()._formData,
+			list = eval(formData);
+
+		// Duplicate checking
+		if (formData.length && list.indexOf(data.tag) >= 0) {
+			var message = [ 'El estudiante', data.tag, 'ya esta incluido.' ].join(' ');
+			alert(message);
+
+			data.result = false;
+		}
+	});
 });

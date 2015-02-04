@@ -93,6 +93,12 @@ hr {
 	height: 0.1em;
 	line-height: 0.1em;
 }
+.input-tags {
+	width: 600px !important;
+}
+.text-core span {
+	color: #999 !important;
+}
 
 .tr_x0 td {
 	padding-top: 5px;

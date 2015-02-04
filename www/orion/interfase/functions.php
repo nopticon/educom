@@ -329,12 +329,13 @@ function get_user_grade($year = false, $user_id = false) {
 	}
 
 	$response = array(
+		'group' => 0,
 		'grade' => '',
 		'section' => '',
 		'composed' => ''
 	);
 
-	$sql = 'SELECT g.nombre as grade_name, s.nombre_seccion as section_name
+	$sql = 'SELECT g.nombre as grade_name, s.nombre_seccion as section_name, s.id_seccion as group_id
 		FROM alumno a, reinscripcion r, grado g, secciones s
 		WHERE a.id_member = ?
 			AND r.anio = ?
@@ -346,6 +347,7 @@ function get_user_grade($year = false, $user_id = false) {
 	}
 
 	$response = array(
+		'group' => $row->group_id,
 		'grade' => $row->grade_name,
 		'section' => $row->section_name,
 		'composed' => $row->grade_name . ' ' . $row->section_name
@@ -2820,6 +2822,14 @@ function build($fields) {
 						</div>
 					</div>';
 					break;
+				case 'tags':
+					echo '<div class="form-group">
+						<label for="input' . $field_name . '" class="col-lg-2 control-label">' . $field_data['value'] . '</label>
+						<div class="col-lg-10">
+							<textarea rows="1" class="form-control input-tags" name="' . $field_name . '" id="input' . $field_name . '" placeholder="' . $field_data['value'] . '" autocomplete="off"></textarea>
+						</div>
+					</div>';
+					break;
 
 				default:
 					echo '<div class="form-group">
@@ -2852,6 +2862,35 @@ function pie() {
 function get_header($page_title = '', $ruta = '', $full = true) {
 	global $config, $user;
 
+	$css = [
+		a('public/flat-ui/css/vendor/bootstrap.min.css'),
+		a('public/flat-ui/css/flat-ui.min.css'),
+		a('public/kendo/css/kendo.flat.min.css'),
+		a('public/kendo/css/kendo.common.min.css'),
+		'/assets/default.css',
+		a('public/css/textext.core.css'),
+		a('public/css/textext.plugin.tags.css'),
+		a('public/css/textext.plugin.autocomplete.css'),
+		a('public/css/textext.plugin.focus.css'),
+		a('public/css/textext.plugin.prompt.css'),
+		a('public/css/textext.plugin.arrow.css'),
+	];
+
+	$js = [
+		a('public/flat-ui/js/flat-ui.min.js'),
+		a('public/kendo/js/kendo.web.min.js'),
+		a('public/js/ff.js'),
+		a('public/js/textext.core.js'),
+		a('public/js/textext.plugin.tags.js'),
+		a('public/js/textext.plugin.autocomplete.js'),
+		a('public/js/textext.plugin.suggestions.js'),
+		a('public/js/textext.plugin.filter.js'),
+		a('public/js/textext.plugin.focus.js'),
+		a('public/js/textext.plugin.prompt.js'),
+		a('public/js/textext.plugin.ajax.js'),
+		a('public/js/textext.plugin.arrow.js'),
+	];
+
 	$is_member = $user->is('member');
 	$real_page_title = $config->sitename . (($page_title) ? ': ' . $page_title : '');
 
@@ -2860,17 +2899,23 @@ function get_header($page_title = '', $ruta = '', $full = true) {
 <head>
 <meta charset="utf-8" />
 <title><?php echo $real_page_title; ?></title>
-<link rel="stylesheet" type="text/css" href="<?php echo a('public/flat-ui/css/vendor/bootstrap.min.css'); ?>" />
-<link rel="stylesheet" type="text/css" href="<?php echo a('public/flat-ui/css/flat-ui.min.css'); ?>" />
-<link rel="stylesheet" type="text/css" href="<?php echo a('public/kendo/css/kendo.flat.min.css'); ?>" />
-<link rel="stylesheet" type="text/css" href="<?php echo a('public/kendo/css/kendo.common.min.css'); ?>" />
-<link rel="stylesheet" type="text/css" href="/assets/default.css?g=1368227590" />
+<?php
+
+foreach ($css as $row) {
+	echo '<link rel="stylesheet" type="text/css" href="' . $row . '" />' . "\n";
+}
+
+?>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="<?php echo a('public/js/jquery.js'); ?>">\x3C/script>')</script>
-<script src="<?php echo a('public/flat-ui/js/flat-ui.min.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo a('public/kendo/js/kendo.web.min.js'); ?>"></script>
-<script src="<?php echo a('public/js/ff.js'); ?>" type="text/javascript"></script>
+<?php
+
+foreach ($js as $row) {
+	echo '<script type="text/javascript" charset="utf-8" src="' . $row . '"></script>' . "\n";
+}
+
+?>
 </head>
 
 <body>

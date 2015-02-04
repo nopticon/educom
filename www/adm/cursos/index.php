@@ -5,16 +5,19 @@ require_once('../conexion.php');
 encabezado('Ingreso de Cursos para Grado');
 
 $sql = 'SELECT *
-	FROM areas_cursos';
+	FROM areas_cursos
+	ORDER BY rel_order';
 $areas_cursos = $db->sql_rowset($sql);
 
 $sql = 'SELECT *
 	FROM grado
-	WHERE status = ?';
+	WHERE status = ?
+	ORDER BY grade_order';
 $grado = $db->sql_rowset($db->__prepare($sql, 'Alta'));
 
 $sql = 'SELECT *
-	FROM catedratico';
+	FROM catedratico
+	ORDER BY nombre_catedratico, apellido';
 $catedratico = $db->sql_rowset($sql);
 
 $sql = 'SELECT *
@@ -42,7 +45,7 @@ $form = array(
 		),
 		'grado' => array(
 			'type' => 'select',
-			'show' => 'Relacionar a grado',
+			'show' => 'Grado',
 			'value' => array()
 		),
 		'catedratico' => array(
