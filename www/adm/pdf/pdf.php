@@ -20,13 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 if (!defined('XFS')) exit;
 
-function entity_decode($s, $compat = true) {
-	if ($compat) {
-		return html_entity_decode($s, ENT_COMPAT, 'UTF-8');
-	}
-	return html_entity_decode($s);
-}
-
 class _pdf {
 	public $cp;
 	private $document_top = 0;

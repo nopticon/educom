@@ -1,75 +1,67 @@
 <div class="page">
-	<div class="header">
-		<div class="brand">
-			<h1><a href="{U_HOME}" title="{L_APPLICATION}">{L_APPLICATION}</a></h1>
-			<!-- <h2>{L_APPLICATION_DESC}</h2> -->
-		</div>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
 
-		<!-- IF S_MEMBER -->
-		<!-- BEGIN hide -->
-		<div id="search">
-			<form id="searchForm" method="post">
-				<fieldset>
-					<input id="s" type="text" title="{SEARCH_IN} {L_APPLICATION}">
-					<input id="sb" type="submit" value=" &gt; " />
-				</fieldset>
-			</form>
-		</div>
-		<!-- END hide -->
-		<!-- ELSE -->
-		<form action="{U_SESSION}" method="get">
-			<div class="a_right ctl"><input type="submit" value="{L_USER_IDENTITY}" /></div>
-		</form>
-		<!-- ENDIF -->
+				<a class="navbar-brand" href="{U_HOME}">{L_APPLICATION}</a>
+			</div>
 
-		<!-- BEGIN hide -->
-		<!-- BEGIN main_menu -->
-		<!-- BEGIN row -->
-		<!-- IF row.TITLE == 'Administrador' -->
-		<form action="{row.HREF}" method="get">
-			<div class="a_right ctl"><input type="submit" value="{row.TITLE}" /></div>
-		</form>
-		<!-- ENDIF -->
-		<!-- END row -->
-		<!-- END main_menu -->
-		<!-- END hide -->
+			<!-- IF S_MEMBER -->
+			<!-- BEGIN main_menu -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<!-- BEGIN row -->
+					<!-- IF row.TITLE != 'Administrador' && row.TITLE != 'Cerrar Sesi&oacute;n' -->
+					<li><a href="{row.HREF}" title="{row.TITLE}">{row.TITLE}</a></li>
+					<!-- ENDIF -->
+					<!-- END row -->
 
-		<!-- IF S_MEMBER -->
-		<!-- BEGIN main_menu -->
-		<div id="menu">
-			<ul>
-				<!-- BEGIN row -->
-				<!-- IF row.TITLE != 'Administrador' -->
-				<li><a href="{row.HREF}" title="{row.TITLE}">{row.TITLE}</a></li>
-				<!-- ENDIF -->
-				<!-- END row -->
-				
-				<!-- BEGIN adm_list -->
-				<li>
-					<div class="collapse navbar-ex1-collapse" style="display: block;">
-						<ul>
-							<li class="dropdown active">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Acciones</a>
-								<ul class="dropdown-menu">
-									<!-- BEGIN row -->
-									<li><a href="{row.HREF}" title="{row.TITLE}">{row.TITLE}</a></li>
-									<!-- END row -->
-								</ul>
-							</li>
+					<!-- BEGIN adm_list -->
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Acciones <span class="caret"></span></a>
+
+						<ul class="dropdown-menu" role="menu">
+							<!-- BEGIN row -->
+							<li><a href="{row.HREF}" title="{row.TITLE}">{row.TITLE}</a></li>
+							<!-- END row -->
 						</ul>
-					</div>
-				</li>
-				<!-- END adm_list -->
-			</ul>
+					</li>
+					<!-- END adm_list -->
+
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Usuario <span class="caret"></span></a>
+
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="{U_PROFILE}">{L_MEMBER_PROFILE}</a></li>
+							<li><a href="{U_EDITPROFILE}">{L_MEMBER_OPTIONS}</a></li>
+						</ul>
+					</li>
+
+					<!-- BEGIN row -->
+					<!-- IF row.TITLE == 'Cerrar Sesi&oacute;n' -->
+					<li>
+						<form class="navbar-form navbar-right" action="{row.HREF}">
+							<button type="submit" class="btn btn-warning">{row.TITLE}</button>
+						</form>
+					</li>
+					<!-- ENDIF -->
+					<!-- END row -->
+				</ul>
+			</div>
+			<!-- END main_menu -->
+			<!-- ELSE -->
+			<form class="navbar-form navbar-right" action="{U_SESSION}">
+				<button type="submit" class="btn btn-warning">{L_USER_IDENTITY}</button>
+			</form>
+			<!-- ENDIF -->
 		</div>
-		<!-- END main_menu -->
-		<!-- ENDIF -->
-
-		<span class="clear"></span>
-	</div>
-
-	<hr />
-	<div id="search_result"></div>
+	</nav>
 
 	<div class="pad_top ls">
 		<!-- BEGIN error -->

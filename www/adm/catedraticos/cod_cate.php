@@ -11,7 +11,7 @@ $direccion = request_var('direccion', '');
 $observacion = request_var('observacion', '');
 $gender = request_var('gender', 0);
 
-$registro = 'cmemou';
+$registro = '';
 $status = 'Alta';
 
 $country = 90;

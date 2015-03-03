@@ -991,7 +991,7 @@ class Template {
 		
 		// This will handle the remaining root-level varrefs
 		if ($this->replace_vars) {
-			$code = preg_replace('#\{([a-z0-9\-_]*?)\}#is', '<'.'?php echo isset($this->vars[\'\1\']) ? $this->vars[\'\1\'] : $this->lang(\'\1\'); ?'.'>', $code);
+			$code = preg_replace('#\{([a-z0-9\-_/]*?)\}#is', '<'.'?php echo isset($this->vars[\'\1\']) ? $this->vars[\'\1\'] : $this->lang(\'\1\'); ?'.'>', $code);
 			$code = preg_replace('#\{\$([a-z0-9\-_]*?)\}#is', '<'.'?php echo isset($this->_tpldata[\'DEFINE\'][\'.\'][\'\\1\']) ? $this->_tpldata[\'DEFINE\'][\'.\'][\'\\1\'] : \'\'; ?'.'>', $code);
 		}
 		return $code;

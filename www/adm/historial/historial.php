@@ -10,7 +10,7 @@ $sql = 'SELECT *
 	FROM alumno
 	WHERE carne = ?';
 if (!$alumno = $db->sql_fieldrow($db->__prepare($sql, $carne))) {
-	redirect('index.php');
+	redirect(a('historial/index.php'));
 }
 
 $sql = 'SELECT *

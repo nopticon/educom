@@ -4,4 +4,4 @@ ini.*.php
 sftp-config*.json
 cache/
 vendor/
-
+private/

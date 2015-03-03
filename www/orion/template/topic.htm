@@ -54,7 +54,7 @@
 <!-- IF PAGES_NUMS != '' -->
 <span class="clear"></span>
 
-<div class="p">{PAGES_NUMS}</div>
+<div class="a_mid">{PAGES_NUMS}</div>
 <!-- ENDIF -->
 
 <!-- BEGIN posts -->
@@ -98,22 +98,20 @@
 
 <!-- IF PAGES_NUMS != '' -->
 <span class="clear"></span>
-<div class="p">{PAGES_NUMS}</div>
+<div class="a_mid">{PAGES_NUMS}</div>
 <!-- ENDIF -->
 
 <!-- BEGIN post_box -->
 <span class="clear"></span>
 
 <div class="pad_top publish">
-	<div class="h"><h3>{L_SEND_POST} <a class="smile" href="{U_EMOTICONS}">@</a></h3></div>
+	<div class="h"><h3>{L_SEND_POST}</h3></div>
 	<form action="{post_box.S_POST_ACTION}" method="post">
 		<textarea id="comment" name="message"></textarea>
 		<!-- BEGIN reply -->
 		<div class="pad_top"><label for="comment_reply">{L_ORIGINAL_POST}</label></div>
 		<div class="pad_top"><textarea class="x2" id="comment_reply" name="reply_message" rows="2">{reply.MESSAGE}</textarea></div>
 		<!-- END reply -->
-		<label for="comment_np">{L_NOWPLAYING}</label>
-		<input class="f" id="comment_np" name="np" value="{post_box.NP}" />
 		<input type="submit" name="post" value="{L_SUBMIT}" />
 	</form>
 </div>

@@ -67,7 +67,24 @@ function _request($ary) {
 	$response = new stdClass();
 
 	foreach ($ary as $ary_k => $ary_v) {
+		$filters = [];
+
+		if (is_array($ary_v)) {
+			if (isset($ary_v['filter'])) {
+				$filters = $ary_v['filter'];
+			}
+
+			if (isset($ary_v['default'])) {
+				$ary_v = $ary_v['default'];
+			}
+
+		}
+
 		$response->$ary_k = request_var($ary_k, $ary_v);
+
+		foreach ($filters as $filter) {
+			$response->$ary_k = $filter($response->$ary_k);
+		}
 	}
 
 	return $response;
@@ -360,6 +377,7 @@ function menu_items() {
 	global $user;
 
 	$menu_list = [
+		['href' => 'activity/', 'title' => 'Tareas'],
 		['href' => 'alumnos/', 'title' => 'Inscripci&oacute;n', 'auth' => 'student'],
 		['href' => 'reinscripcion/', 'title' => 'Re-Inscripci&oacute;n', 'auth' => 'founder'],
 		['href' => 'notas/', 'title' => 'Notas', 'auth' => 'founder'],
@@ -376,7 +394,7 @@ function menu_items() {
 
 	$enabled_items = [];
 	foreach ($menu_list as $row) {
-		if (!$user->is($row['auth'])) continue;
+		if ($row['auth'] && !$user->is($row['auth'])) continue;
 
 		$enabled_items[] = [
 			'href' => a($row['href']),
@@ -961,10 +979,32 @@ function build_num_pagination($url_format, $total_items, $per_page, $offset, $pr
 	$pages_prev = lang((($lang_prefix != '') ? $lang_prefix : '') . 'pages_prev');
 	$pages_next = lang((($lang_prefix != '') ? $lang_prefix : '') . 'pages_next');
 
-	$page_string = '<ul>';
+	/*
+	<nav>
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+	 */
+
+	$page_string = '<ul class="pagination">';
 
 	if ($on_page > 1) {
-		$prev = '<li class="previous"><a class="fui-arrow-left" href="' . sprintf($url_format, (($on_page - 2) * $per_page)) . '"></a></li>';
+		$prev = '<li aria-label="Previous" class="previous"><a aria-label="Next" class="fui-arrow-left" href="' . sprintf($url_format, (($on_page - 2) * $per_page)) . '"><span aria-hidden="true">&laquo;</span></a></li>';
 		$page_string .= $prev;
 	}
 
@@ -1006,7 +1046,7 @@ function build_num_pagination($url_format, $total_items, $per_page, $offset, $pr
 	}
 
 	if ($on_page < $total_pages) {
-		$next = '<li class="next"><a class="fui-arrow-right" href="' . sprintf($url_format, ($on_page * $per_page)) . '"></a></li>';
+		$next = '<li class="next"><a aria-label="Right" class="fui-arrow-right" href="' . sprintf($url_format, ($on_page * $per_page)) . '"><span aria-hidden="true">&raquo;</span></a></li>';
 		$page_string .= $next;
 	}
 	
@@ -1951,21 +1991,18 @@ function fatal_error($mode = '404', $bp_message = '') {
 	}
 
 	if ($mode != '600') {
-		$error .= ', puedes regresar a<br /><a href="/">p&aacute;gina de inicio de Rock Republik</a> para encontrar informaci&oacute;n.';
-
-		// if (!empty($bp_message) && $user->d('user_id') == 2) {
-			$error .= '<br /><br />' . $bp_message;
-		// }
+		$error .= ', puedes regresar a<br /><a href="' . s_link() . '">p&aacute;gina de inicio</a> para encontrar informaci&oacute;n.';
+		$error .= '<br /><br />' . $bp_message;
 	}
 
 	sql_close();
 
-	$replaces = array(
+	$send_data = array(
 		'PAGE_TITLE' => $title,
 		'PAGE_MESSAGE' => $error
 	);
 
-	echo exception('error', $replaces);
+	echo exception('error', $send_data);
 	exit;
 }
 
@@ -2061,6 +2098,40 @@ function topic_arkane($topic_id, $value) {
 
 function page_layout($page_title, $htmlpage, $custom_vars = false, $js_keepalive = true) {
 	global $config, $user, $cache, $starttime, $template;
+
+	$css = [
+		a('public/bootstrap/css/bootstrap.min.css'),
+		'/assets/default.css',
+		a('public/select2/select2.css'),
+		a('public/select2/select2-bootstrap.css'),
+		a('public/bootstrap/css/datepicker3.css'),
+		// a('public/kendo/css/kendo.flat.min.css'),
+		a('public/kendo/css/kendo.common.min.css'),
+		a('public/kendo/css/kendo.bootstrap.min.css'),
+		'/assets/mobile.css',
+	];
+
+	$js = [
+		a('public/bootstrap/js/bootstrap.min.js'),
+		a('public/bootstrap/js/bootstrap-datepicker.js'),
+		a('public/bootstrap/js/bootstrap-datepicker.es.js'),
+		a('public/select2/select2.min.js'),
+		a('public/select2/select2.es.min.js'),
+		a('public/kendo/js/kendo.web.min.js'),
+		'/assets/g.js',
+	];
+
+	foreach ($css as $row) {
+		_style('header_css', [
+			'path' => $row
+		]);
+	}
+
+	foreach ($js as $row) {
+		_style('header_js', [
+			'path' => $row
+		]);
+	}
 
 	build_main_menu();
 
@@ -2400,18 +2471,31 @@ function _style($a, $b = array(), $i = false) {
 
 	global $template;
 
+	if (is_array($a)) {
+		$a = implode('.', $a);
+	}
+
 	$template->assign_block_vars($a, _style_uv($b));
 
 	return true;
 }
 
-function _style_handler($f) {
+function _style_handler($block, $filename, $vars = array()) {
 	global $template;
 
-	$template->set_filenames(array('tmp' => $f));
-	$template->assign_var_from_handle('S_TMP', 'tmp');
+	$lower_block = strtolower($block);
+	$set_vars = array();
 
-	return _style_var('S_TMP');
+	foreach ($vars as $k => $v) {
+		$set_vars[$block . '_' . $k] = $v;
+	}
+
+	v_style($set_vars);
+
+	$template->set_filenames([$lower_block => $filename . '.htm']);
+	$template->assign_var_from_handle($block, $lower_block);
+
+	return $template->vars[$block];
 }
 
 function _style_vreplace($r = true) {
@@ -2753,6 +2837,87 @@ if (!function_exists('_pre')) {
 	}
 }
 
+function build_submit($value = 'Continuar') {
+	return _style_handler('SUBMIT', 'widget.submit', ['VALUE' => $value]);
+}
+
+function build_form($fields) {
+	$vars = [];
+
+	foreach ($fields as $field_block => $ary) {
+		_style('field_row');
+
+		if (!is_numeric($field_block)) {
+			_style('field_row.field_block', [
+				'title' => $field_block
+			]);
+		}
+
+		foreach ($ary as $field_name => $field_data) {
+			if (!isset($field_data['show'])) $field_data['show'] = $field_name;
+
+			if (!isset($field_data['default'])) $field_data['default'] = '';
+
+			switch ($field_data['type']) {
+				case 'radio':
+					_style('field_row.block', [
+						'type' => $field_data['type'],
+						'name' => $field_name,
+						'display' => $field_data['show']
+					]);
+
+					foreach ($field_data['value'] as $row_name => $row_value) {
+						$default = ($field_data['default'] == $row_name) ? ' checked="checked"' : '';
+
+						_style('field_row.block.row', [
+							'default' => $default,
+							'name' => $row_name,
+							'value' => $row_value
+						]);
+					}
+					break;
+				case 'select':
+					_style('field_row.block', [
+						'type' => $field_data['type'],
+						'name' => $field_name,
+						'display' => $field_data['show']
+					]);
+
+					$select_year = false;
+					if ($field_data['value'] == '*') {
+						$field_data['value'] = range(date('Y'), 2010);
+						$select_year = true;
+					}
+
+					foreach ($field_data['value'] as $row_name => $row_value) {
+						$default = ($field_data['default'] == $row_name) ? ' selected="selected"' : '';
+
+						if ($select_year) $row_name = $row_value;
+
+						_style('field_row.block.row', [
+							'default' => $default,
+							'name' => $row_name,
+							'value' => $row_value
+						]);
+					}
+					break;
+				case 'textarea':
+				case 'tags':
+				default:
+					_style('field_row.block', [
+						'type' => $field_data['type'],
+						'name' => $field_name,
+						'display' => $field_data['value'],
+						'default' => $field_data['default']
+					]);
+					break;
+			}
+		}
+	}
+
+	return _style_handler('FORM', 'widget.form', $vars);
+}
+
 function build($fields) {
 	foreach ($fields as $field_block => $ary) {
 		if (!is_numeric($field_block)) {
@@ -2863,32 +3028,26 @@ function get_header($page_title = '', $ruta = '', $full = true) {
 	global $config, $user;
 
 	$css = [
-		a('public/flat-ui/css/vendor/bootstrap.min.css'),
-		a('public/flat-ui/css/flat-ui.min.css'),
-		a('public/kendo/css/kendo.flat.min.css'),
-		a('public/kendo/css/kendo.common.min.css'),
+		a('public/bootstrap/css/bootstrap.min.css'),
 		'/assets/default.css',
-		a('public/css/textext.core.css'),
-		a('public/css/textext.plugin.tags.css'),
-		a('public/css/textext.plugin.autocomplete.css'),
-		a('public/css/textext.plugin.focus.css'),
-		a('public/css/textext.plugin.prompt.css'),
-		a('public/css/textext.plugin.arrow.css'),
+		a('public/select2/select2.css'),
+		a('public/select2/select2-bootstrap.css'),
+		a('public/bootstrap/css/datepicker3.css'),
+		// a('public/kendo/css/kendo.flat.min.css'),
+		a('public/kendo/css/kendo.common.min.css'),
+		a('public/kendo/css/kendo.common.bootstrap.min.css'),
+		a('public/kendo/css/kendo.bootstrap.min.css'),
+		'/assets/mobile.css',
 	];
 
 	$js = [
-		a('public/flat-ui/js/flat-ui.min.js'),
+		a('public/bootstrap/js/bootstrap.min.js'),
+		a('public/bootstrap/js/bootstrap-datepicker.js'),
+		a('public/bootstrap/js/bootstrap-datepicker.es.js'),
+		a('public/select2/select2.min.js'),
+		a('public/select2/select2.es.min.js'),
 		a('public/kendo/js/kendo.web.min.js'),
-		a('public/js/ff.js'),
-		a('public/js/textext.core.js'),
-		a('public/js/textext.plugin.tags.js'),
-		a('public/js/textext.plugin.autocomplete.js'),
-		a('public/js/textext.plugin.suggestions.js'),
-		a('public/js/textext.plugin.filter.js'),
-		a('public/js/textext.plugin.focus.js'),
-		a('public/js/textext.plugin.prompt.js'),
-		a('public/js/textext.plugin.ajax.js'),
-		a('public/js/textext.plugin.arrow.js'),
+		'/assets/g.js',
 	];
 
 	$is_member = $user->is('member');
@@ -2932,55 +3091,63 @@ function encabezado($page_title = '', $ruta = '', $full = true) {
 	get_header($page_title, $ruta, $full);
 
 ?>
-	<div class="header">
-		<div class="brand">
-			<h1><a href="/"><?php echo $config->sitename; ?></a></h1>
-		</div>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
 
-		<?php if ($is_member) { ?>
-		<div id="menu">
-			<ul>
-				<li><a href="/news/" title="Noticias">Noticias</a></li>
-				<li><a href="/events/" title="Eventos">Eventos</a></li>
-				<li><a href="/board/" title="Foro">Foro</a></li>
-				<li><a href="/community/" title="Comunidad">Comunidad</a></li>
-				<li>
-					<div class="collapse navbar-ex1-collapse" style="display: block;">
-						<ul>
-							<?php if ($enabled_items) { ?>
-							<li class="dropdown active">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones</a>
-								<ul class="dropdown-menu">
+				<a class="navbar-brand" href="/"><?php echo $config->sitename; ?></a>
+			</div>
 
-								<?php
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/news/" title="Noticias">Noticias</a></li>
+					<li><a href="/events/" title="Eventos">Eventos</a></li>
+					<li><a href="/board/" title="Foro">Foro</a></li>
+					<li><a href="/community/" title="Comunidad">Comunidad</a></li>
 
-								foreach ($enabled_items as $row) {
-									echo '<li><a href="' . $row['href'] . '" title="' . $row['title'] . '">' . $row['title'] . '</a></li>';
-								}
+					<?php if ($enabled_items) { ?>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Acciones <span class="caret"></span></a>
 
-								?>
+						<ul class="dropdown-menu" role="menu">
+							<?php
 
-								</ul>
-							</li>
-							<?php } ?>
+							foreach ($enabled_items as $row) {
+								echo '<li><a href="' . $row['href'] . '" title="' . $row['title'] . '">' . $row['title'] . '</a></li>';
+							}
+
+							?>
 						</ul>
-					</div>
-				</li>
-			</ul>
-		</div>
-		<?php } ?>
+					</li>
+					<?php } ?>
+					
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Usuario <span class="caret"></span></a>
 
-		<span class="clear"></span>
-	</div>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="/m/<?php echo $user->d('username_base'); ?>/">Ver Perfil</a></li>
+							<li><a href="/my/profile/">Opciones de Usuario</a></li>
+						</ul>
+					</li>
+
+					<li>
+						<form class="navbar-form navbar-right" action="/signout/">
+							<button type="submit" class="btn btn-warning">Cerrar Sesi&oacute;n</button>
+						</form>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 
 	<div id="content">
-		<br />
-
-		<div class="h">
-			<h3><?php echo $page_title; ?></h3>
-		</div>
-
-		<br />
+		<div class="h"><h3><?php echo $page_title; ?></h3></div>
 
 <?php
 

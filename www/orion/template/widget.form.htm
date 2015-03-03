@@ -1,0 +1,84 @@
+
+<!-- BEGIN field_row -->
+<!-- BEGIN field_block -->
+<h6>{field_block.TITLE}</h6><br />
+<!-- END field_block -->
+
+<!-- BEGIN block -->
+<!-- IF block.TYPE == 'radio' -->
+<div class="form-group">
+	<label for="input{block.NAME}" class="col-lg-2 control-label">{block.DISPLAY}</label>
+	<div class="col-lg-10 radio">
+		<!-- BEGIN row -->
+		<!-- IF row.S_ROW_COUNT -->&nbsp;&nbsp;&nbsp;<!-- ENDIF -->
+
+		<label class="radio">
+			<input{row.DEFAULT} type="radio" name="{block.NAME}" value="{row.NAME}" data-toggle="radio"> {row.VALUE}
+		</label>
+		<!-- END row -->
+	</div>
+</div>
+
+<!-- ELSEIF block.TYPE == 'select' -->
+<div class="form-group">
+	<label for="input{block.NAME}" class="col-lg-2 control-label">{block.DISPLAY}</label>
+	<div class="col-lg-10">
+		<select class="form-control" name="{block.NAME}" id="input{block.NAME}">
+			<!-- BEGIN row -->
+			<option{row.DEFAULT} value="{row.NAME}">{row.VALUE}</option>
+			<!-- END row -->
+		</select>
+	</div>
+</div>
+
+<!-- ELSEIF block.TYPE == 'textarea' -->
+<div class="form-group">
+	<label for="input{block.NAME}" class="col-lg-2 control-label">{block.DISPLAY}</label>
+	<div class="col-lg-10">
+		<textarea class="form-control" name="{block.NAME}" id="input{block.NAME}" autocomplete="off">{block.DEFAULT}</textarea>
+	</div>
+</div>
+
+<!-- ELSEIF block.TYPE == 'calendar' -->
+<div class="form-group">
+	<label for="input{block.NAME}" class="col-lg-2 control-label">{block.DISPLAY}</label>
+	<div class="col-lg-10">
+		    <div class="input-group date">
+		    	<input  name="{block.NAME}" id="input{block.NAME}" placeholder="{block.DISPLAY}" value="{block.DEFAULT}" type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+		    </div>
+	</div>
+</div>
+
+<!-- ELSEIF block.TYPE == 'tags' -->
+<!-- BEGIN hide -->
+<div class="form-group">
+	<label for="input{block.NAME}" class="col-lg-2 control-label">{block.DISPLAY}</label>
+	<div class="col-lg-10">
+		<textarea rows="1" class="form-control input-tags" name="{block.NAME}" id="input{block.NAME}" placeholder="{block.DISPLAY}" autocomplete="off"></textarea>
+	</div>
+</div>
+<!-- END hide -->
+
+<div class="form-group">
+	<label for="input{block.NAME}" class="col-lg-2 control-label">{block.DISPLAY}</label>
+	<div class="col-lg-10">
+		<select class="form-control input-tags" name="{block.NAME}" id="input{block.NAME}" multiple="multiple">
+			<!-- BEGIN row -->
+			<option{row.DEFAULT} value="{row.NAME}">{row.VALUE}</option>
+			<!-- END row -->
+		</select>
+	</div>
+</div>
+
+<!-- ELSE -->
+<div class="form-group">
+	<label for="input{block.NAME}" class="col-lg-2 control-label">{block.DISPLAY}</label>
+	<div class="col-lg-10">
+		<input type="text" class="form-control" name="{block.NAME}" id="input{block.NAME}" placeholder="{block.DISPLAY}" value="{block.DEFAULT}" />
+	</div>
+</div>
+
+<!-- ENDIF -->
+<!-- END block -->
+
+<!-- END field_row -->

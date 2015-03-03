@@ -2,53 +2,27 @@
 
 require_once('../conexion.php');
 
-encabezado('Tareas');
+$year 			= date('Y');
+$create_form 	= false;
+$user_role 		= get_user_role();
+$is_post 		= request_method() == 'post';
 
-$year = date('Y');
-$create_form = false;
-$user_role = get_user_role();
-$is_post = request_method() == 'post';
-
-if ($is_post) {
-	switch ($user_role) {
-		case 'student':
-			break;
-		case 'teacher':
-			$fields = [
-				'activity_name' => '',
-				'activity_description' => '',
-				'activity_start' => '',
-				'activity_end' => '',
-				'activity_schedule' => 0,
-				'activity_grup' => 0,
-				'activity_assignees' => '',
-			];
-			$fields = _request($fields);
-
-			$fields->activity_assignees = json_decode($fields->activity_assignees);
-
-
-
-			_pre($fields, true);
-			break;
-		case 'supervisor':
-			break;
-		case 'founder':
-			break;
-		default:
-			exit;
-			break;
-	}
-}
-
-// 
-// If request method is GET
-// 
 switch ($user_role) {
 	case 'student':
+		if ($is_post) {
+			// 
+		}
+
+		_style($user_role, [
+			'title' => 'Tareas ' . $year
+		]);
+
+		// 
+		// GET Method
+		// 
 		$group = get_user_grade($year);
 
-		$sql = 'SELECT *
+		$sql = 'SELECT *, c.apellido as apellido_catedratico
 			FROM alumno a, reinscripcion r, _activities ac, _activities_assigned aa, 
 				catedratico c, grado g, secciones s, areas_cursos acu, cursos cu
 			WHERE a.id_member = ?
@@ -62,14 +36,49 @@ switch ($user_role) {
 				AND ac.activity_schedule = cu.id_curso';
 		$activity_list = sql_rowset(sql_filter($sql, $user->d('user_id')));
 
-		foreach ($activity_list as $row) {
+		foreach ($activity_list as $i => $row) {
+			if (!$i) _style([$user_role, 'activities']);
 
+			foreach (w('start end') as $field) {
+				$row->{'activity_' . $field} = $user->format_date(strtotime($row->{'activity_' . $field}), 'l, ' . lang('date_format'));
+			}
+
+			_style([$user_role, 'activities', 'row'], $row);
 		}
-
-		_pre($activity_list, true);
 		break;
 	case 'teacher':
-		$create_form = true;
+		if ($is_post) {
+			$fields = [
+				'activity_name' => '',
+				'activity_description' => '',
+				'activity_start' => '',
+				'activity_end' => '',
+				'activity_schedule' => 0,
+				'activity_grup' => 0,
+				'activity_assignees' => [
+					'default' => '',
+					'filter' => ['html_entity_decode', 'json_decode']
+				],
+			];
+			$fields = _request($fields);
+
+			// 
+			// Look up students assignees
+			// 
+			$sql = 'SELECT user_id, username
+				FROM _members
+				WHERE username IN (' . implode(', ', array_fill(0, count($fields->activity_assignees), '?')) . ')
+				ORDER BY user_id';
+			$lookup_assignees = sql_rowset(sql_filter($sql, $fields->activity_assignees), 'user_id', 'username');
+
+			_pre($lookup_assignees);
+			_pre($fields, true);
+		}
+
+		// 
+		// GET Method
+		// 
+		_style($user_role);
 
 		$sql = 'SELECT u.id_curso, u.nombre_curso, g.id_grado, g.nombre, s.id_seccion, s.nombre_seccion
 			FROM catedratico c
@@ -78,10 +87,59 @@ switch ($user_role) {
 			INNER JOIN secciones s ON g.id_grado = s.id_grado
 			WHERE c.id_member = ?
 			ORDER BY u.nombre_curso, s.nombre_seccion';
-		if (!$teacher_schedule = sql_rowset(sql_filter($sql, $user->d('user_id')))) {
-			echo 'Usted no tiene cursos asignados para crear tareas.';
+		if ($teacher_schedule = sql_rowset(sql_filter($sql, $user->d('user_id')))) {
+			$form = [
+				'Crear tarea' => [
+					'activity_name' => [
+						'type' => 'text',
+						'value' => 'T&iacute;tulo'
+					],
+					'activity_description' => [
+						'type' => 'textarea',
+						'value' => 'Descripci&oacute;n'
+					],
+					'activity_start' => [
+						'type' => 'calendar',
+						'value' => 'Fecha de Inicio'
+					],
+					'activity_end' => [
+						'type' => 'calendar',
+						'value' => 'Fecha de Entrega'
+					],
+					'activity_schedule' => [
+						'type' => 'select',
+						'show' => 'Materia',
+						'value' => []
+					],
+					'activity_grade' => [
+						'type' => 'select',
+						'show' => 'Grado',
+						'value' => []
+					],
+					'activity_group' => [
+						'type' => 'select',
+						'show' => 'Secci&oacute;n',
+						'value' => []
+					],
+					'activity_assignees' => [
+						'type' => 'tags',
+						'value' => 'Alumnos asignados'
+					]
+				]
+			];
 
-			$create_form = false;
+			foreach ($teacher_schedule as $row) {
+				$form['Crear tarea']['activity_schedule']['value'][$row->id_curso] = $row->nombre_curso;
+				$form['Crear tarea']['activity_grade']['value'][$row->id_grado] = $row->nombre;
+				$form['Crear tarea']['activity_group']['value'][$row->id_seccion] = $row->nombre_seccion;
+			}
+
+			_style('teacher.create_activity', [
+				'form' => build_form($form),
+				'submit' => build_submit('Crear alumno')
+			]);
+		} else {
+			_style('teacher.no_courses_assigned');
 		}
 		break;
 	case 'supervisor':
@@ -93,61 +151,4 @@ switch ($user_role) {
 		break;
 }
 
-if ($create_form) {
-	$form = array(
-		'Crear tarea' => array(
-			'activity_name' => array(
-				'type' => 'text',
-				'value' => 'T&iacute;tulo'
-			),
-			'activity_description' => array(
-				'type' => 'textarea',
-				'value' => 'Descripci&oacute;n'
-			),
-			'activity_start' => array(
-				'type' => 'text',
-				'value' => 'Fecha de Inicio'
-			),
-			'activity_end' => array(
-				'type' => 'text',
-				'value' => 'Fecha de Entrega'
-			),
-			'activity_schedule' => array(
-				'type' => 'select',
-				'show' => 'Materia',
-				'value' => array()
-			),
-			'activity_grade' => array(
-				'type' => 'select',
-				'show' => 'Grado',
-				'value' => array()
-			),
-			'activity_group' => array(
-				'type' => 'select',
-				'show' => 'Secci&oacute;n',
-				'value' => array()
-			),
-			'activity_assignees' => [
-				'type' => 'tags',
-				'value' => 'Alumnos asignados'
-			]
-		)
-	);
-
-	foreach ($teacher_schedule as $row) {
-		$form['Crear tarea']['activity_schedule']['value'][$row->id_curso] = $row->nombre_curso;
-		$form['Crear tarea']['activity_grade']['value'][$row->id_grado] = $row->nombre;
-		$form['Crear tarea']['activity_group']['value'][$row->id_seccion] = $row->nombre_seccion;
-	}
-
-	?>
-
-	<form class="form-horizontal" action="<?php echo a('activity/'); ?>" method="post">
-		<?php build($form); submit('Crear alumno'); ?>
-	</form>
-	
-	<?php
-
-}
-
-pie();
+page_layout('Tareas', 'activities');

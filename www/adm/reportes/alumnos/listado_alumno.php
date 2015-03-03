@@ -44,7 +44,7 @@ foreach ($secciones as $row) {
 
 ?>
 
-<form class="form-horizontal" action="listado_alumno1.php" method="post" target="_blank">
+<form class="form-horizontal" action="listado_alumno1.php" method="post">
 	<?php build($form); submit(); ?>
 </form>
 

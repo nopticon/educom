@@ -1,12 +1,9 @@
-<!-- INCLUDE js/j.value.js -->
 <!-- INCLUDE js/j.periodic.js -->
 <!-- INCLUDE js/j.url.js -->
 <!-- INCLUDE js/j.textarea.js -->
 <!-- INCLUDE js/j.search.js -->
 <!-- INCLUDE js/j.slider.js -->
 <!-- INCLUDE js/j.area.js -->
-<!-- INCLUDE js/j.input-complete.js -->
-<!-- INCLUDE js/png.js -->
 
 function popup(url, name, width, height) {
 	var win = window.open(url, name, 'toolbar = 0, scrollbars = 1, location = 0, statusbar = 0, menubar = 0, resizable = 1, width=' + width + ', height=' + height);
@@ -43,10 +40,60 @@ $(function() {
 	var window_size = $(window).width();
 	var filesList = []
 
+	// $('input:text, textarea').first().focus();
+	$('select').select2();
+
+	$('#grado').on('change', function() {
+		$.ajax({
+			type: 'POST',
+			url: '/adm/api/section.php',
+			data: 'grado=' + $(this).val(),
+			success: function(msg) {
+				$('#seccion').html(msg);
+			}
+		});
+	});
+
+	$('#inputgrado').on('change', function() {
+		$.ajax({
+			type: 'POST',
+			url: '/adm/api/section.php',
+			data: 'grado=' + $(this).val(),
+			success: function(msg) {
+				$('#inputseccion').html(msg);
+			}
+		});
+	});
+
+	$('.input-group.date').datepicker({
+		autoclose: true,
+		todayHighlight: true,
+		language: 'es'
+	});
+
+	$('.input-tags').select2({
+		locale: 'es',
+		// placeholder: 'Buscar alumnos',
+		minimumInputLength: 1,
+		ajax: { 
+			url: '/adm/api/students.php',
+			dataType: 'json',
+			data: function(params) {
+				return {
+					q: params.term,
+					page: params.page,
+				};
+			},
+			processResults: function(data) {
+				return {results: data};
+			}
+		}
+	});
+
 	//
 	// Ajax: Account login
 	//
-	$('#account_login').submit(function(event) {
+	$('#account_login').on('submit', function(event) {
 		event.preventDefault();
 
 		$.ajax({
@@ -72,14 +119,9 @@ $(function() {
 		return false;
 	});
 
-	//
-	// Search box on header
-	//
-	$('#searchForm').jQLiteID();
-
 	$('ul[id^="expand_"]').hide().addClass('flying');
 
-	$('.expand').click(function(event) {
+	$('.expand').on('click', function(event) {
 		event.preventDefault();
 
 		var id = $(this).attr('id');
@@ -102,76 +144,22 @@ $(function() {
 		limit: 250
 	});
 
-	$('.w_broadcast a').click(function(event) {
-		event.preventDefault();
-
-		popup($(this).attr('href'), '_broadcast', 400, 500);
-	});
-
-	$('.pub').click(function(event) {
+	$('.pub').on('click', function(event) {
 		event.preventDefault();
 		$.scrollTo('.publish');
 	});
 
 	$('.ask_remove').on('click', function() {
-		if (confirm('Confirma si deseas eliminar esta publicacion')) {
+		if (confirm('Confirme si desea eliminar esta publicacion')) {
 			return true;
 		}
 
 		return false;
 	});
 
-	$('.smile').each(function() {
-		$(this).html('&#8594;&#9786;');
-		$(this).attr('title', 'Mostrar emociones');
-	}).click(function() {
-		popup($(this).attr('href'), '_emoticons', 300, 450);
-		return false;
-	});
-
-	if ($.url.segment() > 0) {
-		switch ($.url.segment(0)) {
-			case 'my':
-				switch ($.url.segment(1)) {
-					case 'register':
-						$('#refop').change(function() {
-							switch ($(this).val()) {
-								case '1':
-									text = 'E-mail de tu amigo';
-									break;
-								case '8':
-									text = 'Detalles';
-									break;
-								default:
-									text = 'Nombre';
-									break;
-							}
-							$('#tag_refby').html(text);
-							$('#refby').focus();
-						});
-						break;
-				}
-				break;
-			case 'topic':
-			case 'post':
-				// $('.lsig').each(function() {
-				// 	if ($(this).height() > 275) {
-				// 		$(this).addClass('sig-of');
-				// 	}
-				// });
-				break;
-			case 'a':
-				// if (!$.url.segment(1)) {
-				// 	xka = false;
-				// 	_.call('athumbs', 'ajx-thumbnails', 30);
-				// }
-				break;
-			case 'community':
-				// xka = false;
-				// _.call('commol', 'online', 10);
-				break;
-		}
-	}
+	// if ($.url.segment() > 0) {
+		// $.url.segment(0)
+	// }
 
 	if (xka) {
 		// Keep alive
@@ -268,7 +256,7 @@ $(function() {
 	try {
 		var url = window.location;
 
-        $('.fileupload_single button[type=submit]').click(function(event) {
+        $('.fileupload_single button[type=submit]').on('click', function(event) {
         	event.preventDefault();
 
 	        $('.fileupload_single').fileupload('send', {files:filesList});
@@ -276,7 +264,7 @@ $(function() {
 	        return false;
 	    });
 
-	    $('.fileupload button[type=submit]').click(function(event) {
+	    $('.fileupload button[type=submit]').on('click', function(event) {
         	event.preventDefault();
 
 	        $('.fileupload').fileupload('send', {files:filesList});

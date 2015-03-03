@@ -149,10 +149,14 @@ $lang += array(
 	'LOGIN2' => 'Iniciar Sesi&oacute;n',
 	'LOGOUT' => 'Salir',
 	'LOGOUT2' => 'Cerrar Sesi&oacute;n',
+	'SIGNOUT' => 'Cerrar Sesi&oacute;n',
 	'REGISTER' => 'Crea tu cuenta de usuario',
 	'PROFILE' => 'Perfil',
+	'MEMBER_PROFILE' => 'Ver Perfil',
 	'MEMBER_OPTIONS' => 'Opciones de Usuario',
 	'CREATE_USER' => 'Crear usuario',
+
+	'PROFILE_UPDATE' => 'Actualice la informaci&oacute;n de su cuenta:',
 
 	'USER_IDENTITY' => 'Inicia Sesi&oacute;n',
 
@@ -160,7 +164,7 @@ $lang += array(
 	'SENDPASSWORD2' => 'Crear contrase&ntilde;a de usuario',
 	'SENDPASSWORD_EXPLAIN' => 'Recibe una nueva contrase&ntilde;a',
 	'SENDPASSWORD2_EXPLAIN' => 'Por razones de seguridad no podemos mostrarte si el correo fue enviado. Si has ingresado una direcci&oacute;n v&aacute;lida, en un momento recibir&aacute;s en tu buz&oacute;n de email un c&oacute;digo para actualizar tu contrase&ntilde;a de usuario.',
-	'SENDPASSWORD3_EXPLAIN' => 'Por favor ingresa una nueva contrase&ntilde;a para tu usuario de Rock Republik.',
+	'SENDPASSWORD3_EXPLAIN' => 'Por favor ingresa una nueva contrase&ntilde;a para tu usuario.',
 	'SENDPASSWORD4_EXPLAIN' => 'Gracias por actualizar tu contrase&ntilde;a.<br /><br />Hemos enviado a tu correo electr&oacute;nico m&aacute;s informaci&oacute;n sobre este cambio de contrase&ntilde;a.',
 	'SENDPASSWORD5_EXPLAIN' => 'Las contrase&ntilde;as ingresadas no coinciden, intenta nuevamente.',
 	'SENDPASSWORD6_EXPLAIN' => 'Debes ingresar una nueva contrase&ntilde;a para tu cuenta.',
@@ -327,13 +331,13 @@ $lang += array(
 	'EMAIL_DC' => 'Notificaci&oacute;n de conversaciones nuevas por email',
 
 	'SENDPASSWORD_NO_NORMALUSER' => 'No se permite el cambio de contrase&ntilde;a del miembro seleccionado',
-	'NO_SEND_ACCOUNT_INACTIVE' => 'Lo sentimos pero tu contrase&ntilde;a no puede ser recuparada porque tu cuenta se encuentra actualmente desactivada. Por favor contacta a un Administrador de Rock Republik',
+	'NO_SEND_ACCOUNT_INACTIVE' => 'Lo sentimos pero su contrase&ntilde;a no puede ser recuparada porque su cuenta se encuentra actualmente desactivada. Por favor contacte a un Administrador del sistema.',
 
 	'ALWAYS_NOTIFY' => 'Siempre notificarme cuando hay mensajes en el foro',
 	'ALWAYS_NOTIFY_EXPLAIN' => 'Env&iacute;a un email cuando alguien responde a un tema que has publicado.',
 
-	'AGREE_TOS' => 'Acepto cumplir las <a href="http://www.rockrepublik.net/tos/" target="_blank">condiciones y t&eacute;rminos de servicio</a>',
-	'FILL_DATA' => 'Completa la informaci&oacute;n',
+	'AGREE_TOS' => 'Acepto cumplir las <a href="/tos/" target="_blank">condiciones y t&eacute;rminos de servicio</a>',
+	'FILL_DATA' => 'Complete la informaci&oacute;n',
 	'SITE_LANG' => 'Idioma del sitio',
 	'TIMEZONE' => 'Zona horaria',
 	'MEMBER_DATE_FORMAT' => 'Formato de Fecha',
@@ -353,7 +357,7 @@ $lang += array(
 	'PASSWORD_IF_CHANGED_EXPLAIN' => 'Necesitas confirmar tu contrase&ntilde;a si deseas cambiarla',
 
 	'AVATAR' => 'Imagen de usuario',
-	'AVATAR_EXPLAIN' => 'Muestra foto en tu perfil y cuando publiques mensajes. Debes usar formato jpg.',
+	'AVATAR_EXPLAIN' => 'Muestre su foto cuando publique mensajes. Debe usar formato JPG.',
 	'UPLOAD_AVATAR' => 'Enviar nuevo Avatar',
 	'DELETE_AVATAR' => 'Borrar Imagen',
 	'CURRENT_AVATAR' => 'Avatar actual',
@@ -395,7 +399,7 @@ $lang += array(
 	'RANK_TOO_LONG' => 'El rango que has ingresado es muy largo.',
 	'RANK_EXPLAIN' => 'Descripci&oacute;n de usuario',
 
-	'WELCOME_SUBJECT' => 'Bienvenido a Rock Republik',
+	'WELCOME_SUBJECT' => 'Bienvenido a %s',
 	'NEW_ACCOUNT_SUBJECT' => 'Nueva cuenta de usuario',
 	'ACCOUNT_ACTIVATED_SUBJECT' => 'Membres&iacute;a activada',
 
@@ -600,7 +604,7 @@ $lang += array(
 	//
 	// SITE HISTORY
 	//
-	'SITE_HISTORY' => 'Historial de Rock Republik',
+	'SITE_HISTORY' => 'Historial de actividad',
 	'MONTH' => 'Mes',
 	'WEEKDAY' => 'D&iacute;a de la semana',
 	'NOT_AVAILABLE' => 'No disponible',
@@ -634,7 +638,7 @@ $lang += array(
 	'TOP_FORUM' => 'Ultimos %s mensajes del Foro',
 	'ALLIES' => 'Aliados',
 	'AWARDS' => 'RK Awards 2012',
-	'MEET_TEAM' => 'Conoce al Equipo Rock Republik',
+	'MEET_TEAM' => 'Conoce al Equipo de %s',
 	'POPULAR_TOPICS' => 'Temas destacados',
 	'NEWEST_TOPICS' => 'Temas recientes',
 
@@ -642,13 +646,6 @@ $lang += array(
 	'SEND_POST' => 'Env&iacute;a tu mensaje',
 	'SEND_NEWS' => 'Env&iacute;a tu publicaci&oacute;n',
 	'PRIVACY_POLICY' => 'Pol&iacute;tica de Privacidad y T&eacute;rminos de servicio',
-
-	// SITE NOTICES
-	'NOTICE_ARTISTS' => '&iquest;Te gustar&iacute;a que tu banda obtenga el apoyo de <strong>Rock Republik</strong>?<br /><br />Env&iacute;anos el material completo a info&#64;rockrepublik.net para tener su propio espacio!',
-	'NOTICE_EVENTS' => '&iquest;Te gustar&iacute;a anunciar un evento o actividad en esta secci&oacute;n?<br /><br />Env&iacute;anos el afiche a info&#64;rockrepublik.net y lo publicaremos. Agradeceremos que incluyas <a href="http://www.rockrepublik.net/home/downloads/logo.zip">nuestro logo</a> en la publicidad del evento.',
-
-	// ALLIES
-	'ALLIES_DESCRIPTION' => '&iquest;Te gustar&iacute;a formar parte de los Aliados de Rock Republik?<br /><br />Env&iacute;anos la informaci&oacute;n de tu sitio web a: <a href="mailto:info&#64;rockrepublik.net">info&#64;rockrepublik.net</a>',
 
 	// NEWS
 	'NEWS' => 'Noticias',
@@ -681,9 +678,6 @@ $lang += array(
 	'VIDEO' => 'Videos',
 	'PLAY_FILE' => 'Reproducir archivo',
 	'DOWNLOADS' => 'Descargas',
-
-	// ABOUT
-	'ABOUT' => 'Conoce Rock Republik',
 
 	// ARTISTS
 	'ARTISTS' => 'Artistas',
@@ -771,9 +765,9 @@ $lang += array(
 	// CHAT
 	//
 	'CHAT' => 'Chat',
-	'CHAT_DESC' => 'Este es el nuevo <b>Chat</b> de Rock Republik, con diferentes <b>canales de charla</b> en <b>tiempo real</b>.',
+	'CHAT_DESC' => 'Este es el nuevo <b>Chat</b> de %s, con diferentes canales de charla en tiempo real.',
 	'CHAT_DESC_GUEST' => 'Para tener acceso al chat, debes ser miembro registrado, si no lo eres, puedes <a href="/my/register/">Crear tu cuenta Aqui</a>.',
-	'CHAT_NO_ACCESS' => '<strong>No tienes permiso para entrar a este canal.</strong><br /><br />Posibles razones:<br /><br />Tu nombre de usuario fue bloqueado en este canal.<br />Si es un canal privado, &uacute;nicamente pueden entrar miembros autorizados por el grupo de fundadores.<br />Si es un canal para amigos, &uacute;nicamente pueden entrar miembros que est&eacute;n en la lista de amigos del fundador.<br /><br /><br />Para m&aacute;s informaci&oacute;n, comunicate con el fundador del canal &oacute; alguien del Equipo Rock Republik, en la secci&oacute;n <a href="/community/">Comunidad</a>.',
+	'CHAT_NO_ACCESS' => '<strong>No tienes permiso para entrar a este canal.</strong><br /><br />Posibles razones:<br /><br />Tu nombre de usuario fue bloqueado en este canal.<br />Si es un canal privado, &uacute;nicamente pueden entrar miembros autorizados por el grupo de fundadores.<br />Si es un canal para amigos, &uacute;nicamente pueden entrar miembros que est&eacute;n en la lista de amigos del fundador.<br /><br /><br />Para m&aacute;s informaci&oacute;n, comunicate con el fundador del canal o alguien del Equipo de %s, en la secci&oacute;n <a href="/community/">Comunidad</a>.',
 	'CHAT_CH' => 'Canales',
 	'CHAT_JOIN' => 'Entrar!',
 	'CHAT_JOINING' => 'Entrando...',
@@ -913,19 +907,7 @@ $lang += array(
 	'BOARD_LATEST' => 'Temas recientes',
 	'BOARD_EVENTS' => 'Eventos recientes',
 
-	'RSS' => 'RSS',
-	'RSS_ARTISTS' => 'Rock Republik: Artistas',
-	'RSS_EVENTS' => 'Rock Republik: Eventos',
-	'RSS_NEWS' => 'Rock Republik: Art&iacute;culos',
-	'RSS_DESC_ARTISTS' => '&Uacute;ltimos artistas registrados en Rock Republik.',
-	'RSS_DESC_EVENTS' => 'Archivo de fotograf&iacute;as de &uacute;ltimos eventos.',
-	'RSS_DESC_NEWS' => 'Art&iacute;culos de Rock Republik',
-
 	'DIS_INVALID' => 'Algunas imagenes del paquete no cumplen con el tama&ntilde;o requerido (600x#) o (#x600), corregir dimensiones de imagen.<br /><br />',
-	'AP_PROGRAM_FIELD' => '&iquest;D&oacute;nde conociste a Rock Republik?',
-	'AP_PROGRAM_VALUE' => 'Nombre',
-	'AP_POINT' => '%d Arkane',
-	'AP_POINTS' => '%d Arkanes',
 
 	'ACP_LIST_ARTIST' => 'Artistas',
 	'ACP_LIST_BROADCAST' => 'Radio',
@@ -1019,5 +1001,7 @@ $lang += array(
 
 	'ACP_ARTIST_AUTH_DESC' => 'Administra los usuarios que pueden crear, modificar y eliminar contenido.',
 	'ACP_ARTIST_AUTH_DELETE' => '&iquest;Deseas eliminar los siguientes usuarios autorizados de %s?: <b>%s</b>',
-	'ACP_ARTIST_AUTH_DELETE2' => '&iquest;Deseas eliminar el siguiente usuario autorizado de %s?: <b>%s</b>'
+	'ACP_ARTIST_AUTH_DELETE2' => '&iquest;Deseas eliminar el siguiente usuario autorizado de %s?: <b>%s</b>',
+
+	'COURSES_NO_ASSIGNED' => 'Usted no tiene cursos asignados para crear tareas.'
 );

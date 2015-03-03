@@ -1,11 +1,11 @@
 <!-- INCLUDE page.header.htm -->
 
-<form action="{U_EDITPROFILE}" method="post" enctype="multipart/form-data">
+<form action="{U_EDITPROFILE}" method="post" enctype="multipart/form-data" class="form-horizontal">
 {S_HIDDEN_FIELDS}
 
 	<div class="h"><h3>&iexcl;{L_HI} {S_USERNAME}!</h3></div>
 
-	<div class="pad_top">Actualiza la informaci&oacute;n de tu cuenta:</div>
+	<div class="pad_top">{L_PROFILE_UPDATE}</div>
 
 	<!-- BEGIN error -->
 	{error.MESSAGE}
@@ -32,50 +32,59 @@
 		<div class="h"><h4>{L_MEMBER_INFO}</h4></div>
 
 		<!-- BEGIN gender -->
-		<div class="pad_top">
-			<div class="is_left_i"><label for="gender">{L_GENDER}:</label></div>
-			<div class="is_right_i"><select id="gender" name="gender">{gender.GENDER_SELECT}</select></div>
+		<div class="form-group">
+			<label for="gender" class="col-lg-2 control-label">{L_GENDER}</label>
+			<div class="col-lg-10">
+				<select id="gender" name="gender">{gender.GENDER_SELECT}</select>
+			</div>
 		</div>
-		<span class="clear"></span>
 		<!-- END gender -->
 		
 		<!-- BEGIN birthday -->
-		<div class="pad_top">
-			<div class="is_left_i">{L_BIRTHDAY}: (D&iacute;a, Mes, A&ntilde;o)</div>
-			<div class="is_right_i"><select name="birthday_day">{birthday.DAY}</select> <select name="birthday_month">{birthday.MONTH}</select> <select name="birthday_year">{birthday.YEAR}</select></div>
+		<div class="form-group">
+			<label class="col-lg-2 control-label">{L_BIRTHDAY}</label>
+			<div class="col-lg-10">
+				<select name="birthday_day">{birthday.DAY}</select>
+				<select name="birthday_month">{birthday.MONTH}</select>
+				<select name="birthday_year">{birthday.YEAR}</select>
+			</div>
 		</div>
-		<span class="clear"></span>
 		<!-- END birthday -->
-		
-		<div class="pad_top">
-			<div class="is_left_i"><label for="location">{L_LOCATION}:</label></div>
-			<div class="is_right_i i"><input type="text" id="location" name="location" class="col90" size="20" maxlength="255" value="{LOCATION}" /></div>
-		</div>
-		<span class="clear"></span>
-		
-		<div class="pad_top">
-			<div class="is_left_i"><label for="occ">{L_OCCUPATION}:</label></div>
-			<div class="is_right_i i"><input type="text" id="occ" name="occ" class="col90" size="20" maxlength="255" value="{OCC}" /></div>
-		</div>
-		<span class="clear"></span>
-		
-		<div class="pad_top">
-			<div class="is_left_i"><label for="interests">{L_INTERESTS}:</label></div>
-			<div class="is_right_i i"><input type="text" id="interests" name="interests" class="col90" size="20" maxlength="255" value="{INTERESTS}" /></div>
-		</div>
-		<span class="clear"></span>
-		
-		<div class="pad_top">
-			<div class="is_left_i"><label for="email">{L_EMAIL}:</label></div>
-			<div class="is_right_i i"><input type="text" id="email" name="email" size="20" maxlength="100" value="{EMAIL}" /></div>
-		</div>
-		<span class="clear"></span>
 
-		<div class="pad_top">
-			<div class="is_left_i"><label for="website">{L_WEBSITE}:</label></div>
-			<div class="is_right_i i"><input type="text" id="website" name="website" class="col90" size="20" maxlength="255" value="{WEBSITE}" /></div>
+		<div class="form-group">
+			<label for="location" class="col-lg-2 control-label">{L_LOCATION}</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" name="location" id="location" placeholder="" value="{LOCATION}" />
+			</div>
 		</div>
-		<span class="clear"></span>
+
+		<div class="form-group">
+			<label for="occ" class="col-lg-2 control-label">{L_OCCUPATION}</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" name="occ" id="occ" placeholder="" value="{OCC}" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="interests" class="col-lg-2 control-label">{L_INTERESTS}</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" name="interests" id="interests" placeholder="" value="{INTERESTS}" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="email" class="col-lg-2 control-label">{L_EMAIL}</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" name="email" id="email" placeholder="" value="{EMAIL}" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="website" class="col-lg-2 control-label">{L_WEBSITE}</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" name="website" id="website" placeholder="" value="{WEBSITE}" />
+			</div>
+		</div>
 		
 		<!-- BEGIN hidden -->
 		<div class="pad_top">
@@ -91,7 +100,7 @@
 		<!-- END hidden -->
 	</div>
 	
-	<div class="a_mid pad_top ctl"><input type="submit" name="submit" value="{L_SAVE_CHANGES}" /></div>
+	<div class="a_mid pad_top"><input class="btn btn-danger" type="submit" name="submit" value="{L_SAVE_CHANGES}" /></div>
 </form>
 
 <!-- INCLUDE page.footer.htm -->
