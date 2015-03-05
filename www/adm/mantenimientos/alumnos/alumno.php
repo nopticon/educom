@@ -58,8 +58,8 @@ $form = array(
 		'Sexo' => array(
 			'type' => 'radio',
 			'value' => array(
-				'M' => 'Masculino',
-				'F' => 'Femenino'
+				1 => 'Masculino',
+				2 => 'Femenino'
 			),
 			'default' => $alumno->sexo
 		),

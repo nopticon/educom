@@ -1,5 +1,5 @@
 <div class="pad_top">
-	<form action="{S_DOWNLOAD_ACTION}" method="post" onsubmit="return _.glob.in_timed_disable('download');">
+	<form action="{S_DOWNLOAD_ACTION}" method="post">
 	
 	<div class="ctl_lw">
 		<div class="h"><h3>{DL_TITLE}</h3></div>
@@ -52,7 +52,7 @@
 		<!-- BEGIN ud_poll -->
 		<div class="pad6">
 		<!-- BEGIN options -->
-		<form action="{options.S_VOTE_ACTION}" method="post" name="vote_ub" onSubmit="return _.glob.in_sending('dvote');">
+		<form action="{options.S_VOTE_ACTION}" method="post" name="vote_ub">
 		<!-- END options -->
 		<div class="dark-color box">
 		<div class="head">{L_UB_UD_RATEPOLL}<!-- IF DL_VOTES --> <span class="red">[{DL_VOTES}v]</span><!-- ENDIF --></div>

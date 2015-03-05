@@ -2,8 +2,6 @@
 
 <!-- INCLUDE acp/error.htm -->
 
-<script src="{S_ASSETS}u.js?g={S_GIT}" type="text/javascript"></script>
-
 <div class="pad_top publish">
 	<div class="h"><h3>{L_EVENTS}</h3></div>
 	<form class="fileupload_single form_align" action="{MODULE_URL}" method="POST" enctype="multipart/form-data">
@@ -101,20 +99,5 @@
 		<input type="submit" class="start" name="submit" value="{L_SUBMIT}" />
 	</form>
 </div>
-
-<script type="text/javascript">
-$(document).ready(function(){
-    $("#event_artists").fcbkcomplete({
-        json_url: '/a/json/',
-        addontab: true,
-        maxitems: 10,
-        input_min_size: 0,
-        height: 10,
-        cache: true,
-        newel: true,
-        select_all_text: "select",
-    });
-});
-</script>
 
 <!-- INCLUDE page.footer.htm -->
