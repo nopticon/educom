@@ -5,39 +5,24 @@ RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
 RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
 RewriteRule ^.*$ - [R=404,L]
 
-RewriteRule ^assets/(\w+)\.(css|js)$ orion/linked.php?filename=$1&format=$2 [nc]
-RewriteRule ^assets/(\w+)\.(css|js)$ orion/linked.php?filename=$1&format=$2 [nc]
-
 RewriteRule ^$ orion/home.php [nc]
-RewriteRule ^(board|emoticons|community|comments|search|ssv|tos|broadcast|acp|help|today|events|news)/?$ orion/$1.php [nc]
+RewriteRule ^(assets)/(\w+)\.(css|js)$ orion/$1.php?filename=$2&format=$3 [nc]
+RewriteRule ^(board|emoticons|community|comments|search|ssv|tos|acp|help|today|events|news)/?$ orion/$1.php [nc]
 RewriteRule ^(acp|async|cron|news)/([a-z\_]+)/(([0-9a-z\_\.\-\:]+)/?)?$ orion/$1.php?module=$2&args=$4 [nc]
 RewriteRule ^(sign)(in|out|up|r)/$ orion/$1.php?mode=$2 [nc]
 RewriteRule ^(sign)(up|r)/([a-z0-9]+)/$ orion/$1.php?mode=$2&code=$3 [nc]
 RewriteRule ^(sign)(up)/v/([0-9a-z]+)/$ orion/$1.php?mode=$2&invite=$1 [nc]
 
-RewriteRule ^(broadcast)/(\w+)/$ orion/$1.php?category=$2 [nc]
+RewriteRule ^(news)/([0-9a-z\_\-]+)/?(ps(\d+)/)?$ orion/$1.php?alias=$2&ps=$4 [nc]
 RewriteRule ^(events)/g(\d+)/$ orion/$1.php?gallery_offset=$2 [nc]
 RewriteRule ^(events)/([0-9a-z\-]+)/(\d+)/reply/$ orion/$1.php?alias=$2&p=$3&reply=1 [nc]
 RewriteRule ^(events)/([0-9a-z\-]+)/(\d+)/(view|save|fav|rsvp)/$ orion/$1.php?alias=$2&download_id=$3&mode=$4 [nc]
 RewriteRule ^(events)/([0-9a-z\-]+)/?(s(\d+)/)?(ps(\d+)/)?$ orion/$1.php?alias=$2&offset=$4&ps=$6 [nc]
+
 RewriteRule ^forum/([a-z0-9\-]+)/?(s(\d+)/)?$ orion/topics.php?f=$1&offset=$3 [L]
-RewriteRule ^(help)/([0-9a-z]+)/$ orion/$1.php?alias=$2 [nc]
-RewriteRule ^(news)/([0-9a-z\_\-]+)/?(ps(\d+)/)?$ orion/$1.php?alias=$2&ps=$4 [nc]
-RewriteRule ^play/(\d+)\-(\d+)\.mp3$ http://artists.rockrepublik.net/$1/media/$2.mp3 [nc]
+RewriteRule ^(topic)/(\d+)/(s(\d+)/?)?$ orion/$1.php?t=$2&offset=$4 [nc]
 RewriteRule ^post/(\d+)/reply/$ orion/topic.php?p=$1&reply=1 [nc]
 RewriteRule ^post/(\d+)/$ orion/topic.php?p=$1 [nc]
-RewriteRule ^(topic)/(\d+)/(s(\d+)/?)?$ orion/$1.php?t=$2&offset=$4 [nc]
-RewriteRule ^(rss)/(artists|events|forum|news)/$ orion/$1.php?mode=$2 [nc]
-
-RewriteRule ^a/?(_(\d+)/?)?$ orion/artists.php?alphabet=$2 [nc]
-RewriteRule ^a/([0-9a-z]+)/(gallery|lyrics)/(\d+)/(view|save)/$ orion/artists.php?id=$1&layout=$2&download_id=$3&mode=$4 [nc]
-
-RewriteRule ^a/([0-9a-z]+)/(downloads)/(\d+)/((([a-z]+)/)?(dps(\d+)/)?)?$ orion/artists.php?id=$1&layout=$2&download_id=$3&dl_mode=$6&dps=$8 [nc]
-
-#RewriteRule ^a/([0-9a-z]+)/(12)/(\d+)/(([a-z]+)/)?(rs(\d+)/)?$ orion/artists.php?id=$1&layout=12&post_id=$2&mode=$4&rs=$6 [nc]
-RewriteRule ^a/([0-9a-z]+)/(news)/(t|p)(\d+)/$ orion/artists.php?id=$1&layout=16&$2=$3 [nc]
-RewriteRule ^a/([0-9a-z]+)/(((\w+)/)?((gs|ps)(\d+)/)?)?$ orion/artists.php?id=$1&layout=$4&$6=$7 [nc]
-RewriteRule ^a/([0-9a-z]+)(/?(\w+)/?)?$ orion/artists.php?id=$1&layout=$3 [nc]
 
 RewriteRule ^m/([0-9a-z\_\-]+)/?((main|friend|friends|messages|ban)/)?$ orion/userpage.php?member=$1&mode=$3 [nc]
 RewriteRule ^my/(profile)/$ orion/userpage.php [nc]

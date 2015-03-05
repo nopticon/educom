@@ -2100,24 +2100,23 @@ function page_layout($page_title, $htmlpage, $custom_vars = false, $js_keepalive
 	global $config, $user, $cache, $starttime, $template;
 
 	$css = [
-		a('public/bootstrap/css/bootstrap.min.css'),
+		'/assets/bootstrap/css/bootstrap.min.css',
 		'/assets/default.css',
-		a('public/select2/select2.css'),
-		a('public/select2/select2-bootstrap.css'),
-		a('public/bootstrap/css/datepicker3.css'),
-		// a('public/kendo/css/kendo.flat.min.css'),
-		a('public/kendo/css/kendo.common.min.css'),
-		a('public/kendo/css/kendo.bootstrap.min.css'),
+		'/assets/select2/select2.css',
+		'/assets/select2/select2-bootstrap.css',
+		'/assets/bootstrap/css/datepicker3.css',
+		'/assets/kendo/css/kendo.common.min.css',
+		'/assets/kendo/css/kendo.bootstrap.min.css',
 		'/assets/mobile.css',
 	];
 
 	$js = [
-		a('public/bootstrap/js/bootstrap.min.js'),
-		a('public/bootstrap/js/bootstrap-datepicker.js'),
-		a('public/bootstrap/js/bootstrap-datepicker.es.js'),
-		a('public/select2/select2.min.js'),
-		a('public/select2/select2.es.min.js'),
-		a('public/kendo/js/kendo.web.min.js'),
+		'/assets/bootstrap/js/bootstrap.min.js',
+		'/assets/bootstrap/js/bootstrap-datepicker.js',
+		'/assets/bootstrap/js/bootstrap-datepicker.es.js',
+		'/assets/select2/select2.min.js',
+		'/assets/select2/select2.es.min.js',
+		'/assets/kendo/js/kendo.web.min.js',
 		'/assets/g.js',
 	];
 
@@ -3028,25 +3027,24 @@ function get_header($page_title = '', $ruta = '', $full = true) {
 	global $config, $user;
 
 	$css = [
-		a('public/bootstrap/css/bootstrap.min.css'),
+		'/assets/bootstrap/css/bootstrap.min.css',
 		'/assets/default.css',
-		a('public/select2/select2.css'),
-		a('public/select2/select2-bootstrap.css'),
-		a('public/bootstrap/css/datepicker3.css'),
-		// a('public/kendo/css/kendo.flat.min.css'),
-		a('public/kendo/css/kendo.common.min.css'),
-		a('public/kendo/css/kendo.common.bootstrap.min.css'),
-		a('public/kendo/css/kendo.bootstrap.min.css'),
+		'/assets/select2/select2.css',
+		'/assets/select2/select2-bootstrap.css',
+		'/assets/bootstrap/css/datepicker3.css',
+		'/assets/kendo/css/kendo.common.min.css',
+		'/assets/kendo/css/kendo.common.bootstrap.min.css',
+		'/assets/kendo/css/kendo.bootstrap.min.css',
 		'/assets/mobile.css',
 	];
 
 	$js = [
-		a('public/bootstrap/js/bootstrap.min.js'),
-		a('public/bootstrap/js/bootstrap-datepicker.js'),
-		a('public/bootstrap/js/bootstrap-datepicker.es.js'),
-		a('public/select2/select2.min.js'),
-		a('public/select2/select2.es.min.js'),
-		a('public/kendo/js/kendo.web.min.js'),
+		'/assets/bootstrap/js/bootstrap.min.js',
+		'/assets/bootstrap/js/bootstrap-datepicker.js',
+		'/assets/bootstrap/js/bootstrap-datepicker.es.js',
+		'/assets/select2/select2.min.js',
+		'/assets/select2/select2.es.min.js',
+		'/assets/kendo/js/kendo.web.min.js',
 		'/assets/g.js',
 	];
 
@@ -3054,7 +3052,7 @@ function get_header($page_title = '', $ruta = '', $full = true) {
 	$real_page_title = $config->sitename . (($page_title) ? ': ' . $page_title : '');
 
 ?><!DOCTYPE HTML>
-<html>
+<html lang="es">
 <head>
 <meta charset="utf-8" />
 <title><?php echo $real_page_title; ?></title>
@@ -3067,7 +3065,7 @@ foreach ($css as $row) {
 ?>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="<?php echo a('public/js/jquery.js'); ?>">\x3C/script>')</script>
+<script>window.jQuery || document.write('<script src="<?php echo $config->assets_url . 'j.js'; ?>">\x3C/script>')</script>
 <?php
 
 foreach ($js as $row) {

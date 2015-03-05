@@ -66,27 +66,21 @@
 		<h3><strong>{item.S_ROW_COUNT}</strong><span>.</span> <em><!-- BEGIN username --><a href="{item.PROFILE}"><!-- END username --><img src="{item.USER_AVATAR}" alt="{item.USERNAME}'s Avatar" /><!-- BEGIN username --></a><!-- END username --></em><cite><!-- BEGIN username --><a href="{item.PROFILE}"><!-- END username -->{item.USERNAME}<!-- BEGIN username --></a><!-- END username --></cite> <span>dijo:</span></h3>
 
 		<blockquote>
-			<div class="x3 col_fr nowraptext">
-				{item.MESSAGE}
+			<div class="btn-group">
+				<a class="btn btn-default disabled">{item.POST_DATE}</a>
 
-				<!-- IF item.PLAYING != '' -->
-				<div class="a_right nowplay">{item.PLAYING} &nbsp;<img src="{S_ASSETS}/emoticon/arkane.png" alt="" /></div>
-				<!-- ENDIF -->
+				<!-- BEGIN controls -->
+				<!-- BEGIN reply --><a class="btn btn-warning" href="{reply.URL}">{L_CMT_REPLY}</a><!-- END reply -->
+				<!-- BEGIN report --><a class="btn btn-default" href="{report.URL}">{L_CMT_REPORT}</a><!-- END report -->
+				<!-- BEGIN edit --><a class="btn btn-default" href="{edit.URL}">{L_CMT_EDIT}</a><!-- END edit -->
+				<!-- BEGIN restore --><a class="btn btn-default" href="{restore.URL}">{L_CMT_RESTORE}</a><!-- END restore -->
+				<!-- BEGIN delete --><a class="ask_remove" class="btn btn-default" href="{delete.URL}">{L_CMT_DELETE}</a><!-- END delete -->
+				<!-- END controls -->
 			</div>
 
-			<!-- IF item.USER_SIG != '' -->
-			<!-- <div class="col_fr nowraptext"><p>--{item.USER_SIG}</p></div> -->
-			<!-- ENDIF -->
-
-			<!-- BEGIN controls -->
-			<p class="controls">
-				<!-- BEGIN reply --><a href="{reply.URL}">{L_CMT_REPLY}</a><!-- END reply -->
-				<!-- BEGIN report --><a href="{report.URL}">{L_CMT_REPORT}</a><!-- END report -->
-				<!-- BEGIN edit --><a href="{edit.URL}">{L_CMT_EDIT}</a><!-- END edit -->
-				<!-- BEGIN restore --><a href="{restore.URL}">{L_CMT_RESTORE}</a><!-- END restore -->
-				<!-- BEGIN delete --><a class="ask_remove" href="{delete.URL}">{L_CMT_DELETE}</a><!-- END delete -->
-			</p>
-			<!-- END controls -->
+			<div class="x3 col_fr nowraptext">
+				{item.MESSAGE}
+			</div>
 
 			<p class="dtposted">{item.POST_DATE}</p>
 		</blockquote>
@@ -104,15 +98,28 @@
 <!-- BEGIN post_box -->
 <span class="clear"></span>
 
-<div class="pad_top publish">
+<div class="pad_top">
 	<div class="h"><h3>{L_SEND_POST}</h3></div>
-	<form action="{post_box.S_POST_ACTION}" method="post">
-		<textarea id="comment" name="message"></textarea>
+
+	<form class="form-horizontal" action="{post_box.S_POST_ACTION}" method="post">
+		<div class="form-group">
+			<div class="col-lg-12">
+				<textarea class="form-control" name="message" id="message" autocomplete="off"></textarea>
+			</div>
+		</div>
+
 		<!-- BEGIN reply -->
-		<div class="pad_top"><label for="comment_reply">{L_ORIGINAL_POST}</label></div>
-		<div class="pad_top"><textarea class="x2" id="comment_reply" name="reply_message" rows="2">{reply.MESSAGE}</textarea></div>
+		<div class="form-group">
+			<label for="inputOriginal" class="col-lg-2 control-label">{L_ORIGINAL_POST}</label>
+			<div class="col-lg-10">
+				<textarea class="form-control" name="reply_message" id="inputOriginal" autocomplete="off">{reply.MESSAGE}</textarea>
+			</div>
+		</div>
 		<!-- END reply -->
-		<input type="submit" name="post" value="{L_SUBMIT}" />
+
+		<div align="center">
+			<input type="submit" class="btn btn-danger" name="post" value="{L_SUBMIT}" />
+		</div>
 	</form>
 </div>
 

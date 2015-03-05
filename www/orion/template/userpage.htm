@@ -63,13 +63,22 @@
 	
 	<div class="is_right_i">
 		<!-- BEGIN post_comment_box -->
-		<div class="publish">
-		<div class="h"><h3>{L_SEND_POST}</h3></div>
-		<form action="{U_COMMENTS}" method="post" name="m-messages">
-		<input type="hidden" name="ref" value="{post_comment_box.REF}" />
-		<textarea id="a-comments" name="message"></textarea>
-		<input class="btn btn-danger" type="submit" name="submit" value="{L_SEND_MESSAGE}" />
-		</form>
+		<div>
+			<div class="h"><h3>{L_SEND_POST}</h3></div>
+
+			<form class="form-horizontal" action="{U_COMMENTS}" method="post">
+				<input type="hidden" name="ref" value="{post_comment_box.REF}" />
+
+				<div class="form-group">
+					<div class="col-lg-12">
+						<textarea class="form-control" name="message" id="message" autocomplete="off"></textarea>
+					</div>
+				</div>
+
+				<div align="center">
+					<input type="submit" class="btn btn-danger" name="submit" value="{L_SUBMIT}" />
+				</div>
+			</form>
 		</div>
 		<!-- END post_comment_box -->
 		

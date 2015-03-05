@@ -40,15 +40,27 @@
 <!-- BEGIN publish -->
 <span class="clear"></span>
 
-<div class="pad_top publish">
+<div class="pad_top">
 	<div class="h"><h3>{L_POST_NEWTOPIC}</h3></div>
-	<form action="{publish.S_POST_ACTION}" method="post">
-		<label for="comment_title">{L_TOPIC_TITLE}</label>
-		<input class="f ff" id="comment_title" name="topic_title" value="{publish.TOPIC_TITLE}" />
-		<textarea id="comment" name="message">{publish.MESSAGE}</textarea>
-		<label for="comment_np">{L_NOWPLAYING}</label>
-		<input class="f" id="comment_np" name="np" value="{publish.NP}" />
-		<input type="submit" name="post" value="{L_SUBMIT}" />
+
+	<form class="form-horizontal" action="{publish.S_POST_ACTION}" method="post">
+		<div class="form-group">
+			<label for="inputTitle" class="col-lg-2 control-label">{L_TOPIC_TITLE}</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" name="topic_title" id="inputTitle" placeholder="{L_TOPIC_TITLE}" value="{publish.TOPIC_TITLE}" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="inputMessage" class="col-lg-2 control-label">Mensaje</label>
+			<div class="col-lg-10">
+				<textarea class="form-control" name="message" id="inputMessage" autocomplete="off">{publish.MESSAGE}</textarea>
+			</div>
+		</div>
+
+		<div align="center">
+			<input type="submit" class="btn btn-danger" name="post" value="{L_SUBMIT}" />
+		</div>
 	</form>
 </div>
 <!-- END publish -->
