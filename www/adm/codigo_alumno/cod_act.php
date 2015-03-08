@@ -17,4 +17,4 @@ foreach ($textfield as $alumno => $codigo) {
 	$db->sql_query($sql);
 }
 
-redirect('index.php');
+redirect('/adm/codigo_alumno/');

@@ -2100,13 +2100,14 @@ function page_layout($page_title, $htmlpage, $custom_vars = false, $js_keepalive
 	global $config, $user, $cache, $starttime, $template;
 
 	$css = [
-		'/assets/bootstrap/css/bootstrap.min.css',
+		'/assets/bootstrap/css/bootstrap.css',
 		'/assets/default.css',
 		'/assets/select2/select2.css',
 		'/assets/select2/select2-bootstrap.css',
 		'/assets/bootstrap/css/datepicker3.css',
 		'/assets/kendo/css/kendo.common.min.css',
 		'/assets/kendo/css/kendo.bootstrap.min.css',
+		'/assets/font-awesome/css/font-awesome.min.css',
 		'/assets/mobile.css',
 	];
 
@@ -3027,7 +3028,7 @@ function get_header($page_title = '', $ruta = '', $full = true) {
 	global $config, $user;
 
 	$css = [
-		'/assets/bootstrap/css/bootstrap.min.css',
+		'/assets/bootstrap/css/bootstrap.css',
 		'/assets/default.css',
 		'/assets/select2/select2.css',
 		'/assets/select2/select2-bootstrap.css',
@@ -3035,6 +3036,7 @@ function get_header($page_title = '', $ruta = '', $full = true) {
 		'/assets/kendo/css/kendo.common.min.css',
 		'/assets/kendo/css/kendo.common.bootstrap.min.css',
 		'/assets/kendo/css/kendo.bootstrap.min.css',
+		'/assets/font-awesome/css/font-awesome.min.css',
 		'/assets/mobile.css',
 	];
 

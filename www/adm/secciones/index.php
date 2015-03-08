@@ -39,22 +39,23 @@ foreach ($grado as $row) {
 	<?php build($form); submit(); ?>
 </form>
 
-<h5>Secciones actuales</h5>
+<div class="h"><h3>Secciones actuales</h3></div>
 
-<table width="100%">
+<table class="table table-striped">
 	<thead>
-		<td width="40%">Grado</td>
-		<td width="10%">Secci&oacute;n</td>
-		<td width="50%">&nbsp;</td>
+		<tr>
+			<td width="40%">Grado</td>
+			<td width="10%">Secci&oacute;n</td>
+		</tr>
 	</thead>
-
-	<?php foreach ($secciones as $row) {
-	?>
-	<tr>
-		<td><?php echo $row->nombre; ?></td>
-		<td class="a_center"><?php echo $row->nombre_seccion; ?></td>
-	</tr>
-	<?php } ?>
+	<tbody>
+		<?php foreach ($secciones as $row) { ?>
+		<tr>
+			<td><?php echo $row->nombre; ?></td>
+			<td class="a_center"><?php echo $row->nombre_seccion; ?></td>
+		</tr>
+		<?php } ?>
+	</tbody>
 </table>
 
 <?php pie(); ?>

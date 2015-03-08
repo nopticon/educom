@@ -15,15 +15,15 @@ encabezado('Mantenimiento Alumno', '../');
 
 $form = array(
 	'Datos de Alumno' => array(
-		'CodigoAlumno' => array(
-			'type' => 'text',
-			'value' => 'C&oacute;digo de alumno',
-			'default' => $alumno->codigo_alumno
-		),
 		'Carne' => array(
 			'type' => 'text',
 			'value' => 'Carn&eacute;',
 			'default' => $alumno->carne
+		),
+		'CodigoAlumno' => array(
+			'type' => 'text',
+			'value' => 'C&oacute;digo de alumno',
+			'default' => $alumno->codigo_alumno
 		),
 		'Nombre' => array(
 			'type' => 'text',

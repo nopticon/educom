@@ -1,9 +1,10 @@
 <?php
 
 require_once('../conexion.php');
-$grado = $_REQUEST['grado'];
-$seccion = $_REQUEST['seccion'];
-$anio = $_REQUEST['anio'];
+
+$grado = request_var('grado', 0);
+$seccion = request_var('seccion', 0);
+$anio = request_var('anio', 0);
 
 $sql = 'SELECT *
 	FROM grado g, secciones s
@@ -25,42 +26,44 @@ $alumnos = $db->sql_rowset($db->__prepare($sql, $grado, $seccion, $anio));
 encabezado('Ingreso de c&oacute;digo de alumno');
 
 if ($grados) {
-	echo 'Grado: ' . $grados->nombre . '<br />';
-	echo 'Secci&oacute;n: ' . $grados->nombre_seccion . '<br />';
-	echo 'Total de alumnos: ' . count($alumnos);
+	echo '<h2>Grado: ' . $grados->nombre . ' ' . $grados->nombre_seccion . '</h2>';
 }
 
 ?>
 
-<br /><br />
+<br />
 <form method="post" action="cod_act.php">
-	<table width="100%" border="1" cellpadding="3">
+	<table class="table table-striped">
 		<thead>
-			<td align="center" width="150">Carn&eacute;</td>
-			<td align="center" width="175">C&oacute;digo de alumno</td>
-			<td align="center">Nombre</td>
-
+			<tr>
+				<th>#</th>
+				<th width="150">Carn&eacute;</th>
+				<th width="175">C&oacute;digo de alumno</th>
+				<th>Nombre</th>
+			</tr>
 		</thead>
-		<?php foreach ($alumnos as $row) { ?>
-		<tr>
-			<td align="center"><?php echo $row->carne; ?></td>
-		    <td align="center"><?php
+		<tbody>
+			<?php foreach ($alumnos as $i => $row) { ?>
+			<tr>
+				<th scope="row"><?php echo ($i + 1); ?></th>
+				<td align="center"><?php echo $row->carne; ?></td>
+				<td align="center"><?php
 
-			if ($row->codigo_alumno) {
-				echo '<div>' . $row->codigo_alumno . '</div>';
-			} else {
-				echo '<input name="textfield[' . $row->id_alumno . ']" type="text" size="25" value="' . $row->codigo_alumno . '" />';
-			}
+				if ($row->codigo_alumno) {
+					echo '<div>' . $row->codigo_alumno . '</div>';
+				} else {
+					echo '<input class="form-control" name="textfield[' . $row->id_alumno . ']" type="text" value="' . $row->codigo_alumno . '" />';
+				}
 
-			?></td>
-	      <td><?php echo $row->apellido . ', ' . $row->nombre_alumno; ?></td>
-	  </tr>
-		<?php } ?>
+				?></td>
+		      <td><?php echo $row->apellido . ', ' . $row->nombre_alumno; ?></td>
+		  	</tr>
+			<?php } ?>
+		</tbody>
 	</table>
 
-	<br />
-	<div class="a_center">
-		<input type="submit" class="btn btn-primary" name="Submit" value="Guardar Codigos" />
+	<div class="text-center">
+		<input type="submit" class="btn btn-danger" name="submit" value="Guardar C&oacute;digos" />
 	</div>
 </form>
 

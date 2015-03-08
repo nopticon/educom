@@ -33,7 +33,8 @@ $form = array(
 </div>
 
 <br />
-<h6>Re-inscripciones recientes</h6>
+<div class="h"><h3>Re-inscripciones recientes</h3></div>
+
 <div id="list"></div>
 
 <script type="text/javascript">

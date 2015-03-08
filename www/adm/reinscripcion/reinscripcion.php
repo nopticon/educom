@@ -2,16 +2,15 @@
 
 require_once('../conexion.php');
 
-$carne = $_REQUEST['carne'];
-$subcarne = substr($carne, 5);
+$carne = request_var('carne', '');
 
 $sql = 'SELECT *
 	FROM alumno a, reinscripcion r, grado g
 	WHERE r.id_alumno = a.id_alumno
 		AND g.id_grado = r.id_grado
-		AND a.id_alumno = ?
+		AND a.carne = ?
 	ORDER BY a.id_alumno DESC';
-$row = $db->sql_fieldrow($db->__prepare($sql, $subcarne));
+$row = $db->sql_fieldrow($db->__prepare($sql, $carne));
 
 if (!$row) {
 	redirect('/adm/reinscripcion/');
@@ -62,8 +61,13 @@ $form = array(
 	'Datos de Alumno' => array(
 		'carne' => array(
 			'type' => 'text',
-			'value' => 'C&oacute;digo de alumno',
+			'value' => 'Carn&eacute;',
 			'default' => $row->carne
+		),
+		'codigo_alumno' => array(
+			'type' => 'text',
+			'value' => 'C&oacute;digo de alumno',
+			'default' => $row->codigo_alumno
 		),
 		'nombre' => array(
 			'type' => 'text',
@@ -141,7 +145,7 @@ if (!count($form['Grado a Cursar']['grado']['value'])) {
 El alumno ha cursado todos los grados disponibles.<br /><br />
 <?php } ?>
 
-<h6>Historial de Grados</h6>
+<div class="h"><h3>Historial de Grados</h3></div><br />
 <div id="list"></div>
 
 <script language="JavaScript" type="text/javascript">

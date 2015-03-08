@@ -2,18 +2,18 @@
 
 require_once('../conexion.php');
 
-encabezado('Ingreso de Tiempo para Examenes');
+encabezado('Ingreso de Unidades');
 
 $sql = 'SELECT *
 	FROM examenes
 	ORDER BY id_examen';
-$examenes = $db->sql_rowset($sql);
+$list = $db->sql_rowset($sql);
 
 $form = array(
 	'' => array(
 		'examen' => array(
 			'type' => 'text',
-			'value' => 'Tiempo para Examen'
+			'value' => 'Unidad'
 		),
 		'observacion' => array(
 			'type' => 'text',
@@ -36,33 +36,23 @@ $form = array(
 	<?php build($form); submit(); ?>
 </form>
 
-<br />
-<h6>Visualizaci&oacute;n de tiempos</h6>
-<div id="list"></div>
+<div class="h"><h3>Visualizaci&oacute;n de tiempos</h3></div>
 
-<script type="text/javascript">
-var target, grid;
-
-<?php echo 'var kdata = ' . json_encode($examenes) . ';'; ?>
-
-$(function() {
-	target = $('#list');
-	grid = target.kendoGrid({
-		dataSource: {
-			data: kdata,
-			pageSize: 10
-		},
-		sortable: true,
-		pageable: {
-			pageSizes: true
-		},
-		columns: [
-			{ field: "examen", title: "Tiempo de Examen" },
-			{ field: "fecha_ingreso", title: "Fecha de ingreso" },
-			{ field: "status", title: 'Status', encoded: false }
-		]
-	});
-});
-</script>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>Unidad</td>
+			<td>Status</td>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($list as $row) { ?>
+		<tr>
+			<td><a href="../mantenimientos/examen/tiempo.php?id_examen=<?php echo $row->id_examen; ?>"><?php echo $row->examen; ?></a></td>
+			<td><?php echo $row->status; ?></td>
+		</tr>
+		<?php } ?>
+	</tbody>
+</table>
 
 <?php pie(); ?>

@@ -784,9 +784,9 @@ class userpage {
 		);
 
 		if ($user->d('user_id') != $this->data->user_id) {
-			$panel_selection['start'] = array('L' => 'DCONV_START', 'U' => s_link('my dc start', $this->data->username_base));
+			// $panel_selection['start'] = array('L' => 'DCONV_START', 'U' => s_link('my dc start', $this->data->username_base));
 		} else {
-			$panel_selection['dc'] = array('L' => 'DC', 'U' => s_link('my dc'));
+			// $panel_selection['dc'] = array('L' => 'DC', 'U' => s_link('my dc'));
 		}
 
 		$panel_selection += array(
@@ -1182,17 +1182,13 @@ class userpage {
 		$gender = lang($gender);
 
 		$user_fields = array(
-			//'JOINED' => ($this->data->user_regdate && (!$this->data->user_hideuser || $epbi2)) ? $user->format_date($this->data->user_regdate) . sprintf(lang('joined_since'), $memberdays) : '',
+			'JOINED' => ($this->data->user_regdate && (!$this->data->user_hideuser || $epbi2)) ? $user->format_date($this->data->user_regdate) : '',
 			'LAST_LOGON' => ($this->data->user_lastvisit && (!$this->data->user_hideuser || $epbi2)) ? $user->format_date($this->data->user_lastvisit) : '',
 			'GENDER' => $gender,
 			'AGE' => $age,
 			'BIRTHDAY' => $birthday,
-			// 'FAV_GENRES' => $this->data->user_fav_genres,
-			// 'FAV_BANDS' => $this->data->user_fav_artists,
 			'LOCATION' => $this->data->user_location,
-			// 'OCCUPATION' => $this->data->user_occ,
-			'INTERESTS' => $this->data->user_interests,
-			// 'MEMBER_OS' => $this->data->user_os
+			'INTERESTS' => $this->data->user_interests
 		);
 
 		$m = 0;

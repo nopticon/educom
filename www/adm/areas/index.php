@@ -6,7 +6,7 @@ encabezado('Ingreso de &Aacute;reas');
 
 $sql = 'SELECT *
 	FROM areas_cursos';
-$rowset = $db->sql_rowset($sql);
+$list = $db->sql_rowset($sql);
 
 $form = array(
 	array(
@@ -27,15 +27,16 @@ $form = array(
 	<?php build($form); submit(); ?>
 </form>
 
-<?php if (is_array($rowset)) { ?>
-<br />
-<h6>Lista de &Aacute;reas</h6>
+<div class="h"><h3>Lista de &Aacute;reas</h3></div>
 
-<ul>
-<?php foreach ($rowset as $row) { ?>
-	<li><?php echo $row->nombre_area; ?></li>
-<?php } ?>
-</ul>
-<?php } ?>
+<table class="table table-striped">
+	<tbody>
+		<?php foreach ($list as $row) { ?>
+		<tr>
+			<td><?php echo $row->nombre_area; ?></td>
+		</tr>
+		<?php } ?>
+	</tbody>
+</table>
 
 <?php pie(); ?>

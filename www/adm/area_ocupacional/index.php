@@ -27,13 +27,16 @@ $form = array(
 	<?php build($form); submit(); ?>
 </form>
 
-<br />
-<h6>Lista de &Aacute;reas</h6>
+<div class="h"><h3>Lista de &Aacute;reas</h3></div>
 
-<ul>
-	<?php foreach ($rowset as $row) { ?>
-		<li><?php echo $row->nombre_ocupacion; ?></li>
-	<?php } ?>
-</ul>
+<table class="table table-striped">
+	<tbody>
+		<?php foreach ($rowset as $row) { ?>
+		<tr>
+			<td><?php echo $row->nombre_ocupacion; ?></td>
+		</tr>
+		<?php } ?>
+	</tbody>
+</table>
 
 <?php pie(); ?>

@@ -1,13 +1,5 @@
 <!-- INCLUDE page.header.htm -->
 
-<ul id="expand_account">
-	<li><a id="account" href="{U_PROFILE}"></a></li>
-	<li class="mb"><a href="{U_PROFILE}" title="{S_USERNAME}"><i class="icon-user"></i> {S_USERNAME}</a>
-	<li><a href="{U_DC}">{L_USERPAGE_DC}</a></li>
-	<li><a href="{U_EDITPROFILE}">{L_PREFERENCES}</a></li>
-	<li><a href="{U_SESSION}">{L_LOGOUT2}</a></li>
-</ul>
-
 <div class="el_left"><img src="{AVATAR_IMG}" alt="{USERNAME}" /></div>
 
 <div class="el_left pad_left">
@@ -34,34 +26,28 @@
 <span class="clear"></span>
 
 <!-- BEGIN main -->
-<div class="pad_top">
-	<div class="is_left_i">
+<div class="row">
+	<div class="col-lg-3">
 		<!-- BEGIN general -->
-		<div class="ls">
-		<ul>
-			<!-- BEGIN item -->
-			<li><strong>{item.KEY}:</strong> {item.VALUE}</li>
-			<!-- END item -->
-		</ul>
-		</div>
+		<!-- BEGIN item -->
+		<dl>
+			<dt>{item.KEY}</dt>
+			<dd>{item.VALUE}</dd>
+		</dl>
+		<!-- END item -->
 		<!-- END general -->
 		
 		<!-- BEGIN lastboard -->
-		<div class="pad_top ls">
 		<div class="h"><h3>{L_BOARD_LATEST}</h3></div>	
-		<ul>
-			<!-- BEGIN row -->
-			<li>
-				<div><a<!-- IF row.TOPIC_COLOR --> style="color:#{row.TOPIC_COLOR};"<!-- ENDIF --> href="{row.URL}">{row.TITLE}</a></div>
-				<div class="_">{row.DATE} a las {row.TIME}</div>
-			</li>
-			<!-- END row -->
-		</ul>
-		</div>
+		<!-- BEGIN row -->
+		<dl>
+			<dt><a<!-- IF row.TOPIC_COLOR --> style="color:#{row.TOPIC_COLOR};"<!-- ENDIF --> href="{row.URL}">{row.TITLE}</a></dt>
+			<dd>{row.DATE} a las {row.TIME}</dd>
+		</dl>
+		<!-- END row -->
 		<!-- END lastboard -->
 	</div>
-	
-	<div class="is_right_i">
+	<div class="col-lg-9">
 		<!-- BEGIN post_comment_box -->
 		<div>
 			<div class="h"><h3>{L_SEND_POST}</h3></div>
@@ -75,7 +61,7 @@
 					</div>
 				</div>
 
-				<div align="center">
+				<div class="text-center">
 					<input type="submit" class="btn btn-danger" name="submit" value="{L_SUBMIT}" />
 				</div>
 			</form>
@@ -132,4 +118,4 @@
 </div>
 <!-- END friends -->
 
-<!-- INCLUDE page.footer.htm -->
+<!-- INCLUDE page.footer.htm
