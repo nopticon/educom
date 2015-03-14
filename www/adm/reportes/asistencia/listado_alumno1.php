@@ -27,29 +27,37 @@ $list = $db->sql_rowset($db->__prepare($sql, $grado, $seccion, $anio));
 
 ?>
 
-Grado: <?php echo $grado_seccion->nombre; ?><br />
-Secci&oacute;n: <?php echo $grado_seccion->nombre_seccion; ?>
-
-<br /><br />
-<table width="90%" align="center" border="1" cellpadding="5" style="border-collapse:collapse;">
-	<?php
-
-	$i = 0;
-	foreach ($list as $row) {
-
-	?>
-	<tr>
-		<td><?php echo $row->carne; ?></td>
-		<td><?php echo $row->apellido . ', ' . $row->nombre_alumno; ?></td>
-		<td width="25%">&nbsp;</td>
-	</tr>
-	<?php $i++; } ?>
-</table>
+<h2>Grado: <?php echo $grado_seccion->nombre . ' ' . $grado_seccion->nombre_seccion; ?></h2>
 
 <br />
-<div class="a_center">Total de alumnos: <?php echo $i; ?></div>
+<table class="table table-bordered">
+	<tr>
+		<td>Asignatura:</td>
+	</tr>
+	<tr>
+		<td>Catedr&aacute;tico:</td>
+	</tr>
+</table>
 
-<br /><br />
-<div class="a_center">_______________________________________________<br />Vo.Bo. Director</div>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>#</td>
+			<td>Carn&eacute;</td>
+			<td>Apellido</td>
+			<td>Nombre</td>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($list as $i => $row) { ?>
+		<tr>
+			<th scope="row"><?php echo ($i + 1); ?></th>
+			<td><?php echo $row->carne; ?></td>
+			<td><?php echo $row->apellido; ?></td>
+			<td><?php echo $row->nombre_alumno; ?></td>
+		</tr>
+		<?php } ?>
+	</tbody>
+</table>
 
 <?php pie(); ?>

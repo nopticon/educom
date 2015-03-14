@@ -38,7 +38,7 @@ foreach ($grado_seccion as $row) {
 
 ?>
 
-<form action="certificaciones2.php" method="post" name="formulario" id="formulario" target="_blank">
+<form action="certificaciones2.php" method="post" class="form-horizontal" target="_blank">
 	<?php if ($alumno) { ?>
 	<input type="hidden" name="alumno" value="<?php echo $alumno->id_alumno; ?>" />
 

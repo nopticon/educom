@@ -2,10 +2,10 @@
 
 require_once('../conexion.php');
 
-$seccion = $_REQUEST['grado'];
-$curso = $_REQUEST['curso'];
-$examen = $_REQUEST['examen'];
-$anio = $_REQUEST['anio'];
+$seccion = request_var('grado', 0);
+$curso = request_var('curso', 0);
+$examen = request_var('examen', 0);
+$anio = request_var('anio', 0);
 
 encabezado('Edici&oacute;n de Calificaciones');
 
@@ -47,67 +47,58 @@ $reinscripcion = $db->sql_rowset($db->__prepare($sql, $grado, $seccion, $anio));
 
 ?>
 
-<form action="./cod_notas.php" method="post" name="formulario" id="formulario">
-	<input name="grado" type="hidden" id="grado" value="<?php echo $grado; ?>" />
-	<input name="curso" type="hidden" id="curso" value="<?php echo $curso; ?>" />
-	<input name="examen" type="hidden" id="examen" value="<?php echo $examenes->id_examen; ?>" />
+<table class="table table-bordered">
+	<tr>
+		<td width="50%">Grado: <?php echo $grados->nombre . ' ' . $secciones->nombre_seccion; ?></td>
+		<td>Unidad: <?php echo $examenes->examen; ?></td>
+	</tr>
+	<tr>
+		<td>Curso: <?php echo $cursos->nombre_curso; ?></td>
+		<td>A&ntilde;o: <?php echo $anio; ?></td>
+	</tr>
+</table>
 
-	<table width="100%">
-		<tr>
-			<td width="50%" class="a_right">Grado:</td>
-			<td width="50%"><?php echo $grados->nombre . ' - secci&oacute;n: ' . $secciones->nombre_seccion; ?></td>
-		</tr>
-		<tr>
-			<td class="a_right">Curso:</td>
-			<td><?php echo $cursos->nombre_curso; ?></td>
-		</tr>
-		<tr>
-			<td class="a_right">Unidad:</td>
-			<td><?php echo $examenes->examen; ?></td>
-		</tr>
-		<tr>
-			<td class="a_right">A&ntilde;o:</td>
-			<td><?php echo $anio; ?></td>
-		</tr>
-	</table>
+<form action="./cod_notas.php" method="post">
+	<input name="grado" type="hidden" value="<?php echo $grado; ?>" />
+	<input name="curso" type="hidden" value="<?php echo $curso; ?>" />
+	<input name="examen" type="hidden" value="<?php echo $examenes->id_examen; ?>" />
 
-	<br />
-
-	<table width="100%">
+	<table class="table table-striped">
 		<thead>
-			<td width="20%">Carn&eacute;</td>
+			<td>Carn&eacute;</td>
 			<td>Apellidos</td>
 			<td>Nombres</td>
-			<td width="20%">Nota</td>
+			<td>Nota</td>
 		</thead>
-		<?php
+		<tbody>
+			<?php
 
-		foreach ($reinscripcion as $row) {
-			$sql = 'SELECT *
-				FROM notas
-				WHERE id_alumno = ?
-					AND id_grado = ?
-					AND id_curso = ?
-					AND id_bimestre = ?';
-			$cada_nota = $db->sql_field($db->__prepare($sql, $row->id_alumno, $grado, $curso, $examen), 'nota', false);
+			foreach ($reinscripcion as $row) {
+				$sql = 'SELECT *
+					FROM notas
+					WHERE id_alumno = ?
+						AND id_grado = ?
+						AND id_curso = ?
+						AND id_bimestre = ?';
+				$cada_nota = $db->sql_field($db->__prepare($sql, $row->id_alumno, $grado, $curso, $examen), 'nota', false);
 
-		?>
-		<tr>
-			<td align="center"><?php echo $row->carne; ?></td>
-			<td><?php echo $row->apellido; ?>
-			<td><?php echo $row->nombre_alumno; ?></td>
-			<td align="center"><?php
+			?>
+			<tr>
+				<td><?php echo $row->carne; ?></td>
+				<td><?php echo $row->apellido; ?>
+				<td><?php echo $row->nombre_alumno; ?></td>
+				<td><?php
 
-			echo '<input name="nota[' . $row->id_alumno . ']" value="' . (($cada_nota !== false) ? $cada_nota : '') . '" type="text" size="5" />';
+				echo '<input class="form-control" name="nota[' . $row->id_alumno . ']" value="' . (($cada_nota !== false) ? $cada_nota : '') . '" type="text" size="5" />';
 
-			?></td>
-		</tr>
+				?></td>
+			</tr>
 
-		<?php } ?>
+			<?php } ?>
+		</tbody>
 	</table>
 
-	<br />
-	<div align="center"><input class="btn btn-danger" type="submit" name="submit" value="Guardar Notas" /></div>
+	<div class="text-center"><input class="btn btn-danger" type="submit" name="submit" value="Guardar Notas" /></div>
 </form>
 
 <?php pie(); ?>

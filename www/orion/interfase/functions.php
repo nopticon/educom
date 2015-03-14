@@ -2096,9 +2096,7 @@ function topic_arkane($topic_id, $value) {
 	return;
 }
 
-function page_layout($page_title, $htmlpage, $custom_vars = false, $js_keepalive = true) {
-	global $config, $user, $cache, $starttime, $template;
-
+function page_assets() {
 	$css = [
 		'/assets/bootstrap/css/bootstrap.css',
 		'/assets/default.css',
@@ -2106,8 +2104,10 @@ function page_layout($page_title, $htmlpage, $custom_vars = false, $js_keepalive
 		'/assets/select2/select2-bootstrap.css',
 		'/assets/bootstrap/css/datepicker3.css',
 		'/assets/kendo/css/kendo.common.min.css',
+		'/assets/kendo/css/kendo.common.bootstrap.min.css',
 		'/assets/kendo/css/kendo.bootstrap.min.css',
 		'/assets/font-awesome/css/font-awesome.min.css',
+		'/assets/bootstrap-calendar/css/calendar.min.css',
 		'/assets/mobile.css',
 	];
 
@@ -2121,13 +2121,24 @@ function page_layout($page_title, $htmlpage, $custom_vars = false, $js_keepalive
 		'/assets/g.js',
 	];
 
-	foreach ($css as $row) {
+	return array(
+		'css' => $css,
+		'js' => $js
+	);
+}
+
+function page_layout($page_title, $htmlpage, $custom_vars = false, $js_keepalive = true) {
+	global $config, $user, $cache, $starttime, $template;
+
+	$assets = page_assets();
+
+	foreach ($assets['css'] as $row) {
 		_style('header_css', [
 			'path' => $row
 		]);
 	}
 
-	foreach ($js as $row) {
+	foreach ($assets['js'] as $row) {
 		_style('header_js', [
 			'path' => $row
 		]);
@@ -3027,29 +3038,7 @@ function pie() {
 function get_header($page_title = '', $ruta = '', $full = true) {
 	global $config, $user;
 
-	$css = [
-		'/assets/bootstrap/css/bootstrap.css',
-		'/assets/default.css',
-		'/assets/select2/select2.css',
-		'/assets/select2/select2-bootstrap.css',
-		'/assets/bootstrap/css/datepicker3.css',
-		'/assets/kendo/css/kendo.common.min.css',
-		'/assets/kendo/css/kendo.common.bootstrap.min.css',
-		'/assets/kendo/css/kendo.bootstrap.min.css',
-		'/assets/font-awesome/css/font-awesome.min.css',
-		'/assets/mobile.css',
-	];
-
-	$js = [
-		'/assets/bootstrap/js/bootstrap.min.js',
-		'/assets/bootstrap/js/bootstrap-datepicker.js',
-		'/assets/bootstrap/js/bootstrap-datepicker.es.js',
-		'/assets/select2/select2.min.js',
-		'/assets/select2/select2.es.min.js',
-		'/assets/kendo/js/kendo.web.min.js',
-		'/assets/g.js',
-	];
-
+	$assets = page_assets();
 	$is_member = $user->is('member');
 	$real_page_title = $config->sitename . (($page_title) ? ': ' . $page_title : '');
 
@@ -3060,7 +3049,7 @@ function get_header($page_title = '', $ruta = '', $full = true) {
 <title><?php echo $real_page_title; ?></title>
 <?php
 
-foreach ($css as $row) {
+foreach ($assets['css'] as $row) {
 	echo '<link rel="stylesheet" type="text/css" href="' . $row . '" />' . "\n";
 }
 
@@ -3070,7 +3059,7 @@ foreach ($css as $row) {
 <script>window.jQuery || document.write('<script src="<?php echo $config->assets_url . 'j.js'; ?>">\x3C/script>')</script>
 <?php
 
-foreach ($js as $row) {
+foreach ($assets['js'] as $row) {
 	echo '<script type="text/javascript" charset="utf-8" src="' . $row . '"></script>' . "\n";
 }
 

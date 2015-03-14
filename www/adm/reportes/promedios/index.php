@@ -37,7 +37,7 @@ $form = array(
 		),
 		'anio' => array(
 			'type' => 'select',
-			'show' => 'Grado',
+			'show' => 'A&ntilde;o',
 			'value' => '*'
 		)
 	)

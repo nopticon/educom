@@ -4,16 +4,28 @@ require_once('../conexion.php');
 
 encabezado('Busqueda Alumno', '', false);
 
-$nombre = isset($_REQUEST['nombre']) ? $_REQUEST['nombre'] : '';
-$apellido = isset($_REQUEST['apellido']) ? $_REQUEST['apellido'] : '';
+$nombre = request_var('nombre', '');
+$apellido = request_var('apellido', '');
 
 if ($nombre || $apellido) {
-	$sql = "SELECT id_alumno, carne, apellido, nombre_alumno
-		FROM alumno
-		WHERE nombre_alumno LIKE '%??%'
-			AND apellido LIKE '%??%'
-		ORDER BY apellido, nombre_alumno";
-	$alumnos = $db->sql_rowset($db->__prepare($sql, $nombre, $apellido));
+	// $sql = "SELECT id_alumno, carne, apellido, nombre_alumno
+	// 	FROM alumno
+	// 	WHERE nombre_alumno LIKE '%??%'
+	// 		AND apellido LIKE '%??%'
+	// 	ORDER BY apellido, nombre_alumno";
+	// $alumnos = $db->sql_rowset(sql_filter($sql, $nombre, $apellido));
+	$sql = 'SELECT id_alumno, carne, apellido, nombre_alumno
+		FROM alumno a
+		INNER JOIN _members m ON m.user_id = a.id_member
+		WHERE m.username_base LIKE ?
+			AND m.username_base LIKE ?
+		ORDER BY a.apellido, a.nombre_alumno';
+
+	// _pre(sql_filter($sql, '%' . $nombre . '%', '%' . $apellido . '%'), true);
+
+	$alumnos = sql_rowset(sql_filter($sql, '%' . $nombre . '%', '%' . $apellido . '%'));
+
+	// _pre($alumnos, true);
 }
 
 $form = array(
@@ -41,40 +53,30 @@ if ($nombre || $apellido) {
 	if ($alumnos) {
 ?>
 <br />
-<div id="list"></div>
-
-<script type="text/javascript">
-var target, grid;
-
-<?php echo 'var kdata = ' . json_encode($alumnos) . ';'; ?>
-
-$(function() {
-	target = $('#list');
-	grid = target.kendoGrid({
-		dataSource: {
-			data: kdata,
-			pageSize: 10
-		},
-		sortable: true,
-		pageable: {
-			pageSizes: true
-		},
-		columns: [
-			{ field: "carne", title: "Carne", width: 125 },
-			{ field: "nombre_alumno", title: 'Nombre', encoded: false },
-			{ field: "apellido", title: 'Apellidos', encoded: false },
-			{ title: 'Editar', template: t_editar, width: 75 }
-		]
-	});
-});
-
-function t_editar(a) {
-	return '<a href="dato_alumno.php?id_alumno=' + a.id_alumno + '"><img src="/public/images/configuration.png" width="20" /></a>';
-}
-</script>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>#</td>
+			<td>Carn&eacute;</td>
+			<td>Apellido</td>
+			<td>Nombre</td>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($alumnos as $i => $row) { ?>
+		<tr>
+			<td><?php echo ($i + 1); ?></td>
+			<td><?php echo $row->carne; ?></td>
+			<td><?php echo $row->nombre_alumno; ?></td>
+			<td><?php echo $row->apellido; ?></td>
+			<td><a href="dato_alumno.php?id_alumno=<?php echo $row->id_alumno; ?>">Editar</a></td>
+		</tr>
+		<?php } ?>
+	</tbody>
+</table>
 <?php
 	} else {
-		echo 'No se encuentran alumnos relacionados a su b&uacute;squeda.';
+		echo '<p class="bg-danger">No se encuentran alumnos relacionados a su b&uacute;squeda.</p>';
 	}
 }
 

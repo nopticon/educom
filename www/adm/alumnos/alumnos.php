@@ -46,13 +46,13 @@ $(function() {
 });
 
 function t_compromiso(a) {
-	var r = '<a href="/reportes/compromiso.php?id_alumno=' + a.id_alumno + '" target="_blank"><img src="/public/images/iconos/39.ico" width="20" /></a>';
+	var r = '<a href="/reportes/compromiso.php?id_alumno=' + a.id_alumno + '" target="_blank">Compromiso</a>';
 
 	return r;
 }
 
 function t_editar(a) {
-	return '<a href="/mantenimientos/alumnos/alumno.php?carne=' + a.carne + '&amp;Submit2=Buscar" target="_blank"><img src="/public/images/iconos/226.ico" width="20" /></a>';
+	return '<a href="/mantenimientos/alumnos/alumno.php?carne=' + a.carne + '&amp;Submit2=Buscar" target="_blank">Editar</a>';
 }
 </script>
 

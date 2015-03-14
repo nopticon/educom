@@ -2,23 +2,9 @@
 
 require('../conexion.php');
 
-encabezado_simple('Carta para editar notas');
+encabezado('Carta para editar notas');
 
 ?>
-
-<table width="100%">
-	<tr>
-		<td width="208"><img src="/public/images/logo.jpg" width="150" height="150" /></td>
-		<td class="a_center">
-			<p>
-				<span class="Estilo3"><br />
-				<span class="Estilo8">INEB Adscrito a la Escuela Normal<br />
-					Rural No. 5 Prof. &quot;Julio Edmundo Rosado Pinelo&quot; <br />
-					Santa Elena, Pet&eacute;n.</span></span><br />
-			</p>
-		</td>
-	</tr>
-</table>
 
 <table width="100%">
 	<tr>
@@ -27,7 +13,7 @@ encabezado_simple('Carta para editar notas');
 
 			<p>
 				Se&ntilde;or Director<br />
-				INEB Adscrito Escuela Normal.<br />
+				<?php echo lang('SCHOOL_NAME'); ?><br />
 				Presente.
 			</p>
 

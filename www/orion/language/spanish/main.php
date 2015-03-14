@@ -28,6 +28,7 @@ $lang += array(
 	'APPLICATION_WELCOME' => 'Bienvenido a la comunidad y plataforma educativa de <br /><strong>Colegio San Gabriel</strong>',
 	'APPLICATION_SCHOOL' => 'Tenemos 10 años de brindar excelencia acad&eacute;mica en Guatemala.',
 
+	'SCHOOL_NAME' => 'Colegio San Gabriel',
 	'EDUCATION_PLATFORM' => 'Plataforma Virtual',
 
 	'ENCODING' => "utf-8",

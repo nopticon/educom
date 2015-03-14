@@ -43,12 +43,12 @@ body {
 /*p, div, span {
 	cursor: default;
 }*/
-p, div, span, input, textarea, a, optgroup {
+div, span, input, textarea, a, optgroup {
 	font-family: 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
 	text-decoration: none;
 	font-weight: lighter;
 }
-p, div, span, input, textarea, a, optgroup {
+div, span, input, textarea, a, optgroup {
 	font-size: 100%;
 	color: #777;
 }

@@ -2,7 +2,7 @@
 
 require_once('../../conexion.php');
 
-encabezado('Listado de Alumnos en Grado', '', false);
+encabezado('Listado de alumnos por grado', '', false);
 
 $grado = $_REQUEST['grado'];
 $seccion = $_REQUEST['seccion'];
@@ -27,51 +27,39 @@ $list = $db->sql_rowset($db->__prepare($sql, $grado, $seccion, $anio));
 
 ?>
 
+<h2>Grado: <?php echo $grado_seccion->nombre . ' ' . $grado_seccion->nombre_seccion; ?></h2>
+
 <br />
-<table width="100%">
+<table class="table table-bordered">
 	<tr>
-		<td width="58">&nbsp;</td>
-		<td width="681">
-			Grado: <strong><?php echo $grado_seccion->nombre; ?></strong><br />
-			Secci&oacute;n: <strong><?php echo $grado_seccion->nombre_seccion; ?></strong><br />
-			A&ntilde;o: <strong><?php echo $anio; ?></strong><br />
-			Asignatura: _______________________________________________<br />
-			Catedr&aacute;tico: _______________________________________________<br />
-			Trimestres: <strong>1er _____ 2do _____ 3ro _____</strong>
-		</td>
-		<td width="23" align="center"><img src="/public/images/logo.jpg" width="110" height="117" /></td>
+		<td width="25%">A&ntilde;o: <strong><?php echo $anio; ?></strong><br /></td>
+		<td>Asignatura:</td>
+	</tr>
+	<tr>
+		<td>Unidad:</td>
+		<td>Catedr&aacute;tico:</td>
 	</tr>
 </table>
 
-<br />
-<table width="90%" align="center" border="1" cellpadding="5" style="border-collapse:collapse;">
-	<tr>
-		<td width="10%">&nbsp;</td>
-		<td>&nbsp;</td>
-		<td width="5%">Afect.</td>
-		<td width="5%">Cong/Psic</td>
-		<td width="5%">TOTAL</td>
-	</tr>
-
-	<?php
-
-	$i = 0;
-	foreach ($list as $row) {
-	?>
-	<tr>
-		<td><?php echo $row->carne; ?></td>
-		<td><?php echo $row->apellido . ', ' . $row->nombre_alumno; ?></td>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-	</tr>
-	<?php $i++; } ?>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>#</td>
+			<td>Carn&eacute;</td>
+			<td>Apellido</td>
+			<td>Nombre</td>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($list as $i => $row) { ?>
+		<tr>
+			<th scope="row"><?php echo ($i + 1); ?></th>
+			<td><?php echo $row->carne; ?></td>
+			<td><?php echo $row->apellido; ?></td>
+			<td><?php echo $row->nombre_alumno; ?></td>
+		</tr>
+		<?php } ?>
+	</tbody>
 </table>
-
-<br />
-<div class="a_center">Total de alumnos: <?php echo $i; ?></div>
-
-<br /><br />
-<div class="a_center">_______________________________________________<br />Firma de catedr&aacute;tico</div>
 
 <?php pie(); ?>
