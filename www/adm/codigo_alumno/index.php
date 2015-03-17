@@ -5,7 +5,7 @@ require_once('../conexion.php');
 $sql = 'SELECT *
 	FROM grado
 	WHERE status = ?';
-$grado = $db->sql_rowset($db->__prepare($sql, 'Alta'));
+$grado = $db->sql_rowset(sql_filter($sql, 'Alta'));
 
 $sql = 'SELECT *
 	FROM secciones

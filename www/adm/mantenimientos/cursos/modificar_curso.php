@@ -10,7 +10,7 @@ encabezado('Modificaci&oacute;n de curso');
 $sql = 'SELECT *
 	FROM cursos
 	WHERE id_curso = ?';
-$curso = $db->sql_fieldrow($db->__prepare($sql, $id_curso));
+$curso = $db->sql_fieldrow(sql_filter($sql, $id_curso));
 
 $form = array(
 	array(

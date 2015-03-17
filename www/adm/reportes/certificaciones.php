@@ -7,7 +7,7 @@ $alumno = (isset($_REQUEST) && isset($_REQUEST['alumno'])) ? $_REQUEST['alumno']
 $sql = 'SELECT id_alumno, nombre_alumno, apellido
 	FROM alumno
 	WHERE id_alumno = ?';
-$alumno = $db->sql_fieldrow($db->__prepare($sql, $alumno));
+$alumno = $db->sql_fieldrow(sql_filter($sql, $alumno));
 
 $sql = "SELECT *
 	FROM grado g, secciones s

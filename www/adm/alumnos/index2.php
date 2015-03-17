@@ -15,7 +15,7 @@ $sql = 'SELECT a.id_alumno, a.carne, a.fecha, a.nombre_alumno, a.apellido, g.nom
 		AND r.anio = ?
 	ORDER BY a.id_alumno DESC
 	LIMIT 100';
-$rowset = $db->sql_rowset($db->__prepare($sql, date('Y')));
+$rowset = $db->sql_rowset(sql_filter($sql, date('Y')));
 
 ?>
 

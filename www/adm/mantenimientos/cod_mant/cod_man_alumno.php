@@ -31,7 +31,7 @@ $sql_update = array(
 	'madre' => $madre,
 	'id_grado' => $id_grado
 );
-$sql = 'UPDATE alumno SET' . $db->sql_build('UPDATE', $sql_update) . $db->__prepare('
+$sql = 'UPDATE alumno SET' . $db->sql_build('UPDATE', $sql_update) . sql_filter('
 	WHERE id_alumno = ?
 		AND carne = ?', $id_alumno, $carne);
 $db->sql_query($sql);
@@ -41,12 +41,12 @@ $sql = 'SELECT *
 	WHERE id_alumno = ?
 	ORDER BY anio DESC
 	LIMIT 1';
-if ($reinscripcion = $db->sql_fieldrow($db->__prepare($sql, $id_alumno))) {
+if ($reinscripcion = $db->sql_fieldrow(sql_filter($sql, $id_alumno))) {
 	$sql_update = array(
 		'id_grado' => $grado,
 		'id_seccion' => $seccion
 	);
-	$sql = 'UPDATE reinscripcion SET ' . $db->sql_build('UPDATE', $sql_update) . $db->__prepare('
+	$sql = 'UPDATE reinscripcion SET ' . $db->sql_build('UPDATE', $sql_update) . sql_filter('
 		WHERE id_alumno = ?
 			AND anio = ?', $id_alumno, $reinscripcion->anio);
 	$db->sql_query($sql);
@@ -54,7 +54,7 @@ if ($reinscripcion = $db->sql_fieldrow($db->__prepare($sql, $id_alumno))) {
 	$sql_update = array(
 		'id_grado' => $grado
 	);
-	$sql = 'UPDATE notas SET ' . $db->sql_build('UPDATE', $sql_update) . $db->__prepare('
+	$sql = 'UPDATE notas SET ' . $db->sql_build('UPDATE', $sql_update) . sql_filter('
 		WHERE id_alumno = ?
 			AND id_grado = ?', $id_alumno, $reinscripcion->id_grado);
 	$db->sql_query($sql);

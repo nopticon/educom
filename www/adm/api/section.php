@@ -11,7 +11,7 @@ if (!$grado) {
 $sql = 'SELECT *
 	FROM secciones
 	WHERE id_grado = ?';
-$result = $db->sql_rowset($db->__prepare($sql, $grado));
+$result = $db->sql_rowset(sql_filter($sql, $grado));
 
 foreach ($result as $row) {
 	echo '<option value="' . $row->id_seccion . '">' . $row->nombre_seccion . '</option>';

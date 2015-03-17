@@ -18,7 +18,7 @@ $sql = 'SELECT *
 	FROM secciones s, grado g
 	WHERE s.id_seccion = ?
 		AND s.id_grado = g.id_grado';
-$secciones = $db->sql_fieldrow($db->__prepare($sql, $id_seccion));
+$secciones = $db->sql_fieldrow(sql_filter($sql, $id_seccion));
 
 $sql = 'SELECT *
 	FROM reinscripcion r, secciones s, grado g, alumno a
@@ -28,7 +28,7 @@ $sql = 'SELECT *
 		AND r.id_seccion = s.id_seccion
 		AND r.id_alumno = a.id_alumno
 		AND r.id_grado = g.id_grado';
-$list = $db->sql_rowset($db->__prepare($sql, $secciones->id_grado, $secciones->id_seccion, $anio));
+$list = $db->sql_rowset(sql_filter($sql, $secciones->id_grado, $secciones->id_seccion, $anio));
 
 // _pre($list, true);
 
@@ -88,7 +88,7 @@ foreach ($list as $row) {
 		FROM examenes
 		WHERE examen NOT LIKE ?
 		ORDER BY id_examen';
-	if ($examenes = $db->sql_rowset($db->__prepare($sql, '%Recup%'))) {
+	if ($examenes = $db->sql_rowset(sql_filter($sql, '%Recup%'))) {
 		foreach ($examenes as $examenes_row) {
 			$infot[0][] = array('text' => $examenes_row->examen, 'align' => 'center', 'width' => 75);
 		}
@@ -103,7 +103,7 @@ foreach ($list as $row) {
 			AND r.anio = ?
 			AND r.id_alumno = ?
 			AND r.id_grado = c.id_grado';
-	$rcursos = $db->sql_rowset($db->__prepare($sql, $secciones->id_grado, $secciones->id_seccion, $anio, $row->id_alumno));
+	$rcursos = $db->sql_rowset(sql_filter($sql, $secciones->id_grado, $secciones->id_seccion, $anio, $row->id_alumno));
 
 	$note_sum = $note_quant = array();
 	$j = 1;
@@ -120,7 +120,7 @@ foreach ($list as $row) {
 					AND id_grado = ?
 					AND id_curso = ?
 					AND id_bimestre = ?' ;
-			$nota = $db->sql_field($db->__prepare($sql, $row->id_alumno, $row->id_grado, $rcursos_row->id_curso, $examenes_row->id_examen), 'nota', false);
+			$nota = $db->sql_field(sql_filter($sql, $row->id_alumno, $row->id_grado, $rcursos_row->id_curso, $examenes_row->id_examen), 'nota', false);
 
 			// _pre($nota, true);
 
@@ -176,7 +176,7 @@ foreach ($list as $row) {
 		WHERE id_alumno = ?
 		ORDER BY fecha_falta DESC
 		LIMIT 3';
-	if ($faltas = $db->sql_rowset($db->__prepare($sql, $row->id_alumno))) {
+	if ($faltas = $db->sql_rowset(sql_filter($sql, $row->id_alumno))) {
 		$i2 = 0;
 		foreach ($faltas as $faltas_row) {
 			if (!$i2) {

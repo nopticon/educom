@@ -2,41 +2,50 @@
 
 require_once('../conexion.php');
 
-encabezado('Ingreso de &Aacute;reas Ocupacionales');
+if (request_var('submit', '')) {
+	$area = request_var('area', '');
+	$observacion = request_var('observacion', '');
 
+	$sql_insert = [
+		'nombre_ocupacion' => $area,
+		'observacion' => $observacion
+	];
+	$sql = 'INSERT INTO area_ocupacional' . $db->sql_build('INSERT', $sql_insert);
+	$db->sql_query($sql);
+
+	header('Location: .');
+}
+
+// 
+// List data
+// 
 $sql = 'SELECT *
 	FROM area_ocupacional';
 $rowset = $db->sql_rowset($sql);
 
-$form = array(
-	array(
-		'area' => array(
-			'type' => 'input',
-			'value' => 'Nombre de &Aacute;rea'
-		),
-		'observacion' => array(
-			'type' => 'textarea',
-			'value' => 'Observaci&oacute;n'
-		)
-	)
-);
+foreach ($rowset as $i => $row) {
+	if (!$i) _style('results');
 
-?>
+	_style('results.row', $row);
+}
 
-<form class="form-horizontal" action="cod_ocupacional.php" method="post">
-	<?php build($form); submit(); ?>
-</form>
+// 
+// Create form
+// 
+$form = [[
+	'area' => [
+		'type' => 'input',
+		'value' => 'Nombre de &Aacute;rea'
+	],
+	'observacion' => [
+		'type' => 'textarea',
+		'value' => 'Observaci&oacute;n'
+	]
+]];
 
-<div class="h"><h3>Lista de &Aacute;reas</h3></div>
+_style('create_area', [
+	'form' => build_form($form),
+	'submit' => build_submit()
+]);
 
-<table class="table table-striped">
-	<tbody>
-		<?php foreach ($rowset as $row) { ?>
-		<tr>
-			<td><?php echo $row->nombre_ocupacion; ?></td>
-		</tr>
-		<?php } ?>
-	</tbody>
-</table>
-
-<?php pie(); ?>
+page_layout('Areas Ocupacionales', 'student_ocupational_areas');

@@ -10,7 +10,7 @@ $anio = $_REQUEST['anio'];
 $sql = 'SELECT id_grado, nombre_seccion
 	FROM secciones
 	WHERE id_seccion = ?';
-if (!$gradoar = $db->sql_fieldrow($db->__prepare($sql, $seccion))) {
+if (!$gradoar = $db->sql_fieldrow(sql_filter($sql, $seccion))) {
 	redirect('index.php');
 }
 
@@ -19,21 +19,21 @@ $grado = $gradoar->id_grado;
 $sql = 'SELECT *
 	FROM grado
 	WHERE id_grado = ?';
-if (!$_grado = $db->sql_fieldrow($db->__prepare($sql, $grado))) {
+if (!$_grado = $db->sql_fieldrow(sql_filter($sql, $grado))) {
 	redirect('index.php');
 }
 
 $sql = 'SELECT *
 	FROM cursos
 	WHERE id_curso = ?';
-if (!$_curso = $db->sql_fieldrow($db->__prepare($sql, $curso))) {
+if (!$_curso = $db->sql_fieldrow(sql_filter($sql, $curso))) {
 	redirect('index.php');
 }
 
 $sql = 'SELECT *
 	FROM examenes
 	WHERE id_examen = ?';
-if (!$_examen = $db->sql_fieldrow($db->__prepare($sql, $examen))) {
+if (!$_examen = $db->sql_fieldrow(sql_filter($sql, $examen))) {
 	redirect('index.php');
 }
 
@@ -45,7 +45,7 @@ $sql = 'SELECT *
 		AND r.id_grado = g.id_grado
 		AND r.id_alumno = a.id_alumno
 	ORDER BY a.apellido ASC';
-if (!$list = $db->sql_rowset($db->__prepare($sql, $grado, $seccion, $anio))) {
+if (!$list = $db->sql_rowset(sql_filter($sql, $grado, $seccion, $anio))) {
 	redirect('index.php');
 }
 
@@ -98,7 +98,7 @@ encabezado('Ingreso de notas');
 					AND id_grado = ?
 					AND id_curso = ?
 					AND id_bimestre = ?';
-			if ($cada_nota = $db->sql_field($db->__prepare($sql, $row->id_alumno, $grado, $curso, $examen), 'nota', 0)) {
+			if ($cada_nota = $db->sql_field(sql_filter($sql, $row->id_alumno, $grado, $curso, $examen), 'nota', 0)) {
 				echo $cada_nota;
 			} else {
 				echo '<input name="nota[' . $row->id_alumno . ']" type="text" size="5" />';

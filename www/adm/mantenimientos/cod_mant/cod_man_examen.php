@@ -13,7 +13,7 @@ $sql_update = array(
 	'observacion' => $observacion,
 	'status' => $status,
 );
-$sql = 'UPDATE examenes SET' . $db->sql_build('UPDATE', $sql_update) . $db->__prepare('
+$sql = 'UPDATE examenes SET' . $db->sql_build('UPDATE', $sql_update) . sql_filter('
 	WHERE id_examen = ?', $id_examen);
 $db->sql_query($sql);
 

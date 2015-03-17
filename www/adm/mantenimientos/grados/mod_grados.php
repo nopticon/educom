@@ -9,7 +9,7 @@ $id_grado = $_REQUEST['id_grado'];
 $sql = 'SELECT *
 	FROM grado
 	WHERE id_grado = ?';
-$grado = $db->sql_fieldrow($db->__prepare($sql, $id_grado));
+$grado = $db->sql_fieldrow(sql_filter($sql, $id_grado));
 
 $form = array(
 	'' => array(

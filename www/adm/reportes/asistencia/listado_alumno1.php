@@ -13,7 +13,7 @@ $sql = 'SELECT *
 	WHERE g.id_grado = ?
 		AND s.id_seccion = ?
 		AND g.id_grado = s.id_grado';
-$grado_seccion = $db->sql_fieldrow($db->__prepare($sql, $grado, $seccion));
+$grado_seccion = $db->sql_fieldrow(sql_filter($sql, $grado, $seccion));
 
 $sql = 'SELECT *
 	FROM alumno a, grado g, reinscripcion r
@@ -23,7 +23,7 @@ $sql = 'SELECT *
 		AND r.id_seccion = ?
 		AND r.anio = ?
 	ORDER BY a.apellido, a.nombre_alumno ASC';
-$list = $db->sql_rowset($db->__prepare($sql, $grado, $seccion, $anio));
+$list = $db->sql_rowset(sql_filter($sql, $grado, $seccion, $anio));
 
 ?>
 

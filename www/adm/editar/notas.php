@@ -12,7 +12,7 @@ encabezado('Edici&oacute;n de Calificaciones');
 $sql = 'SELECT id_grado, nombre_seccion
 	FROM secciones
 	WHERE id_seccion = ?';
-if (!$secciones = $db->sql_fieldrow($db->__prepare($sql, $seccion))) {
+if (!$secciones = $db->sql_fieldrow(sql_filter($sql, $seccion))) {
 	exit;
 }
 
@@ -21,19 +21,19 @@ $grado = $secciones->id_grado;
 $sql = 'SELECT *
 	FROM grado
 	WHERE id_grado = ?';
-if (!$grados = $db->sql_fieldrow($db->__prepare($sql, $grado))) {
+if (!$grados = $db->sql_fieldrow(sql_filter($sql, $grado))) {
 	exit;
 }
 
 $sql = 'SELECT *
 	FROM cursos
 	WHERE id_curso = ?';
-$cursos = $db->sql_fieldrow($db->__prepare($sql, $curso));
+$cursos = $db->sql_fieldrow(sql_filter($sql, $curso));
 
 $sql = 'SELECT *
 	FROM examenes
 	WHERE id_examen = ?';
-$examenes = $db->sql_fieldrow($db->__prepare($sql, $examen));
+$examenes = $db->sql_fieldrow(sql_filter($sql, $examen));
 
 $sql = 'SELECT *
 	FROM alumno a, grado g, reinscripcion r
@@ -43,7 +43,7 @@ $sql = 'SELECT *
 		AND r.id_seccion = ?
 		AND r.anio = ?
 	ORDER BY a.apellido ASC';
-$reinscripcion = $db->sql_rowset($db->__prepare($sql, $grado, $seccion, $anio));
+$reinscripcion = $db->sql_rowset(sql_filter($sql, $grado, $seccion, $anio));
 
 ?>
 
@@ -80,7 +80,7 @@ $reinscripcion = $db->sql_rowset($db->__prepare($sql, $grado, $seccion, $anio));
 						AND id_grado = ?
 						AND id_curso = ?
 						AND id_bimestre = ?';
-				$cada_nota = $db->sql_field($db->__prepare($sql, $row->id_alumno, $grado, $curso, $examen), 'nota', false);
+				$cada_nota = $db->sql_field(sql_filter($sql, $row->id_alumno, $grado, $curso, $examen), 'nota', false);
 
 			?>
 			<tr>

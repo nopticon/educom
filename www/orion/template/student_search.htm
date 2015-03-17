@@ -1,0 +1,38 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN search_student -->
+<form class="form-horizontal" action="{U_ADM/AUX_SEARCH}" method="post">
+{search_student.FORM}
+{search_student.SUBMIT}
+</form>
+<!-- END search_student -->
+
+<!-- BEGIN results -->
+<br />
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>Carn&eacute;</td>
+			<td>Apellido</td>
+			<td>Nombre</td>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN row -->
+		<tr>
+			<td>{row.CARNE}</td>
+			<td>{row.NOMBRE_ALUMNO}</td>
+			<td>{row.APELLIDO}</td>
+			<td><a href="dato_alumno.php?id_alumno={row.ID_ALUMNO}">Editar</a></td>
+		</tr>
+		<!-- END row -->
+	</tbody>
+</table>
+<!-- END results -->
+
+<!-- BEGIN no_results -->
+<br />
+<p class="bg-danger">No se encuentran alumnos con el nombre o apellido proporcionado..</p>
+<!-- END no_results -->
+
+<!-- INCLUDE page.footer.htm -->

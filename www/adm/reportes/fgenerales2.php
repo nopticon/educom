@@ -13,12 +13,12 @@ $sql = 'SELECT *
 	FROM secciones s, grado g
 	WHERE s.id_seccion = ?
 		AND s.id_grado = g.id_grado';
-$secciones = $db->sql_fieldrow($db->__prepare($sql, $id_seccion));
+$secciones = $db->sql_fieldrow(sql_filter($sql, $id_seccion));
 
 $sql = 'SELECT *
 	FROM examenes
 	WHERE id_examen = ?';
-$examenes = $db->sql_fieldrow($db->__prepare($sql, $id_examen));
+$examenes = $db->sql_fieldrow(sql_filter($sql, $id_examen));
 
 //
 // Start PDF
@@ -48,7 +48,7 @@ $sql = 'SELECT *
 	FROM cursos
 	WHERE id_grado = ?
 	ORDER BY id_curso';
-$cursos = $db->sql_rowset($db->__prepare($sql, $secciones->id_grado));
+$cursos = $db->sql_rowset(sql_filter($sql, $secciones->id_grado));
 
 $ls_cursos = $id_cursos = $table = array();
 $i = 0;
@@ -81,7 +81,7 @@ $sql = 'SELECT *
 		AND r.id_seccion = ?
 		AND r.anio = ?
 	ORDER BY a.apellido, a.nombre_alumno';
-$reinscripcion = $db->sql_rowset($db->__prepare($sql, $secciones->id_grado, $secciones->id_seccion, $anio));
+$reinscripcion = $db->sql_rowset(sql_filter($sql, $secciones->id_grado, $secciones->id_seccion, $anio));
 
 foreach ($reinscripcion as $row) {
 	$alumno = array(
@@ -103,7 +103,7 @@ foreach ($reinscripcion as $row) {
 				AND id_grado = ?
 				AND id_curso = ?
 				AND id_bimestre = ?';
-		$nota = $db->sql_field($db->__prepare($sql, $row->id_alumno, $secciones->id_grado, $id, $id_examen), 'nota', false);
+		$nota = $db->sql_field(sql_filter($sql, $row->id_alumno, $secciones->id_grado, $id, $id_examen), 'nota', false);
 
 		$numeros[] = array('text' => $nota, 'align' => 'center');
 	}

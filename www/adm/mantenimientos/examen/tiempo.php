@@ -9,7 +9,7 @@ encabezado('Modificaci&oacute;n de Unidad');
 $sql = 'SELECT *
 	FROM examenes
 	WHERE id_examen = ?';
-$examen = $db->sql_fieldrow($db->__prepare($sql, $id_examen));
+$examen = $db->sql_fieldrow(sql_filter($sql, $id_examen));
 
 $form = array(
 	array(

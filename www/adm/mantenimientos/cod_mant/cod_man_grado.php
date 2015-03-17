@@ -11,7 +11,7 @@ $sql_update = array(
 	'nombre' => $nombre,
 	'status' => $status,
 );
-$sql = 'UPDATE grado SET' . $db->sql_build('UPDATE', $sql_update) . $db->__prepare('
+$sql = 'UPDATE grado SET' . $db->sql_build('UPDATE', $sql_update) . sql_filter('
 	WHERE id_grado = ?', $id_grado);
 $db->sql_query($sql);
 

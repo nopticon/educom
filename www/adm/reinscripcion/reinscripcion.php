@@ -10,7 +10,7 @@ $sql = 'SELECT *
 		AND g.id_grado = r.id_grado
 		AND a.carne = ?
 	ORDER BY a.id_alumno DESC';
-$row = $db->sql_fieldrow($db->__prepare($sql, $carne));
+$row = $db->sql_fieldrow(sql_filter($sql, $carne));
 
 if (!$row) {
 	redirect('/adm/reinscripcion/');
@@ -26,13 +26,13 @@ $sql = 'SELECT id_grado
 	WHERE carne = ?
 	ORDER BY id_grado DESC
 	LIMIT 1';
-$last_grade = $db->sql_field($db->__prepare($sql, $carne), 'id_grado');
+$last_grade = $db->sql_field(sql_filter($sql, $carne), 'id_grado');
 
 $sql = 'SELECT *
 	FROM grado
 	WHERE status = ?
 		AND id_grado > ?';
-if (!$rowset_grado = $db->sql_rowset($db->__prepare($sql, 'Alta', $last_grade))) {
+if (!$rowset_grado = $db->sql_rowset(sql_filter($sql, 'Alta', $last_grade))) {
 	$rowset_grado = array();
 }
 
@@ -41,7 +41,7 @@ $primer_seccion = (isset($rowset_grado[0]->id_grado)) ? $rowset_grado[0]->id_gra
 $sql = 'SELECT *
 	FROM secciones
 	WHERE id_grado = ?';
-if (!$rowset_seccion = $db->sql_rowset($db->__prepare($sql, $primer_seccion))) {
+if (!$rowset_seccion = $db->sql_rowset(sql_filter($sql, $primer_seccion))) {
 	$rowset_seccion = array();
 }
 
@@ -55,7 +55,7 @@ $sql = 'SELECT *
 		AND s.id_seccion = r.id_seccion
 		AND s.id_grado = g.id_grado
 		AND r.carne = ?';
-$rowset_historia = $db->sql_rowset($db->__prepare($sql, $carne));
+$rowset_historia = $db->sql_rowset(sql_filter($sql, $carne));
 
 $form = array(
 	'Datos de Alumno' => array(

@@ -14,15 +14,15 @@ foreach ($nota as $alumno => $nota) {
 			AND id_grado = ' . (int) $grado . '
 			AND id_curso = ' . (int) $curso . '
 			AND id_bimestre = ' . (int) $examen;
-	if ($cada_nota = $db->sql_fieldrow($db->__prepare($sql, $alumno, $grado, $curso, $examen)) {
+	if ($cada_nota = $db->sql_fieldrow(sql_filter($sql, $alumno, $grado, $curso, $examen)) {
 		if (!$nota) {
 			$sql = 'DELETE FROM notas
 				WHERE id_nota = ?';
-			$db->sql_query($db->__prepare($sql, $cada_nota['id_nota']));
+			$db->sql_query(sql_filter($sql, $cada_nota['id_nota']));
 		} else {
 			$sql = 'UPDATE notas SET nota = ?
 				WHERE id_nota = ?';
-			$db->sql_query($db->__prepare($sql, $nota, $cada_nota['id_nota']));
+			$db->sql_query(sql_filter($sql, $nota, $cada_nota['id_nota']));
 		}
 
 		continue;

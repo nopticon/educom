@@ -10,10 +10,10 @@ foreach ($nombre_ocupacion as $alumno => $codigo) {
 	$sql = 'SELECT *
 		FROM ocupacion_alumno
 		WHERE id_alumno = ?';
-	if ($row = $db->sql_fieldrow($db->__prepare($sql, $alumno))) {
+	if ($row = $db->sql_fieldrow(sql_filter($sql, $alumno))) {
 		$sql = 'UPDATE ocupacion_alumno SET id_ocupacion = ?
 			WHERE id_alumno = ?';
-		$db->sql_query($db->__prepare($sql, $codigo, $alumno));
+		$db->sql_query(sql_filter($sql, $codigo, $alumno));
 	} else {
 		$sql_insert = array(
 			'id_ocupacion' => $codigo,

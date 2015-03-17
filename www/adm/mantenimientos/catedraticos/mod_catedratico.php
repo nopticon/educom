@@ -7,7 +7,7 @@ $id_catedratico = $_REQUEST['id_catedratico'];
 $sql = 'SELECT *
 	FROM catedratico
 	WHERE id_catedratico = ?';
-if (!$catedratico = $db->sql_fieldrow($db->__prepare($sql, $id_catedratico))) {
+if (!$catedratico = $db->sql_fieldrow(sql_filter($sql, $id_catedratico))) {
 	redirect('index.php');
 }
 

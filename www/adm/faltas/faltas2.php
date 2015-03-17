@@ -12,7 +12,7 @@ $sql = 'SELECT *
 	WHERE  r.carne = ?
 		AND g.id_grado = r.id_grado
 		AND r.id_alumno = a.id_alumno';
-if (!$alumno = $db->sql_fieldrow($db->__prepare($sql, $carne))) {
+if (!$alumno = $db->sql_fieldrow(sql_filter($sql, $carne))) {
 	redirect('index.php');
 }
 
@@ -21,7 +21,7 @@ $sql = 'SELECT *
 	WHERE a.id_alumno = f.id_alumno
 		AND f.id_alumno = ?
 	ORDER BY f.fecha_falta DESC';
-$list = $db->sql_rowset($db->__prepare($sql, $carne_sub));
+$list = $db->sql_rowset(sql_filter($sql, $carne_sub));
 
 encabezado('Historial de Faltas ' . date('Y'));
 

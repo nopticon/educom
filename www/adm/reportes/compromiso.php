@@ -12,7 +12,7 @@ if ($id_grado) {
 			AND r.id_grado = ?
 			AND r.id_grado = g.id_grado
 			AND r.id_alumno = a.id_alumno';
-	$row = $db->sql_fieldrow($db->__prepare($sql, $id_alumno, $id_grado));
+	$row = $db->sql_fieldrow(sql_filter($sql, $id_alumno, $id_grado));
 
 	$encargado = 'encargado_reinscripcion';
 } else {
@@ -27,7 +27,7 @@ if ($id_grado) {
 			AND r.id_alumno = a.id_alumno
 		ORDER BY g.id_grado DESC';
 
-	$row = $db->sql_fieldrow($db->__prepare($sql, $id_alumno));
+	$row = $db->sql_fieldrow(sql_filter($sql, $id_alumno));
 
 	$encargado = 'encargado';
 }

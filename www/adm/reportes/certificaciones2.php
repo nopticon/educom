@@ -22,7 +22,7 @@ $sql = 'SELECT *
 	FROM secciones s, grado g
 	WHERE s.id_seccion = ?
 		AND s.id_grado = g.id_grado';
-$secciones = $db->sql_fieldrow($db->__prepare($sql, $id_seccion));
+$secciones = $db->sql_fieldrow(sql_filter($sql, $id_seccion));
 
 $sql = 'SELECT * FROM reinscripcion r, secciones s, grado g, alumno a
 	WHERE r.id_grado = ?
@@ -31,14 +31,14 @@ $sql = 'SELECT * FROM reinscripcion r, secciones s, grado g, alumno a
 		AND r.id_seccion = s.id_seccion
 		AND r.id_alumno = a.id_alumno
 		AND r.id_grado = g.id_grado';
-$sql = $db->__prepare($sql, $secciones->id_grado, $secciones->id_seccion, $anio);
+$sql = sql_filter($sql, $secciones->id_grado, $secciones->id_seccion, $anio);
 
 if ($alumno) {
 	$sql2 = 'SELECT id_alumno
 		FROM alumno
 		WHERE id_alumno = ?';
-	if ($db->sql_field($db->__prepare($sql2, $alumno))) {
-		$sql .= $db->__prepare(' AND a.id_alumno = ?', $alumno);
+	if ($db->sql_field(sql_filter($sql2, $alumno))) {
+		$sql .= sql_filter(' AND a.id_alumno = ?', $alumno);
 	}
 }
 
@@ -102,7 +102,7 @@ foreach ($list as $row) {
 		FROM area_ocupacional a, ocupacion_alumno oc
 		WHERE a.id_ocupacion = oc.id_ocupacion
 			AND oc.id_alumno = ?';
-	$ocupacion = $db->sql_fieldrow($db->__prepare($sql11, $row->id_alumno));
+	$ocupacion = $db->sql_fieldrow(sql_filter($sql11, $row->id_alumno));
 
 	$sql = 'SELECT *
 		FROM cursos c, areas_cursos ac, reinscripcion r
@@ -112,7 +112,7 @@ foreach ($list as $row) {
 			AND r.anio = ?
 			AND r.id_grado = c.id_grado
 			AND c.id_area = ac.id_area';
-	$data = $db->sql_rowset($db->__prepare($sql, $secciones->id_grado, $secciones->id_seccion, $row->id_alumno, $anio));
+	$data = $db->sql_rowset(sql_filter($sql, $secciones->id_grado, $secciones->id_seccion, $row->id_alumno, $anio));
 
 	$j = 1;
 	foreach ($data as $data_row) {
@@ -122,7 +122,7 @@ foreach ($list as $row) {
 			FROM examenes
 			WHERE examen NOT LIKE ?
 			ORDER BY id_examen';
-		$examenes = $db->sql_rowset($db->__prepare($sql, '%Recup%'));
+		$examenes = $db->sql_rowset(sql_filter($sql, '%Recup%'));
 
 		foreach ($examenes as $examenes_row) {
 			$sql = 'SELECT *
@@ -131,7 +131,7 @@ foreach ($list as $row) {
 					AND id_grado = ?
 					AND id_curso = ?
 					AND id_bimestre = ?';
-			$notas = $db->sql_fieldrow($db->__prepare($sql, $row->id_alumno, $row->id_grado, $data_row->id_curso, $examenes_row->id_examen));
+			$notas = $db->sql_fieldrow(sql_filter($sql, $row->id_alumno, $row->id_grado, $data_row->id_curso, $examenes_row->id_examen));
 
 			if (!isset($notas->nota)) $notas->nota = 0;
 			if (!isset($notas->nota2)) $notas->nota2 = 0;

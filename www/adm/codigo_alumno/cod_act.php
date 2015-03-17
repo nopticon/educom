@@ -12,7 +12,7 @@ foreach ($textfield as $alumno => $codigo) {
 		'codigo_alumno' => $codigo
 	);
 
-	$sql = 'UPDATE alumno SET' . $db->sql_build('UPDATE', $sql_update) . $db->__prepare('
+	$sql = 'UPDATE alumno SET' . $db->sql_build('UPDATE', $sql_update) . sql_filter('
 		WHERE id_alumno = ?', $alumno);
 	$db->sql_query($sql);
 }

@@ -10,7 +10,7 @@ $sql = 'SELECT *
 	FROM cursos c, grado g
 	WHERE g.id_grado = c.id_grado
 		AND g.id_grado = ?';
-$cursos_grado = $db->sql_rowset($db->__prepare($sql, $grado));
+$cursos_grado = $db->sql_rowset(sql_filter($sql, $grado));
 
 ?>
 

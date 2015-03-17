@@ -7,7 +7,7 @@ $carne = $_REQUEST['carne'];
 $sql = 'SELECT *
 	FROM alumno
 	WHERE carne = ?';
-if (!$alumno = $db->sql_fieldrow($db->__prepare($sql, $carne))) {
+if (!$alumno = $db->sql_fieldrow(sql_filter($sql, $carne))) {
 	redirect('index.php');
 }
 

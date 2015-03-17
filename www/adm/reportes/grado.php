@@ -14,7 +14,7 @@ $sql = 'SELECT *
 		AND r.id_seccion = s.id_seccion
 		AND r.id_alumno = a.id_alumno
 		AND r.id_grado = g.id_grado';
-if (!$reinscripcion = $db->sql_fieldrow($db->__prepare($sql, $id_grado, $id_alumno))) {
+if (!$reinscripcion = $db->sql_fieldrow(sql_filter($sql, $id_grado, $id_alumno))) {
 	redirect('../historial/');
 }
 
@@ -22,7 +22,7 @@ $sql = 'SELECT *
 	FROM secciones s, grado g
 	WHERE s.id_seccion = ?
 		AND s.id_grado = g.id_grado';
-$secciones = $db->sql_fieldrow($db->__prepare($sql, $reinscripcion->id_seccion));
+$secciones = $db->sql_fieldrow(sql_filter($sql, $reinscripcion->id_seccion));
 
 $sql = 'SELECT *
 	FROM examenes
@@ -91,7 +91,7 @@ $examenes = $db->sql_rowset($sql);
 				AND r.id_grado = g.id_grado
 				AND r.id_alumno = a.id_alumno
 				AND g.id_grado = c.id_grado';
-		$alumno_grado = $db->sql_rowset($db->__prepare($sql, $id_alumno, $id_grado));
+		$alumno_grado = $db->sql_rowset(sql_filter($sql, $id_alumno, $id_grado));
 
 		foreach ($alumno_grado as $row) {
 
@@ -109,7 +109,7 @@ $examenes = $db->sql_rowset($sql);
 						AND id_bimestre = ?';
 				// _pre($row_examenes);
 				// _pre($row, true);
-				$nota = $db->sql_field($db->__prepare($sql, $row->id_alumno, $row->id_grado, $row->id_curso, $row_examenes->id_examen), 'nota', false);
+				$nota = $db->sql_field(sql_filter($sql, $row->id_alumno, $row->id_grado, $row->id_curso, $row_examenes->id_examen), 'nota', false);
 
 				echo '<td class="a_center" width="15%">' . $nota . '</td>';
 			}
@@ -140,7 +140,7 @@ $examenes = $db->sql_rowset($sql);
 			WHERE id_alumno = ?
 			ORDER BY fecha_falta DESC
 			LIMIT 3';
-		if ($faltas = $db->sql_rowset($db->__prepare($sql, $row->id_alumno))) {
+		if ($faltas = $db->sql_rowset(sql_filter($sql, $row->id_alumno))) {
 			foreach ($faltas as $row_falta) {
 				echo '<li>' . $row_falta->falta . '</li>';
 			}

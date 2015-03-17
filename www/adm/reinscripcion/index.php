@@ -15,7 +15,7 @@ $sql = 'SELECT r.fecha_reinscripcion, a.carne, a.nombre_alumno, a.apellido, g.no
 		AND anio = ?
 		AND r.status = ?
 	ORDER BY r.id_reinscripcion DESC LIMIT 50';
-$rowset = $db->sql_rowset($db->__prepare($sql, $anio, $status));
+$rowset = $db->sql_rowset(sql_filter($sql, $anio, $status));
 
 $form = array(
 	array(

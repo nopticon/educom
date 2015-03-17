@@ -14,7 +14,7 @@ $sql_update = array(
 	'capacidad' => $capacidad,
 	'status' => $status
 );
-$sql = 'UPDATE cursos SET' . $db->sql_build('UPDATE', $sql_update) . $db->__prepare('
+$sql = 'UPDATE cursos SET' . $db->sql_build('UPDATE', $sql_update) . sql_filter('
 	WHERE id_curso = ?', $id_curso);
 $db->sql_query($sql);
 

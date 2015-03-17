@@ -8,7 +8,7 @@ $sql = 'SELECT *
 	FROM grado g, secciones s
 	WHERE g.id_grado = s.id_grado
 		AND status = ?';
-$grado = $db->sql_rowset($db->__prepare($sql, 'Alta'));
+$grado = $db->sql_rowset(sql_filter($sql, 'Alta'));
 
 $sql = 'SELECT *
 	FROM cursos

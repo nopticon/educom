@@ -21,7 +21,7 @@ $sql_update = array(
 	'direccion' => $direccion,
 	'observacion' => $observacion
 );
-$sql = 'UPDATE catedratico SET ' . $db->sql_build('UPDATE', $sql_update) . $db->__prepare('
+$sql = 'UPDATE catedratico SET ' . $db->sql_build('UPDATE', $sql_update) . sql_filter('
 	WHERE id_catedratico = ?', $id_catedratico);
 $db->sql_query($sql);
 

@@ -11,7 +11,7 @@ $sql = 'SELECT *
 	FROM cursos c, catedratico g
 	WHERE c.id_grado = ?
 		AND g.id_catedratico = c.id_catedratico';
-$list = $db->sql_rowset($db->__prepare($sql, $grado));
+$list = $db->sql_rowset(sql_filter($sql, $grado));
 
 ?>
 
