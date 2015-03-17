@@ -2,6 +2,21 @@
 
 require_once('../conexion.php');
 
+if (request_var('submit', '')) {
+	$area = request_var('area', '');
+	$observacion = request_var('observacion', '');
+
+	$sql_insert = array(
+		'nombre_area' => $area,
+		'observacion_area' => $observacion
+	);
+	$sql = 'INSERT INTO areas_cursos' . $db->sql_build('INSERT', $sql_insert);
+	$db->sql_query($sql);
+
+	header('Location: .');
+	exit;
+}
+
 encabezado('Ingreso de &Aacute;reas');
 
 $sql = 'SELECT *
@@ -23,7 +38,7 @@ $form = array(
 
 ?>
 
-<form class="form-horizontal" action="cod_area.php" method="post">
+<form class="form-horizontal" action="index.php" method="post">
 	<?php build($form); submit(); ?>
 </form>
 

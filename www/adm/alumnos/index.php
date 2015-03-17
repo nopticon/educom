@@ -2,7 +2,7 @@
 
 require_once('../conexion.php');
 
-if (request_var('submit')) {
+if (request_var('submit', '')) {
 	$nombre = request_var('nombre', '');
 	$apellido = request_var('apellido', '');
 	$direccion = request_var('direccion', '');

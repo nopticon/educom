@@ -14,6 +14,7 @@ if (request_var('submit', '')) {
 	$db->sql_query($sql);
 
 	header('Location: .');
+	exit;
 }
 
 // 
