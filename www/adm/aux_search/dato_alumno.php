@@ -8,8 +8,7 @@ $sql = 'SELECT *
 	FROM alumno
 	WHERE id_alumno = ?';
 if (!$alumno = $db->sql_fieldrow(sql_filter($sql, $id_alumno))) {
-	header('Location: index.php');
-	exit;
+	location('index.php');
 }
 
 encabezado('Datos de Alumno', '', false);

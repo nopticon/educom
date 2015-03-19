@@ -6,52 +6,46 @@ if (request_var('submit', '')) {
 	$area = request_var('area', '');
 	$observacion = request_var('observacion', '');
 
-	$sql_insert = array(
+	$sql_insert = [
 		'nombre_area' => $area,
 		'observacion_area' => $observacion
-	);
+	];
 	$sql = 'INSERT INTO areas_cursos' . $db->sql_build('INSERT', $sql_insert);
 	$db->sql_query($sql);
 
-	header('Location: .');
-	exit;
+	location('.');
 }
 
-encabezado('Ingreso de &Aacute;reas');
-
+// 
+// Get data
+// 
 $sql = 'SELECT *
 	FROM areas_cursos';
 $list = $db->sql_rowset($sql);
 
-$form = array(
-	array(
-		'area' => array(
-			'type' => 'input',
-			'value' => 'Nombre de &Aacute;rea'
-		),
-		'observacion' => array(
-			'type' => 'textarea',
-			'value' => 'Observaci&oacute;n'
-		)
-	)
-);
+foreach ($list as $i => $row) {
+	if (!$i) _style('results');
 
-?>
+	_style('results.row', $row);
+}
 
-<form class="form-horizontal" action="index.php" method="post">
-	<?php build($form); submit(); ?>
-</form>
+// 
+// Create form
+// 
+$form = [[
+	'area' => [
+		'type' => 'input',
+		'value' => 'Nombre de &Aacute;rea'
+	],
+	'observacion' => [
+		'type' => 'textarea',
+		'value' => 'Observaci&oacute;n'
+	]
+]];
 
-<div class="h"><h3>Lista de &Aacute;reas</h3></div>
+_style('create_area', [
+	'form' => build_form($form),
+	'submit' => build_submit()
+]);
 
-<table class="table table-striped">
-	<tbody>
-		<?php foreach ($list as $row) { ?>
-		<tr>
-			<td><?php echo $row->nombre_area; ?></td>
-		</tr>
-		<?php } ?>
-	</tbody>
-</table>
-
-<?php pie(); ?>
+page_layout('Creacion de Areas', 'student_areas');

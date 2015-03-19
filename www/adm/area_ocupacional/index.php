@@ -13,8 +13,7 @@ if (request_var('submit', '')) {
 	$sql = 'INSERT INTO area_ocupacional' . $db->sql_build('INSERT', $sql_insert);
 	$db->sql_query($sql);
 
-	header('Location: .');
-	exit;
+	location('.');
 }
 
 // 

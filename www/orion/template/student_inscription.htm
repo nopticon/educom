@@ -1,5 +1,45 @@
 <!-- INCLUDE page.header.htm -->
 
+<!-- BEGIN student_created -->
+<div class="h"><h3>Alumno ingresado &eacute;xitosamente!</h3></div>
+
+<div class="small-box">
+	<a href="index.php" class="btn btn-lg btn-success">Nueva inscripcion</a>&nbsp;&nbsp;
+	<a href="../reinscripcion/index.php" class="btn btn-lg btn-info">Re-Inscripci&oacute;n</a>
+</div>
+
+<!-- BEGIN recent -->
+<br />
+<div class="h"><h3>Lista de alumnos nuevos</h3></h>
+<br /><br />
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>Carne</td>
+			<td>Nombre</td>
+			<td>Apellido</td>
+			<td>Grado</td>
+			<td>Secci&oacute;n</td>
+			<td>Editar</td>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN row -->
+		<tr>
+			<td>{row.CARNE}</td>
+			<td>{row.NOMBRE_ALUMNO}</td>
+			<td>{row.APELLIDO}</td>
+			<td>{row.NOMBRE}</td>
+			<td>{row.NOMBRE_SECCION}</td>
+			<td><a href="../mantenimientos/alumnos/alumno.php?carne={row.CARNE}&amp;Submit2=Buscar">Editar</a></td>
+		</tr>
+		<!-- END row -->
+	</tbody>
+</table>
+<!-- END recent -->
+<!-- END student_created -->
+
 <!-- BEGIN create_student -->
 <div class="h"><h3>{PAGE_TITLE}</h3></div>
 

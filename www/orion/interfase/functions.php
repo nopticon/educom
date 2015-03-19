@@ -2049,6 +2049,18 @@ function msg_handler($errno, $msg_text, $errfile, $errline) {
 	}
 }
 
+function location($url) {
+	$url = 'Location: ' . $url;
+
+	if (is_ghost()) {
+		echo $url;
+	} else {
+		header($url);
+	}
+
+	exit;
+}
+
 function redirect($url, $moved = false) {
 	global $config;
 

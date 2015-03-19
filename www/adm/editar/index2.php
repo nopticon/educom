@@ -3,8 +3,7 @@
 require_once("../conexion.php");
 
 if (!isset($_REQUEST['grado'])) {
-	header('Location: index.php');
-	exit;
+	location('index.php');
 }
 
 $grado = $_REQUEST['grado'];
