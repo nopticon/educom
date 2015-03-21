@@ -1,0 +1,69 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN query -->
+<form class="form-horizontal" action="{U_ADM/EDITAR}" method="post">
+{query.FORM}
+{query.SUBMIT}
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+$(function() {
+	$('#grado').change(function() {
+		$.ajax({
+			type: 'POST',
+			url: "./index2.php",
+			data: 'grado=' + $(this).val(),
+			success: function(msg) {
+				$('#curso').html(msg);
+			}
+		});
+	});
+});
+//]]>
+</script>
+<!-- END query -->
+
+<!-- BEGIN results -->
+<table class="table table-bordered">
+	<tr>
+		<td width="50%">Grado: {results.GRADE_NAME} {results.GRADE_SECTION}</td>
+		<td>Unidad: {results.UNIT_NAME}</td>
+	</tr>
+	<tr>
+		<td>Curso: {results.COURSE_NAME}</td>
+		<td>A&ntilde;o: {results.YEAR}</td>
+	</tr>
+</table>
+
+<form class="form-horizontal" action="{U_ADM/EDITAR}" method="post">
+	<input name="grado" type="hidden" value="{results.GRADE_ID}" />
+	<input name="curso" type="hidden" value="{results.COURSE_ID}" />
+	<input name="examen" type="hidden" value="{results.UNIT_ID}" />
+
+	<table class="table table-striped">
+		<thead>
+			<td>Carn&eacute;</td>
+			<td>Apellidos</td>
+			<td>Nombres</td>
+			<td>Nota</td>
+		</thead>
+		<tbody>
+			<!-- BEGIN row -->
+			<tr>
+				<td>{row.CARNE}</td>
+				<td>{row.APELLIDO}</td>
+				<td>{row.NOMBRE_ALUMNO}</td>
+				<td><input class="form-control" name="nota[{row.ID_ALUMNO}]" value="{row.SCORE}" type="text" size="5" /></td>
+			</tr>
+			<!-- END row -->
+		</tbody>
+	</table>
+
+	<div class="text-center">
+		<input class="btn btn-danger" type="submit" name="submit2" value="Guardar Notas" />
+	</div>
+</form>
+<!-- END results -->
+
+<!-- INCLUDE page.footer.htm -->
