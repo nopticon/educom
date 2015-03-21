@@ -2,7 +2,27 @@
 
 require_once('../conexion.php');
 
-encabezado('Ingreso de Cursos para Grado');
+if (request_var('submit', '')) {
+	$curso = request_var('curso', '');
+	$capacidad = request_var('capacidad', 0);
+	$grado = request_var('grado', 0);
+	$catedratico = request_var('catedratico', 0);
+	$areas_cursos = request_var('areas_cursos', 0);
+	$status = 'Alta';
+
+	$sql_insert = array(
+		'id_area' => $areas_cursos,
+		'nombre_curso' => $curso,
+		'capacidad' => $capacidad,
+		'status' => $status,
+		'id_grado' => $grado,
+		'id_catedratico' => $catedratico,
+	);
+	$sql = 'INSERT INTO cursos' . $db->sql_build('INSERT', $sql_insert);
+	$db->sql_query($sql);
+
+	location('.');
+}
 
 $sql = 'SELECT *
 	FROM areas_cursos
@@ -28,33 +48,31 @@ $sql = 'SELECT *
 	ORDER BY c.id_grado';
 $relacion = $db->sql_rowset(sql_filter($sql, 'Alta'));
 
-$form = array(
-	array(
-		'areas_cursos' => array(
-			'type' => 'select',
-			'show' => '&Aacute;reas',
-			'value' => array()
-		),
-		'curso' => array(
-			'type' => 'text',
-			'value' => 'Nombre de Curso'
-		),
-		'capacidad' => array(
-			'type' => 'text',
-			'value' => 'Capacidad'
-		),
-		'grado' => array(
-			'type' => 'select',
-			'show' => 'Grado',
-			'value' => array()
-		),
-		'catedratico' => array(
-			'type' => 'select',
-			'show' => 'Catedr&aacute;tico',
-			'value' => array()
-		),
-	)
-);
+$form = [[
+	'areas_cursos' => [
+		'type' => 'select',
+		'show' => '&Aacute;reas',
+		'value' => []
+	],
+	'curso' => [
+		'type' => 'text',
+		'value' => 'Nombre de Curso'
+	],
+	'capacidad' => [
+		'type' => 'text',
+		'value' => 'Capacidad'
+	],
+	'grado' => [
+		'type' => 'select',
+		'show' => 'Grado',
+		'value' => []
+	],
+	'catedratico' => [
+		'type' => 'select',
+		'show' => 'Catedr&aacute;tico',
+		'value' => []
+	]
+]];
 
 foreach ($areas_cursos as $row) {
 	$form[0]['areas_cursos']['value'][$row->id_area] = $row->nombre_area;
@@ -68,33 +86,15 @@ foreach ($catedratico as $row) {
 	$form[0]['catedratico']['value'][$row->id_catedratico] = $row->nombre_catedratico . ' ' . $row->apellido;
 }
 
-?>
+foreach ($relacion as $i => $row) {
+	if (!$i) _style('results');
 
-<form class="form-horizontal" action="cod_cursos.php" method="post">
-	<?php build($form); submit(); ?>
-</form>
+	_style('results.row', $row);
+}
 
-<div class="h"><h3>Cursos - Grados - Profesores</h3></div>
+_style('create', [
+	'form' => build_form($form),
+	'submit' => build_submit()
+]);
 
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<td>Curso</td>
-			<td>Grado</td>
-			<td>Capacidad</td>
-			<td>Catedr&aacute;tico</td>
-		</tr>
-	</thead>
-	<tbody>
-		<?php foreach ($relacion as $row) { ?>
-		<tr>
-			<td><?php echo $row->nombre_curso; ?></td>
-			<td align="center"><?php echo $row->nombre; ?></td>
-			<td align="center"><?php echo $row->capacidad; ?></td>
-			<td><?php echo $row->nombre_catedratico . ' ' . $row->apellido; ?></td>
-		</tr>
-		<?php } ?>
-	</tbody>
-</table>
-
-<?php pie(); ?>
+page_layout('Cursos para Grado', 'student_courses');

@@ -6,6 +6,10 @@ if (request_var('submit', '')) {
 	$area = request_var('area', '');
 	$observacion = request_var('observacion', '');
 
+	if (empty($area)) {
+		location('.');
+	}
+
 	$sql_insert = [
 		'nombre_area' => $area,
 		'observacion_area' => $observacion

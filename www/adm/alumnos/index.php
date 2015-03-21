@@ -196,7 +196,7 @@ if (request_var('submit', '')) {
 	// 
 	// Process information
 	// 
-	if (!$nombre || !$apellido) {
+	if (empty($nombre) || empty($apellido)) {
 		location('.');
 	}
 

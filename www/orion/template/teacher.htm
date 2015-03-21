@@ -1,0 +1,39 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN create -->
+<div class="h"><h3>Crear profesor</h3></div>
+
+<form class="form-horizontal" action="{U_ADM/CATEDRATICOS}" method="post">
+{create.FORM}
+{create.SUBMIT}
+</form>
+<!-- END create -->
+
+<!-- BEGIN results -->
+<div class="h"><h3>Profesores activos</h3></div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>Apellido</td>
+			<td>Nombre</td>
+			<td>Profesi&oacute;n</td>
+			<td>Tel&eacute;fono</td>
+			<td>Email</td>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN row -->
+		<tr>
+			<td>{row.APELLIDO}</td>
+			<td>{row.NOMBRE_CATEDRATICO}</td>
+			<td>{row.PROFESION}</td>
+			<td>{row.TELEFONO}</td>
+			<td>{row.EMAIL}</td>
+		</tr>
+		<!-- END row -->
+	</tbody>
+</table>
+<!-- END results -->
+
+<!-- INCLUDE page.footer.htm -->
