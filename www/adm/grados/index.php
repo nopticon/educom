@@ -2,6 +2,26 @@
 
 require_once('../conexion.php');
 
+if (request_var('submit', '')) {
+	$grado = request_var('grado', '');
+	$status = request_var('status', '');
+
+	if (empty($grado)) {
+		location('.');
+	}
+
+	$sql_insert = array(
+		'nombre' => $grado,
+		'status' => $status,
+		'seccion' => '',
+		'fecha_grado' => ''
+	);
+	$sql = 'INSERT INTO grado' . $db->sql_build('INSERT', $sql_insert);
+	$db->sql_query($sql);
+
+	location('.');
+}
+
 $sql = 'SELECT nombre, status
 	FROM grado g
 	ORDER BY id_grado';
