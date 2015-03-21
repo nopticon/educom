@@ -1,0 +1,35 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN create -->
+<div class="h"><h3>Crear grado</h3></div>
+
+<form class="form-horizontal" action="{U_ADM/GRADOS}" method="post">
+{create.FORM}
+{create.SUBMIT}
+</form>
+<!-- END create -->
+
+<!-- BEGIN results -->
+<div class="h"><h3>Grados actuales</h3></div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td scope="row">#</td>
+			<td>Grado</td>
+			<td>Status</td>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN row -->
+		<tr>
+			<td>{row.S_ONE_COUNT}</td>
+			<td>{row.NOMBRE}</td>
+			<td>{row.STATUS}</td>
+		</tr>
+		<!-- END row -->
+	</tbody>
+</table>
+<!-- END results -->
+
+<!-- INCLUDE page.footer.htm -->

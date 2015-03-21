@@ -802,6 +802,7 @@ class Template {
 					$line .= '{';
 					$line .= ' $'. $var. '_item = &$this->_tpldata[\''. $var. '.\'][$'. $var. '_i];';
 					$line .= " \${$var}_item['S_ROW_COUNT'] = \${$var}_i;";
+					$line .= " \${$var}_item['S_ONE_COUNT'] = \${$var}_i + 1;";
 					$line .= " \${$var}_item['S_NUM_ROWS'] = \${$var}_count;";
 					$line .= " ?".">";
 				} else {
@@ -820,6 +821,7 @@ class Template {
 					$line .= '{';
 					$line .= ' $'. $var. '_item = &'. $varref. '[$'. $var. '_i];';
 					$line .= " \${$var}_item['S_ROW_COUNT'] = \${$var}_i;";
+					$line .= " \${$var}_item['S_ONE_COUNT'] = \${$var}_i + 1;";
 					$line .= " \${$var}_item['S_NUM_ROWS'] = \${$var}_count;";
 					$line .= " ?".">";
 				}
