@@ -1,9 +1,9 @@
 <!-- INCLUDE page.header.htm -->
 
-<!-- BEGIN query -->
-<form class="form-horizontal" action="{U_ADM/EDITAR}" method="post">
-{query.FORM}
-{query.SUBMIT}
+<!-- BEGIN create -->
+<form class="form-horizontal" action="{U_ADM/NOTAS}" method="post">
+{create.FORM}
+{create.SUBMIT}
 </form>
 
 <script type="text/javascript">
@@ -11,9 +11,9 @@
 $(function() {
 	$('#grado').change(function() {
 		$.ajax({
-			type: 'POST',
+			type: "POST",
 			url: "./index2.php",
-			data: 'grado=' + $(this).val(),
+			data: "grado=" + $(this).val(),
 			success: function(msg) {
 				$('#curso').html(msg);
 			}
@@ -22,24 +22,24 @@ $(function() {
 });
 //]]>
 </script>
-<!-- END query -->
+<!-- END create -->
 
 <!-- BEGIN results -->
-<table class="table table-bordered">
-	<tr>
-		<td width="50%">Grado: {results.GRADE_NAME} {results.GRADE_SECTION}</td>
-		<td>Unidad: {results.UNIT_NAME}</td>
-	</tr>
-	<tr>
-		<td>Curso: {results.COURSE_NAME}</td>
-		<td>A&ntilde;o: {results.YEAR}</td>
-	</tr>
-</table>
+<form class="form-horizontal" action="{U_ADM/NOTAS}" method="post">
+	<input name="grado" type="hidden" id="grado" value="{results.GRADE_ID}" />
+	<input name="curso" type="hidden" id="curso" value="{results.COURSE_ID}" />
+	<input name="examen" type="hidden" id="examen" value="{results.UNIT_ID}" />
 
-<form class="form-horizontal" action="{U_ADM/EDITAR}" method="post">
-	<input name="grado" type="hidden" value="{results.GRADE_ID}" />
-	<input name="curso" type="hidden" value="{results.COURSE_ID}" />
-	<input name="examen" type="hidden" value="{results.UNIT_ID}" />
+	<table class="table table-bordered">
+		<tr>
+			<td width="50%">Grado: {results.GRADE_NAME} {results.GRADE_SECTION}</td>
+			<td>Unidad: {results.UNIT_NAME}</td>
+		</tr>
+		<tr>
+			<td>Curso: {results.COURSE_NAME}</td>
+			<td>A&ntilde;o: {results.YEAR}</td>
+		</tr>
+	</table>
 
 	<table class="table table-striped">
 		<thead>
@@ -48,13 +48,20 @@ $(function() {
 			<td>Nombres</td>
 			<td>Nota</td>
 		</thead>
+
 		<tbody>
 			<!-- BEGIN row -->
 			<tr>
-				<td>{row.CARNE}</td>
+				<td align="center">{row.CARNE}</td>
 				<td>{row.APELLIDO}</td>
 				<td>{row.NOMBRE_ALUMNO}</td>
-				<td><input class="form-control" name="nota[{row.ID_ALUMNO}]" value="{row.SCORE}" type="text" size="5" /></td>
+				<td align="center">
+					<!-- IF row.SCORE -->
+					<div>{row.SCORE}</div>
+					<!-- ELSE -->
+					<input class="form-control" name="nota[{row.ID_ALUMNO}]" type="text" size="5" />
+					<!-- ENDIF -->
+				</td>
 			</tr>
 			<!-- END row -->
 		</tbody>

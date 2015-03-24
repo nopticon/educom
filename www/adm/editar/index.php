@@ -166,4 +166,4 @@ if (request_var('submit', '')) {
 	]);
 }
 
-page_layout('Edici&oacute;n de Notas', 'student_scores');
+page_layout('Edici&oacute;n de Notas', 'student_scores_edit');

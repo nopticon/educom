@@ -2,81 +2,154 @@
 
 require_once('../conexion.php');
 
-encabezado('Ingreso de Notas');
+if (request_var('submit2', '')) {
+	$curso = request_var('curso', 0);
+	$examen = request_var('examen', 0);
+	$grado = request_var('grado', 0);
+	$scores = request_var('nota', [0 => 0]);
 
-$sql = "SELECT id_seccion, nombre, nombre_seccion
-	FROM grado g, secciones s
-	WHERE g.id_grado = s.id_grado
-		AND status = 'Alta'";
-$grado = $db->sql_rowset($sql);
+	foreach ($scores as $student => $score) {
+		if (empty($score)) continue;
 
-$sql = 'SELECT id_curso, nombre_curso
-	FROM cursos
-	WHERE id_grado = 1';
-$cursos = $db->sql_rowset($sql);
+		$sql_insert = array(
+			'id_alumno' => $student,
+			'id_grado' => $grado,
+			'id_curso' => $curso,
+			'id_bimestre' => $examen,
+			'nota' => $score,
+		);
+		$sql = 'INSERT INTO notas' . $db->sql_build('INSERT', $sql_insert);
+		$db->sql_query($sql);
+	}
 
-$sql = 'SELECT id_examen, examen
-	FROM examenes';
-$examenes = $db->sql_rowset($sql);
+	location('.');
+}
 
-$form = array(
-	array(
-		'grado' => array(
+if (request_var('submit', '')) {
+	$seccion = $_REQUEST['grado'];
+	$curso = $_REQUEST['curso'];
+	$examen = $_REQUEST['examen'];
+	$anio = $_REQUEST['anio'];
+
+	$sql = 'SELECT id_grado, nombre_seccion
+		FROM secciones
+		WHERE id_seccion = ?';
+	if (!$gradoar = $db->sql_fieldrow(sql_filter($sql, $seccion))) {
+		// location('.');
+	}
+
+	$grado = $gradoar->id_grado;
+
+	$sql = 'SELECT *
+		FROM grado
+		WHERE id_grado = ?';
+	if (!$_grado = $db->sql_fieldrow(sql_filter($sql, $grado))) {
+		// location('.');
+	}
+
+	$sql = 'SELECT *
+		FROM cursos
+		WHERE id_curso = ?';
+	if (!$_curso = $db->sql_fieldrow(sql_filter($sql, $curso))) {
+		// location('.');
+	}
+
+	$sql = 'SELECT *
+		FROM examenes
+		WHERE id_examen = ?';
+	if (!$_examen = $db->sql_fieldrow(sql_filter($sql, $examen))) {
+		// location('.');
+	}
+
+	$sql = 'SELECT *
+		FROM alumno a, grado g, reinscripcion r
+		WHERE g.id_grado = ?
+			AND r.id_seccion = ?
+			AND r.anio = ?
+			AND r.id_grado = g.id_grado
+			AND r.id_alumno = a.id_alumno
+		ORDER BY a.apellido ASC';
+	if (!$list = $db->sql_rowset(sql_filter($sql, $grado, $seccion, $anio))) {
+		// location('.');
+	}
+
+	foreach ($list as $i => $row) {
+		if (!$i) _style('results', [
+			'GRADE_ID' => $grado,
+			'COURSE_ID' => $curso,
+			'UNIT_ID' => $_examen->id_examen,
+			'GRADE_NAME' => $_grado->nombre,
+			'GRADE_SECTION' => $gradoar->nombre_seccion,
+			'COURSE_NAME' => $_curso->nombre_curso,
+			'UNIT_NAME' => $_examen->examen,
+			'YEAR' => $anio
+		]);
+
+		$sql = 'SELECT *
+			FROM notas
+			WHERE id_alumno = ?
+				AND id_grado = ?
+				AND id_curso = ?
+				AND id_bimestre = ?';
+		$row->score = $db->sql_field(sql_filter($sql, $row->id_alumno, $grado, $curso, $examen), 'nota', '');
+
+		_style('results.row', $row);
+	}
+} else {
+	$sql = "SELECT id_seccion, nombre, nombre_seccion
+		FROM grado g, secciones s
+		WHERE g.id_grado = s.id_grado
+			AND status = 'Alta'";
+	$grado = $db->sql_rowset($sql);
+
+	$sql = 'SELECT id_curso, nombre_curso
+		FROM cursos
+		WHERE id_grado = 1';
+	$cursos = $db->sql_rowset($sql);
+
+	$sql = 'SELECT id_examen, examen
+		FROM examenes';
+	$examenes = $db->sql_rowset($sql);
+
+	$form = [[
+		'grado' => [
 			'type' => 'select',
 			'show' => 'Grado',
-			'value' => array()
-		),
-		'curso' => array(
+			'value' => []
+		],
+		'curso' => [
 			'type' => 'select',
 			'show' => 'Curso',
-			'value' => array()
-		),
-		'examen' => array(
+			'value' => []
+		],
+		'examen' => [
 			'type' => 'select',
 			'show' => 'Examen',
-			'value' => array()
-		),
-		'anio' => array(
+			'value' => []
+		],
+		'anio' => [
 			'type' => 'select',
 			'show' => 'A&ntilde;o',
 			'value' => '*'
-		)
-	)
-);
+		]
+	]];
 
-foreach ($grado as $row) {
-	$form[0]['grado']['value'][$row->id_seccion] = $row->nombre . ' - ' . $row->nombre_seccion;
+	foreach ($grado as $row) {
+		$form[0]['grado']['value'][$row->id_seccion] = $row->nombre . ' - ' . $row->nombre_seccion;
+	}
+
+	foreach ($cursos as $row) {
+		$form[0]['curso']['value'][$row->id_curso] = $row->nombre_curso;
+	}
+
+	foreach ($examenes as $row) {
+		$form[0]['examen']['value'][$row->id_examen] = $row->examen;
+	}
+
+	_style('create', [
+		'form' => build_form($form),
+		'submit' => build_submit()
+	]);
 }
 
-foreach ($cursos as $row) {
-	$form[0]['curso']['value'][$row->id_curso] = $row->nombre_curso;
-}
-
-foreach ($examenes as $row) {
-	$form[0]['examen']['value'][$row->id_examen] = $row->examen;
-}
-
-?>
-
-<form class="form-horizontal" action="notas.php" method="post">
-	<?php build($form); submit(); ?>
-</form>
-
-<script type="text/javascript">
-//<![CDATA[
-$(function() {
-	$('#grado').change(function() {
-		$.ajax({
-			type: "POST",
-			url: "./index2.php",
-			data: "grado=" + this.value,
-			success: function(msg) {
-				$('#curso').html(msg);
-			}
-		});
-	});
-});
-//]]>
-</script>
-
-<?php pie(); ?>
+page_layout('Notas', 'student_scores');
