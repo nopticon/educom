@@ -2,6 +2,24 @@
 
 require_once('../conexion.php');
 
+if (request_var('submit', '')) {
+	$grado = request_var('grado', 0);
+	$seccion = request_var('seccion', '');
+
+	if (empty($seccion)) {
+		location('.');
+	}
+
+	$sql_insert = [
+		'id_grado' => $grado,
+		'nombre_seccion' => $seccion
+	];
+	$sql = 'INSERT INTO secciones' . $db->sql_build('INSERT', $sql_insert);
+	$db->sql_query($sql);
+
+	location('.');
+}
+
 $sql = "SELECT *
 	FROM grado
 	WHERE status = 'Alta'";
@@ -13,49 +31,31 @@ $sql = "SELECT nombre, nombre_seccion
 		AND g.status = 'Alta'";
 $secciones = $db->sql_rowset($sql);
 
-encabezado('Ingreso de Secciones');
+foreach ($secciones as $i => $row) {
+	if (!$i) _style('results');
 
-$form = array(
-	'' => array(
-		'grado' => array(
-			'type' => 'select',
-			'show' => 'Grado',
-			'value' => array()
-		),
-		'seccion' => array(
-			'type' => 'text',
-			'value' => 'Secci&oacute;n'
-		),
-	),
-);
-
-foreach ($grado as $row) {
-	$form['']['grado']['value'][$row->id_grado] = $row->nombre;
+	_style('results.row', $row);
 }
 
-?>
+$form = [[
+	'grado' => [
+		'type' => 'select',
+		'show' => 'Grado',
+		'value' => []
+	],
+	'seccion' => [
+		'type' => 'text',
+		'value' => 'Secci&oacute;n'
+	]
+]];
 
-<form class="form-horizontal" action="cod_secciones.php" method="post">
-	<?php build($form); submit(); ?>
-</form>
+foreach ($grado as $row) {
+	$form[0]['grado']['value'][$row->id_grado] = $row->nombre;
+}
 
-<div class="h"><h3>Secciones actuales</h3></div>
+_style('create', [
+	'form' => build_form($form),
+	'submit' => build_submit()
+]);
 
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<td width="40%">Grado</td>
-			<td width="10%">Secci&oacute;n</td>
-		</tr>
-	</thead>
-	<tbody>
-		<?php foreach ($secciones as $row) { ?>
-		<tr>
-			<td><?php echo $row->nombre; ?></td>
-			<td class="a_center"><?php echo $row->nombre_seccion; ?></td>
-		</tr>
-		<?php } ?>
-	</tbody>
-</table>
-
-<?php pie(); ?>
+page_layout('Secciones', 'student_sections');
