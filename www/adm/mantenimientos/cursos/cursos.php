@@ -4,7 +4,7 @@ require_once('../../conexion.php');
 
 encabezado('Modificaci&oacute;n de Cursos');
 
-$grado = $_REQUEST['grado'];
+$grado = request_var('grado', 0);
 
 $sql = 'SELECT *
 	FROM cursos c, grado g
@@ -14,11 +14,13 @@ $cursos_grado = $db->sql_rowset(sql_filter($sql, $grado));
 
 ?>
 
-<table width="100%">
+<table class="table table-striped">
 	<thead>
-		<td>Nombre de curso</td>
-		<td>Capacidad</td>
-		<td>Nombre de grado</td>
+		<tr>
+			<td>Nombre de curso</td>
+			<td>Capacidad</td>
+			<td>Nombre de grado</td>
+		</tr>
 	</thead>
 
 	<?php foreach ($cursos_grado as $row) { ?>

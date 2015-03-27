@@ -2,7 +2,7 @@
 
 require_once('../conexion.php');
 
-$alumno = (isset($_REQUEST) && isset($_REQUEST['alumno'])) ? $_REQUEST['alumno'] : 0;
+$alumno = request_var('alumno', 0);
 
 $sql = 'SELECT id_alumno, nombre_alumno, apellido
 	FROM alumno

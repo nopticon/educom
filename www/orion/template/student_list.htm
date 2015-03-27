@@ -1,0 +1,21 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN list -->
+<div class="h"><h3>{list.TITLE}</h3></div>
+
+<table class="table table-striped">
+	<tbody>
+		<!-- BEGIN row -->
+		<tr>
+			<!-- IF row.URL -->
+			<td><a href="{row.URL}">{row.TITLE}</a></td>
+			<!-- ELSE -->
+			<td>&nbsp;</td>
+			<!-- ENDIF -->
+		</tr>
+		<!-- END row -->
+	</tbody>
+</table>
+<!-- END list -->
+
+<!-- INCLUDE page.footer.htm -->

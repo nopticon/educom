@@ -2,8 +2,8 @@
 
 require_once("../conexion.php");
 
-$id_alumno = $_REQUEST['id_alumno'];
-$id_grado = isset($_REQUEST['id_grado']) ? $_REQUEST['id_grado'] : 0;
+$id_alumno = request_var('id_alumno', 0);
+$id_grado = request_var('id_grado', 0);
 
 if ($id_grado) {
 	$sql = 'SELECT *

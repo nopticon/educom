@@ -2,25 +2,32 @@
 
 require_once('../conexion.php');
 
-encabezado('Mantenimiento del Sistema');
+$page_title = 'Mantenimiento del sistema';
 
-?>
+$list = [
+	'alumnos/index.php' => 'Alumnos',
+	'../examenes/index.php' => 'Unidades',
+	'../areas/index.php' => 'Areas',
+	'cursos/index.php' => 'Cursos',
+	'../grados/index.php' => 'Grados',
+	'../secciones/index.php' => 'Secciones',
+	'../catedraticos/index.php' => 'Catedr&aacute;ticos',
+	'../cursos/index.php' => 'Cursos, grados y catedr&aacute;ticos',
+	'../area_ocupacional/index.php' => 'Areas Ocupacionales',
+];
 
-<div class="ls">
-	<ul class="options">
-		<li><a href="alumnos/index.php">Alumnos</a></li>
-		<li><a href="grados/index.php">Grados</a></li>
-		<li><a href="cursos/index.php">Cursos</a></li>
-		<li><a href="catedraticos/index.php">Catedr&aacute;ticos</a></li>
-		<li><a href="../examenes/index.php">Unidades</a></li>
-		<li>&nbsp;</li>
-		<li><a href="../grados/index.php">Grados</a></li>
-		<li><a href="../secciones/index.php">Secciones</a></li>
-		<li><a href="../catedraticos/index.php">Catedr&aacute;ticos</a></li>
-		<li><a href="../areas/index.php">Areas</a></li>
-		<li><a href="../cursos/index.php">Cursos, grados y catedr&aacute;ticos</a></li>
-		<li><a href="../area_ocupacional/index.php">Areas Ocupacionales</a></li>
-	</ul>
-</div>
+$i = 0;
+foreach ($list as $url => $title) {
+	if (!$i) _style('list', [
+		'title' => $page_title
+	]);
 
-<?php pie(); ?>
+	_style('list.row', [
+		'url' => $url,
+		'title' => $title
+	]);
+
+	$i++;
+}
+
+page_layout($page_title, 'student_list');

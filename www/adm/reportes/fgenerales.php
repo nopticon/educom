@@ -14,25 +14,23 @@ $sql = 'SELECT *
 	FROM examenes';
 $examenes = $db->sql_rowset($sql);
 
-$form = array(
-	array(
-		'seccion' => array(
-			'type' => 'select',
-			'show' => 'Grado',
-			'value' => array()
-		),
-		'examen' => array(
-			'type' => 'select',
-			'show' => 'Unidad',
-			'value' => array()
-		),
-		'anio' => array(
-			'type' => 'select',
-			'show' => 'A&ntilde;o',
-			'value' => '*'
-		)
-	)
-);
+$form = [[
+	'seccion' => [
+		'type' => 'select',
+		'show' => 'Grado',
+		'value' => []
+	],
+	'examen' => [
+		'type' => 'select',
+		'show' => 'Unidad',
+		'value' => []
+	],
+	'anio' => [
+		'type' => 'select',
+		'show' => 'A&ntilde;o',
+		'value' => '*'
+	]
+]];
 
 foreach ($grado_seccion as $row) {
 	$form[0]['seccion']['value'][$row->id_seccion] = $row->nombre . ' - ' . $row->nombre_seccion;

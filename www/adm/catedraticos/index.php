@@ -87,10 +87,23 @@ if (request_var('submit', '')) {
 	location('.');
 }
 
+$can_edit = $user->is('founder');
+$can_edit = true;
+
 $sql = 'SELECT *
 	FROM catedratico
 	ORDER BY nombre_catedratico, apellido';
 $catedraticos = $db->sql_rowset($sql);
+
+foreach ($catedraticos as $i => $row) {
+	if (!$i) _style('results', [
+		'can_edit' => $can_edit
+	]);
+
+	$row->u_edit = '../mantenimientos/catedraticos/mod_catedratico.php?id_catedratico=' . $row->id_catedratico;
+
+	_style('results.row', $row);
+}
 
 $form = [[
 	'nombre' => [
@@ -122,12 +135,6 @@ $form = [[
 		'value' => 'Observaci&oacute;n'
 	]
 ]];
-
-foreach ($catedraticos as $i => $row) {
-	if (!$i) _style('results');
-
-	_style('results.row', $row);
-}
 
 _style('create', [
 	'form' => build_form($form),

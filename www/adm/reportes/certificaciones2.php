@@ -1,22 +1,22 @@
  <?php
 
-require_once('../conexion.php');
 define('XFS', '../');
 
+require_once('../conexion.php');
 require_once(XFS . 'pdf/pdf.php');
 require_once(XFS . 'pdf/convert.php');
 
 $cv = new convert();
-
 $pdf = new _pdf('LEGAL');
+
 $pdf->cp->selectFont(XFS . 'pdf/helvetica.afm');
 
 $page_count = 0;
 $coord_sum = 0;
 
-$id_seccion = $_REQUEST['seccion'];
-$alumno = (isset($_REQUEST) && isset($_REQUEST['alumno'])) ? $_REQUEST['alumno'] : 0;
-$anio = $_REQUEST['anio'];
+$id_seccion = request_var('id_seccion', 0);
+$alumno = request_var('alumno', 0);
+$anio = request_var('anio', 0);
 
 $sql = 'SELECT *
 	FROM secciones s, grado g

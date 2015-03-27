@@ -378,7 +378,7 @@ function menu_items() {
 
 	$menu_list = [
 		['href' => 'activity/', 'title' => 'Tareas'],
-		['href' => 'alumnos/', 'title' => 'Inscripci&oacute;n', 'auth' => 'student'],
+		['href' => 'alumnos/', 'title' => 'Inscripci&oacute;n', 'auth' => 'founder'],
 		['href' => 'reinscripcion/', 'title' => 'Re-Inscripci&oacute;n', 'auth' => 'founder'],
 		['href' => 'notas/', 'title' => 'Notas', 'auth' => 'founder'],
 		['href' => 'historial/', 'title' => 'Historial de alumno', 'auth' => 'teacher'],

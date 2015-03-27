@@ -2,10 +2,13 @@
 
 require_once('../../conexion.php');
 
-$id_grado = $_REQUEST['id_grado'];
+$id_grado = request_var('id_grado', 0);
+$nombre = request_var('grado', '');
+$status = request_var('status', '');
 
-$nombre = $_REQUEST['grado'];
-$status = $_REQUEST['status'];
+if (empty($nombre)) {
+	location('../../grados/');
+}
 
 $sql_update = array(
 	'nombre' => $nombre,
@@ -15,4 +18,4 @@ $sql = 'UPDATE grado SET' . $db->sql_build('UPDATE', $sql_update) . sql_filter('
 	WHERE id_grado = ?', $id_grado);
 $db->sql_query($sql);
 
-redirect('../grados/index.php');
+location('../../grados/');

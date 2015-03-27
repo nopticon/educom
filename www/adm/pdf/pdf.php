@@ -26,6 +26,7 @@ class _pdf {
 
 	function __construct($paper = 'LETTER', $orientation = 'portrait') {
 		require_once(XFS . 'pdf/class.ezpdf.php');
+		
 		$this->cp = new Cezpdf($paper, $orientation);
 
 		return;

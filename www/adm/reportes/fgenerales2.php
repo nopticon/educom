@@ -5,9 +5,9 @@ define('XFS', '../');
 require_once('../conexion.php');
 require_once(XFS . 'pdf/pdf.php');
 
-$id_seccion = $_REQUEST['seccion'];
-$id_examen = $_REQUEST['examen'];
-$anio = $_REQUEST['anio'];
+$id_seccion = request_var('seccion', 0);
+$id_examen = request_var('examen', 0);
+$anio = request_var('anio', 0);
 
 $sql = 'SELECT *
 	FROM secciones s, grado g

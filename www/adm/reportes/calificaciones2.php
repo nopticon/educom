@@ -11,8 +11,8 @@ $pdf->cp->selectFont(XFS . 'pdf/helvetica.afm');
 $page_count = 0;
 $coord_sum = 0;
 
-$id_seccion = $_REQUEST['seccion'];
-$anio = $_REQUEST['anio'];
+$id_seccion = request_var('seccion', 0);
+$anio = request_var('anio', 0);
 
 $sql = 'SELECT *
 	FROM secciones s, grado g

@@ -22,13 +22,19 @@ if (request_var('submit', '')) {
 	location('.');
 }
 
-$sql = 'SELECT nombre, status
+$can_edit = $user->is('founder');
+
+$sql = 'SELECT id_grado, nombre, status
 	FROM grado g
 	ORDER BY id_grado';
 $list = $db->sql_rowset($sql);
 
 foreach ($list as $i => $row) {
-	if (!$i) _style('results');
+	if (!$i) _style('results', [
+		'can_edit' => $can_edit
+	]);
+
+	$row->u_edit = '../mantenimientos/grados/mod_grados.php?id_grado=' . $row->id_grado;
 
 	_style('results.row', $row);
 }

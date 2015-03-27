@@ -24,7 +24,11 @@
 		<!-- BEGIN row -->
 		<tr>
 			<td>{row.S_ONE_COUNT}</td>
+			<!-- IF results.CAN_EDIT -->
+			<td><a href="{row.U_EDIT}">{row.NOMBRE}</a></td>
+			<!-- ELSE -->
 			<td>{row.NOMBRE}</td>
+			<!-- ENDIF -->
 			<td>{row.STATUS}</td>
 		</tr>
 		<!-- END row -->
