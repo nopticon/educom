@@ -4,9 +4,9 @@ require_once('../../conexion.php');
 
 encabezado('Asistencia de alumnos', '', false);
 
-$grado = $_REQUEST['grado'];
-$seccion = $_REQUEST['seccion'];
-$anio = $_REQUEST['anio'];
+$grado = request_var('grado', 0);
+$seccion = request_var('seccion', 0);
+$anio = request_var('anio', 0);
 
 $sql = 'SELECT *
 	FROM grado g, secciones s

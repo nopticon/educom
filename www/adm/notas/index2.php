@@ -2,13 +2,13 @@
 
 require_once("../conexion.php");
 
-$grado = $_REQUEST['grado'];
+$grado = request_var('grado', 0);
 
 $sql = 'SELECT id_grado
 	FROM secciones
 	WHERE id_seccion = ?';
 if (!$gradoar = $db->sql_fieldrow(sql_filter($sql, $grado))) {
-	redirect('index.php');
+	location('.');
 }
 
 $sql = 'SELECT *

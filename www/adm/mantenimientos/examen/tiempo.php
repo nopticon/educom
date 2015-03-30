@@ -2,7 +2,7 @@
 
 require_once('../../conexion.php');
 
-$id_examen = $_REQUEST['id_examen'];
+$id_examen = request_var('id_examen', 0);
 
 encabezado('Modificaci&oacute;n de Unidad');
 
@@ -11,29 +11,27 @@ $sql = 'SELECT *
 	WHERE id_examen = ?';
 $examen = $db->sql_fieldrow(sql_filter($sql, $id_examen));
 
-$form = array(
-	array(
-		'examen' => array(
-			'type' => 'text',
-			'value' => 'Unidad',
-			'default' => $examen->examen
-		),
-		'observacion' => array(
-			'type' => 'text',
-			'value' => 'Observaciones',
-			'default' => $examen->observacion
-		),
-		'status' => array(
-			'type' => 'select',
-			'show' => 'Status',
-			'value' => array(
-				'Alta' => 'Alta',
-				'Baja' => 'Baja'
-			),
-			'default' => $examen->status
-		)
-	)
-);
+$form = [[
+	'examen' => [
+		'type' => 'text',
+		'value' => 'Unidad',
+		'default' => $examen->examen
+	],
+	'observacion' => [
+		'type' => 'text',
+		'value' => 'Observaciones',
+		'default' => $examen->observacion
+	],
+	'status' => [
+		'type' => 'select',
+		'show' => 'Status',
+		'value' => [
+			'Alta' => 'Alta',
+			'Baja' => 'Baja'
+		],
+		'default' => $examen->status
+	]
+]];
 
 ?>
 

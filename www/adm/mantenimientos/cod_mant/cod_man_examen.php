@@ -2,11 +2,15 @@
 
 require_once('../../conexion.php');
 
-$id_examen = $_REQUEST['id_examen'];
+$id_examen = request_var('id_examen', 0);
 
-$examen = $_REQUEST['examen'];
-$observacion = $_REQUEST['observacion'];
-$status = $_REQUEST['status'];
+$examen = request_var('examen', '');
+$observacion = request_var('observacion', '');
+$status = request_var('status', '');
+
+if (empty($examen)) {
+	location('../examen/');
+}
 
 $sql_update = array(
 	'examen' => $examen,
@@ -17,4 +21,4 @@ $sql = 'UPDATE examenes SET' . $db->sql_build('UPDATE', $sql_update) . sql_filte
 	WHERE id_examen = ?', $id_examen);
 $db->sql_query($sql);
 
-redirect('../examen/index.php');
+location('../examen/');

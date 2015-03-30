@@ -2,9 +2,13 @@
 
 require_once('../conexion.php');
 
-$id_alumno = $_REQUEST['id_alumno'];
-$tipo_falta = $_REQUEST['tipo_falta'];
-$falta = $_REQUEST['falta'];
+$id_alumno = request_var('id_alumno', 0);
+$falta = request_var('falta', '');
+$tipo_falta = request_var('tipo_falta', '');
+
+if (empty($falta)) {
+	location('.');
+}
 
 $sql_insert = array(
 	'id_alumno' => $id_alumno,
@@ -16,4 +20,5 @@ $sql = 'INSERT INTO faltas' . $db->sql_build('INSERT', $sql_insert);
 $db->sql_query($sql);
 
 $_SESSION['guardar'] = 1;
-redirect('index.php');
+
+location('.');

@@ -10,20 +10,18 @@ $sql = 'SELECT *
 		AND status = ?';
 $rowset = $db->sql_rowset(sql_filter($sql, 'Alta'));
 
-$form = array(
-	array(
-		'seccion' => array(
-			'type' => 'select',
-			'show' => 'Grado',
-			'value' => array()
-		),
-		'anio' => array(
-			'type' => 'select',
-			'show' => 'A&ntilde;o',
-			'value' => '*'
-		)
-	)
-);
+$form = [[
+	'seccion' => [
+		'type' => 'select',
+		'show' => 'Grado',
+		'value' => []
+	],
+	'anio' => [
+		'type' => 'select',
+		'show' => 'A&ntilde;o',
+		'value' => '*'
+	]
+]];
 
 foreach ($rowset as $row) {
 	$form[0]['seccion']['value'][$row->id_seccion] = $row->nombre . ' - ' . $row->nombre_seccion;

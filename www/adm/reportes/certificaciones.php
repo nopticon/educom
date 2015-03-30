@@ -2,6 +2,8 @@
 
 require_once('../conexion.php');
 
+encabezado('Certificaciones Anuales');
+
 $alumno = request_var('alumno', 0);
 
 $sql = 'SELECT id_alumno, nombre_alumno, apellido
@@ -15,22 +17,18 @@ $sql = "SELECT *
 		AND status = 'Alta'";
 $grado_seccion = $db->sql_rowset($sql);
 
-encabezado('Certificaciones Anuales');
-
-$form = array(
-	array(
-		'seccion' => array(
-			'type' => 'select',
-			'show' => 'Grado',
-			'value' => array()
-		),
-		'anio' => array(
-			'type' => 'select',
-			'show' => 'A&ntilde;o',
-			'value' => '*'
-		)
-	)
-);
+$form = [[
+	'seccion' => [
+		'type' => 'select',
+		'show' => 'Grado',
+		'value' => []
+	],
+	'anio' => [
+		'type' => 'select',
+		'show' => 'A&ntilde;o',
+		'value' => '*'
+	]
+]];
 
 foreach ($grado_seccion as $row) {
 	$form[0]['seccion']['value'][$row->id_seccion] = $row->nombre . ' - ' . $row->nombre_seccion;

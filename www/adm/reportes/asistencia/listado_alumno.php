@@ -14,25 +14,23 @@ $sql = 'SELECT *
 	WHERE id_grado = 1';
 $secciones = $db->sql_rowset($sql);
 
-$form = array(
-	array(
-		'grado' => array(
-			'type' => 'select',
-			'show' => 'Grado',
-			'value' => array()
-		),
-		'seccion' => array(
-			'type' => 'select',
-			'show' => 'Secci&oacute;n',
-			'value' => array()
-		),
-		'anio' => array(
-			'type' => 'select',
-			'show' => 'A&ntilde;o',
-			'value' => '*'
-		)
-	)
-);
+$form = [[
+	'grado' => [
+		'type' => 'select',
+		'show' => 'Grado',
+		'value' => []
+	],
+	'seccion' => [
+		'type' => 'select',
+		'show' => 'Secci&oacute;n',
+		'value' => []
+	],
+	'anio' => [
+		'type' => 'select',
+		'show' => 'A&ntilde;o',
+		'value' => '*'
+	]
+]];
 
 foreach ($grados as $row) {
 	$form[0]['grado']['value'][$row->id_grado] = $row->nombre;

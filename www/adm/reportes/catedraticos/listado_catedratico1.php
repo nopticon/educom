@@ -4,8 +4,7 @@ require_once('../../conexion.php');
 
 encabezado('Listado de catedraticos con cursos');
 
-$grado = $_REQUEST['grado'];
-// $seccion = $_REQUEST['seccion'];
+$grado = request_var('grado', 0);
 
 $sql = 'SELECT *
 	FROM cursos c, catedratico g

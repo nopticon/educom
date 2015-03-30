@@ -2,15 +2,19 @@
 
 require_once('../../conexion.php');
 
-$id_catedratico = $_REQUEST['id_catedratico'];
+$id_catedratico = request_var('id_catedratico', 0);
 
-$nombre = $_REQUEST['nombre'];
-$apellido = $_REQUEST['apellido'];
-$profesion = $_REQUEST['profesion'];
-$email = $_REQUEST['email'];
-$telefono = $_REQUEST['telefonos'];
-$direccion = $_REQUEST['direccion'];
-$observacion = $_REQUEST['observacion'];
+$nombre 		= request_var('nombre', '');
+$apellido 		= request_var('apellido', '');
+$profesion 		= request_var('profesion', '');
+$email 			= request_var('email', '');
+$telefono 		= request_var('telefonos', '');
+$direccion 		= request_var('direccion', '');
+$observacion 	= request_var('observacion', '');
+
+if (empty($nombre) || empty($apellido)) {
+	location('../../catedraticos/');
+}
 
 $sql_update = array(
 	'nombre_catedratico' => $nombre,

@@ -15,7 +15,7 @@ $sql = 'SELECT *
 		AND r.id_alumno = a.id_alumno
 		AND r.id_grado = g.id_grado';
 if (!$reinscripcion = $db->sql_fieldrow(sql_filter($sql, $id_grado, $id_alumno))) {
-	redirect('../historial/');
+	location('../historial/');
 }
 
 $sql = 'SELECT *

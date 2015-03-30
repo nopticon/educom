@@ -26,10 +26,10 @@ if (request_var('submit2', '')) {
 }
 
 if (request_var('submit', '')) {
-	$seccion = $_REQUEST['grado'];
-	$curso = $_REQUEST['curso'];
-	$examen = $_REQUEST['examen'];
-	$anio = $_REQUEST['anio'];
+	$seccion = request_var('grado', 0);
+	$curso = request_var('curso', 0);
+	$examen = request_var('examen', 0);
+	$anio = request_var('anio', 0);
 
 	$sql = 'SELECT id_grado, nombre_seccion
 		FROM secciones

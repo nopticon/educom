@@ -9,15 +9,13 @@ $sql = "SELECT *
 	WHERE status = 'Alta'";
 $grado = $db->sql_rowset($sql);
 
-$form = array(
-	array(
-		'grado' => array(
-			'type' => 'select',
-			'show' => 'Grado',
-			'value' => array()
-		)
-	)
-);
+$form = [[
+	'grado' => [
+		'type' => 'select',
+		'show' => 'Grado',
+		'value' => []
+	]
+]];
 
 foreach ($grado as $row) {
 	$form[0]['grado']['value'][$row->id_grado] = $row->nombre;

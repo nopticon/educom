@@ -4,12 +4,12 @@ require_once('../../conexion.php');
 
 encabezado('Mantenimiento de Alumnos');
 
-$form = array(
-	'' => array('carne' => array(
+$form = [[
+	'Carne' => [
 		'type' => 'text',
 		'value' => 'Carn&eacute;'
-	))
-);
+	]
+]];
 
 ?>
 

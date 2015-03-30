@@ -2,8 +2,8 @@
 
 require_once('../../conexion.php');
 
-$id_curso = $_REQUEST['id_curso'];
-$id_grado = $_REQUEST['grado'];
+$id_curso = request_var('id_curso', 0);
+$id_grado = request_var('grado', 0);
 
 encabezado('Modificaci&oacute;n de curso');
 

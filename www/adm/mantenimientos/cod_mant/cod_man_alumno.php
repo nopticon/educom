@@ -2,23 +2,22 @@
 
 require_once('../../conexion.php');
 
-$id_alumno = $_REQUEST['id_alumno'];
-$carne = $_REQUEST['carnet'];
+$id_alumno 			= request_var('id_alumno', 0);
+$carne 				= request_var('carne', '');
+$codigo_alumno 		= request_var('codigo_alumno', '');
+$nombre 			= request_var('nombre', '');
+$apellido 			= request_var('apellido', '');
+$direccion 			= request_var('direccion', '');
+$telefono 			= request_var('telefono', '');
+$email 				= request_var('email', '');
+$padre 				= request_var('padre', '');
+$madre 				= request_var('madre', '');
+$grado 				= request_var('grado', 0);
+$seccion 			= request_var('seccion', 0);
 
-$codigo_alumno = $_REQUEST['codigo_alumno'];
-
-$nombre = $_REQUEST['nombre'];
-$apellido = $_REQUEST['apellido'];
-
-$direccion = $_REQUEST['direccion'];
-$telefono = $_REQUEST['telefono'];
-$email = $_REQUEST['email'];
-
-$padre = $_REQUEST['padre'];
-$madre = $_REQUEST['madre'];
-
-$grado = $_REQUEST['grado'];
-$seccion = $_REQUEST['seccion'];
+if (empty($nombre) || empty($apellido) || empty($carne)) {
+	location('../alumnos/');
+}
 
 $sql_update = array(
 	'codigo_alumno' => $codigo_alumno,
@@ -42,22 +41,22 @@ $sql = 'SELECT *
 	ORDER BY anio DESC
 	LIMIT 1';
 if ($reinscripcion = $db->sql_fieldrow(sql_filter($sql, $id_alumno))) {
-	$sql_update = array(
+	$sql_update = [
 		'id_grado' => $grado,
 		'id_seccion' => $seccion
-	);
+	];
 	$sql = 'UPDATE reinscripcion SET ' . $db->sql_build('UPDATE', $sql_update) . sql_filter('
 		WHERE id_alumno = ?
 			AND anio = ?', $id_alumno, $reinscripcion->anio);
 	$db->sql_query($sql);
 
-	$sql_update = array(
+	$sql_update = [
 		'id_grado' => $grado
-	);
+	];
 	$sql = 'UPDATE notas SET ' . $db->sql_build('UPDATE', $sql_update) . sql_filter('
 		WHERE id_alumno = ?
 			AND id_grado = ?', $id_alumno, $reinscripcion->id_grado);
 	$db->sql_query($sql);
 }
 
-redirect('../alumnos/index.php');
+location('../alumnos/');
