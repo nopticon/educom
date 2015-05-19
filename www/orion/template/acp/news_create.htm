@@ -1,28 +1,13 @@
 <!-- INCLUDE page.header.htm -->
 
-<form action="{MODULE_URL}" method="post" enctype="multipart/form-data">
-	Categoria<br /><br />
-	<!-- BEGIN cat -->
-	<select name="cat_id">
-		<!-- BEGIN row -->
-		<option value="{row.CAT_ID}">{row.CAT_NAME}</option>
-		<!-- END row -->
-	</select><br /><br />
-	<!-- END cat -->
-	
-	Imagen<br /><br />
-	<input type="file" name="thumbnail" id="thumbnail" size="20" /><br /><br />
-	
-	T&iacute;tulo<br /><br />
-	<input type="text" name="post_subject" size="100" value="" /><br /><br />
-	
-	Resumen<br /><br />
-	<textarea name="post_desc" cols="100" rows="6"></textarea><br /><br />
-	
-	Noticia<br /><br />
-	<textarea name="post_text" cols="100" rows="15"></textarea><br /><br />
-	
-	<input type="submit" name="submit" value="{L_SAVE_CHANGES}" />
+<!-- BEGIN create -->
+<h2>Noticias</h2>
+<br />
+
+<form class="form-horizontal" action="{MODULE_URL}" method="post">
+	{create.FORM}
+	{create.SUBMIT}
 </form>
+<!-- END create -->
 
 <!-- INCLUDE page.footer.htm -->

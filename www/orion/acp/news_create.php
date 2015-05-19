@@ -22,7 +22,7 @@ class __news_create extends mac {
 	public function __construct() {
 		parent::__construct();
 		
-		$this->auth('colab');
+		$this->auth('founder');
 	}
 	
 	public function _home() {
@@ -83,22 +83,39 @@ class __news_create extends mac {
 			}
 			
 			$cache->delete('news');
+			
 			redirect(s_link('news', $news_alias));
 		}
 		
 		$sql = 'SELECT cat_id, cat_name
 			FROM _news_cat
 			ORDER BY cat_order';
-		$news_cat = sql_rowset($sql);
+		$news_cat = sql_rowset($sql, 'cat_id', 'cat_name');
 		
-		foreach ($news_cat as $i => $row) {
-			if (!$i) _style('cat');
-			
-			_style('cat.row', array(
-				'CAT_ID' => $row->cat_id,
-				'CAT_NAME' => $row->cat_name)
-			);
-		}
+		$form = [[
+			'cat_id' => [
+				'type' => 'select',
+				'show' => 'Categor&iacute;a',
+				'value' => $news_cat
+			],
+			'post_subject' => [
+				'type' => 'text',
+				'value' => 'T&iacute;tulo'
+			],
+			'post_desc' => [
+				'type' => 'text',
+				'value' => 'Resumen'
+			],
+			'post_text' => [
+				'type' => 'textarea',
+				'value' => 'Texto'
+			]
+		]];
+
+		_style('create', [
+			'form' => build_form($form),
+			'submit' => build_submit()
+		]);
 		
 		return;
 	}

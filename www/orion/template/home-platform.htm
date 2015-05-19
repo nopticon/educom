@@ -6,29 +6,74 @@
 
 <div class="levels">
 	<ul>
-		<li class="f1">PrePrimaria</li>
-		<li class="f2">Primaria</li>
-		<li class="f3">B&aacute;sicos</li>
-		<li class="f4">Diversificado</li>
-		<li class="f5">Fin de Semana</li>
-		<li class="f6">CAT</li>
-		<li class="f7">Deportes</li>
+		<li class="f1">Pre-Kinder</li>
+		<li class="f2">Kinder</li>
+		<li class="f3">Preparatoria</li>
+		<li class="f4">Primaria</li>
+		<li class="f5">B&aacute;sicos</li>
+		<li class="f6">Diversificado</li>
+		<li class="f7">Fin de Semana</li>
 	</ul>
 </div>
 
-<br /><br />
+<div class="is_left w50 z">
+	<div class="h"><h3>Niveles Plan Diario</h3></div>
 
-<div class="row">
+	<ul>
+		<li>Pre-Kinder</li>
+		<li>Kinder</li>
+		<li>Preparatoria</li>
+	</ul>
+
+	<ul>
+		<li>Primero a sexto primaria</li>
+		<li>Primero a tercero b&aacute;sico</li>
+	</ul>
+
+	<ul>
+		<li>Perito en Administración de Empresas con Orientación en Computación</li>
+		<li>Bachillerato en Ciencias y Letras con Orientación en Mecanica Automotríz</li>
+		<li>Bachillerato en Ciencias y Letras con Orientación en Diseño Gráfico</li>
+		<li>Bachillerato en Ciencias y Letras con Orientación en Computación</li>
+		<li>Bachillerato en Ciencias y Letras con Orientación en Electricidad</li>
+		<li>Bachillerato en Ciencias y Letras con Orientación Agroforestal</li>
+		<li>Bachillerato en Ciencias y Letras con Orientación en Textiles</li>
+		<li>Perito Contador con Orientación en Computación</li>
+		<li>Secretariado Bilingüe con Orientación en Computación</li>
+		<li>Perito Contador Bilingüe</li>
+	</ul>
+</div>
+
+<div class="is_right w50 z">
+	<div class="h"><h3>Niveles Plan Fin de Semana</h3></div>
+
+	<ul>
+		<li>Primaria Acelerada</li>
+		<li>Básicos por Madurez</li>
+		<li>Bachillerato por Madurez</li>
+	</ul>
+
+	<ul>
+		<li>Perito Contador</li>
+		<li>Perito en Administración de Empresas</li>
+		<li>Secretariado Bilingüe con Orientación en Computación</li>
+		<li>Secretariado Oficinista</li>
+	</ul>
+</div>
+
+<br />
+
+<div class="row show-grid">
 	<div class="col-md-8">
 		<div role="tabpanel">
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active">
-					<a href="#nuestro-trabajo" aria-controls="nuestro-trabajo" role="tab" data-toggle="tab" class="btn-lg">
+					<a href="#servicios" aria-controls="servicios" role="tab" data-toggle="tab" class="btn-lg">
 						<div class="text-center">
-							<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
 						</div>
-						Nuestro Trabajo
+						Servicios
 					</a>
 				</li>
 				<li role="presentation">
@@ -40,11 +85,11 @@
 					</a>
 				</li>
 				<li role="presentation">
-					<a href="#servicios" aria-controls="servicios" role="tab" data-toggle="tab" class="btn-lg">
+					<a href="#nuestro-trabajo" aria-controls="nuestro-trabajo" role="tab" data-toggle="tab" class="btn-lg">
 						<div class="text-center">
-							<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
 						</div>
-						Servicios
+						Nuestro Trabajo
 					</a>
 				</li>
 				<li role="presentation">
@@ -65,7 +110,7 @@
 
 				<!-- IF list.ALIAS == 'informacion' -->
 				<!-- IF row.NEWS_ALIAS == 'servicios' -->
-				<div role="tabpanel" class="tab-pane" id="servicios">{row.POST_TEXT}</div>
+				<div role="tabpanel" class="tab-pane active" id="servicios">{row.POST_TEXT}</div>
 				<!-- ENDIF -->
 
 				<!-- IF row.NEWS_ALIAS == 'niveles-jornadas' -->
@@ -73,59 +118,17 @@
 				<!-- ENDIF -->
 				
 				<!-- IF row.NEWS_ALIAS == 'nuestro-trabajo' -->
-				<div role="tabpanel" class="tab-pane active" id="nuestro-trabajo">{row.POST_TEXT}</div>
+				<div role="tabpanel" class="tab-pane" id="nuestro-trabajo">{row.POST_TEXT}</div>
 				<!-- ENDIF -->
 
 				<!-- IF row.NEWS_ALIAS == 'contactanos' -->
-				<div role="tabpanel" class="tab-pane" id="contactanos">
-					{row.POST_TEXT}
-
-					<br />
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title" id="panel-title">Env&iacute;enos su mensaje</h3>
-						</div>
-						<div class="panel-body">
-							<form class="form-horizontal" action="{U_CONTACT}" method="post">
-								<div class="form-group">
-									<label for="inputName" class="col-sm-2 control-label">Nombre</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="inputName" placeholder="Nombre y apellido">
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputPhone" class="col-sm-2 control-label">Tel&eacute;fono</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="inputPhone" placeholder="Tel&eacute;fono">
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputAddress" class="col-sm-2 control-label">Email</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="inputAddress" placeholder="Email">
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inputMessage" class="col-sm-2 control-label">Mensaje</label>
-									<div class="col-sm-10">
-										<textarea class="form-control" rows="1" id="inputMessage" placeholder="Mensaje"></textarea>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="col-sm-offset-2 col-sm-10">
-										<button type="submit" class="btn btn-danger">Enviar Mensaje</button>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
+				<div role="tabpanel" class="tab-pane" id="contactanos">{row.POST_TEXT}</div>
 				<!-- ENDIF -->
 				<!-- ENDIF -->
 
-				<!-- END row -->
-				<!-- END list -->
 				<!-- END news -->
+				<!-- END list -->
+				<!-- END row -->
 			</div>
 		</div>
 	</div>
@@ -142,87 +145,68 @@
 		</div>
 		<!-- END news -->
 
-		<!-- BEGIN news -->
-		<!-- BEGIN list -->
-		<!-- IF list.ALIAS == 'noticias-generales' -->
-		<h4>{list.NAME}</h4>
-		
+		<h4>&Uacute;ltimas Noticias</h4>
+		<br />
+
 		<table class="table table-bordered">
 			<tbody>
-				<!-- BEGIN row -->
 				<tr>
-					<td><a href="{row.URL}">{row.POST_SUBJECT}</a></td>
+					<td>Hoy salimos a las 4 PM</td>
 				</tr>
-				<!-- END row -->
 			</tbody>
 		</table>
-		<!-- ENDIF -->
 
-		<!-- IF list.ALIAS == 'consejo-medico' -->
-		<h4>{list.NAME}</h4>
-		
+		<h4>Consejo del M&eacute;dico</h4>
+		<br />
+
 		<table class="table table-bordered">
 			<tbody>
-				<!-- BEGIN row -->
 				<tr>
-					<td><a href="{row.URL}">{row.POST_SUBJECT}</a></td>
+					<td>Informacion del consejo</td>
 				</tr>
-				<!-- END row -->
 			</tbody>
 		</table>
-		<!-- ENDIF -->
 
-		<!-- IF list.ALIAS == 'consejo-psicopedagogico' -->
-		<h4>{list.NAME}</h4>
-		
+		<h4>Consejo del Psicopedagogo</h4>
+		<br />
+
 		<table class="table table-bordered">
 			<tbody>
-				<!-- BEGIN row -->
 				<tr>
-					<td><a href="{row.URL}">{row.POST_SUBJECT}</a></td>
+					<td>Informacion del consejo</td>
 				</tr>
-				<!-- END row -->
 			</tbody>
 		</table>
-		<!-- ENDIF -->
 
-		<!-- IF list.ALIAS == 'consejo-psicologo' -->
-		<h4>{list.NAME}</h4>
-		
+		<h4>Consejo del Psic&oacute;logo</h4>
+		<br />
+
 		<table class="table table-bordered">
 			<tbody>
-				<!-- BEGIN row -->
 				<tr>
-					<td><a href="{row.URL}">{row.POST_SUBJECT}</a></td>
+					<td>Informacion del consejo</td>
 				</tr>
-				<!-- END row -->
 			</tbody>
 		</table>
-		<!-- ENDIF -->
-
-		<!-- IF list.ALIAS == 'escuela-padres' -->
-		<h4>{list.NAME}</h4>
-		
-		<table class="table table-bordered">
-			<tbody>
-				<!-- BEGIN row -->
-				<tr>
-					<td><a href="{row.URL}">{row.POST_SUBJECT}</a></td>
-				</tr>
-				<!-- END row -->
-			</tbody>
-		</table>
-		<!-- ENDIF -->
-
-		<!-- END list -->
-		<!-- END news -->
 
 		<h4>Enlaces Educativos</h4>
+		<br />
 
 		<table class="table table-bordered">
 			<tbody>
 				<tr>
 					<td>Mineduc.edu.gt</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h4>Escuela de Padres</h4>
+		<br />
+
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<td>Informacion para los Padres</td>
 				</tr>
 			</tbody>
 		</table>

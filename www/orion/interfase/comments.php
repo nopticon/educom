@@ -570,13 +570,15 @@ class comments {
 		$this->message = ' ' . $message . ' ';
 		unset($message);
 
-		$parse = 'flash youtube images url bbcode html smilies artists downloads profiles avatars';
+		$parse = 'flash youtube images url bbcode html smilies profiles avatars';
 
 		foreach (w($parse) as $method) {
 			$this->{'parse_' . $method}();
 		}
 
-		return str_replace(nr(), '<br />', substr($this->message, 1, -1));
+		return $this->message;
+
+		// return str_replace(nr(), '<br />', substr($this->message, 1, -1));
 	}
 
 	private function parse_flash() {
@@ -667,7 +669,7 @@ class comments {
 
 	private function parse_html() {
 		// $is_mod = $user->is('mod');
-		$allowed_tags = 'a span strong blockquote';
+		$allowed_tags = 'a span strong blockquote ul li';
 		// . (($is_mod) ? ' a h1 h2 h3 div span img' : '');
 
 		$ptags = str_replace('*', '.*?', implode('|', w($allowed_tags)));

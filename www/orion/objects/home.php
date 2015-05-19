@@ -59,7 +59,7 @@ class home {
 		global $config, $cache, $user, $comments;
 
 		if (!$news = $cache->get('news')) {
-			$sql = 'SELECT n.news_id, n.news_alias, n.post_time, n.poster_id, n.post_subject, n.post_desc, c.*
+			$sql = 'SELECT n.news_id, n.news_alias, n.post_time, n.poster_id, n.post_subject, n.post_desc, n.post_text, c.*
 				FROM _news n
 				INNER JOIN _news_cat c ON n.cat_id = c.cat_id
 				WHERE n.news_active = 1
@@ -70,20 +70,38 @@ class home {
 			}
 		}
 
-		foreach ($news as $i => $row) {
+		$list = [];
+		foreach ($news as $row) {
+			if (!isset($list[$row->cat_url])) {
+				$list[$row->cat_url] = [
+					'name' => $row->cat_name,
+					'list' => []
+				];
+			}
+
+			$list[$row->cat_url]['list'][] = $row;
+		}
+
+		// _pre($list, true);
+
+		$i = 0;
+		foreach ($list as $alias => $list_row) {
 			if (!$i) _style('news');
 
-			// $news_image = (@file_exists($config->news_path . $row->news_id . '.jpg')) ?  : 'd';
+			_style('news.list', [
+				'ALIAS' => $alias,
+				'NAME' => $list_row['name']
+			]);
 
-			_style('news.row', array(
-				'TIMESTAMP' => $user->format_date($row->post_time, 'j \d\e F Y'),
-				'URL' => s_link('news', $row->news_alias),
-				'SUBJECT' => $row->post_subject,
-				'CAT' => $row->cat_name,
-				'U_CAT' => s_link('news', $row->cat_url),
-				'MESSAGE' => $comments->parse_message($row->post_desc),
-				'IMAGE' => $config->news_url . $row->news_id . '.jpg')
-			);
+			foreach ($list_row['list'] as $row) {
+				$row->timestamp = $user->format_date($row->post_time, 'j \d\e F Y');
+				$row->url 		= s_link('news', $row->news_alias);
+				$row->u_cat 	= s_link('news', $row->cat_url);
+				$row->post_text	= $comments->parse_message($row->post_text);
+
+				_style('news.list.row', $row);
+			}
+			$i++;
 		}
 
 		if ($user->is('mod')) {

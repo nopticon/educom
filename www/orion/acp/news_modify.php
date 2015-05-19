@@ -26,13 +26,11 @@ class __news_modify extends mac {
 	}
 	
 	public function _home() {
-		global $config, $user, $cache;
+		global $config, $user, $cache, $comments;
+
+		$news_id = request_var('news_id', 0);
 		
-		$submit2 = _button('submit2');
-		
-		if (_button() || $submit2) {
-			$news_id = request_var('news_id', 0);
-			
+		if ($news_id) {
 			$sql = 'SELECT *
 				FROM _news
 				WHERE news_id = ?';
@@ -40,16 +38,10 @@ class __news_modify extends mac {
 				fatal_error();
 			}
 			
-			if ($submit2) {
+			if (_button('submit2')) {
 				$post_subject = request_var('post_subject', '');
 				$post_desc = request_var('post_desc', '', true);
 				$post_message = request_var('post_text', '', true);
-				
-				if (empty($post_desc) || empty($post_message)) {
-					_pre('Campos requeridos.', true);
-				}
-				
-				$comments = new _comments();
 				
 				$post_message = $comments->prepare($post_message);
 				$post_desc = $comments->prepare($post_desc);
@@ -60,23 +52,47 @@ class __news_modify extends mac {
 				sql_query(sql_filter($sql, $post_subject, $post_desc, $post_message, $news_id));
 				
 				$cache->delete('news');
-				redirect(s_link('news', $news_id));
+
+				redirect(s_link('news', $news_data->news_alias));
 			}
-			
-			if (_button()) {
-				_style('edit', array(
-					'ID' => $news_data->news_id,
-					'SUBJECT' => $news_data->post_subject,
-					'DESC' => $news_data->post_desc,
-					'TEXT' => $news_data->post_text)
-				);
+
+			_style('edit', array(
+				'ID' => $news_data->news_id,
+				'SUBJECT' => $news_data->post_subject,
+				'DESC' => $news_data->post_desc,
+				'TEXT' => $news_data->post_text)
+			);
+
+			return;
+		}
+
+		$sql = 'SELECT *
+			FROM _news n, _news_cat c
+			WHERE c.cat_id = n.cat_id
+			ORDER BY c.cat_order, n.news_alias';
+		$list = sql_rowset($sql);
+
+		$cat = [];
+		foreach ($list as $row) {
+			$cat[$row->cat_url][] = $row;
+		}
+
+		foreach ($cat as $alias => $list) {
+			_style('category', [
+				'url' => $list[0]->cat_url,
+				'name' => $list[0]->cat_name
+			]);
+
+			foreach ($list as $row) {
+				$row->url = s_link('acp', [
+					'news_modify',
+					'news_id' => $row->news_id
+				]);
+
+				_style('category.row', $row);
 			}
 		}
-		
-		if (!_button()) {
-			_style('field');
-		}
-		
+
 		return;
 	}
 }

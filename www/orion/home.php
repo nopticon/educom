@@ -35,7 +35,7 @@ $events = new events(true);
 // $board->forums();
 // $board->forum_list();
 
-// $home->news();
+$home->news();
 // $home->board_general();
 // $home->board_events();
 // $home->poll();

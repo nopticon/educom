@@ -5,7 +5,7 @@ require_once('../../conexion.php');
 encabezado('Mantenimiento de Alumnos');
 
 $form = [[
-	'Carne' => [
+	'carne' => [
 		'type' => 'text',
 		'value' => 'Carn&eacute;'
 	]

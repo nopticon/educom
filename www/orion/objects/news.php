@@ -54,8 +54,9 @@ class news {
 		$sql = 'SELECT *
 			FROM _news n
 			INNER JOIN _news_cat c ON n.cat_id = c.cat_id
-			WHERE n.news_alias = ?';
-		if (!$this->data = sql_fieldrow(sql_filter($sql, $news_alias))) {
+			WHERE n.news_alias = ?
+				AND c.cat_url = ?';
+		if (!$this->data = sql_fieldrow(sql_filter($sql, $news_alias, 'noticias-generales'))) {
 			fatal_error();
 		}
 
@@ -119,29 +120,29 @@ class news {
 
 		$page = request_var('page', 0);
 		$news_per_page = 5;
+		$news_alias = 'noticias-generales';
 
 		$sql = 'SELECT COUNT(*) AS total
-			FROM _news';
-		$total_news = sql_field($sql, 'total', 0);
+			FROM _news n
+			INNER JOIN _news_cat c ON n.cat_id = c.cat_id
+			WHERE c.cat_url = ?';
+		$total_news = sql_field(sql_filter($sql, $news_alias), 'total', 0);
 
-		$sql = 'SELECT n.*, m.username, m.username_base
-			FROM _news n, _members m
-			WHERE n.poster_id = m.user_id
+		$sql = 'SELECT n.*
+			FROM _news n
+			INNER JOIN _news_cat c ON n.cat_id = c.cat_id
+			WHERE c.cat_url = ?
 			ORDER BY n.post_time DESC, n.news_id DESC
 			LIMIT ??, ??';
-		$result = sql_rowset(sql_filter($sql, $page, $news_per_page));
+		$result = sql_rowset(sql_filter($sql, $news_alias, $page, $news_per_page));
 
 		foreach ($result as $i => $row) {
 			if (!$i) _style('cat');
 
-			_style('cat.row', array(
-				'URL' => s_link('news', $row->news_alias),
-				'SUBJECT' => $row->post_subject,
-				'DESC' => $row->post_desc,
-				'TIME' => $user->format_date($row->post_time, 'd M'),
-				'USERNAME' => $row->username,
-				'PROFILE' => s_link('m', $row->username_base))
-			);
+			$row->url = s_link('news', $row->news_alias);
+			$row->time = $user->format_date($row->post_time, 'd M');
+
+			_style('cat.row', $row);
 		}
 
 		build_num_pagination(s_link('news') . '?page=%d', $total_news, $news_per_page, $page);

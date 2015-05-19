@@ -9,7 +9,7 @@
 					<span class="icon-bar"></span>
 				</button>
 
-				<h1><a class="navbar-brand" href="{U_HOME}">{L_APPLICATION}</a></h1>
+				<a class="navbar-brand" href="{U_HOME}">{L_APPLICATION}</a>
 			</div>
 
 			<!-- IF S_MEMBER -->
@@ -56,9 +56,24 @@
 			</div>
 			<!-- END main_menu -->
 			<!-- ELSE -->
-			<form class="navbar-form navbar-right" action="{U_SESSION}">
-				<button type="submit" class="btn btn-warning">{L_EDUCATION_PLATFORM}</button>
-			</form>
+			<!-- BEGIN main_menu -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<!-- BEGIN hide -->
+					<!-- BEGIN row -->
+					<!-- IF row.TITLE == 'Noticias' -->
+					<li><a href="{row.HREF}" title="{row.TITLE}">{row.TITLE}</a></li>
+					<!-- ENDIF -->
+					<!-- END row -->
+					<!-- END hide -->
+					<li>
+						<form class="navbar-form navbar-right" action="{U_SESSION}">
+							<button type="submit" class="btn btn-warning">{L_EDUCATION_PLATFORM}</button>
+						</form>
+					</li>
+				</ul>
+			</div>
+			<!-- END main_menu -->
 			<!-- ENDIF -->
 		</div>
 	</nav>
