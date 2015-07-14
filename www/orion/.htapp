@@ -29,12 +29,3 @@ RewriteRule ^my/(profile)/$ orion/userpage.php [nc]
 RewriteRule ^my/(dc)/(start)/?(([0-9a-zA-Z\_\-]+)/)?$ orion/userpage.php?page=$1&action=$2&member=$4 [nc]
 RewriteRule ^my/(dc)/([a-z]+)/(\d+)/$ orion/userpage.php?page=$1&mode=$2&p=$3 [nc]
 RewriteRule ^my/(dc)/?(s(\d+)/)?$ orion/userpage.php?page=$1&offset=$3 [nc]
-
-<IfModule mod_expires.c>
-ExpiresActive On
-ExpiresByType image/gif "access plus 1 month"
-ExpiresByType image/jpeg "access plus 1 month"
-ExpiresByType image/png "access plus 1 month"
-
-FileETag MTime Size
-</IfModule>

@@ -381,7 +381,7 @@ function menu_items() {
 		['href' => 'alumnos/', 'title' => 'Inscripci&oacute;n', 'auth' => 'founder'],
 		['href' => 'reinscripcion/', 'title' => 'Re-Inscripci&oacute;n', 'auth' => 'founder'],
 		['href' => 'notas/', 'title' => 'Notas', 'auth' => 'founder'],
-		['href' => 'historial/', 'title' => 'Historial de alumno', 'auth' => 'teacher'],
+		['href' => 'historial/', 'title' => 'Historial de alumno', 'auth' => 'founder'],
 		['href' => 'reportes/', 'title' => 'Reportes', 'auth' => 'teacher'],
 		['href' => 'faltas/', 'title' => 'Faltas Acad&eacute;micas', 'auth' => 'teacher'],
 		['href' => 'codigo_alumno/', 'title' => 'C&oacute;digos de alumnos', 'auth' => 'founder'],
@@ -1232,7 +1232,7 @@ function do_login($box_text = '', $need_admin = false, $extra_vars = false) {
 				$ref = request_var('ref', '');
 
 				if (!empty($username) && !empty($password)) {
-					$username_base = get_username_base($username);
+					$username_base = simple_alias($username);
 
 					$sql = 'SELECT user_id, username, user_password, user_type, user_country, user_avatar, user_location, user_gender, user_birthday
 						FROM _members
@@ -2139,7 +2139,7 @@ function page_assets() {
 	);
 }
 
-function page_layout($page_title, $htmlpage, $custom_vars = false, $js_keepalive = true) {
+function page_layout($page_title, $htmlpage, $custom_vars = false) {
 	global $config, $user, $cache, $starttime, $template;
 
 	$assets = page_assets();

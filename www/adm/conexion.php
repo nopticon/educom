@@ -8,6 +8,8 @@ require_once(ROOT . 'interfase/common.php');
 $user->init();
 $user->setup();
 
-if (!$user->is('member')) {
-	do_login();
+if (!defined('NO_LOGIN')) {
+	if (!$user->is('member')) {
+		do_login();
+	}
 }
