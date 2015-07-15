@@ -646,7 +646,7 @@ $lang += array(
 	'NEWEST_TOPICS' => 'Temas recientes',
 
 	'VIEW_INFO' => 'Ver Informaci&oacute;n',
-	'SEND_POST' => 'Env&iacute;a tu mensaje',
+	'SEND_POST' => 'Publica tu mensaje',
 	'SEND_NEWS' => 'Env&iacute;a tu publicaci&oacute;n',
 	'PRIVACY_POLICY' => 'Pol&iacute;tica de Privacidad y T&eacute;rminos de servicio',
 
@@ -888,7 +888,7 @@ $lang += array(
 	'TODAY_BIRTHS' => 'Cumplea&ntilde;eros',
 	'COMM_CONTACT' => 'Cont&aacute;ctanos',
 	'COMM_ADMIN' => 'Administrador',
-	'COMM_TEAM' => 'Equipo Rock Republik',
+	'COMM_TEAM' => 'Nuestro Equipo',
 
 	// USERPAGE
 	'USERPAGE_MAIN' => 'Perfil',
@@ -900,6 +900,9 @@ $lang += array(
 	'USERPAGE_STATS' => 'Estad&iacute;sticas',
 	'USERPAGE_MOD' => 'Miembro Autorizado',
 	'USERPAGE_AFAVS' => 'Bandas favoritas',
+
+	'MY_FRIENDS' => 'Mis Amigos',
+	'SUBMIT_MESSAGE' => 'Enviar mensaje',
 
 	// UPLOAD
 	'UPLOAD_FAILED' => 'Error al enviar el archivo',
@@ -1008,5 +1011,6 @@ $lang += array(
 	'ACP_ARTIST_AUTH_DELETE' => '&iquest;Deseas eliminar los siguientes usuarios autorizados de %s?: <b>%s</b>',
 	'ACP_ARTIST_AUTH_DELETE2' => '&iquest;Deseas eliminar el siguiente usuario autorizado de %s?: <b>%s</b>',
 
-	'COURSES_NO_ASSIGNED' => 'Usted no tiene cursos asignados para crear tareas.'
+	'COURSES_NO_ASSIGNED' => 'Usted no tiene cursos asignados para crear tareas.',
+	'TEACHER_SCHEDULE' => 'Cursos que imparte',
 );

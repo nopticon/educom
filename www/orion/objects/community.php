@@ -26,7 +26,7 @@ class community {
 	public function run() {
 		global $config, $user;
 		
-		$this->founders();
+		// $this->founders();
 		$this->team();
 		$this->recent_members();
 		$this->birthdays();
@@ -97,26 +97,16 @@ class community {
 	public function team() {
 		global $cache, $comments;
 		
-		if (!$teams = $cache->get('team')) {
-			$sql = 'SELECT *
-				FROM _team
-				WHERE team_show = 1
-				ORDER BY team_order';
-			if ($teams = sql_rowset($sql)) {
-				$cache->save('team', $teams);
-			}
-		}
-		
 		if (!$team = $cache->get('team_members')) {
-			$sql = 'SELECT DISTINCT t.*, m.user_id, m.username, m.username_base, m.user_avatar
-				FROM _team_members t, _members m
-				WHERE t.member_id = m.user_id
+			$sql = 'SELECT user_id, username, username_base, user_avatar
+				FROM _members m
+				INNER JOIN catedratico c ON c.id_member = m.user_id
 				ORDER BY m.username';
 			if ($team = sql_rowset($sql)) {
 				$cache->save('team_members', $team);
 			}
 		}
-		
+
 		foreach ($team as $i => $row) {
 			if (!$i) _style('team');
 			
@@ -124,7 +114,6 @@ class community {
 			
 			_style('team.row', array(
 				'USERNAME' => $profile->username,
-				'REALNAME' => $profile->real_name,
 				'PROFILE' => $profile->profile,
 				'AVATAR' => $profile->user_avatar)
 			);

@@ -2,7 +2,7 @@
 
 require_once('../../conexion.php');
 
-encabezado('Listado de alumnos');
+encabezado('Asistencia de Alumnos');
 
 $sql = "SELECT *
 	FROM grado
@@ -25,10 +25,9 @@ $form = [[
 		'show' => 'Secci&oacute;n',
 		'value' => []
 	],
-	'anio' => [
-		'type' => 'select',
-		'show' => 'A&ntilde;o',
-		'value' => '*'
+	'dateselect' => [
+		'type' => 'calendar',
+		'value' => 'Fecha'
 	]
 ]];
 
@@ -43,7 +42,7 @@ foreach ($secciones as $row) {
 ?>
 
 <form class="form-horizontal" action="listado_alumno1.php" method="post" target="_blank">
-	<?php build($form); submit(); ?>
+	<?php echo build_form($form); submit(); ?>
 </form>
 
 <?php pie(); ?>

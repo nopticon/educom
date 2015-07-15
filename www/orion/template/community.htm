@@ -1,22 +1,9 @@
 <!-- INCLUDE page.header.htm -->
 
-<div class="company_title">{L_APPLICATION_WELCOME}</div>
-
-<div class="company_sub">{L_APPLICATION_SCHOOL}</div>
-
-<ul>
-	<li>Dirección: Km. 22.5, Carretera Principal, Casas 6B, 7B, 8B, 9B, C4, Condominio Jardines de San Gabriel</li>
-	<li>Teléfonos: 4301-0612, 5073-9461, 5098-1946</li>
-	<li>Correo Electrónico:</li>
-	<li>info@colegiosangabriel.edu.gt, educsangabriel@aol.com</li>
-</ul>
-
 <div class="pad_top">
 	<div class="is_left_i">
 		<div id="online">
-			<!-- BEGIN hide -->
 			<!-- INCLUDE community.online.htm -->
-			<!-- END hide -->
 		</div>
 	</div>
 
@@ -40,6 +27,7 @@
 		</div>
 
 		<span class="clear"></span>
+		<!-- END hide -->
 
 		<!-- BEGIN team -->
 		<div class="pad_top ln l6">
@@ -49,9 +37,6 @@
 				<li class="a_mid">
 					<ul>
 						<li class="_"><a href="{row.PROFILE}">{row.USERNAME}</a></li>
-						<!-- BEGIN hide -->
-						<li class="_"><!-- IF row.REALNAME != '' -->{row.REALNAME}<!-- ELSE -->--<!-- ENDIF --></li>
-						<!-- END hide -->
 						<li><a href="{row.PROFILE}"><img src="{row.AVATAR}" alt="{row.USERNAME}" /></a></li>
 					</ul>
 				</li>
@@ -61,7 +46,6 @@
 
 		<span class="clear"></span>
 		<!-- END team -->
-		<!-- END hide -->
 	</div>
 </div>
 

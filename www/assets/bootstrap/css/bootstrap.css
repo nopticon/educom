@@ -5128,6 +5128,9 @@ a.thumbnail.active {
   background-color: #fff;
   border: 1px solid #ddd;
 }
+.list-no-border .list-group-item {
+  border: 0 !important;
+}
 .list-group-item:first-child {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -5235,26 +5238,26 @@ a.list-group-item-info.active:focus {
   border-color: #31708f;
 }
 .list-group-item-warning {
-  color: #8a6d3b;
-  background-color: #fcf8e3;
+  color: #fff;
+  background-color: #f0ad4e;
 }
 a.list-group-item-warning {
-  color: #8a6d3b;
+  color: #fff;
 }
 a.list-group-item-warning .list-group-item-heading {
   color: inherit;
 }
 a.list-group-item-warning:hover,
 a.list-group-item-warning:focus {
-  color: #8a6d3b;
-  background-color: #faf2cc;
+  color: #fff;
+  background-color: #eea236;
 }
 a.list-group-item-warning.active,
 a.list-group-item-warning.active:hover,
 a.list-group-item-warning.active:focus {
   color: #fff;
   background-color: #8a6d3b;
-  border-color: #8a6d3b;
+  /*border-color: #8a6d3b;*/
 }
 .list-group-item-danger {
   color: #a94442;

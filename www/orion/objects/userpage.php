@@ -780,7 +780,7 @@ class userpage {
 		}
 
 		$panel_selection = array(
-			'main' => array('L' => 'MAIN', 'U' => false)
+			// 'main' => array('L' => 'MAIN', 'U' => false)
 		);
 
 		if ($user->d('user_id') != $this->data->user_id) {
@@ -790,8 +790,26 @@ class userpage {
 		}
 
 		$panel_selection += array(
-			'friends' => array('L' => 'FRIENDS', 'U' => false)
+			// 'friends' => array('L' => 'FRIENDS', 'U' => false)
 		);
+
+		// 
+		// Check teacher's schedule
+		// 
+		if ($user->is('teacher', $this->data->user_id) && $mode == 'main') {
+			$sql = 'SELECT DISTINCT s.nombre_curso
+				FROM cursos s
+				INNER JOIN catedratico c ON s.id_catedratico = c.id_catedratico
+				WHERE c.id_member = ?';
+			$teacher_schedule = sql_rowset(sql_filter($sql, $this->data->user_id));
+
+			foreach ($teacher_schedule as $i => $row) {
+				if (!$i) _style('main.teacher_schedule');
+
+				_style('main.teacher_schedule.row', $row);
+			}
+		}
+
 
 		//
 		// Check if friends
@@ -811,9 +829,9 @@ class userpage {
 		}
 
 		if ($user->d('user_id') === $this->data->user_id) {
-			$panel_selection += array(
-				'manage_friend' => array('L' => 'MEMBER_OPTIONS', 'U' => s_link('my profile'))
-			);
+			// $panel_selection += array(
+			// 	'manage_friend' => array('L' => 'MEMBER_OPTIONS', 'U' => s_link('my profile'))
+			// );
 		}
 
 		if (!empty($this->data->user_website)) {
@@ -823,16 +841,16 @@ class userpage {
 		}
 
 		foreach ($panel_selection as $link => $data) {
-			_style('selected_panel', array(
+			_style('main.selected_panel', array(
 				'LANG' => lang('userpage_' . $data['L'], lang($data['L'])))
 			);
 
 			if ($mode == $link) {
-				_style('selected_panel.strong');
+				_style('main.selected_panel.strong');
 				continue;
 			}
 
-			_style('selected_panel.a', array(
+			_style('main.selected_panel.a', array(
 				'URL' => ($data['U'] !== false) ? $data['U'] : s_link('m', $this->data->username_base, (($link != 'main') ? $link : '')))
 			);
 		}

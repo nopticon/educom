@@ -2186,6 +2186,7 @@ function page_layout($page_title, $htmlpage, $custom_vars = false) {
 		'U_REGISTER' => s_link('signup'),
 		'U_SESSION' => s_link('sign' . $u_session),
 		'U_PROFILE' => s_link('m', $user->d('username_base')),
+		'U_FRIENDS' => s_link('m', $user->d('username_base'), 'friends'),
 		'U_EDITPROFILE' => s_link('my profile'),
 		'U_PASSWORD' => s_link('signr'),
 		'U_DC' => s_link('my dc'),
@@ -3111,11 +3112,11 @@ function encabezado($page_title = '', $ruta = '', $full = true) {
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/news/" title="Noticias">Noticias</a></li>
-					<li><a href="/events/" title="Eventos">Eventos</a></li>
+					<li><a href="/today/" title="Noticias">Notificaciones</a></li>
+					<!-- <li><a href="/events/" title="Eventos">Eventos</a></li> -->
 					<li><a href="/board/" title="Foro">Foro</a></li>
-					<li><a href="/community/" title="Comunidad">Comunidad</a></li>
-
+					<!-- <li><a href="/community/" title="Comunidad">Comunidad</a></li> -->
+					
 					<?php if ($enabled_items) { ?>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Acciones <span class="caret"></span></a>
@@ -3137,7 +3138,9 @@ function encabezado($page_title = '', $ruta = '', $full = true) {
 
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="/m/<?php echo $user->d('username_base'); ?>/">Ver Perfil</a></li>
+							<li><a href="/m/<?php echo $user->d('username_base'); ?>/friends/">Mis Amigos</a></li>
 							<li><a href="/my/profile/">Opciones de Usuario</a></li>
+							<li><a href="/community/">Comunidad</a></li>
 						</ul>
 					</li>
 

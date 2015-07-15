@@ -3,17 +3,9 @@
 <div class="el_left"><img src="{AVATAR_IMG}" alt="{USERNAME}" /></div>
 
 <div class="el_left pad_left">
-	<div class="h wm_ls"><h3>{USERNAME}</h3> &dash; {POSTER_RANK}</div>
-
-	<div class="x1 btn-group">
-		<!-- BEGIN selected_panel -->
-			<!-- BEGIN strong -->
-			<strong class="btn btn-danger">{selected_panel.LANG}</strong>
-			<!-- END strong -->
-			<!-- BEGIN a -->
-			<a class="btn btn-warning" href="{a.URL}">{selected_panel.LANG}</a>
-			<!-- END a -->
-		<!-- END selected_panel -->
+	<div class="h wm_ls">
+		<h3>{USERNAME}</h3>
+		<p>{POSTER_RANK}</p>
 	</div>
 </div>
 
@@ -28,13 +20,27 @@
 <!-- BEGIN main -->
 <div class="row">
 	<div class="col-lg-3">
+		<div class="x1 list-group list-no-border">
+			<!-- BEGIN selected_panel -->
+			<!-- BEGIN strong -->
+			<a class="list-group-item list-group-item-warning" href="#">{selected_panel.LANG}</a>
+			<!-- END strong -->
+			<!-- BEGIN a -->
+			<a class="list-group-item list-group-item-warning" href="{a.URL}">{selected_panel.LANG}</a>
+			<!-- END a -->
+			<!-- END selected_panel -->
+		</div>
+
 		<!-- BEGIN general -->
-		<!-- BEGIN item -->
-		<dl>
-			<dt>{item.KEY}</dt>
-			<dd>{item.VALUE}</dd>
-		</dl>
+		<br />
+		<div class="list-group">
+			<!-- BEGIN item -->
+		  <a href="#" class="list-group-item">
+		    <h4 class="list-group-item-heading">{item.KEY}</h4>
+		    <p class="list-group-item-text">{item.VALUE}</p>
+		  </a>
 		<!-- END item -->
+		</div>
 		<!-- END general -->
 		
 		<!-- BEGIN lastboard -->
@@ -48,6 +54,18 @@
 		<!-- END lastboard -->
 	</div>
 	<div class="col-lg-9">
+		<!-- BEGIN teacher_schedule -->
+		<div class="h"><h3>{L_TEACHER_SCHEDULE}</h3></div>
+
+		<div class="row">
+			<!-- BEGIN row -->
+			<div class="col-xs-12 col-sm-6 col-md-6">
+				<div class="schedule-item box-rounded">{row.NOMBRE_CURSO}</div>
+			</div>
+			<!-- END row -->
+		</div>
+		<!-- END teacher_schedule -->
+
 		<!-- BEGIN post_comment_box -->
 		<div>
 			<div class="h"><h3>{L_SEND_POST}</h3></div>
@@ -62,7 +80,7 @@
 				</div>
 
 				<div class="text-center">
-					<input type="submit" class="btn btn-danger" name="submit" value="{L_SUBMIT}" />
+					<input type="submit" class="btn btn-danger" name="submit" value="{L_SUBMIT_MESSAGE}" />
 				</div>
 			</form>
 		</div>

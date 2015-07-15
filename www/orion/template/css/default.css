@@ -141,6 +141,18 @@ table.grid td {
 	/*border-radius: 10px;*/
 }
 
+.width-sm-select {
+	min-width: 75px;
+}
+
+.width-md-select {
+	min-width: 125px;
+}
+.col-separator {
+	/*margin-left: 5px;
+	width: 49%;*/
+}
+
 .pub { padding: 15px 25px 15px 25px; border: 2px solid #fff; color: #fff; border-radius: 7px; display: inline; width: auto; }
 
 .page {
@@ -921,3 +933,16 @@ table.grid td {
 
 .deleted { background-color:#4173CC !important; color:#ffffff !important;}
 .hidden { display:none;}
+
+.box-rounded {
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+
+.schedule-item {
+	border: 1px solid #ddd;
+	padding: 5px;
+	margin: 6px 0 0 0;
+	/*text-indent: 10px;*/
+}
