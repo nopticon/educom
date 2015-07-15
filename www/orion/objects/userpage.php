@@ -518,7 +518,8 @@ class userpage {
 		global $user, $config, $comments, $cache, $upload;
 
 		$error = w();
-		$fields = w('public_email timezone dateformat location sig msnm yim lastfm website occ interests os fav_genres fav_artists rank color');
+		// $fields = w('public_email timezone dateformat location sig msnm yim lastfm website occ interests os fav_genres fav_artists rank color');
+		$fields = w('public_email location sig msnm yim lastfm website occ interests os fav_genres fav_artists color');
 		$length_ary = w('location sig msnm yim website occ interests os fav_genres fav_artists');
 
 		$_fields = new stdClass;
