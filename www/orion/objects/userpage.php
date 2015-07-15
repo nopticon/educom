@@ -538,13 +538,13 @@ class userpage {
 		$is_founder = $user->is('founder');
 
 		if (_button()) {
-			// if ($is_founder) _pre($_fields);
+			if ($is_founder) _pre($_fields);
 
 			foreach ($_fields as $field => $value) {
 				$_fields->$field = request_var($field, '');
 			}
 
-			// if ($is_founder) _pre($_fields);
+			if ($is_founder) _pre($_fields);
 
 			$_fields->password1 = request_var('password1', '');
 			$_fields->password2 = request_var('password2', '');
@@ -666,16 +666,21 @@ class userpage {
 					}
 				}
 
-				// if ($is_founder) _pre($member_data, true);
+				if ($is_founder) _pre($member_data);
 
 				if (count($member_data)) {
-					$sql = 'UPDATE _members SET ' . sql_build('UPDATE', $member_data) . sql_filter('
-						WHERE user_id = ?', $user->d('user_id'));
+					// $sql = 'UPDATE _members SET ' . sql_build('UPDATE', $member_data) . sql_filter('
+					// 	WHERE user_id = ?', $user->d('user_id'));
 
 					$sql = 'UPDATE _members SET ??
 						WHERE user_id = ?';
-					sql_query(sql_filter($sql, sql_build('UPDATE', $member_data), $user->d('user_id')));
+					$sql = sql_filter($sql, sql_build('UPDATE', $member_data), $user->d('user_id'));
+					sql_query($sql);
+
+					_pre($sql);
 				}
+
+				if ($is_founder) _pre('', true);
 
 				redirect(s_link('m', $user->d('username_base')));
 			}
