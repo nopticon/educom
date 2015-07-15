@@ -650,6 +650,8 @@ $lang += array(
 	'SEND_NEWS' => 'Env&iacute;a tu publicaci&oacute;n',
 	'PRIVACY_POLICY' => 'Pol&iacute;tica de Privacidad y T&eacute;rminos de servicio',
 
+	'NOTIFICATIONS' => 'Notificaciones',
+
 	// NEWS
 	'NEWS' => 'Noticias',
 	'LATEST_NEWS' => 'Actualidad',

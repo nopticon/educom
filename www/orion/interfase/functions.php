@@ -383,6 +383,7 @@ function menu_items() {
 		['href' => 'notas/', 'title' => 'Notas', 'auth' => 'founder'],
 		['href' => 'historial/', 'title' => 'Historial de alumno', 'auth' => 'founder'],
 		['href' => 'reportes/', 'title' => 'Reportes', 'auth' => 'teacher'],
+		['href' => 'reportes/asistencia/listado_alumno.php', 'title' => 'Asistencia de alumnos', 'auth' => 'teacher'],
 		['href' => 'faltas/', 'title' => 'Faltas Acad&eacute;micas', 'auth' => 'teacher'],
 		['href' => 'codigo_alumno/', 'title' => 'C&oacute;digos de alumnos', 'auth' => 'founder'],
 		// ['href' => 'ocupacional/', 'title' => 'Cursos ocupacionales', 'auth' => 'founder'],
@@ -1243,7 +1244,8 @@ function do_login($box_text = '', $need_admin = false, $extra_vars = false) {
 						if (ValidatePassword($password, $row->user_password) && (!in_array($row->user_type, $exclude_type))) {
 							$user->session_create($row->user_id, $adm);
 
-							if (!$row->user_country || !$row->user_location || !$row->user_gender || !$row->user_birthday || !$row->user_avatar) {
+							// if (!$row->user_country || !$row->user_location || !$row->user_gender || !$row->user_birthday || !$row->user_avatar) {
+							if (!$row->user_country || !$row->user_location || !$row->user_gender || !$row->user_birthday) {
 								$ref = s_link('my', 'profile');
 							} else {
 								// $ref = (empty($ref) || (preg_match('#' . preg_quote($config->server_name) . '/$#', $ref))) ? s_link('today') : $ref;
@@ -2908,7 +2910,8 @@ function build_form($fields) {
 
 					$select_year = false;
 					if ($field_data['value'] == '*') {
-						$field_data['value'] = range(date('Y'), 2010);
+						// $field_data['value'] = range(date('Y'), 2010);
+						$field_data['value'] = array(date('Y'));
 						$select_year = true;
 					}
 
@@ -2985,7 +2988,8 @@ function build($fields) {
 
 					$select_year = false;
 					if ($field_data['value'] == '*') {
-						$field_data['value'] = range(date('Y'), 2010);
+						// $field_data['value'] = range(date('Y'), 2010);
+						$field_data['value'] = array(date('Y'));
 						$select_year = true;
 					}
 
@@ -3129,7 +3133,7 @@ function encabezado($page_title = '', $ruta = '', $full = true) {
 					<?php } ?>
 					
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Usuario <span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mi Perfil <span class="caret"></span></a>
 
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="/m/<?php echo $user->d('username_base'); ?>/">Ver Perfil</a></li>

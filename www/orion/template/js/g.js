@@ -3,6 +3,28 @@
 <!-- INCLUDE js/j.textarea.js -->
 <!-- INCLUDE js/j.url.js -->
 
+var decodeEntities = (function() {
+  // this prevents any overhead from creating the object each time
+  var element = document.createElement('div');
+
+  function decodeHTMLEntities (str) {
+    if(str && typeof str === 'string') {
+      // strip script/html tags
+      str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+      str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+      element.innerHTML = str;
+      str = element.textContent;
+      element.textContent = '';
+    }
+
+    return str;
+  }
+
+  return decodeHTMLEntities;
+})();
+
+jQuery.decodeEntities = decodeEntities;
+
 function save_thumb() {
 	var x1 = $('#x1').val();
 	var y1 = $('#y1').val();
@@ -89,6 +111,33 @@ $(function() {
 		});
 	});
 
+	if ($('#inputactivity_schedule').length) {
+		$('#inputactivity_group').on('change', function() {
+			$.ajax({
+				type: 'POST',
+				url: '/adm/api/teacher_schedule.php',
+				data: 'group=' + $(this).val(),
+				success: function(json) {
+					// inputactivity_schedule
+
+					$('#inputactivity_schedule').empty().append($('<option>', {
+						value: '0',
+						text : 'Seleccione el curso'
+					}));
+
+					$.each(json, function (i, item) {
+						$('#inputactivity_schedule').append($('<option>', {
+							value: item.id_curso,
+							text : $.decodeEntities(item.nombre_curso)
+						}));
+					});
+
+					return;
+				}
+			});
+		});
+	}
+
 	//
 	// Ajax: Account login
 	//
@@ -102,7 +151,7 @@ $(function() {
 			success: function(msg) {
 				switch (msg) {
 					case '401':
-						alert('authentication failed!');
+						alert('Uno de los datos no es correcto. Por favor vuelva a intentar.');
 						return;
 					default:
 						if (strpos(msg, 'Location: ') !== false) {
