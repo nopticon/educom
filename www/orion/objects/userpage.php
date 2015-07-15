@@ -538,13 +538,13 @@ class userpage {
 		$is_founder = $user->is('founder');
 
 		if (_button()) {
-			if ($is_founder) _pre($_fields);
+			// if ($is_founder) _pre($_fields);
 
 			foreach ($_fields as $field => $value) {
 				$_fields->$field = request_var($field, '');
 			}
 
-			if ($is_founder) _pre($_fields);
+			// if ($is_founder) _pre($_fields);
 
 			$_fields->password1 = request_var('password1', '');
 			$_fields->password2 = request_var('password2', '');
@@ -666,7 +666,7 @@ class userpage {
 					}
 				}
 
-				if ($is_founder) _pre($member_data, true);
+				// if ($is_founder) _pre($member_data, true);
 
 				if (count($member_data)) {
 					$sql = 'UPDATE _members SET ' . sql_build('UPDATE', $member_data) . sql_filter('
