@@ -946,3 +946,18 @@ table.grid td {
 	margin: 6px 0 0 0;
 	/*text-indent: 10px;*/
 }
+
+.schedule-item2 {
+	border-bottom: 1px solid #ddd;
+	padding: 5px;
+	margin: 6px 0 0 0;
+	/*text-indent: 10px;*/
+}
+
+.no-margin {
+	margin: 0 !important;
+}
+
+.padding-sides {
+	padding: 15px 3px;
+}

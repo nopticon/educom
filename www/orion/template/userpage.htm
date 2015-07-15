@@ -1,21 +1,24 @@
 <!-- INCLUDE page.header.htm -->
 
-<div class="el_left"><img src="{AVATAR_IMG}" alt="{USERNAME}" /></div>
+<div class="row schedule-item box-rounded padding-sides">
+	<div class="col-xs-12 col-sm-6 col-md-6">
+		<div class="el_left"><img src="{AVATAR_IMG}" alt="{USERNAME}" /></div>
 
-<div class="el_left pad_left">
-	<div class="h wm_ls">
-		<h3>{USERNAME}</h3>
-		<p>{POSTER_RANK}</p>
+		<div class="el_left pad_left">
+			<div class="h wm_ls">
+				<h3>{USERNAME}</h3>
+				<p>{POSTER_RANK}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6">
+		<!-- IF CURRENT_GRADE_SECTION -->
+		<div class="a_right">Cursando: <h3 class="no-margin">{CURRENT_GRADE_SECTION}</h3></div>
+		<!-- ENDIF -->
 	</div>
 </div>
 
-<span class="clear"></span>
-
-<!-- IF CURRENT_GRADE_SECTION -->
-<div class="x2 a_mid"><h2>{CURRENT_GRADE_SECTION}</h2></div>
-<!-- ENDIF -->
-
-<span class="clear"></span>
+<br />
 
 <!-- BEGIN main -->
 <div class="row">
@@ -60,7 +63,7 @@
 		<div class="row">
 			<!-- BEGIN row -->
 			<div class="col-xs-12 col-sm-6 col-md-6">
-				<div class="schedule-item box-rounded">{row.NOMBRE_CURSO}</div>
+				<div class="schedule-item2 box-rounded">{row.NOMBRE_CURSO}</div>
 			</div>
 			<!-- END row -->
 		</div>
