@@ -537,7 +537,7 @@ class userpage {
 
 		if (_button()) {
 			foreach ($_fields as $field => $value) {
-				$_fields->$field = request_var($field, $value);
+				$_fields->$field = request_var($field, '');
 			}
 
 			$_fields->password1 = request_var('password1', '');
@@ -1206,6 +1206,7 @@ class userpage {
 			'AGE' => $age,
 			'BIRTHDAY' => $birthday,
 			'LOCATION' => $this->data->user_location,
+			'OCCUPATION' => $this->data->user_occ,
 			'INTERESTS' => $this->data->user_interests
 		);
 
