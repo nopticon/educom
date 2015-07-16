@@ -1014,4 +1014,8 @@ $lang += array(
 	'COURSES_NO_ASSIGNED' => 'Usted no tiene cursos asignados para crear tareas.',
 	'TEACHER_SCHEDULE' => 'Cursos que imparte',
 	'TASKS' => 'Tareas',
+	'NO_TASKS' => 'Por el momento el maestro a&uacute;n no ha publicado tareas.',
+	'NO_FAULTS' => 'El alumno a&uacute;n no tiene faltas acad&eacute;micas.',
+	'NO_ATTENDS' => 'El alumno a&uacute;n no tiene inasistencias.',
+	'NO_STUDENT_RESULTS' => 'No existen alumnos con la informaci&oacute;n proporcionada.'
 );

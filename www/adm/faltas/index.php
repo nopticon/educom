@@ -56,6 +56,7 @@ $form2 = [
 	</tr>
 </table>
 
+<?php if ($list) { ?>
 <br />
 <div class="h"><h3>Historial de Faltas Acad&eacute;micas</h3></div>
 
@@ -77,5 +78,6 @@ $form2 = [
 		<?php } ?>
 	</tbody>
 </table>
+<?php } ?>
 
 <?php pie(); ?>

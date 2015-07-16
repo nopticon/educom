@@ -408,6 +408,8 @@ class userpage {
 		//
 		// Get friends for this member
 		//
+
+		// Note: Both friends even user is not a friend, will show up.
 		$sql = 'SELECT DISTINCT m.user_id, m.username, m.username_base
 			FROM _members_friends f, _members m
 			WHERE (f.user_id = ? AND f.buddy_id = m.user_id)
@@ -943,14 +945,21 @@ class userpage {
 	public function friend_list() {
 		global $user, $comments;
 
+
+		// $sql = 'SELECT DISTINCT u.user_id AS user_id, u.username, u.username_base, u.user_avatar, u.user_rank, u.user_gender, u.user_posts
+		// 	FROM _members_friends b, _members u
+		// 	WHERE (b.user_id = ?
+		// 		AND b.buddy_id = u.user_id) OR
+		// 		(b.buddy_id = ?
+		// 			AND b.user_id = u.user_id)
+		// 	ORDER BY u.username';
+		// if ($result = sql_rowset(sql_filter($sql, $this->data->user_id, $this->data->user_id))) {
 		$sql = 'SELECT DISTINCT u.user_id AS user_id, u.username, u.username_base, u.user_avatar, u.user_rank, u.user_gender, u.user_posts
 			FROM _members_friends b, _members u
 			WHERE (b.user_id = ?
-				AND b.buddy_id = u.user_id) OR
-				(b.buddy_id = ?
-					AND b.user_id = u.user_id)
+				AND b.buddy_id = u.user_id)
 			ORDER BY u.username';
-		if ($result = sql_rowset(sql_filter($sql, $this->data->user_id, $this->data->user_id))) {
+		if ($result = sql_rowset(sql_filter($sql, $this->data->user_id))) {
 			_style('friends');
 
 			foreach ($result as $row) {

@@ -148,6 +148,10 @@ table.grid td {
 .width-md-select {
 	min-width: 125px;
 }
+.width-lg-select {
+	min-width: 50%;
+}
+
 .col-separator {
 	/*margin-left: 5px;
 	width: 49%;*/

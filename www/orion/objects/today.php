@@ -61,7 +61,9 @@ class today {
 						AND acu.id_area = cu.id_area
 						AND ac.activity_schedule = cu.id_curso
 						AND m.user_id = c.id_member';
-				$activity_list = sql_rowset(sql_filter($sql, $user_id));
+				if (!$activity_list = sql_rowset(sql_filter($sql, $user_id))) {
+					_style([$this->user_role, 'no_activities']);
+				}
 
 				foreach ($activity_list as $i => $row) {
 					if (!$i) _style([$this->user_role, 'activities']);
@@ -74,6 +76,54 @@ class today {
 
 					_style([$this->user_role, 'activities', 'row'], $row);
 				}
+				break;
+			case 'supervisor':
+				$sql = 'SELECT m.user_id, m.username, m.username_base
+					FROM _members m
+					INNER JOIN alumnos_encargados e ON e.student = m.user_id
+					WHERE e.supervisor = ?
+					ORDER BY m.username';
+				$list = sql_rowset(sql_filter($sql, $user_id));
+
+				foreach ($list as $i => $row) {
+					if (!$i) _style([$this->user_role, 'activities']);
+
+					_style([$this->user_role, 'activities', 'student'], $row);
+
+					// 
+					// Get tasks for each student
+					// 
+					$sql = 'SELECT cu.*, ac.*, c.*, c.apellido as apellido_catedratico, m.username_base
+						FROM alumno a, reinscripcion r, _activities ac, _activities_assigned aa, 
+							catedratico c, grado g, secciones s, areas_cursos acu, cursos cu, _members m
+						WHERE a.id_member = ?
+							AND aa.assigned_student = a.id_member
+							AND a.id_alumno = r.id_alumno
+							AND aa.assigned_activity = ac.activity_id
+							AND c.id_member = ac.activity_teacher
+							AND s.id_grado = g.id_grado
+							AND s.id_seccion = ac.activity_group
+							AND acu.id_area = cu.id_area
+							AND ac.activity_schedule = cu.id_curso
+							AND m.user_id = c.id_member';
+					if (!$tasks_list = sql_rowset(sql_filter($sql, $row->user_id))) {
+						_style([$this->user_role, 'activities', 'student', 'no_tasks']);
+					}
+
+					foreach ($tasks_list as $j => $row2) {
+						if (!$j) _style([$this->user_role, 'activities', 'student', 'tasks']);
+
+						foreach (w('start end') as $field) {
+							$row2->{'activity_' . $field} = $user->format_date(strtotime($row2->{'activity_' . $field}), 'l, ' . lang('date_format'));
+						}
+
+						$row2->username_base = s_link('m', $row2->username_base);
+
+						_style([$this->user_role, 'activities', 'student', 'tasks', 'row'], $row2);
+					}
+				}
+
+				// _pre($list, true);
 				break;
 			default:
 				break;
