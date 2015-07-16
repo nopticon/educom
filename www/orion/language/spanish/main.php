@@ -1013,4 +1013,5 @@ $lang += array(
 
 	'COURSES_NO_ASSIGNED' => 'Usted no tiene cursos asignados para crear tareas.',
 	'TEACHER_SCHEDULE' => 'Cursos que imparte',
+	'TASKS' => 'Tareas',
 );

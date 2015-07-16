@@ -2,6 +2,7 @@
 <!-- INCLUDE js/j.periodic.js -->
 <!-- INCLUDE js/j.textarea.js -->
 <!-- INCLUDE js/j.url.js -->
+<!-- INCLUDE js/featherlight.js -->
 
 var decodeEntities = (function() {
   // this prevents any overhead from creating the object each time

@@ -1,0 +1,49 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="h"><h3>{L_NOTIFICATIONS}</h1></div>
+
+<!-- BEGIN student -->
+<div class="row">
+	<div class="col-md-6">
+		<div class="h"><h3>{student.TITLE}</h3></div>
+
+		<!-- BEGIN activities -->
+		<table class="grid">
+			<thead>
+				<tr>
+					<th class="a_mid" width="40%">Actividad</th>
+					<th class="a_mid" width="30%">Curso</th>
+					<th class="a_mid" width="30%">Entrega</th>
+				</tr>
+			</thead>
+			<!-- BEGIN row -->
+			<tr>
+				<td><a href="#" data-featherlight="#light_task_{row.ACTIVITY_ID}">{row.ACTIVITY_NAME}</a></td>
+				<td>{row.NOMBRE_CURSO}</td>
+				<td class="a_mid">{row.ACTIVITY_END}</td>
+			</tr>
+			<!-- END row -->
+		</table>
+
+		<!-- BEGIN row -->
+		<div class="lightbox" id="light_task_{row.ACTIVITY_ID}">
+			<div class="h no-margin"><h3>{row.ACTIVITY_NAME}</h3></div>
+
+			<ul class="x1 list-group">
+				<!-- IF row.ACTIVITY_START != row.ACTIVITY_END -->
+				<li class="list-group-item">Fecha de inicio: {row.ACTIVITY_START}</li>
+				<!-- ENDIF -->
+				<li class="list-group-item">Fecha de entrega: {row.ACTIVITY_END}</li>
+				<li class="list-group-item">Curso: {row.NOMBRE_CURSO} (<a href="{row.USERNAME_BASE}" class="_">{row.NOMBRE_CATEDRATICO} {row.APELLIDO_CATEDRATICO}</a>)</li>
+			</ul>
+
+			<div class="x2">{row.ACTIVITY_DESCRIPTION}</div>
+		</div>
+		<!-- END row -->
+
+		<!-- END activities -->
+	</div>
+</div>
+<!-- END student -->
+
+<!-- INCLUDE page.footer.htm -->

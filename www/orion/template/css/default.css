@@ -961,3 +961,9 @@ table.grid td {
 .padding-sides {
 	padding: 15px 3px;
 }
+
+@media all {
+	.lightbox { display: none; }
+}
+
+<!-- INCLUDE css/featherlight.css -->
