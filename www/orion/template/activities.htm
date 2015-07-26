@@ -31,6 +31,10 @@
 <!-- END no_courses_assigned -->
 
 <!-- BEGIN create_activity -->
+<!-- IF create_activity.MESSAGE -->
+<div class="a_mid">{create_activity.MESSAGE}</div>
+<!-- ENDIF -->
+
 <form class="form-horizontal" action="{U_ADM/ACTIVITY}" method="post">
 {create_activity.FORM}
 {create_activity.SUBMIT}

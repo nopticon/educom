@@ -62,6 +62,8 @@ switch ($user_role) {
 			];
 			$fields = _request($fields);
 
+			_pre($fields);
+
 			// 
 			// Look up students assignees
 			// 
@@ -82,6 +84,8 @@ switch ($user_role) {
 				$lookup_assignees = sql_rowset(sql_filter($sql, $fields->activity_group, date('Y')));
 			}
 
+			_pre($lookup_assignees);
+
 			$now = date('Y-m-d H:i:s');
 
 			// 
@@ -100,7 +104,12 @@ switch ($user_role) {
 				'created_at' => $now,
 				'updated_at' => $now,
 			);
+
+			// _pre('INSERT INTO _activities' . sql_build('INSERT', $sql_insert), true);
+			// _pre($sql_insert, true);
 			$task_id = sql_create('_activities', $sql_insert);
+
+			_pre($task_id);
 
 			foreach ($lookup_assignees as $row) {
 				$sql_insert = array(
@@ -114,7 +123,9 @@ switch ($user_role) {
 				$assigned_id = sql_create('_activities_assigned', $sql_insert);
 			}
 
-			location('.');
+			$_SESSION['activity_message'] = 'La tarea fue creada correctamente.';
+
+			// location('.');
 
 			// _pre($task_id);
 			// _pre($lookup_assignees);
@@ -189,7 +200,13 @@ switch ($user_role) {
 				// $form['Crear tarea']['activity_schedule']['value'][$row->id_curso] = $row->nombre_curso;
 			// }
 
+			$activity_message = '';
+			if (isset($_SESSION['activity_message']) && $_SESSION['activity_message']) {
+				$activity_message = $_SESSION['activity_message'];
+			}
+
 			_style('teacher.create_activity', [
+				'message' => $activity_message,
 				'form' => build_form($form),
 				'submit' => build_submit('Guardar informaci&oacute;n')
 			]);
