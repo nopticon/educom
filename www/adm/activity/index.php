@@ -102,7 +102,7 @@ switch ($user_role) {
 			);
 
 			// _pre('INSERT INTO _activities' . sql_build('INSERT', $sql_insert), true);
-			// _pre($sql_insert, true);
+			_pre($sql_insert);
 			$task_id = sql_insert('activities', $sql_insert);
 
 			_pre($task_id);
