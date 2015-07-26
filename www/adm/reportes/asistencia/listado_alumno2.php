@@ -30,8 +30,6 @@ $sql = 'SELECT *
 		AND attend_date = ?';
 $existing = sql_rowset(sql_filter($sql, $schedule, $teacher, $section, $calculated_date));
 
-_pre($existing, true);
-
 foreach ($list as $row) {
 	if (!isset($marked[$row->id_alumno])) {
 		$marked[$row->id_alumno] = 0;
@@ -47,5 +45,7 @@ foreach ($list as $row) {
 	);
 	$attend_id = sql_create('_student_attends', $sql_insert);
 }
+
+$_SESSION['attend_message'] = 'La asistencia fue creada correctamente.';
 
 location('listado_alumno.php');

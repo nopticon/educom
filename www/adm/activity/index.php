@@ -195,6 +195,7 @@ switch ($user_role) {
 			$activity_message = '';
 			if (isset($_SESSION['activity_message']) && $_SESSION['activity_message']) {
 				$activity_message = $_SESSION['activity_message'];
+				unset($_SESSION['activity_message']);
 			}
 
 			_style('teacher.create_activity', [
