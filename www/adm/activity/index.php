@@ -62,8 +62,6 @@ switch ($user_role) {
 			];
 			$fields = _request($fields);
 
-			_pre($fields);
-
 			// 
 			// Look up students assignees
 			// 
@@ -83,8 +81,6 @@ switch ($user_role) {
 					ORDER BY m.username';
 				$lookup_assignees = sql_rowset(sql_filter($sql, $fields->activity_group, date('Y')));
 			}
-
-			_pre($lookup_assignees);
 
 			$now = date('Y-m-d H:i:s');
 
@@ -107,7 +103,7 @@ switch ($user_role) {
 
 			// _pre('INSERT INTO _activities' . sql_build('INSERT', $sql_insert), true);
 			// _pre($sql_insert, true);
-			$task_id = sql_create('_activities', $sql_insert);
+			$task_id = sql_insert('activities', $sql_insert);
 
 			_pre($task_id);
 
