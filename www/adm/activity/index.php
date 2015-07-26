@@ -101,11 +101,7 @@ switch ($user_role) {
 				'updated_at' => $now,
 			);
 
-			// _pre('INSERT INTO _activities' . sql_build('INSERT', $sql_insert), true);
-			_pre($sql_insert);
 			$task_id = sql_insert('activities', $sql_insert);
-
-			_pre($task_id);
 
 			foreach ($lookup_assignees as $row) {
 				$sql_insert = array(
@@ -116,7 +112,7 @@ switch ($user_role) {
 					'created_at' => $now,
 					'updated_at' => $now
 				);
-				$assigned_id = sql_create('_activities_assigned', $sql_insert);
+				$assigned_id = sql_insert('activities_assigned', $sql_insert);
 			}
 
 			$_SESSION['activity_message'] = 'La tarea fue creada correctamente.';
