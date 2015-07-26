@@ -44,10 +44,8 @@ foreach ($list as $row) {
 		'attend_value' => $marked[$row->id_alumno]
 	);
 	$attend_id = sql_insert('student_attends', $sql_insert);
-
-	_pre($attend_id);
 }
 
 $_SESSION['attend_message'] = 'La asistencia fue creada correctamente.';
 
-// location('listado_alumno.php');
+location('listado_alumno.php');
