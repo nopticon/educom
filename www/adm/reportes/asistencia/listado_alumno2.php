@@ -43,7 +43,7 @@ foreach ($list as $row) {
 		'attend_date' => $calculated_date,
 		'attend_value' => $marked[$row->id_alumno]
 	);
-	$attend_id = sql_create('_student_attends', $sql_insert);
+	$attend_id = sql_insert('student_attends', $sql_insert);
 }
 
 $_SESSION['attend_message'] = 'La asistencia fue creada correctamente.';
