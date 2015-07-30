@@ -35,6 +35,7 @@ class today {
 		]);
 
 		$this->get_tasks();
+		// $this->get_faults();
 		
 		return;
 	}
@@ -75,6 +76,51 @@ class today {
 					$row->username_base = s_link('m', $row->username_base);
 
 					_style([$this->user_role, 'activities', 'row'], $row);
+				}
+
+				$sql = 'SELECT f.*, c.nombre_curso, t.nombre_catedratico
+					FROM faltas f
+					INNER JOIN cursos c ON c.id_curso = f.course_id
+					INNER JOIN catedratico t ON t.id_member = f.teacher_id
+					INNER JOIN alumno a ON a.id_alumno = f.id_alumno
+					INNER JOIN _members m ON m.user_id = a.id_member
+					WHERE m.user_id = ?
+					ORDER BY f.id_falta DESC';
+				if (!$faults_list = sql_rowset(sql_filter($sql, $user_id))) {
+					_style([$this->user_role, 'no_faults']);
+				}
+
+				foreach ($faults_list as $j => $row) {
+					if (!$j) _style([$this->user_role, 'faults']);
+
+					foreach (w('fecha_falta') as $field) {
+						$row->{$field} = $user->format_date(strtotime($row->{$field}), 'l, ' . lang('date_format'));
+					}
+
+					// $row->username_base = s_link('m', $row->username_base);
+
+					_style([$this->user_role, 'faults', 'row'], $row);
+				}
+
+				$sql = 'SELECT a.attend_date, m.nombre_curso, c.nombre_catedratico
+					FROM _student_attends a
+					INNER JOIN cursos m ON a.attend_schedule = m.id_curso
+					INNER JOIN catedratico c ON a.attend_teacher = c.id_member
+					WHERE attend_member = ?
+						AND attend_value = 0
+					ORDER BY a.attend_date DESC';
+				if (!$attends_list = sql_rowset(sql_filter($sql, $user_id))) {
+					_style([$this->user_role, 'no_attends']);
+				}
+
+				foreach ($attends_list as $j => $row) {
+					if (!$j) _style([$this->user_role, 'attends']);
+
+					foreach (w('attend_date') as $field) {
+						$row->{$field} = $user->format_date(strtotime($row->{$field}), 'l, ' . lang('date_format'));
+					}
+
+					_style([$this->user_role, 'attends', 'row'], $row);
 				}
 				break;
 			case 'supervisor':
@@ -120,6 +166,131 @@ class today {
 						$row2->username_base = s_link('m', $row2->username_base);
 
 						_style([$this->user_role, 'activities', 'student', 'tasks', 'row'], $row2);
+					}
+
+					$sql = 'SELECT f.*, c.nombre_curso, t.nombre_catedratico
+						FROM faltas f
+						INNER JOIN cursos c ON c.id_curso = f.course_id
+						INNER JOIN catedratico t ON t.id_member = f.teacher_id
+						INNER JOIN alumno a ON a.id_alumno = f.id_alumno
+						INNER JOIN _members m ON m.user_id = a.id_member
+						WHERE m.user_id = ?
+						ORDER BY f.id_falta DESC';
+					if (!$faults_list = sql_rowset(sql_filter($sql, $row->user_id))) {
+						_style([$this->user_role, 'activities', 'student', 'no_faults']);
+					}
+
+					foreach ($faults_list as $j => $row2) {
+						if (!$j) _style([$this->user_role, 'activities', 'student', 'faults']);
+
+						foreach (w('fecha_falta') as $field) {
+							$row2->{$field} = $user->format_date(strtotime($row2->{$field}), 'l, ' . lang('date_format'));
+						}
+
+						// $row2->username_base = s_link('m', $row2->username_base);
+
+						_style([$this->user_role, 'activities', 'student', 'faults', 'row'], $row2);
+					}
+
+					$sql = 'SELECT a.attend_date, m.nombre_curso, c.nombre_catedratico
+						FROM _student_attends a
+						INNER JOIN cursos m ON a.attend_schedule = m.id_curso
+						INNER JOIN catedratico c ON a.attend_teacher = c.id_member
+						WHERE attend_member = ?
+							AND attend_value = 0
+						ORDER BY a.attend_date DESC';
+					if (!$attends_list = sql_rowset(sql_filter($sql, $row->user_id))) {
+						_style([$this->user_role, 'activities', 'student', 'no_attends']);
+					}
+
+					foreach ($attends_list as $j => $row) {
+						if (!$j) _style([$this->user_role, 'activities', 'student', 'attends']);
+
+						foreach (w('attend_date') as $field) {
+							$row->{$field} = $user->format_date(strtotime($row->{$field}), 'l, ' . lang('date_format'));
+						}
+
+						_style([$this->user_role, 'activities', 'student', 'attends', 'row'], $row);
+					}
+				}
+
+				// _pre($list, true);
+				break;
+			default:
+				break;
+		}
+
+		return;
+	}
+
+	public function get_faults($user_id = false) {
+		global $user;
+
+		if ($user_id === false) {
+			$user_id = $user->d('user_id');
+		}
+
+		switch ($this->user_role) {
+			case 'student':
+				$sql = 'SELECT f.*, c.nombre_curso, t.nombre_catedratico
+					FROM faltas f
+					INNER JOIN cursos c ON c.id_curso = f.course_id
+					INNER JOIN catedratico t ON t.id_member = f.teacher_id
+					INNER JOIN alumno a ON a.id_alumno = f.id_alumno
+					INNER JOIN _members m ON m.user_id = a.id_member
+					WHERE m.user_id = ?
+					ORDER BY f.id_falta DESC';
+				if (!$faults_list = sql_rowset(sql_filter($sql, $user_id))) {
+					_style([$this->user_role, 'no_faults']);
+				}
+
+				foreach ($faults_list as $j => $row) {
+					if (!$j) _style([$this->user_role, 'faults']);
+
+					foreach (w('fecha_falta') as $field) {
+						$row->{$field} = $user->format_date(strtotime($row->{$field}), 'l, ' . lang('date_format'));
+					}
+
+					// $row->username_base = s_link('m', $row->username_base);
+
+					_style([$this->user_role, 'faults', 'row'], $row);
+				}
+				break;
+			case 'supervisor':
+				$sql = 'SELECT m.user_id, m.username, m.username_base
+					FROM _members m
+					INNER JOIN alumnos_encargados e ON e.student = m.user_id
+					WHERE e.supervisor = ?
+					ORDER BY m.username';
+				$list = sql_rowset(sql_filter($sql, $user_id));
+
+				foreach ($list as $i => $row) {
+					// if (!$i) _style([$this->user_role, 'activities']);
+
+					// _style([$this->user_role, 'activities', 'student'], $row);
+
+					$sql = 'SELECT f.*, c.nombre_curso, t.nombre_catedratico
+						FROM faltas f
+						INNER JOIN cursos c ON c.id_curso = f.course_id
+						INNER JOIN catedratico t ON t.id_member = f.teacher_id
+						INNER JOIN alumno a ON a.id_alumno = f.id_alumno
+						INNER JOIN _members m ON m.user_id = a.id_member
+						WHERE m.user_id = ?
+						ORDER BY f.id_falta DESC';
+					if (!$faults_list = sql_rowset(sql_filter($sql, $row->user_id))) {
+						_style([$this->user_role, 'activities', 'student', 'no_faults']);
+					}
+
+					foreach ($faults_list as $j => $row2) {
+						if (!$j) _style([$this->user_role, 'activities', 'student', 'faults']);
+
+						foreach (w('fecha_falta') as $field) {
+							$row2->{$field} = $user->format_date(strtotime($row2->{$field}), 'l, ' . lang('date_format'));
+						}
+
+						// $row2->username_base = s_link('m', $row2->username_base);
+
+						_style([$this->user_role, 'activities', 'student', 'faults', 'row'], $row2);
 					}
 				}
 

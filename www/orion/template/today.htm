@@ -47,6 +47,60 @@
 		<!-- BEGIN no_activities -->
 		<div class="a_mid x2">{L_NO_TASKS}</div>
 		<!-- END no_activities -->
+
+		<div class="h"><h3>Faltas acad&eacute;micas</h3></div>
+
+		<!-- BEGIN faults -->
+		<table class="x2 grid">
+			<thead>
+				<tr>
+					<th class="a_mid" width="15%">Fecha</th>
+					<th class="a_mid">Tipo</th>
+					<th class="a_mid">Descripci&oacute;n</th>
+					<th class="a_mid">Curso</th>
+					<th class="a_mid">Catedr&aacute;tico</th>
+				</tr>
+			</thead>
+			<!-- BEGIN row -->
+			<tr>
+				<td>{row.FECHA_FALTA}</td>
+				<td>{row.TIPO_FALTA}</td>
+				<td>{row.FALTA}</td>
+				<td>{row.NOMBRE_CURSO}</td>
+				<td>{row.NOMBRE_CATEDRATICO}</td>
+			</tr>
+			<!-- END row -->
+		</table>
+		<!-- END faults -->
+
+		<!-- BEGIN no_faults -->
+		<div class="a_mid x2">{L_NO_FAULTS}</div>
+		<!-- END no_faults -->
+
+		<div class="h"><h3>Inasistencia</h3></div>
+
+		<!-- BEGIN attends -->
+		<table class="x2 grid">
+			<thead>
+				<tr>
+					<th class="a_mid" width="15%">Fecha</th>
+					<th class="a_mid">Curso</th>
+					<th class="a_mid">Catedr&aacute;tico</th>
+				</tr>
+			</thead>
+			<!-- BEGIN row -->
+			<tr>
+				<td>{row.ATTEND_DATE}</td>
+				<td>{row.NOMBRE_CURSO}</td>
+				<td>{row.NOMBRE_CATEDRATICO}</td>
+			</tr>
+			<!-- END row -->
+		</table>
+		<!-- END attends -->
+
+		<!-- BEGIN no_attends -->
+		<div class="a_mid x2">{L_NO_ATTENDS}</div>
+		<!-- END no_attends -->
 	</div>
 </div>
 <!-- END student -->
@@ -118,11 +172,57 @@
 
 					<div class="h"><h3>Faltas acad&eacute;micas</h3></div>
 
+					<!-- BEGIN faults -->
+					<table class="x2 grid">
+						<thead>
+							<tr>
+								<th class="a_mid" width="15%">Fecha</th>
+								<th class="a_mid">Tipo</th>
+								<th class="a_mid">Descripci&oacute;n</th>
+								<th class="a_mid">Curso</th>
+								<th class="a_mid">Catedr&aacute;tico</th>
+							</tr>
+						</thead>
+						<!-- BEGIN row -->
+						<tr>
+							<td>{row.FECHA_FALTA}</td>
+							<td>{row.TIPO_FALTA}</td>
+							<td>{row.FALTA}</td>
+							<td>{row.NOMBRE_CURSO}</td>
+							<td>{row.NOMBRE_CATEDRATICO}</td>
+						</tr>
+						<!-- END row -->
+					</table>
+					<!-- END faults -->
+
+					<!-- BEGIN no_faults -->
 					<div class="a_mid x2">{L_NO_FAULTS}</div>
+					<!-- END no_faults -->
 
-					<div class="h"><h3>Asistencia</h3></div>
+					<div class="h"><h3>Inasistencia</h3></div>
 
+					<!-- BEGIN attends -->
+					<table class="x2 grid">
+						<thead>
+							<tr>
+								<th class="a_mid" width="15%">Fecha</th>
+								<th class="a_mid">Curso</th>
+								<th class="a_mid">Catedr&aacute;tico</th>
+							</tr>
+						</thead>
+						<!-- BEGIN row -->
+						<tr>
+							<td>{row.ATTEND_DATE}</td>
+							<td>{row.NOMBRE_CURSO}</td>
+							<td>{row.NOMBRE_CATEDRATICO}</td>
+						</tr>
+						<!-- END row -->
+					</table>
+					<!-- END attends -->
+
+					<!-- BEGIN no_attends -->
 					<div class="a_mid x2">{L_NO_ATTENDS}</div>
+					<!-- END no_attends -->
 
 				</div>
 				<!-- END student -->

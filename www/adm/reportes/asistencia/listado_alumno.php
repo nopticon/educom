@@ -51,7 +51,7 @@ if (isset($_SESSION['attend_message']) && $_SESSION['attend_message']) {
 <div class="a_mid"><?php echo $attend_message; ?></div>
 <?php } ?>
 
-<form class="form-horizontal" action="listado_alumno1.php" method="post" target="_blank">
+<form class="form-horizontal" action="listado_alumno1.php" method="post">
 	<?php echo build_form($form); submit(); ?>
 </form>
 

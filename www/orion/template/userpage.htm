@@ -23,16 +23,15 @@
 <!-- BEGIN main -->
 <div class="row">
 	<div class="col-lg-3">
-		<div class="x1 list-group list-no-border">
-			<!-- BEGIN selected_panel -->
-			<!-- BEGIN strong -->
-			<a class="list-group-item list-group-item-warning" href="#">{selected_panel.LANG}</a>
-			<!-- END strong -->
-			<!-- BEGIN a -->
-			<a class="list-group-item list-group-item-warning" href="{a.URL}">{selected_panel.LANG}</a>
-			<!-- END a -->
-			<!-- END selected_panel -->
+		<!-- BEGIN side_panel -->
+		<!-- BEGIN group -->
+		<div class="{group.CLASS}">
+			<!-- BEGIN row -->
+			<a class="{group.ROW_CLASS}" href="{row.URL}">{row.LANG}</a>
+			<!-- END row -->
 		</div>
+		<!-- END group -->
+		<!-- END side_panel -->
 
 		<!-- BEGIN general -->
 		<br />
@@ -68,6 +67,18 @@
 			<!-- END row -->
 		</div>
 		<!-- END teacher_schedule -->
+
+		<!-- BEGIN supervisor_students -->
+		<div class="h"><h3>{L_SUPERVISOR_STUDENTS}</h3></div>
+
+		<div class="row">
+			<!-- BEGIN row -->
+			<div class="col-xs-12 col-sm-6 col-md-6">
+				<div class="schedule-item2 box-rounded"><a href="{row.USERNAME_BASE}">{row.USERNAME}</a></div>
+			</div>
+			<!-- END row -->
+		</div>
+		<!-- END supervisor_students -->
 
 		<!-- BEGIN post_comment_box -->
 		<div>

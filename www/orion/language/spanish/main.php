@@ -1017,5 +1017,8 @@ $lang += array(
 	'NO_TASKS' => 'Por el momento el maestro a&uacute;n no ha publicado tareas.',
 	'NO_FAULTS' => 'El alumno a&uacute;n no tiene faltas acad&eacute;micas.',
 	'NO_ATTENDS' => 'El alumno a&uacute;n no tiene inasistencias.',
-	'NO_STUDENT_RESULTS' => 'No existen alumnos con la informaci&oacute;n proporcionada.'
+	'NO_STUDENT_RESULTS' => 'No existen alumnos con la informaci&oacute;n proporcionada.',
+
+	'SUPERVISOR_STUDENTS' => 'Alumnos a cargo',
+	'STUDENT_FAULTS' => 'Faltas Acad&eacute;micas',
 );

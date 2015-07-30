@@ -10,7 +10,7 @@ $sql = 'SELECT a.id_alumno, a.carne, a.nombre_alumno, a.apellido, g.nombre AS no
 	INNER JOIN grado g ON g.id_grado = r.id_grado
 	INNER JOIN secciones s ON s.id_seccion = r.id_seccion
 	WHERE r.carne = ?';
-if (!$alumno = $db->sql_fieldrow(sql_filter($sql, $carne))) {
+if (!$alumno = sql_fieldrow(sql_filter($sql, $carne))) {
 	location('.');
 }
 
@@ -20,7 +20,7 @@ $sql = 'SELECT *
 	INNER JOIN catedratico a ON a.id_member = f.teacher_id
 	WHERE f.id_alumno = ?
 	ORDER BY f.id_falta DESC';
-$list = $db->sql_rowset(sql_filter($sql, $alumno->id_alumno));
+$list = sql_rowset(sql_filter($sql, $alumno->id_alumno));
 
 encabezado('Historial de Faltas ' . date('Y'));
 

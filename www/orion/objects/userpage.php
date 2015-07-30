@@ -18,28 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 if (!defined('IN_APP')) exit;
 
-function a_thumbnails($artists, $lang_key, $block, $item_per_col = 2) {
-	global $config, $user;
-
-	_style('main.' . $block, array(
-		'L_TITLE' => lang($lang_key))
-	);
-
-	foreach ($artists as $ub => $data) {
-		$image = $ub . '/thumbnails/' . $row->image . '.jpg';
-
-		_style('main.' . $block . '.row', array(
-			'NAME' => $data->name,
-			'IMAGE' => $config->artists_url . $image,
-			'URL' => s_link('a', $data->subdomain),
-			'LOCATION' => ($data->local) ? 'Guatemala' : $data->location,
-			'GENRE' => $data->genre)
-		);
-	}
-
-	return true;
-}
-
 class userpage {
 	private $_title;
 	private $_template;
@@ -520,7 +498,6 @@ class userpage {
 		global $user, $config, $comments, $cache, $upload;
 
 		$error = w();
-		// $fields = w('public_email timezone dateformat location sig msnm yim lastfm website occ interests os fav_genres fav_artists rank color');
 		$fields = w('public_email location sig msnm yim lastfm website occ interests os fav_genres fav_artists color');
 		$length_ary = w('location sig msnm yim website occ interests os fav_genres fav_artists');
 
@@ -541,13 +518,9 @@ class userpage {
 		$is_founder = $user->is('founder');
 
 		if (_button()) {
-			// if ($is_founder) _pre($_fields);
-
 			foreach ($_fields as $field => $value) {
 				$_fields->$field = request_var($field, '');
 			}
-
-			// if ($is_founder) _pre($_fields);
 
 			$_fields->password1 = request_var('password1', '');
 			$_fields->password2 = request_var('password2', '');
@@ -669,8 +642,6 @@ class userpage {
 					}
 				}
 
-				// if ($is_founder) _pre($member_data);
-
 				if (count($member_data)) {
 					// $sql = 'UPDATE _members SET ' . sql_build('UPDATE', $member_data) . sql_filter('
 					// 	WHERE user_id = ?', $user->d('user_id'));
@@ -679,8 +650,6 @@ class userpage {
 						WHERE user_id = ?';
 					sql_query(sql_filter($sql, sql_build('UPDATE', $member_data), $user->d('user_id')));
 				}
-
-				// if ($is_founder) _pre('', true);
 
 				redirect(s_link('m', $user->d('username_base')));
 			}
@@ -783,90 +752,126 @@ class userpage {
 			case 'friends':
 				$this->friend_list();
 				break;
-			case 'stats':
-				$this->user_stats();
-				break;
 			case 'main':
 			default:
 				$this->user_main();
 				break;
 		}
 
-		$panel_selection = array(
-			// 'main' => array('L' => 'MAIN', 'U' => false)
+		$side_panel = array(
+			'a' => array(
+				'attr' => array(
+					'class' => 'x1 list-group list-no-border',
+					'row_class' => 'list-group-item list-group-item-warning'
+				),
+				'options' => array()
+			),
+			'b' => array(
+				'attr' => array(
+					'class' => 'x1 list-group',
+					'row_class' => 'list-group-item'
+				),
+				'options' => array()
+			),
 		);
 
-		if ($user->d('user_id') != $this->data->user_id) {
-			// $panel_selection['start'] = array('L' => 'DCONV_START', 'U' => s_link('my dc start', $this->data->username_base));
-		} else {
-			// $panel_selection['dc'] = array('L' => 'DC', 'U' => s_link('my dc'));
-		}
+		if ($mode == 'main') {
+			// 
+			// Check teacher's schedule
+			// 
+			if ($user->is('teacher', $this->data->user_id)) {
+				$sql = 'SELECT DISTINCT s.nombre_curso
+					FROM cursos s
+					INNER JOIN catedratico c ON s.id_catedratico = c.id_catedratico
+					WHERE c.id_member = ?';
+				$teacher_schedule = sql_rowset(sql_filter($sql, $this->data->user_id));
 
-		$panel_selection += array(
-			// 'friends' => array('L' => 'FRIENDS', 'U' => false)
-		);
+				foreach ($teacher_schedule as $i => $row) {
+					if (!$i) _style('main.teacher_schedule');
 
-		// 
-		// Check teacher's schedule
-		// 
-		if ($user->is('teacher', $this->data->user_id) && $mode == 'main') {
-			$sql = 'SELECT DISTINCT s.nombre_curso
-				FROM cursos s
-				INNER JOIN catedratico c ON s.id_catedratico = c.id_catedratico
-				WHERE c.id_member = ?';
-			$teacher_schedule = sql_rowset(sql_filter($sql, $this->data->user_id));
+					_style('main.teacher_schedule.row', $row);
+				}
+			}
 
-			foreach ($teacher_schedule as $i => $row) {
-				if (!$i) _style('main.teacher_schedule');
+			// 
+			// Check teacher's schedule
+			// 
+			if ($user->is('supervisor', $this->data->user_id)) {
+				$sql = 'SELECT m.user_id, m.username, m.username_base
+					FROM _members m
+					INNER JOIN alumnos_encargados ae ON m.user_id = ae.student
+					WHERE ae.supervisor = ?
+					ORDER BY m.username';
+				$supervisor_students = sql_rowset(sql_filter($sql, $this->data->user_id));
 
-				_style('main.teacher_schedule.row', $row);
+				foreach ($supervisor_students as $i => $row) {
+					if (!$i) _style('main.supervisor_students');
+
+					$row->username_base = s_link('m', $row->username_base);
+
+					_style('main.supervisor_students.row', $row);
+				}
 			}
 		}
-
 
 		//
 		// Check if friends
 		//
-		if ($user->d('user_id') != $this->data->user_id) {
-			$friend_add_lang = true;
-
-			if ($user->is('member')) {
-				$friend_add_lang = $this->is_friend($user->d('user_id'), $this->data->user_id);
-			}
-
+		if ($user->is('member') && $user->d('user_id') != $this->data->user_id) {
+			$friend_add_lang = $this->is_friend($user->d('user_id'), $this->data->user_id);
 			$friend_add_lang = (!$friend_add_lang) ? 'friends_add' : 'friends_del';
 
-			$panel_selection += array(
-				'profile' => array('L' => $friend_add_lang, 'U' => s_link('m', $this->data->username_base, 'friend'))
+			$side_panel['a']['options']['profile'] = array(
+				'lang' => $friend_add_lang, 'link' => s_link('m', $this->data->username_base, 'friend')
 			);
 		}
 
-		if ($user->d('user_id') === $this->data->user_id) {
-			// $panel_selection += array(
-			// 	'manage_friend' => array('L' => 'MEMBER_OPTIONS', 'U' => s_link('my profile'))
-			// );
-		}
+		// 
+		// If logged user it's a teacher and profile is for student, show faults button
+		// 
+		if ($user->is('teacher') && get_user_role(false, $this->data->user_id) == 'student') {
+			$sql = 'SELECT carne
+				FROM alumno
+				WHERE id_member = ?';
+			$user_carne = sql_field(sql_filter($sql, $this->data->user_id), 'carne', 0);
 
-		if (!empty($this->data->user_website)) {
-			$panel_selection += array(
-				'website' => array('L' => 'WEBSITE', 'U' => $this->data->user_website)
+			$side_panel['b']['options']['website'] = array(
+				'lang' => 'STUDENT_FAULTS', 'link' => '/adm/faltas/faltas.php?carne=' . $user_carne
 			);
 		}
 
-		foreach ($panel_selection as $link => $data) {
-			_style('main.selected_panel', array(
-				'LANG' => lang('userpage_' . $data['L'], lang($data['L'])))
-			);
+		$i = 0;
+		foreach ($side_panel as $block) {
+			if (!$i) _style(['main', 'side_panel']);
 
-			if ($mode == $link) {
-				_style('main.selected_panel.strong');
-				continue;
+			if (!count($block['options'])) continue;
+
+			_style(['main', 'side_panel', 'group'], $block['attr']);
+
+			foreach ($block['options'] as $row) {
+				_style(['main', 'side_panel', 'group', 'row'], [
+					'LANG' => lang('userpage_' . $row['lang'], lang($row['lang'])),
+					'URL' => $row['link']
+				]);
 			}
 
-			_style('main.selected_panel.a', array(
-				'URL' => ($data['U'] !== false) ? $data['U'] : s_link('m', $this->data->username_base, (($link != 'main') ? $link : '')))
-			);
+			$i++;
 		}
+
+		// foreach ($side_panel as $link => $data) {
+		// 	_style('main.selected_panel', array(
+		// 		'LANG' => lang('userpage_' . $data['L'], lang($data['L'])))
+		// 	);
+
+		// 	if ($mode == $link) {
+		// 		_style('main.selected_panel.strong');
+		// 		continue;
+		// 	}
+
+		// 	_style('main.selected_panel.a', array(
+		// 		'URL' => ($data['U'] !== false) ? $data['U'] : s_link('m', $this->data->username_base, (($link != 'main') ? $link : '')))
+		// 	);
+		// }
 
 		$current_grade = get_user_grade(false, $this->data->user_id);
 
@@ -1043,86 +1048,17 @@ class userpage {
 		redirect(s_link('m', $this->data->username_base));
 	}
 
-	public function user_stats() {
-		$user_stats = array(
-			'VISITS_COUNT' => $this->data->user_totallogon,
-			'PAGEVIEWS_COUNT' => $this->data->user_totalpages,
-			'FORUM_POSTS' => $this->data->user_posts
-		);
-
-		$m = false;
-		foreach ($user_stats as $key => $value) {
-			if ($value == '') {
-				continue;
-			}
-
-			if (!$m) {
-				_style('main.stats');
-				$m = true;
-			}
-
-			_style('main.stats.item', array(
-				'KEY' => lang($key),
-				'VALUE' => $value)
-			);
-		}
-
-		return true;
-	}
-
 	public function user_main() {
 		global $user, $comments;
 
 		_style('main');
 
-		//
-		// Get artists where this member is an authorized member
-		//
-		$sql = 'SELECT au.user_id, a.ub, a.name, a.subdomain, a.images, a.local, a.location, a.genre, i.image
-			FROM _artists_auth au, _artists a
-			INNER JOIN _artists_images i ON a.ub = i.image
-			WHERE au.user_id = ?
-				AND au.ub = a.ub
-				AND i.image_default = 1
-			ORDER BY a.name';
-		if ($artists = sql_rowset(sql_filter($sql, $this->data->user_id), 'ub')) {
-			a_thumbnails($artists, 'USERPAGE_MOD', 'thumbnails');
-		}
-
-		//
-		// GET MEMBER FAV ARTISTS
-		//
-		$sql = 'SELECT f.user_id, a.ub, a.name, a.subdomain, a.images, a.local, a.location, a.genre
-			FROM _artists_fav f, _artists a
-			INNER JOIN _artists_images i ON a.ub = i.ub
-			WHERE f.user_id = ?
-				AND f.ub = a.ub
-				AND i.image_default = 1
-			ORDER BY RAND()';
-		if ($result2 = sql_rowset(sql_filter($sql, $this->data->user_id), 'ub')) {
-
-			$total_a = 0;
-			$selected_artists2 = w();
-
-			foreach ($result2 as $row) {
-				if ($total_a < 6) {
-					$selected_artists2[$row->ub] = $row;
-				}
-				$total_a++;
-			}
-
-			a_thumbnails($result2, $random_images2, 'USERPAGE_AFAVS', 'thumbnails');
-
-			if ($total_a > 6) {
-				_style('main.thumbnails.all');
-			}
-		}
-
+		// 
 		// Latest board posts
+		// 
 		$sql = "SELECT DISTINCT(t.topic_title), p.post_id, p.post_time, t.topic_color
 			FROM _forum_topics t, _forum_posts p
 			WHERE p.poster_id = ?
-				AND p.forum_id NOT IN (14,15,16,17,20,22,38)
 				AND t.topic_id = p.topic_id
 				AND t.topic_active = 1
 			GROUP BY p.topic_id
@@ -1158,7 +1094,7 @@ class userpage {
 				'teacher', 'supervisor', 'student'
 			),
 			'teacher' => array(
-				'founder', 'teacher', 'student'
+				'founder', 'teacher', 'student', 'supervisor'
 			),
 			'supervisor' => array(
 				'founder', 'teacher'
@@ -1169,19 +1105,15 @@ class userpage {
 		);
 
 		$can_post = false;
+		foreach ($can_post_rules[$guest_user] as $access_role) {
+			if ($access_role !== $host_user) continue;
 
-		foreach ($can_post_rules as $user_role => $user_access) {
-			if ($user_role !== $host_user) continue;
-
-			foreach ($user_access as $access_role) {
-				if ($access_role !== $guest_user) continue;
-
-				$can_post = true;
-			}
+			$can_post = true;
 		}
 
-		// _pre($host_user . ' ' . $guest_user);
-		// _pre($this->data->user_id . ' - ' . $is_current . ' - ' . $user_is_current, true);
+		if ($this->data->user_id == $user->d('user_id')) {
+			$can_post = true;
+		}
 
 		if ($can_post) {
 			_style('main.post_comment_box', array(
