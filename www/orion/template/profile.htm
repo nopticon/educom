@@ -1,9 +1,9 @@
 <!-- INCLUDE page.header.htm -->
 
 <!-- BEGIN hide -->
-<form action="{U_EDITPROFILE}" method="post" enctype="multipart/form-data" class="form-horizontal">
-<!-- END hide -->
 <form action="{U_EDITPROFILE}" method="post" class="form-horizontal">
+<!-- END hide -->
+<form action="{U_EDITPROFILE}" method="post" enctype="multipart/form-data" class="form-horizontal">
 {S_HIDDEN_FIELDS}
 
 	<div class="h"><h3>&iexcl;{L_HI} {S_USERNAME}!</h3></div>
@@ -14,7 +14,6 @@
 	{error.MESSAGE}
 	<!-- END error -->
 	
-	<!-- BEGIN hide -->
 	<div class="set_avatar">
 		<div class="h"><h4>{L_AVATAR}</h4></div>
 		<!-- BEGIN current_avatar -->
@@ -31,7 +30,6 @@
 		</div>
 	</div>
 	<span class="clear"></span>
-	<!-- END hide -->
 	
 	<div class="set_info pad_top">
 		<div class="h"><h4>{L_MEMBER_INFO}</h4></div>
