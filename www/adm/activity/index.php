@@ -216,7 +216,7 @@ switch ($user_role) {
 			INNER JOIN secciones s ON a.activity_group = s.id_seccion
 			INNER JOIN grado g ON s.id_grado = g.id_grado
 			WHERE activity_teacher = ?
-			ORDER BY a.created_at';
+			ORDER BY a.created_at DESC';
 		if ($tasks = sql_rowset(sql_filter($sql, $user->d('user_id')))) {
 			foreach ($tasks as $i => $row) {
 				if (!$i) _style('current_tasks');
