@@ -576,9 +576,7 @@ class comments {
 			$this->{'parse_' . $method}();
 		}
 
-		return $this->message;
-
-		// return str_replace(nr(), '<br />', substr($this->message, 1, -1));
+		return str_replace(nr(), '<br />', substr($this->message, 1, -1));
 	}
 
 	private function parse_flash() {

@@ -41,7 +41,7 @@ class today {
 	}
 
 	public function get_tasks($user_id = false) {
-		global $user;
+		global $user, $comments;
 
 		if ($user_id === false) {
 			$user_id = $user->d('user_id');
@@ -74,6 +74,7 @@ class today {
 					}
 
 					$row->username_base = s_link('m', $row->username_base);
+					$row->activity_description = $comments->parse_message($row->activity_description);
 
 					_style([$this->user_role, 'activities', 'row'], $row);
 				}
