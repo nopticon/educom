@@ -224,9 +224,8 @@ class community {
 			FROM _members
 			WHERE user_birthday LIKE ?
 				AND user_type NOT IN (??)
-				AND user_avatar <> ?
 			ORDER BY user_posts DESC, username";
-		if (!$result = sql_rowset(sql_filter($sql, date('%md'), USER_INACTIVE, ''))) {
+		if (!$result = sql_rowset(sql_filter($sql, date('%md'), USER_INACTIVE))) {
 			return false;
 		}
 		
