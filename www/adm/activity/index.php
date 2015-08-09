@@ -206,6 +206,27 @@ switch ($user_role) {
 		} else {
 			_style('teacher.no_courses_assigned');
 		}
+
+		//
+		// List of tasks created by current teacher
+		//
+		$sql = 'SELECT *
+			FROM _activities a
+			INNER JOIN cursos u ON a.activity_schedule = u.id_curso
+			INNER JOIN secciones s ON a.activity_group = s.id_seccion
+			INNER JOIN grado g ON s.id_grado = g.id_grado
+			WHERE activity_teacher = ?';
+		if ($tasks = sql_rowset(sql_filter($sql, $user->d('user_id')))) {
+			foreach ($tasks as $i => $row) {
+				if (!$i) _style('current_tasks');
+
+				foreach (w('start end') as $field) {
+					$row->{'activity_' . $field} = $user->format_date(strtotime($row->{'activity_' . $field}), lang('date_format'));
+				}
+
+				_style('current_tasks.row', $row);
+			}
+		}
 		break;
 	case 'supervisor':
 		break;

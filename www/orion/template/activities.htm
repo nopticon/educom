@@ -42,4 +42,27 @@
 <!-- END create_activity -->
 <!-- END teacher -->
 
+<!-- BEGIN current_tasks -->
+<table class="grid x3">
+	<thead>
+		<tr>
+			<th class="a_mid" width="40%">Nombre de actividad</th>
+			<th class="a_mid" width="25%">Curso</th>
+			<th class="a_mid" width="25%">Grado</th>
+			<th class="a_mid" width="15%">Creaci&oacute;n</th>
+			<th class="a_mid" width="15%">Entrega</th>
+		</tr>
+	</thead>
+	<!-- BEGIN row -->
+	<tr>
+		<td>{row.ACTIVITY_NAME}<br /><span class="_">{row.ACTIVITY_DESCRIPTION}</span></td>
+		<td>{row.NOMBRE_CURSO}</td>
+		<td>{row.NOMBRE} {row.NOMBRE_SECCION}</td>
+		<td class="a_mid">{row.ACTIVITY_START}</td>
+		<td class="a_mid">{row.ACTIVITY_END}</td>
+	</tr>
+	<!-- END row -->
+</table>
+<!-- END current_tasks -->
+
 <!-- INCLUDE page.footer.htm -->
