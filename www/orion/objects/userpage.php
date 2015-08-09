@@ -796,7 +796,7 @@ class userpage {
 			// 
 			// Check teacher's schedule
 			// 
-			if ($user->is('supervisor', $this->data->user_id)) {
+			if ($user->is('teacher') && $user->is('supervisor', $this->data->user_id)) {
 				$sql = 'SELECT m.user_id, m.username, m.username_base
 					FROM _members m
 					INNER JOIN alumnos_encargados ae ON m.user_id = ae.student
