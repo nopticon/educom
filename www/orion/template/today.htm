@@ -1,8 +1,94 @@
 <!-- INCLUDE page.header.htm -->
 
-<div class="h"><h3>{L_NOTIFICATIONS}</h1></div>
+<!-- BEGIN task_details -->
+<div class="h"><h3>{L_TASK_DETAILS}</h1></div>
+
+<div class="row schedule-item box-rounded padding-sides">
+	<div class="col-xs-12 col-sm-6 col-md-6">
+		<h3 class="no-margin">{task_details.ACTIVITY_NAME}</h3>
+
+		<br />
+		<h4 class="no-margin">{task_details.NOMBRE_CURSO}</h4>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6 a_right">
+		<h3 class="no-margin">{task_details.NOMBRE} {task_details.NOMBRE_SECCION}</h3>
+
+		<br />
+		<h4 class="no-margin">Catedr&aacute;tico: <a href="{task_details.USERNAME_BASE}">{task_details.USERNAME}</a></h4>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-3">
+		<br />
+		<div class="list-group">
+			<div class="list-group-item">
+				<h4 class="list-group-item-heading">Alumno</h4>
+				<p class="list-group-item-text">{task_details.ASSIGNED_USERNAME}</p>
+			</div>
+			<div class="list-group-item list-group-item-success">
+				<h4 class="list-group-item-heading">Fecha de inicio</h4>
+				<p class="list-group-item-text">{task_details.ACTIVITY_START}</p>
+			</div>
+			<div class="list-group-item list-group-item-danger">
+				<h4 class="list-group-item-heading">Fecha de entrega</h4>
+				<p class="list-group-item-text">{task_details.ACTIVITY_END}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-9">
+		<br />
+		<div>{task_details.ACTIVITY_DESCRIPTION}</div>
+
+		<!-- BEGIN post_comment_box -->
+		<div class="x3">
+			<div class="h"><h3>{L_TASK_REPLY}</h3></div>
+
+			<form class="form-horizontal" action="{post_comment_box.URL}" method="post">
+				<div class="form-group">
+					<div class="col-lg-12">
+						<textarea class="form-control" name="message" id="message" autocomplete="off"></textarea>
+					</div>
+				</div>
+
+				<div class="text-center">
+					<input type="submit" class="btn btn-danger" name="submit" value="{L_SUBMIT_MESSAGE}" />
+				</div>
+			</form>
+		</div>
+		<!-- END post_comment_box -->
+		
+		<!-- BEGIN posts -->
+		<div class="comments x3">
+			<a name="first"></a>
+			<!-- BEGIN row -->
+			<a name="{row.POST_ID}"></a>
+
+			<div id="comment-{row.S_ROW_COUNT}">
+				<h3><strong>{row.S_ROW_COUNT}</strong><span>.</span> <em>
+				<!-- BEGIN hide --><a href="{row.PROFILE}"><img src="{row.USER_AVATAR}" alt="{row.USERNAME}'s Avatar" /></a><!-- END hide --></em><cite><a href="{row.PROFILE}">{row.USERNAME}</a></cite> <span>dijo:</span></h3>
+
+				<blockquote>
+					<div class="btn-group">
+						<a class="btn btn-default disabled">{row.POST_TIME}</a>
+					</div>
+
+					<div class="x1 col_fr nowraptext">
+						{row.POST_TEXT}
+					</div>
+				</blockquote>
+				<hr />
+			</div>
+			<!-- END row -->
+		</div>
+		<!-- END posts -->
+	</div>
+</div>
+<!-- END task_details -->
 
 <!-- BEGIN student -->
+<div class="h"><h3>{L_NOTIFICATIONS}</h1></div>
+
 <div class="row">
 	<!-- <div class="col-md-6"> -->
 	<div class="col-md-12">
@@ -19,29 +105,12 @@
 			</thead>
 			<!-- BEGIN row -->
 			<tr>
-				<td><a href="#" data-featherlight="#light_task_{row.ACTIVITY_ID}">{row.ACTIVITY_NAME}</a></td>
+				<td><a href="{row.ACTIVITY_URL}">{row.ACTIVITY_NAME}</a></td>
 				<td>{row.NOMBRE_CURSO}</td>
 				<td class="a_mid">{row.ACTIVITY_END}</td>
 			</tr>
 			<!-- END row -->
 		</table>
-
-		<!-- BEGIN row -->
-		<div class="lightbox" id="light_task_{row.ACTIVITY_ID}">
-			<div class="h no-margin"><h3>{row.ACTIVITY_NAME}</h3></div>
-
-			<ul class="x1 list-group">
-				<!-- IF row.ACTIVITY_START != row.ACTIVITY_END -->
-				<li class="list-group-item">Fecha de inicio: {row.ACTIVITY_START}</li>
-				<!-- ENDIF -->
-				<li class="list-group-item">Fecha de entrega: {row.ACTIVITY_END}</li>
-				<li class="list-group-item">Curso: {row.NOMBRE_CURSO} (<a href="{row.USERNAME_BASE}" class="_">{row.NOMBRE_CATEDRATICO} {row.APELLIDO_CATEDRATICO}</a>)</li>
-			</ul>
-
-			<div class="x2">{row.ACTIVITY_DESCRIPTION}</div>
-		</div>
-		<!-- END row -->
-
 		<!-- END activities -->
 
 		<!-- BEGIN no_activities -->
@@ -106,6 +175,8 @@
 <!-- END student -->
 
 <!-- BEGIN supervisor -->
+<div class="h"><h3>{L_NOTIFICATIONS}</h1></div>
+
 <div class="row">
 	<!-- <div class="col-md-9"> -->
 	<div class="col-md-12">
@@ -139,29 +210,12 @@
 						</thead>
 						<!-- BEGIN row -->
 						<tr>
-							<td><a href="#" data-featherlight="#light_task_{row.ACTIVITY_ID}">{row.ACTIVITY_NAME}</a></td>
+							<td><a href="{row.ACTIVITY_URL}">{row.ACTIVITY_NAME}</a></td>
 							<td>{row.NOMBRE_CURSO}</td>
 							<td class="a_mid">{row.ACTIVITY_END}</td>
 						</tr>
 						<!-- END row -->
 					</table>
-
-					<!-- BEGIN row -->
-					<div class="lightbox" id="light_task_{row.ACTIVITY_ID}">
-						<div class="h no-margin"><h3>{row.ACTIVITY_NAME}</h3></div>
-
-						<ul class="x1 list-group">
-							<!-- IF row.ACTIVITY_START != row.ACTIVITY_END -->
-							<li class="list-group-item">Fecha de inicio: {row.ACTIVITY_START}</li>
-							<!-- ENDIF -->
-							<li class="list-group-item">Fecha de entrega: {row.ACTIVITY_END}</li>
-							<li class="list-group-item">Curso: {row.NOMBRE_CURSO} (<a href="{row.USERNAME_BASE}" class="_">{row.NOMBRE_CATEDRATICO} {row.APELLIDO_CATEDRATICO}</a>)</li>
-						</ul>
-
-						<div class="x2">{row.ACTIVITY_DESCRIPTION}</div>
-					</div>
-					<!-- END row -->
-
 					<!-- END tasks -->
 
 					<!-- BEGIN no_tasks -->

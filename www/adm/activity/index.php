@@ -109,6 +109,7 @@ switch ($user_role) {
 					'assigned_student' => $row->user_id,
 					'assigned_delivered' => 0,
 					'assigned_total' => 0,
+					'assigned_comments' => 1,
 					'created_at' => $now,
 					'updated_at' => $now
 				);
@@ -116,12 +117,6 @@ switch ($user_role) {
 			}
 
 			$_SESSION['activity_message'] = 'La tarea fue creada correctamente.';
-
-			// location('.');
-
-			// _pre($task_id);
-			// _pre($lookup_assignees);
-			// _pre($fields, true);
 		}
 
 		// 
@@ -187,10 +182,7 @@ switch ($user_role) {
 				$form['Crear tarea']['activity_group']['value'][$row->id_seccion] = $row->nombre . ' - ' . $row->nombre_seccion;
 			}
 
-			// foreach ($teacher_schedule as $row) {
-				$form['Crear tarea']['activity_schedule']['value'][] = 'Seleccione el curso';
-				// $form['Crear tarea']['activity_schedule']['value'][$row->id_curso] = $row->nombre_curso;
-			// }
+			$form['Crear tarea']['activity_schedule']['value'][] = 'Seleccione el curso';
 
 			$activity_message = '';
 			if (isset($_SESSION['activity_message']) && $_SESSION['activity_message']) {

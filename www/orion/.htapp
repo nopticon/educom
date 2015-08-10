@@ -13,6 +13,8 @@ RewriteRule ^(sign)(in|out|up|r)/$ orion/$1.php?mode=$2 [nc]
 RewriteRule ^(sign)(up|r)/([a-z0-9]+)/$ orion/$1.php?mode=$2&code=$3 [nc]
 RewriteRule ^(sign)(up)/v/([0-9a-z]+)/$ orion/$1.php?mode=$2&invite=$1 [nc]
 
+RewriteRule ^(today)/(task|fault|attends)/(\d+)/$ orion/$1.php?mode=$2&id=$3 [nc]
+
 RewriteRule ^(news)/([0-9a-z\_\-]+)/?(ps(\d+)/)?$ orion/$1.php?alias=$2&ps=$4 [nc]
 RewriteRule ^(events)/g(\d+)/$ orion/$1.php?gallery_offset=$2 [nc]
 RewriteRule ^(events)/([0-9a-z\-]+)/(\d+)/reply/$ orion/$1.php?alias=$2&p=$3&reply=1 [nc]

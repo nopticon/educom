@@ -30,13 +30,127 @@ class today {
 
 		$this->user_role = get_user_role();
 
-		_style($this->user_role, [
-			'title' => lang('TASKS')
-		]);
+		$mode = request_var('mode', '');
 
-		$this->get_tasks();
-		// $this->get_faults();
-		
+		switch ($mode) {
+			case 'task':
+				$this->show_task();
+				break;
+			default:
+				$this->get_tasks();
+				break;
+		}
+
+		return;
+	}
+
+	public function show_task() {
+		global $user, $comments;
+
+		$id = request_var('id', 0);
+
+		$sql = 'SELECT *
+			FROM _activities_assigned
+			WHERE assigned_id = ?';
+		if (!$assigned_task = sql_fieldrow(sql_filter($sql, $id))) {
+			fatal_error();
+		}
+
+		if (request_method() == 'post') {
+			switch ($this->user_role) {
+				case 'supervisor':
+					redirect(_page());
+					break;
+			}
+
+			$fields = [
+				'id' => 0,
+				'message' => ''
+			];
+			$fields = _request($fields);
+
+			if (empty($fields->id) || empty($fields->message)) {
+				redirect(_page());
+			}
+
+			// 
+			// Insert task
+			// 
+			$sql_insert = array(
+				'post_activity' => $fields->id,
+				'post_active' => 1,
+				'post_reply' => 0,
+				'post_uid' => $user->d('user_id'),
+				'post_time' => time(),
+				'poster_ip' => $user->ip,
+				'post_text' => $fields->message
+			);
+			$task_post_id = sql_insert('activities_posts', $sql_insert);
+
+			return redirect(_page());
+		}
+
+		$sql = 'SELECT *
+			FROM _activities a
+			INNER JOIN _members m ON m.user_id = a.activity_teacher
+			INNER JOIN catedratico c ON c.id_member = m.user_id
+			INNER JOIN cursos u ON u.id_curso = a.activity_schedule
+			INNER JOIN secciones s ON s.id_seccion = a.activity_group
+			INNER JOIN grado g ON s.id_grado = g.id_grado
+			WHERE a.activity_id = ?';
+		if (!$task = sql_fieldrow(sql_filter($sql, $assigned_task->assigned_activity))) {
+			fatal_error();
+		}
+
+		foreach (w('start end') as $field) {
+			$task->{'activity_' . $field} = $user->format_date(strtotime($task->{'activity_' . $field}), 'l, ' . lang('date_format'));
+		}
+
+		$task->username_base = s_link('m', $task->username_base);
+		$task->activity_url = s_link('today', array('task', $task->activity_id));
+		$task->activity_description = $comments->parse_message($task->activity_description);
+		$task->assigned_username = $user->d('username');
+
+		_style('task_details', $task);
+
+		// 
+		// Show posts
+		// 
+		$sql = 'SELECT *
+			FROM _activities_posts p
+			INNER JOIN _members m ON m.user_id = p.post_uid
+			WHERE p.post_activity = ?
+				AND p.post_active = 1';
+		if ($posts = sql_rowset(sql_filter($sql, $id))) {
+			foreach ($posts as $i => $row) {
+				if (!$i) _style(['task_details', 'posts']);
+
+				$row->post_time = $user->format_date($row->post_time);
+				$row->post_text = $comments->parse_message($row->post_text);
+
+				$row = object_merge($comments->user_profile($row, $unset_user_profile), $row);
+
+				_style(['task_details', 'posts', 'row'], $row);
+			}
+		}
+
+
+		$allow_comments = true;
+
+		switch ($this->user_role) {
+			case 'student':
+				if (!$assigned_task->assigned_comments) $allow_comments = false;
+				break;
+			case 'supervisor':
+				$allow_comments = false;
+		}
+
+		if ($allow_comments) {
+			_style(['task_details', 'post_comment_box'], array(
+				'URL' => _page()
+			));
+		}
+
 		return;
 	}
 
@@ -47,9 +161,13 @@ class today {
 			$user_id = $user->d('user_id');
 		}
 
+		_style($this->user_role, [
+			'title' => lang('TASKS')
+		]);
+
 		switch ($this->user_role) {
 			case 'student':
-				$sql = 'SELECT cu.*, ac.*, c.*, c.apellido as apellido_catedratico, m.username_base
+				$sql = 'SELECT cu.*, ac.*, aa.assigned_id, c.*, c.apellido as apellido_catedratico, m.username_base
 					FROM alumno a, reinscripcion r, _activities ac, _activities_assigned aa, 
 						catedratico c, grado g, secciones s, areas_cursos acu, cursos cu, _members m
 					WHERE a.id_member = ?
@@ -74,6 +192,7 @@ class today {
 					}
 
 					$row->username_base = s_link('m', $row->username_base);
+					$row->activity_url = s_link('today', array('task', $row->assigned_id));
 					$row->activity_description = $comments->parse_message($row->activity_description);
 
 					_style([$this->user_role, 'activities', 'row'], $row);
@@ -165,6 +284,8 @@ class today {
 						}
 
 						$row2->username_base = s_link('m', $row2->username_base);
+						$row2->activity_url = s_link('today', array('task', $row2->activity_id));
+						$row2->activity_description = $comments->parse_message($row2->activity_description);
 
 						_style([$this->user_role, 'activities', 'student', 'tasks', 'row'], $row2);
 					}

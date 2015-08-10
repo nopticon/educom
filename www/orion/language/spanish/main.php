@@ -1021,4 +1021,6 @@ $lang += array(
 
 	'SUPERVISOR_STUDENTS' => 'Alumnos a cargo',
 	'STUDENT_FAULTS' => 'Faltas Acad&eacute;micas',
+	'TASK_DETAILS' => 'Detalles de tarea',
+	'TASK_REPLY' => 'Publica tu respuesta'
 );
