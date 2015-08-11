@@ -204,10 +204,12 @@ switch ($user_role) {
 		//
 		$sql = 'SELECT *
 			FROM _activities a
+			INNER JOIN _activities_assigned d ON d.assigned_activity = a.activity_id
 			INNER JOIN cursos u ON a.activity_schedule = u.id_curso
 			INNER JOIN secciones s ON a.activity_group = s.id_seccion
 			INNER JOIN grado g ON s.id_grado = g.id_grado
 			WHERE activity_teacher = ?
+			GROUP BY d.assigned_activity
 			ORDER BY a.created_at DESC';
 		if ($tasks = sql_rowset(sql_filter($sql, $user->d('user_id')))) {
 			foreach ($tasks as $i => $row) {
@@ -216,6 +218,8 @@ switch ($user_role) {
 				foreach (w('start end') as $field) {
 					$row->{'activity_' . $field} = $user->format_date(strtotime($row->{'activity_' . $field}), lang('date_format'));
 				}
+
+				$row->url = s_link('today', ['task', $row->assigned_id]);
 
 				_style('current_tasks.row', $row);
 			}

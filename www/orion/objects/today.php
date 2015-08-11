@@ -50,8 +50,9 @@ class today {
 		$id = request_var('id', 0);
 
 		$sql = 'SELECT *
-			FROM _activities_assigned
-			WHERE assigned_id = ?';
+			FROM _activities_assigned a
+			INNER JOIN _members m ON m.user_id = a.assigned_student
+			WHERE a.assigned_id = ?';
 		if (!$assigned_task = sql_fieldrow(sql_filter($sql, $id))) {
 			fatal_error();
 		}
@@ -109,7 +110,7 @@ class today {
 		$task->username_base = s_link('m', $task->username_base);
 		$task->activity_url = s_link('today', array('task', $task->activity_id));
 		$task->activity_description = $comments->parse_message($task->activity_description);
-		$task->assigned_username = $user->d('username');
+		$task->assigned_username = $assigned_task->username;
 
 		_style('task_details', $task);
 
@@ -137,7 +138,6 @@ class today {
 			}
 		}
 
-
 		$allow_comments = true;
 
 		switch ($this->user_role) {
@@ -154,6 +154,35 @@ class today {
 			));
 		}
 
+		// 
+		// If it's a teacher, show students for this tasks
+		// 
+		if ($this->user_role == 'teacher') {
+			$sql = 'SELECT a.*, m.username, m.username_base, COUNT(p.post_text) as post_total
+				FROM _activities_assigned a
+				INNER JOIN _members m ON m.user_id = a.assigned_student
+				LEFT JOIN _activities_posts p ON p.post_activity=a.assigned_id
+				WHERE a.assigned_activity = ?
+					AND a.assigned_id <> ?
+				GROUP BY a.assigned_student
+				ORDER BY m.username';
+			if ($students = sql_rowset(sql_filter($sql, $assigned_task->assigned_activity, $id))) {
+				foreach ($students as $i => $row) {
+					if (!$i) _style(['task_details', 'assignees']);
+
+					$row->url = s_link('today', ['task', $row->assigned_id]);
+					
+					$row->class = '';
+					if ($row->post_total) {
+						$row->class = 'list-group-item-success';
+					}
+
+
+					_style(['task_details', 'assignees', 'row'], $row);
+				}
+			}
+		}
+		
 		return;
 	}
 

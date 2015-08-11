@@ -35,6 +35,22 @@
 				<p class="list-group-item-text">{task_details.ACTIVITY_END}</p>
 			</div>
 		</div>
+
+		<!-- BEGIN assignees -->
+		<br />
+		<div class="panel panel-default">
+			<div class="panel-heading">Alumnos con esta tarea</div>
+
+			<ul class="list-group">
+				<!-- BEGIN row -->
+				<li class="list-group-item {row.CLASS}">
+					<span style="margin-left: 3px;" class="badge">{row.POST_TOTAL}</span>
+					<a href="{row.URL}">{row.USERNAME}</a>
+				</li>
+				<!-- END row -->
+			</ul>
+		</div>
+		<!-- END assignees -->
 	</div>
 	<div class="col-lg-9">
 		<br />
