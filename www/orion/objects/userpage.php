@@ -662,8 +662,13 @@ class userpage {
 		}
 
 		if ($user->d('user_avatar')) {
+			$current_avatar = array(
+				'user_avatar' => $user->d('user_avatar')
+			);
+			$current_avatar = $comments->user_profile($current_avatar);
+
 			_style('current_avatar', array(
-				'IMAGE' => $config->avatar_url . $user->d('user_avatar'))
+				'IMAGE' => $current_avatar->user_avatar)
 			);
 		}
 

@@ -116,7 +116,7 @@ class today {
 		// 
 		// Show posts
 		// 
-		$sql = 'SELECT *
+		$sql = 'SELECT p.*, m.user_id, m.username_base, m.username, m.user_avatar
 			FROM _activities_posts p
 			INNER JOIN _members m ON m.user_id = p.post_uid
 			WHERE p.post_activity = ?
@@ -128,7 +128,10 @@ class today {
 				$row->post_time = $user->format_date($row->post_time);
 				$row->post_text = $comments->parse_message($row->post_text);
 
-				$row = object_merge($comments->user_profile($row, $unset_user_profile), $row);
+				$profile = $comments->user_profile($row);
+				foreach ($profile as $k => $v) {
+					$row->$k = $v;
+				}
 
 				_style(['task_details', 'posts', 'row'], $row);
 			}
