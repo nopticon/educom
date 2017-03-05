@@ -1,7 +1,8 @@
+!cache/.gitkeep
+
 .DS_Store
-.htda
 ini.*.php
 sftp-config*.json
-cache/
+cache/*
 vendor/
 private/
