@@ -57,9 +57,9 @@ $gender_select = [
 ];
 
 $sheets = array(
-	// 0 => 'personal',
+	0 => 'personal',
 	1 => 'alumnos',
-	// 2 => 'grados-carreras',
+	2 => 'grados-carreras',
 	3 => 'pensum',
 );
 

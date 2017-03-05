@@ -1,8 +1,10 @@
-!cache/.gitkeep
-
 .DS_Store
 ini.*.php
 sftp-config*.json
 cache/*
-vendor/
+vendor/*
 private/
+www/.htaccess
+
+!cache/.gitkeep
+!vendor/npi/
