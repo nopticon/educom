@@ -8,13 +8,15 @@ if (!$grado) {
 	exit;
 }
 
+$format = '<option value="%s">%s</option>';
+
 $sql = 'SELECT *
 	FROM secciones
 	WHERE id_grado = ?';
 $result = $db->sql_rowset(sql_filter($sql, $grado));
 
 foreach ($result as $row) {
-	echo '<option value="' . $row->id_seccion . '">' . $row->nombre_seccion . '</option>';
+	echo sprintf($format, $row->id_seccion, $row->nombre_seccion);
 }
 
 exit;

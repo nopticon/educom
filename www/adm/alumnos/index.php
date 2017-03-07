@@ -20,7 +20,9 @@ switch ($action) {
 		$rowset = $db->sql_rowset(sql_filter($sql, $year));
 
 		foreach ($rowset as $i => $row) {
-			if (!$i) _style('student_created.recent');
+			if (!$i) {
+				_style('student_created.recent');
+			}
 
 			_style('student_created.recent.row', $row);
 		}
@@ -42,36 +44,36 @@ switch ($action) {
 		$form = array(
 			'Datos de Alumno' => array(
 				'codigo_alumno' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'C&oacute;digo de alumno'
 				),
 				'nombre' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Nombre'
 				),
 				'apellido' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Apellido'
 				),
 				'direccion' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Direcci&oacute;n'
 				),
 				'telefono' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Tel&eacute;fono'
 				),
 				'edad' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Edad'
 				),
 				'email' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Email'
 				),
 				'sexo' => array(
-					'show' => 'Sexo',
-					'type' => 'select',
+					'show'  => 'Sexo',
+					'type'  => 'select',
 					'value' => array(
 						'M' => 'Masculino',
 						'F' => 'Femenino'
@@ -80,41 +82,41 @@ switch ($action) {
 			),
 			'Datos de Padres' => array(
 				'padre' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Padre'
 				),
 				'madre' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Madre'
 				),
 			),
 			'Datos de Encargado' => array(
 				'encargado' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Encargado'
 				),
 				'profesion' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Profesi&oacute;n o oficio'
 				),
 				'labor' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Lugar de trabajo'
 				),
 				'email_encargado' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Email'
 				),
 				'direccion2' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Direcci&oacute;n'
 				),
 				'dpi' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'DPI'
 				),
 				'extendido' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Extendido'
 				),
 			),
@@ -124,24 +126,24 @@ switch ($action) {
 					'type' => 'select',
 					'value' => array(
 						'Encargado' => 'Encargado',
-						'Padre' => 'Padre',
-						'Madre' => 'Madre',
+						'Padre'     => 'Padre',
+						'Madre'     => 'Madre',
 					)
 				),
 				'telefono2' => array(
-					'type' => 'text',
+					'type'  => 'text',
 					'value' => 'Tel&eacute;fonos'
 				),
 			),
 			'Inscripci&oacute;n ' . $year => array(
 				'grado' => array(
-					'type' => 'select',
-					'show' => 'Grado',
+					'type'  => 'select',
+					'show'  => 'Grado',
 					'value' => array()
 				),
 				'seccion' => array(
-					'type' => 'select',
-					'show' => 'Secci&oacute;n',
+					'type'  => 'select',
+					'show'  => 'Secci&oacute;n',
 					'value' => array()
 				)
 			)
@@ -165,93 +167,93 @@ switch ($action) {
 if (request_var('submit', '')) {
 	location('.?mode=created');
 
-	$nombre = request_var('nombre', '');
-	$apellido = request_var('apellido', '');
-	$direccion = request_var('direccion', '');
-	$telefono1 = request_var('telefono', '');
-	$edad = request_var('edad', '');
-	$sexo = request_var('sexo', '');
-	$email = request_var('email', '');
+	$nombre           = request_var('nombre', '');
+	$apellido         = request_var('apellido', '');
+	$direccion        = request_var('direccion', '');
+	$telefono1        = request_var('telefono', '');
+	$edad             = request_var('edad', '');
+	$sexo             = request_var('sexo', '');
+	$email            = request_var('email', '');
 
-	$padre = request_var('padre', '');
-	$madre = request_var('madre', '');
+	$padre            = request_var('padre', '');
+	$madre            = request_var('madre', '');
 
-	$encargado = request_var('encargado', '');
-	$profesion = request_var('profesion', '');
-	$labor = request_var('labor', '');
+	$encargado        = request_var('encargado', '');
+	$profesion        = request_var('profesion', '');
+	$labor            = request_var('labor', '');
 	$direccion_labora = request_var('direccion2', '');
-	$encargado_email = request_var('email_encargado', '');
-	$dpi = request_var('dpi', '');
-	$extendido = request_var('extendido', '');
+	$encargado_email  = request_var('email_encargado', '');
+	$dpi              = request_var('dpi', '');
+	$extendido        = request_var('extendido', '');
 
-	$emergencia = request_var('emergencia', '');
-	$telefono2 = request_var('telefono2', '');
+	$emergencia       = request_var('emergencia', '');
+	$telefono2        = request_var('telefono2', '');
 
-	$grado = request_var('grado', 0);
-	$seccion = request_var('seccion', 0);
+	$grado            = request_var('grado', 0);
+	$seccion          = request_var('seccion', 0);
 
-	$status = 'Inscrito';
-	$carne = $year . $sexo;
+	$status           = 'Inscrito';
+	$carne            = $year . $sexo;
 
-	// 
+	//
 	// Process information
-	// 
+	//
 	if (empty($nombre) || empty($apellido)) {
 		location('.');
 	}
 
 	$edad = sprintf("%02d", $edad);
 
-	// 
+	//
 	// Build array to insert
-	// 
+	//
 	$insert_alumno = array(
-		'carne' => $carne,
-		'codigo_alumno' => $codigo,
-		'nombre_alumno' => $nombre,
-		'apellido' => $apellido,
-		'direccion' => $direccion,
-		'orden' => '',
-		'registro' => '',
-		'telefono1' => $telefono1,
-		'edad' => $edad,
-		'sexo' => $sexo,
-		'email' => $email,
-		'padre' => $padre,
-		'madre' => $madre,
-		'encargado' => $encargado,
-		'profesion' => $profesion,
-		'labora' => $labor,
+		'carne'            => $carne,
+		'codigo_alumno'    => $codigo,
+		'nombre_alumno'    => $nombre,
+		'apellido'         => $apellido,
+		'direccion'        => $direccion,
+		'orden'            => '',
+		'registro'         => '',
+		'telefono1'        => $telefono1,
+		'edad'             => $edad,
+		'sexo'             => $sexo,
+		'email'            => $email,
+		'padre'            => $padre,
+		'madre'            => $madre,
+		'encargado'        => $encargado,
+		'profesion'        => $profesion,
+		'labora'           => $labor,
 		'direccion_labora' => $direccion_labora,
-		'email_encargado' => $encargado_email,
-		'dpi' => $dpi,
-		'extendida' => $extendido,
-		'emergencia' => $emergencia,
-		'telefono2' => $telefono2,
-		'status' => $status
+		'email_encargado'  => $encargado_email,
+		'dpi'              => $dpi,
+		'extendida'        => $extendido,
+		'emergencia'       => $emergencia,
+		'telefono2'        => $telefono2,
+		'status'           => $status
 	);
 	$student_id = sql_create('alumno', $insert_alumno);
 
-	// 
+	//
 	// Add student id to carne
-	// 
+	//
 	$carne .= $student_id;
 
 	$insert_inscripcion = array(
-		'id_alumno' => $student_id,
-		'carne' => $carne,
-		'id_grado' => $grado,
-		'id_seccion' => $seccion,
+		'id_alumno'               => $student_id,
+		'carne'                   => $carne,
+		'id_grado'                => $grado,
+		'id_seccion'              => $seccion,
 		'encargado_reinscripcion' => $encargado,
-		'telefonos' => $telefono2,
-		'status' => $status,
-		'anio' => $year
+		'telefonos'               => $telefono2,
+		'status'                  => $status,
+		'anio'                    => $year
 	);
 	$reinscription_id = sql_create('reinscripcion', $insert_inscripcion);
 
-	// 
+	//
 	// Insert user into main system.
-	// 
+	//
 	$gender_select = array(
 		'M' => 1,
 		'F' => 2
@@ -266,41 +268,41 @@ if (request_var('submit', '')) {
 	$user_password = substr(md5(unique_id()), 0, 8);
 
 	$member_data = array(
-		'user_type' => USER_NORMAL,
-		'user_active' => 1,
-		'username' => $full_name,
-		'username_base' => $username_base,
-		'user_password' => HashPassword($user_password),
-		'user_regip' => $user->ip,
+		'user_type'         => USER_NORMAL,
+		'user_active'       => 1,
+		'username'          => $full_name,
+		'username_base'     => $username_base,
+		'user_password'     => HashPassword($user_password),
+		'user_regip'        => $user->ip,
 		'user_session_time' => 0,
-		'user_lastpage' => '',
-		'user_lastvisit' => time(),
-		'user_regdate' => time(),
-		'user_level' => 0,
-		'user_posts' => 0,
-		'userpage_posts' => 0,
-		'user_points' => 0,
-		'user_timezone' => $config->board_timezone,
-		'user_dst' => $config->board_dst,
-		'user_lang' => $config->default_lang,
-		'user_dateformat' => $config->default_dateformat,
-		'user_country' => $country,
-		'user_rank' => 0,
-		'user_avatar' => '',
-		'user_avatar_type' => 0,
-		'user_email' => $email,
-		'user_lastlogon' => 0,
-		'user_totaltime' => 0,
-		'user_totallogon' => 0,
-		'user_totalpages' => 0,
-		'user_gender' => $gender,
-		'user_birthday' => $birthdate,
-		'user_upw' => $user_password,
-		'user_mark_items' => 0,
-		'user_topic_order' => 0,
-		'user_email_dc' => 1,
-		'user_refop' => 0,
-		'user_refby' => ''
+		'user_lastpage'     => '',
+		'user_lastvisit'    => time(),
+		'user_regdate'      => time(),
+		'user_level'        => 0,
+		'user_posts'        => 0,
+		'userpage_posts'    => 0,
+		'user_points'       => 0,
+		'user_timezone'     => $config->board_timezone,
+		'user_dst'          => $config->board_dst,
+		'user_lang'         => $config->default_lang,
+		'user_dateformat'   => $config->default_dateformat,
+		'user_country'      => $country,
+		'user_rank'         => 0,
+		'user_avatar'       => '',
+		'user_avatar_type'  => 0,
+		'user_email'        => $email,
+		'user_lastlogon'    => 0,
+		'user_totaltime'    => 0,
+		'user_totallogon'   => 0,
+		'user_totalpages'   => 0,
+		'user_gender'       => $gender,
+		'user_birthday'     => $birthdate,
+		'user_upw'          => $user_password,
+		'user_mark_items'   => 0,
+		'user_topic_order'  => 0,
+		'user_email_dc'     => 1,
+		'user_refop'        => 0,
+		'user_refby'        => ''
 	);
 	$user_id = sql_insert('members', $member_data);
 
@@ -314,9 +316,9 @@ if (request_var('submit', '')) {
 		WHERE id_alumno = ?', $student_id);
 	$db->sql_query($sql);
 
-	// 
+	//
 	// Create user login for supervisor
-	// 
+	//
 	if (trim($encargado)) {
 		$supervisor_base = simple_alias($encargado);
 		$supervisor_password = substr(md5(unique_id()), 0, 8);
@@ -326,48 +328,48 @@ if (request_var('submit', '')) {
 			WHERE username_base = ?';
 		if (!$supervisor_id = sql_field(sql_filter($sql, $supervisor_base), 'user_id', 0)) {
 			$supervisor_data = array(
-				'user_type' => USER_NORMAL,
-				'user_active' => 1,
-				'username' => $encargado,
-				'username_base' => $supervisor_base,
-				'user_password' => HashPassword($supervisor_password),
-				'user_regip' => $user->ip,
+				'user_type'         => USER_NORMAL,
+				'user_active'       => 1,
+				'username'          => $encargado,
+				'username_base'     => $supervisor_base,
+				'user_password'     => HashPassword($supervisor_password),
+				'user_regip'        => $user->ip,
 				'user_session_time' => 0,
-				'user_lastpage' => '',
-				'user_lastvisit' => time(),
-				'user_regdate' => time(),
-				'user_level' => 0,
-				'user_posts' => 0,
-				'userpage_posts' => 0,
-				'user_points' => 0,
-				'user_timezone' => $config->board_timezone,
-				'user_dst' => $config->board_dst,
-				'user_lang' => $config->default_lang,
-				'user_dateformat' => $config->default_dateformat,
-				'user_country' => $country,
-				'user_rank' => 0,
-				'user_avatar' => '',
-				'user_avatar_type' => 0,
-				'user_email' => $encargado_email,
-				'user_lastlogon' => 0,
-				'user_totaltime' => 0,
-				'user_totallogon' => 0,
-				'user_totalpages' => 0,
-				'user_gender' => 1,
-				'user_birthday' => $birthdate,
-				'user_upw' => $supervisor_password,
-				'user_mark_items' => 0,
-				'user_topic_order' => 0,
-				'user_email_dc' => 1,
-				'user_refop' => 0,
-				'user_refby' => ''
+				'user_lastpage'     => '',
+				'user_lastvisit'    => time(),
+				'user_regdate'      => time(),
+				'user_level'        => 0,
+				'user_posts'        => 0,
+				'userpage_posts'    => 0,
+				'user_points'       => 0,
+				'user_timezone'     => $config->board_timezone,
+				'user_dst'          => $config->board_dst,
+				'user_lang'         => $config->default_lang,
+				'user_dateformat'   => $config->default_dateformat,
+				'user_country'      => $country,
+				'user_rank'         => 0,
+				'user_avatar'       => '',
+				'user_avatar_type'  => 0,
+				'user_email'        => $encargado_email,
+				'user_lastlogon'    => 0,
+				'user_totaltime'    => 0,
+				'user_totallogon'   => 0,
+				'user_totalpages'   => 0,
+				'user_gender'       => 1,
+				'user_birthday'     => $birthdate,
+				'user_upw'          => $supervisor_password,
+				'user_mark_items'   => 0,
+				'user_topic_order'  => 0,
+				'user_email_dc'     => 1,
+				'user_refop'        => 0,
+				'user_refby'        => ''
 			);
 			$supervisor_id = sql_insert('members', $supervisor_data);
 		}
 
 		$supervisor_student = array(
 			'supervisor' => $supervisor_id,
-			'student' => $user_id
+			'student'    => $user_id
 		);
 		$rel_id = sql_create('alumnos_encargados', $supervisor_student);
 	}

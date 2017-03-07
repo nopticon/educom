@@ -7,43 +7,43 @@ encabezado('Certificaciones Anuales');
 $alumno = request_var('alumno', 0);
 
 $sql = 'SELECT id_alumno, nombre_alumno, apellido
-	FROM alumno
-	WHERE id_alumno = ?';
+    FROM alumno
+    WHERE id_alumno = ?';
 $alumno = $db->sql_fieldrow(sql_filter($sql, $alumno));
 
 $sql = "SELECT *
-	FROM grado g, secciones s
-	WHERE g.id_grado = s.id_grado
-		AND status = 'Alta'";
+    FROM grado g, secciones s
+    WHERE g.id_grado = s.id_grado
+        AND status = 'Alta'";
 $grado_seccion = $db->sql_rowset($sql);
 
 $form = [[
-	'seccion' => [
-		'type' => 'select',
-		'show' => 'Grado',
-		'value' => []
-	],
-	'anio' => [
-		'type' => 'select',
-		'show' => 'A&ntilde;o',
-		'value' => '*'
-	]
+    'seccion' => [
+        'type'  => 'select',
+        'show'  => 'Grado',
+        'value' => []
+    ],
+    'anio' => [
+        'type'  => 'select',
+        'show'  => 'A&ntilde;o',
+        'value' => '*'
+    ]
 ]];
 
 foreach ($grado_seccion as $row) {
-	$form[0]['seccion']['value'][$row->id_seccion] = $row->nombre . ' - ' . $row->nombre_seccion;
+    $form[0]['seccion']['value'][$row->id_seccion] = $row->nombre . ' - ' . $row->nombre_seccion;
 }
 
 ?>
 
 <form action="certificaciones2.php" method="post" class="form-horizontal" target="_blank">
-	<?php if ($alumno) { ?>
-	<input type="hidden" name="alumno" value="<?php echo $alumno->id_alumno; ?>" />
+    <?php if ($alumno) { ?>
+    <input type="hidden" name="alumno" value="<?php echo $alumno->id_alumno; ?>" />
 
-	<h6><?php echo $alumno->nombre_alumno . ' ' . $alumno->apellido; ?></h6>
-	<?php } ?>
+    <h6><?php echo $alumno->nombre_alumno . ' ' . $alumno->apellido; ?></h6>
+    <?php } ?>
 
-	<?php build($form); submit(); ?>
+    <?php build($form); submit(); ?>
 </form>
 
 <?php pie(); ?>

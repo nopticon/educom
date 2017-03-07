@@ -3,60 +3,62 @@
 require_once('../conexion.php');
 
 if (request_var('submit', '')) {
-	$grado = request_var('grado', '');
-	$status = request_var('status', '');
+    $grado  = request_var('grado', '');
+    $status = request_var('status', '');
 
-	if (empty($grado)) {
-		location('.');
-	}
+    if (empty($grado)) {
+        location('.');
+    }
 
-	$sql_insert = array(
-		'nombre' => $grado,
-		'status' => $status,
-		'seccion' => '',
-		'fecha_grado' => ''
-	);
-	$sql = 'INSERT INTO grado' . $db->sql_build('INSERT', $sql_insert);
-	$db->sql_query($sql);
+    $sql_insert = array(
+        'nombre'      => $grado,
+        'status'      => $status,
+        'seccion'     => '',
+        'fecha_grado' => ''
+    );
+    $sql = 'INSERT INTO grado' . $db->sql_build('INSERT', $sql_insert);
+    $db->sql_query($sql);
 
-	location('.');
+    location('.');
 }
 
 $can_edit = $user->is('founder');
 
 $sql = 'SELECT id_grado, nombre, status
-	FROM grado g
-	ORDER BY id_grado';
+    FROM grado g
+    ORDER BY id_grado';
 $list = $db->sql_rowset($sql);
 
 foreach ($list as $i => $row) {
-	if (!$i) _style('results', [
-		'can_edit' => $can_edit
-	]);
+    if (!$i) {
+        _style('results', [
+            'can_edit' => $can_edit
+        ]);
+    }
 
-	$row->u_edit = '../mantenimientos/grados/mod_grados.php?id_grado=' . $row->id_grado;
+    $row->u_edit = '../mantenimientos/grados/mod_grados.php?id_grado=' . $row->id_grado;
 
-	_style('results.row', $row);
+    _style('results.row', $row);
 }
 
 $form = [[
-	'grado' => [
-		'type' => 'text',
-		'value' => 'Nombre de grado'
-	],
-	'status' => [
-		'type' => 'select',
-		'show' => 'Estado',
-		'value' => [
-			'Alta' => 'Alta',
-			'Baja' => 'Baja'
-		]
-	]
+    'grado' => [
+        'type'  => 'text',
+        'value' => 'Nombre de grado'
+    ],
+    'status' => [
+        'type'  => 'select',
+        'show'  => 'Estado',
+        'value' => [
+            'Alta' => 'Alta',
+            'Baja' => 'Baja'
+        ]
+    ]
 ]];
 
 _style('create', [
-	'form' => build_form($form),
-	'submit' => build_submit()
+    'form'   => build_form($form),
+    'submit' => build_submit()
 ]);
 
 page_layout('Grados', 'student_grades');

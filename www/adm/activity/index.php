@@ -10,20 +10,20 @@ $is_post 		= request_method() == 'post';
 switch ($user_role) {
 	case 'student':
 		if ($is_post) {
-			// 
+			//
 		}
 
 		_style($user_role, [
 			'title' => 'Tareas ' . $year
 		]);
 
-		// 
+		//
 		// GET Method
-		// 
+		//
 		$group = get_user_grade($year);
 
 		$sql = 'SELECT *, c.apellido as apellido_catedratico
-			FROM alumno a, reinscripcion r, _activities ac, _activities_assigned aa, 
+			FROM alumno a, reinscripcion r, _activities ac, _activities_assigned aa,
 				catedratico c, grado g, secciones s, areas_cursos acu, cursos cu
 			WHERE a.id_member = ?
 				AND aa.assigned_student = a.id_member
@@ -49,22 +49,22 @@ switch ($user_role) {
 	case 'teacher':
 		if ($is_post) {
 			$fields = [
-				'activity_name' => '',
+				'activity_name'        => '',
 				'activity_description' => '',
-				'activity_start' => '',
-				'activity_end' => '',
-				'activity_schedule' => 0,
-				'activity_group' => 0,
-				'activity_assignees' => [
+				'activity_start'       => '',
+				'activity_end'         => '',
+				'activity_schedule'    => 0,
+				'activity_group'       => 0,
+				'activity_assignees'   => [
 					'default' => '',
-					'filter' => ['html_entity_decode', 'json_decode']
+					'filter'  => ['html_entity_decode', 'json_decode']
 				],
 			];
 			$fields = _request($fields);
 
-			// 
+			//
 			// Look up students assignees
-			// 
+			//
 			if ($fields->activity_assignees) {
 				$sql = 'SELECT user_id, username
 					FROM _members
@@ -84,34 +84,34 @@ switch ($user_role) {
 
 			$now = date('Y-m-d H:i:s');
 
-			// 
+			//
 			// Insert task
-			// 
+			//
 			$sql_insert = array(
-				'activity_name' => $fields->activity_name,
+				'activity_name'        => $fields->activity_name,
 				'activity_description' => $fields->activity_description,
-				'activity_start' => date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $fields->activity_start) . ' +6 hours')),
-				'activity_end' => date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $fields->activity_end) . ' +6 hours')),
-				'activity_show' => 1,
-				'activity_teacher' => $user->d('user_id'),
-				'activity_schedule' => $fields->activity_schedule,
-				'activity_group' => $fields->activity_group,
-				'activity_ip' => $user->ip,
-				'created_at' => $now,
-				'updated_at' => $now,
+				'activity_start'       => date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $fields->activity_start) . ' +6 hours')),
+				'activity_end'         => date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $fields->activity_end) . ' +6 hours')),
+				'activity_show'        => 1,
+				'activity_teacher'     => $user->d('user_id'),
+				'activity_schedule'    => $fields->activity_schedule,
+				'activity_group'       => $fields->activity_group,
+				'activity_ip'          => $user->ip,
+				'created_at'           => $now,
+				'updated_at'           => $now,
 			);
 
 			$task_id = sql_insert('activities', $sql_insert);
 
 			foreach ($lookup_assignees as $row) {
 				$sql_insert = array(
-					'assigned_activity' => $task_id,
-					'assigned_student' => $row->user_id,
+					'assigned_activity'  => $task_id,
+					'assigned_student'   => $row->user_id,
 					'assigned_delivered' => 0,
-					'assigned_total' => 0,
-					'assigned_comments' => 1,
-					'created_at' => $now,
-					'updated_at' => $now
+					'assigned_total'     => 0,
+					'assigned_comments'  => 1,
+					'created_at'         => $now,
+					'updated_at'         => $now
 				);
 				$assigned_id = sql_insert('activities_assigned', $sql_insert);
 			}
@@ -119,9 +119,9 @@ switch ($user_role) {
 			$_SESSION['activity_message'] = 'La tarea fue creada correctamente.';
 		}
 
-		// 
+		//
 		// GET Method
-		// 
+		//
 		_style($user_role);
 
 		$sql = 'SELECT DISTINCT g.id_grado, g.nombre, s.id_seccion, s.nombre_seccion
@@ -144,33 +144,33 @@ switch ($user_role) {
 			$form = [
 				'Crear tarea' => [
 					'activity_name' => [
-						'type' => 'text',
+						'type'  => 'text',
 						'value' => 'T&iacute;tulo'
 					],
 					'activity_description' => [
-						'type' => 'textarea',
+						'type'  => 'textarea',
 						'value' => 'Descripci&oacute;n'
 					],
 					'activity_start' => [
-						'type' => 'calendar',
+						'type'  => 'calendar',
 						'value' => 'Fecha de Inicio'
 					],
 					'activity_end' => [
-						'type' => 'calendar',
+						'type'  => 'calendar',
 						'value' => 'Fecha de Entrega'
 					],
 					'activity_group' => [
-						'type' => 'select',
-						'show' => 'Grado / Secci&oacute;n',
+						'type'  => 'select',
+						'show'  => 'Grado / Secci&oacute;n',
 						'value' => []
 					],
 					'activity_schedule' => [
-						'type' => 'select',
-						'show' => 'Materia',
+						'type'  => 'select',
+						'show'  => 'Materia',
 						'value' => []
 					],
 					'activity_assignees' => [
-						'type' => 'tags',
+						'type'  => 'tags',
 						'value' => 'Alumnos asignados'
 					]
 				]
