@@ -2,12 +2,8 @@
 
 define('NO_LOGIN', true);
 
-require 'vendor/autoload.php';
-require_once('../adm/conexion.php');
-
-function remove_spaces($str) {
-	return str_replace(' ', '', $str);
-}
+require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../www/adm/conexion.php';
 
 $filepath = realpath(__DIR__ . '/../../private/jul21/fix-brothers.xls');
 

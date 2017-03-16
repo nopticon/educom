@@ -57,8 +57,8 @@ $grade_replace = array(
 // Read ODS file
 //
 $inputFileType = PHPExcel_IOFactory::identify($filepath);
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
-$objPHPExcel = $objReader->load($filepath);
+$objReader     = PHPExcel_IOFactory::createReader($inputFileType);
+$objPHPExcel   = $objReader->load($filepath);
 
 foreach ($sheets as $id => $title) {
     $objPHPExcel->setActiveSheetIndex($id);
@@ -69,11 +69,9 @@ foreach ($sheets as $id => $title) {
         $cellIterator->setIterateOnlyExistingCells(true);
 
         foreach ($cellIterator as $cell) {
-            // $cell_value = $cell->getValue();
             $cell_value = $cell->getCalculatedValue();
             $cell_value = htmlentities($cell_value);
 
-            // $list[$title][$cell->getRow()][$cell->getColumn()] = $cell_value;
             $list[$title][$cell->getRow()][] = $cell_value;
         }
     }

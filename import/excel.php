@@ -1,18 +1,7 @@
 <?php
 
-require 'vendor/autoload.php';
-
-require_once('../adm/conexion.php');
-
-function remove_spaces($str) {
-	return str_replace(' ', '', $str);
-}
-
-function dd($mixed) {
-	echo '<pre>';
-	print_r($mixed);
-	exit;
-}
+require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../www/adm/conexion.php';
 
 $filepath = realpath(__DIR__ . '/../../private/import-data/segundo-basico-a/format.xls');
 

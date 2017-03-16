@@ -1,12 +1,7 @@
 <?php
 
-require 'vendor/autoload.php';
-
-require_once('../adm/conexion.php');
-
-function remove_spaces($str) {
-	return str_replace(' ', '', $str);
-}
+require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../www/adm/conexion.php';
 
 $sql = 'SELECT m.user_id, m.username, m.user_upw
 	FROM _members m, catedratico c

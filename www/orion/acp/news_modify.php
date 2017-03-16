@@ -1,98 +1,82 @@
 <?php
-/*
-<Orion, a web development framework for RK.>
-Copyright (C) <2011>  <Orion>
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 if (!defined('IN_APP')) exit;
 
 class __news_modify extends mac {
-	public function __construct() {
-		parent::__construct();
-		
-		$this->auth('founder');
-	}
-	
-	public function _home() {
-		global $config, $user, $cache, $comments;
+    public function __construct() {
+        parent::__construct();
 
-		$news_id = request_var('news_id', 0);
-		
-		if ($news_id) {
-			$sql = 'SELECT *
-				FROM _news
-				WHERE news_id = ?';
-			if (!$news_data = sql_fieldrow(sql_filter($sql, $news_id))) {
-				fatal_error();
-			}
-			
-			if (_button('submit2')) {
-				$post_subject = request_var('post_subject', '');
-				$post_desc = request_var('post_desc', '', true);
-				$post_message = request_var('post_text', '', true);
-				
-				$post_message = $comments->prepare($post_message);
-				$post_desc = $comments->prepare($post_desc);
-				
-				//
-				$sql = 'UPDATE _news SET post_subject = ?, post_desc = ?, post_text = ?
-					WHERE news_id = ?';
-				sql_query(sql_filter($sql, $post_subject, $post_desc, $post_message, $news_id));
-				
-				$cache->delete('news');
+        $this->auth('founder');
+    }
 
-				redirect(s_link('news', $news_data->news_alias));
-			}
+    public function _home() {
+        global $config, $user, $cache, $comments;
 
-			_style('edit', array(
-				'ID' => $news_data->news_id,
-				'SUBJECT' => $news_data->post_subject,
-				'DESC' => $news_data->post_desc,
-				'TEXT' => $news_data->post_text)
-			);
+        $news_id = request_var('news_id', 0);
 
-			return;
-		}
+        if ($news_id) {
+            $sql = 'SELECT *
+                FROM _news
+                WHERE news_id = ?';
+            if (!$news_data = sql_fieldrow(sql_filter($sql, $news_id))) {
+                fatal_error();
+            }
 
-		$sql = 'SELECT *
-			FROM _news n, _news_cat c
-			WHERE c.cat_id = n.cat_id
-			ORDER BY c.cat_order, n.news_alias';
-		$list = sql_rowset($sql);
+            if (_button('submit2')) {
+                $post_subject = request_var('post_subject', '');
+                $post_desc = request_var('post_desc', '', true);
+                $post_message = request_var('post_text', '', true);
 
-		$cat = [];
-		foreach ($list as $row) {
-			$cat[$row->cat_url][] = $row;
-		}
+                $post_message = $comments->prepare($post_message);
+                $post_desc = $comments->prepare($post_desc);
 
-		foreach ($cat as $alias => $list) {
-			_style('category', [
-				'url' => $list[0]->cat_url,
-				'name' => $list[0]->cat_name
-			]);
+                //
+                $sql = 'UPDATE _news SET post_subject = ?, post_desc = ?, post_text = ?
+                    WHERE news_id = ?';
+                sql_query(sql_filter($sql, $post_subject, $post_desc, $post_message, $news_id));
 
-			foreach ($list as $row) {
-				$row->url = s_link('acp', [
-					'news_modify',
-					'news_id' => $row->news_id
-				]);
+                $cache->delete('news');
 
-				_style('category.row', $row);
-			}
-		}
+                redirect(s_link('news', $news_data->news_alias));
+            }
 
-		return;
-	}
+            _style('edit', array(
+                'ID' => $news_data->news_id,
+                'SUBJECT' => $news_data->post_subject,
+                'DESC' => $news_data->post_desc,
+                'TEXT' => $news_data->post_text)
+            );
+
+            return;
+        }
+
+        $sql = 'SELECT *
+            FROM _news n, _news_cat c
+            WHERE c.cat_id = n.cat_id
+            ORDER BY c.cat_order, n.news_alias';
+        $list = sql_rowset($sql);
+
+        $cat = [];
+        foreach ($list as $row) {
+            $cat[$row->cat_url][] = $row;
+        }
+
+        foreach ($cat as $alias => $list) {
+            _style('category', [
+                'url' => $list[0]->cat_url,
+                'name' => $list[0]->cat_name
+            ]);
+
+            foreach ($list as $row) {
+                $row->url = s_link('acp', [
+                    'news_modify',
+                    'news_id' => $row->news_id
+                ]);
+
+                _style('category.row', $row);
+            }
+        }
+
+        return;
+    }
 }

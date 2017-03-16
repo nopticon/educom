@@ -1,8 +1,7 @@
 <?php
 
-require 'vendor/autoload.php';
-
-require_once('../adm/conexion.php');
+require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../www/adm/conexion.php';
 
 function remove_spaces($str) {
     return str_replace(' ', '', $str);
