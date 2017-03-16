@@ -3,7 +3,7 @@
 require __DIR__.'/../vendor/autoload.php';
 require __DIR__.'/../www/adm/conexion.php';
 
-$filepath = realpath(__DIR__ . '/../private/plataforma.xlsx');
+$filepath = realpath(__DIR__ . '/../doc/plataforma.xlsx');
 
 if (!@file_exists($filepath)) {
     echo 'Import file not found'; exit;
@@ -104,6 +104,7 @@ foreach ($build['alumnos'] as $i => $row) {
         switch ($col) {
             case 'alumno':
             case 'encargado':
+                $val = str_replace(',', '', $val);
                 $row[$col] = implode(' ', preg_split($split_words, $val));
                 break;
             case 'grado':
@@ -306,7 +307,7 @@ foreach ($students as $i => $row) {
     ];
 
     $insert_member = array(
-        'username'      => $compile->fullname
+        'username'      => $compile->fullname,
         'user_password' => $user_password,
         'user_gender'   => $compile->gender
     );
@@ -357,7 +358,7 @@ foreach ($students as $i => $row) {
             'username'      => $row['encargado'],
             'user_password' => $user_password_supervisor,
             'user_gender'   => $user_gender_supervisor
-        ));
+        );
         $supervisor_id = create_user_account($insert_supervisor);
 
         $insert_supervisor_student = array(
@@ -381,7 +382,7 @@ foreach ($pensum as $i => $row) {
         $insert_docente = array(
             'username'      => $row['docente'],
             'user_password' => $password_docente
-        ));
+        );
         $docente_id = create_user_account($insert_docente);
 
         $docente[$row['docente']] = $docente_id;
@@ -425,4 +426,5 @@ foreach ($pensum as $i => $row) {
     $cursos[$row['materia']] = sql_create('cursos', $insert_course);
 }
 
+echo '<pre>';
 dd($all);

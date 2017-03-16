@@ -2775,9 +2775,9 @@ function create_user_account($ary) {
 
     $ary = array_merge($default, $ary);
 
+    $ary['user_upw']      = $ary['user_password'];
     $ary['username_base'] = simple_alias($ary['username']);
     $ary['user_password'] = HashPassword($ary['user_password']);
-    $ary['user_upw']      = $ary['user_password'];
 
     return sql_create('_members', $ary);
 }
