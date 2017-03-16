@@ -11,7 +11,7 @@ if (request_var('submit', '')) {
     }
 
     $sql_insert = [
-        'nombre_area' => $area,
+        'nombre_area'      => $area,
         'observacion_area' => $observacion
     ];
     $sql = 'INSERT INTO areas_cursos' . $db->sql_build('INSERT', $sql_insert);
@@ -40,11 +40,11 @@ foreach ($list as $i => $row) {
 //
 $form = [[
     'area' => [
-        'type' => 'input',
+        'type'  => 'input',
         'value' => 'Nombre de &Aacute;rea'
     ],
     'observacion' => [
-        'type' => 'textarea',
+        'type'  => 'textarea',
         'value' => 'Observaci&oacute;n'
     ]
 ]];

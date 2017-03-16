@@ -8,18 +8,6 @@ function remove_spaces($str) {
 	return str_replace(' ', '', $str);
 }
 
-function pr($mixed) {
-	echo '<pre>';
-	var_dump($mixed);
-	exit;
-}
-
-function dd($mixed) {
-	echo '<pre>';
-	print_r($mixed);
-	exit;
-}
-
 $sql = 'SELECT m.user_id, m.username, m.user_upw
 	FROM _members m, catedratico c
 	WHERE m.user_id = c.id_member

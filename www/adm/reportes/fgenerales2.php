@@ -29,7 +29,7 @@ $pdf->cp->selectFont(XFS . 'pdf/helvetica.afm');
 $page_count = 0;
 $coord_sum = 0;
 
-$str_grado = 'Grado: ' . $secciones->nombre . ' ' . $secciones->nombre_seccion;
+$str_grado  = 'Grado: ' . $secciones->nombre . ' ' . $secciones->nombre_seccion;
 $str_examen = 'Tiempo de examen: ' . $examenes->examen;
 
 $pdf->text(35, $pdf->top(25), $str_grado, 12);

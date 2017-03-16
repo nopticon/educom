@@ -93,7 +93,7 @@ if (request_var('submit', '')) {
     }
 
     _style('create', [
-        'form' => build_form($form),
+        'form'   => build_form($form),
         'submit' => build_submit()
     ]);
 }

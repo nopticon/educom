@@ -8,12 +8,6 @@ function remove_spaces($str) {
 	return str_replace(' ', '', $str);
 }
 
-function pr($mixed) {
-	echo '<pre>';
-	var_dump($mixed);
-	exit;
-}
-
 function dd($mixed) {
 	echo '<pre>';
 	print_r($mixed);
@@ -44,9 +38,9 @@ $objWriter = PHPExcel_IOFactory::createWriter($objPHPexcel, 'PDF');
 $objWriter->setPreCalculateFormulas(false);
 $objWriter->save('php://output');
 
-// 
+//
 // Read ODS file
-// 
+//
 
 // $inputFileType = PHPExcel_IOFactory::identify($filepath);
 // $objReader = PHPExcel_IOFactory::createReader($inputFileType);
@@ -64,4 +58,3 @@ $objWriter->save('php://output');
 // 		$list[$cell->getRow()][$cell->getColumn()] = $cell_value;
 // 	}
 // }
-

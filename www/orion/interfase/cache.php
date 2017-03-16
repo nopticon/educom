@@ -1,105 +1,96 @@
 <?php
-/*
-<Orion, a web development framework for RK.>
-Copyright (C) <2011>  <Orion>
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
 if (!defined('IN_APP')) exit;
 
 class cache {
-	public $cache = array();
-	public $use = true;
+    public $cache = array();
+    public $use = true;
+    private $extension = '.json';
 
-	public function __construct() {
-		if (!defined('USE_CACHE')) {
-			$this->use = false;
-		}
+    public function __construct() {
+        if (!defined('USE_CACHE')) {
+            $this->use = false;
+        }
 
-		return $this->use;
-	}
+        return $this->use;
+    }
 
-	public function config() {
-		$sql = 'SELECT *
-			FROM _application';
-		$config = sql_rowset($sql, 'config_name', 'config_value');
+    public function config() {
+        $sql = 'SELECT *
+            FROM _application';
+        $config = sql_rowset($sql, 'config_name', 'config_value');
 
-		return $config;
-	}
+        return $config;
+    }
 
-	public function get($var) {
-		if (!$this->use) {
-			return false;
-		}
+    private function path($str) {
+        global $config;
 
-		global $config;
+        return $config->cache_path . $str . $this->extension;
+    }
 
-		$filename = $config->cache_path . $var . '.php';
+    public function get($var) {
+        if (!$this->use) {
+            return false;
+        }
 
-		if (@file_exists($filename)) {
-			if (!@require_once($filename)) {
-				$this->delete($var);
-				return;
-			}
+        global $config;
 
-			if (!empty($this->cache[$var])) {
-				return json_decode($this->cache[$var]);
-			}
+        $filename = $this->path($var);
 
-			return true;
-		}
+        if (@file_exists($filename)) {
+            ob_start();
+            require_once($filename);
 
-		return;
-	}
+            $content = ob_get_contents();
+            ob_end_clean();
 
-	public function save($var, $data) {
-		global $config;
+            if (!empty($content)) {
+                return json_decode($content);
+            }
 
-		if (!$this->use) {
-			return;
-		}
+            return true;
+        }
 
-		$filename = $config->cache_path . $var . '.php';
+        $this->delete($var);
 
-		if ($fp = @fopen($filename, 'w')) {
-			$file_buffer = '<?php $' . "this->cache['" . $var . "'] = '" . json_encode($data) . "';";
+        return;
+    }
 
-			@flock($fp, LOCK_EX);
-			@fwrite($fp, $file_buffer);
-			@flock($fp, LOCK_UN);
-			@fclose($fp);
+    public function save($var, $data) {
+        global $config;
 
-			_chmod($filename, $config->mask);
-		}
+        if (!$this->use) {
+            return;
+        }
 
-		return $data;
-	}
+        $filename = $this->path($var);
 
-	public function delete($list) {
-		global $config;
+        if ($fp = @fopen($filename, 'w')) {
+            $file_buffer = json_encode($data);
 
-		if (!$this->use) {
-			return;
-		}
+            @flock($fp, LOCK_EX);
+            @fwrite($fp, $file_buffer);
+            @flock($fp, LOCK_UN);
+            @fclose($fp);
 
-		foreach (w($list) as $var) {
-			$cache_filename = $config->cache_path . $var . '.php';
-			if (file_exists($cache_filename)) {
-				_rm($cache_filename);
-			}
-		}
+            _chmod($filename, $config->mask);
+        }
 
-		return;
-	}
+        return $data;
+    }
+
+    public function delete($list) {
+        global $config;
+
+        if (!$this->use) {
+            return;
+        }
+
+        foreach (w($list) as $var) {
+            _rm($this->path($var));
+        }
+
+        return;
+    }
 }

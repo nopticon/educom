@@ -16,57 +16,57 @@
 * LICENCE
 * This code has been placed in the Public Domain for all to enjoy.
 *
-* @author		Wayne Munro <pdf@ros.co.nz>
-* @version 	009
-* @package	Cpdf
+* @author        Wayne Munro <pdf@ros.co.nz>
+* @version     009
+* @package    Cpdf
 */
 class Cpdf
 {
-	// The current number of pdf objects in the document
-	var $numObj = 0;
+    // The current number of pdf objects in the document
+    var $numObj = 0;
 
-	// This array contains all of the pdf objects, ready for final assembly
-	var $objects = array();
+    // This array contains all of the pdf objects, ready for final assembly
+    var $objects = array();
 
-	// The objectId (number within the objects array) of the document catalog
-	var $catalogId;
+    // The objectId (number within the objects array) of the document catalog
+    var $catalogId;
 
-	// array carrying information about the fonts that the system currently knows about
-	//used to ensure that a font is not loaded twice, among other things
-	var $fonts = array();
+    // array carrying information about the fonts that the system currently knows about
+    //used to ensure that a font is not loaded twice, among other things
+    var $fonts = array();
 
-	// A record of the current font
-	var $currentFont = '';
+    // A record of the current font
+    var $currentFont = '';
 
-	// The current base font
-	var $currentBaseFont = '';
+    // The current base font
+    var $currentBaseFont = '';
 
-	// The number of the current font within the font array
-	var $currentFontNum=0;
+    // The number of the current font within the font array
+    var $currentFontNum=0;
 
-	var $currentNode;
+    var $currentNode;
 
-	// object number of the current page
-	var $currentPage;
+    // object number of the current page
+    var $currentPage;
 
-	// object number of the currently active contents block
-	var $currentContents;
+    // object number of the currently active contents block
+    var $currentContents;
 
-	// number of fonts within the system
-	var $numFonts = 0;
+    // number of fonts within the system
+    var $numFonts = 0;
 
-	// current colour for fill operations, defaults to inactive value, all three components should be between 0 and 1 inclusive when active
-	var $currentColour = array('r' => -1, 'g' => -1, 'b' => -1);
+    // current colour for fill operations, defaults to inactive value, all three components should be between 0 and 1 inclusive when active
+    var $currentColour = array('r' => -1, 'g' => -1, 'b' => -1);
 
-	// current colour for stroke operations (lines etc.)
-	var $currentStrokeColour = array('r' => -1, 'g' => -1, 'b' => -1);
+    // current colour for stroke operations (lines etc.)
+    var $currentStrokeColour = array('r' => -1, 'g' => -1, 'b' => -1);
 
-	// current style that lines are drawn in
-	var $currentLineStyle = '';
+    // current style that lines are drawn in
+    var $currentLineStyle = '';
 
-	// an array which is used to save the state of the document, mainly the colours and styles
-	// it is used to temporarily change to another state, the change back to what it was before
-	var $stateStack = array();
+    // an array which is used to save the state of the document, mainly the colours and styles
+    // it is used to temporarily change to another state, the change back to what it was before
+    var $stateStack = array();
 /**
 * number of elements within the state stack
 */
@@ -1214,7 +1214,7 @@ function output($debug=0){
   $this->checkAllHere();
 
   $xref=array();
-  $content="%PDF-1.3\n%âãÏÓ\n";
+  $content="%PDF-1.3\n%ï¿½ï¿½ï¿½ï¿½\n";
 //  $content="%PDF-1.3\n";
   $pos=strlen($content);
   foreach($this->objects as $k=>$v){
@@ -2321,7 +2321,7 @@ function addTextWrap($x,$y,$width,$size,$text,$justification='left',$angle=0,$te
   // but will need to be re-set before printing, so that the chars work out right
   $store_currentTextState = $this->currentTextState;
 
-	if (!$this->numFonts){$this->selectFont('./fonts/Helvetica');}
+    if (!$this->numFonts){$this->selectFont('./fonts/Helvetica');}
   if ($width<=0){
     // error, pretend it printed ok, otherwise risking a loop
     return '';

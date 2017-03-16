@@ -4,22 +4,6 @@ require 'vendor/autoload.php';
 
 require_once('../adm/conexion.php');
 
-function remove_spaces($str) {
-	return str_replace(' ', '', $str);
-}
-
-function pr($mixed) {
-	echo '<pre>';
-	var_dump($mixed);
-	exit;
-}
-
-function dd($mixed) {
-	echo '<pre>';
-	print_r($mixed);
-	exit;
-}
-
 $sql = 'SELECT *
 	FROM _members m, alumno a, reinscripcion r, grado g, secciones s
 	WHERE m.user_id > 2
