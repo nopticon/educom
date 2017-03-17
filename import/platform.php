@@ -281,7 +281,7 @@ foreach ($students as $i => $row) {
 
     $row['firstname'] = $row['alumno'];
     $row['lastname']  = '';
-    $row['code']      = '';
+    $row['code']      = $row['no'];
 
     if (!isset($row['encargado'])) {
         $row['encargado'] = '';
