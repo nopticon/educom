@@ -2771,6 +2771,10 @@ function create_user_account($ary) {
     return $user_id;
 }
 
+function create_date_field() {
+    return date('Y-m-d');
+}
+
 function build_table($list) {
     $format_table = '<table style="border: 1px solid black;border-collapse: collapse;">%s</table><br /><br />';
     $format_tr    = '<tr>%s</tr>';
