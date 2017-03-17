@@ -1375,48 +1375,19 @@ function do_login($box_text = '', $need_admin = false, $extra_vars = false) {
 
                 if (!count($error)) {
                     //$v_fields['country'] = strtolower(geoip_country_code_by_name($user->ip));
-                    $v_fields['country'] = 90;
                     $v_fields['birthday'] = leading_zero($v_fields['birthday_year']) . leading_zero($v_fields['birthday_month']) . leading_zero($v_fields['birthday_day']);
 
                     $member_data = array(
-                        'user_type'         => USER_INACTIVE,
-                        'user_active'       => 1,
-                        'username'          => $v_fields['username'],
-                        'username_base'     => $v_fields['username_base'],
-                        'user_password'     => HashPassword($v_fields['key']),
-                        'user_regip'        => $user->ip,
-                        'user_session_time' => 0,
-                        'user_lastpage'     => '',
-                        'user_lastvisit'    => time(),
-                        'user_regdate'      => time(),
-                        'user_level'        => 0,
-                        'user_posts'        => 0,
-                        'userpage_posts'    => 0,
-                        'user_points'       => 0,
-                        'user_timezone'     => $config->board_timezone,
-                        'user_dst'          => $config->board_dst,
-                        'user_lang'         => $config->default_lang,
-                        'user_dateformat'   => $config->default_dateformat,
-                        'user_country'      => (int) $v_fields['country'],
-                        'user_rank'         => 0,
-                        'user_avatar'       => '',
-                        'user_avatar_type'  => 0,
-                        'user_email'        => $v_fields['email'],
-                        'user_lastlogon'    => 0,
-                        'user_totaltime'    => 0,
-                        'user_totallogon'   => 0,
-                        'user_totalpages'   => 0,
-                        'user_gender'       => $v_fields['gender'],
-                        'user_birthday'     => (string) $v_fields['birthday'],
-                        'user_mark_items'   => 0,
-                        'user_topic_order'  => 0,
-                        'user_email_dc'     => 1,
-                        'user_refop'        => 0,
-                        'user_refby'        => $v_fields['ref']
+                        'user_type'     => USER_INACTIVE,
+                        'username'      => $v_fields['username'],
+                        'user_password' => $v_fields['key'],
+                        'user_country'  => $v_fields['country'],
+                        'user_email'    => $v_fields['email'],
+                        'user_gender'   => $v_fields['gender'],
+                        'user_birthday' => $v_fields['birthday'],
+                        'user_refby'    => $v_fields['ref']
                     );
-                    $user_id = sql_insert('members', $member_data);
-
-                    set_config('max_users', $config->max_users + 1);
+                    $user_id = create_user_account($member_data);
 
                     // Confirmation code
                     $verification_code = md5(unique_id());
@@ -1529,7 +1500,7 @@ function do_login($box_text = '', $need_admin = false, $extra_vars = false) {
                 }
 
                 if (_button()) {
-                    $password = request_var('newkey', '');
+                    $password  = request_var('newkey', '');
                     $password2 = request_var('newkey2', '');
 
                     if (!empty($password)) {
@@ -2734,15 +2705,21 @@ if (!function_exists('dd')) {
     }
 }
 
-function create_user_account($ary) {
-    global $config;
+function remove_zero_o($str) {
+    return str_replace(['0', 'o'], '', $str);
+}
 
-    $country = 90;
+function generate_default_password($length = 8) {
+    return substr(remove_zero_o(md5(unique_id())), 0, $length);
+}
+
+function create_user_account($ary) {
+    global $config, $user;
 
     $default = array(
         'user_type'         => USER_NORMAL,
         'user_active'       => 1,
-        'user_regip'        => $_SERVER['REMOTE_ADDR'],
+        'user_regip'        => $user->ip,
         'user_session_time' => 0,
         'user_lastpage'     => '',
         'user_lastvisit'    => time(),
@@ -2755,7 +2732,7 @@ function create_user_account($ary) {
         'user_dst'          => $config->board_dst,
         'user_lang'         => $config->default_lang,
         'user_dateformat'   => $config->default_dateformat,
-        'user_country'      => $country,
+        'user_country'      => 90,
         'user_gender'       => 1,
         'user_rank'         => 0,
         'user_avatar'       => '',
@@ -2775,11 +2752,51 @@ function create_user_account($ary) {
 
     $ary = array_merge($default, $ary);
 
+    if (is_array($ary['username'])) {
+        $ary['username'] = implode(' ', $ary['username']);
+    }
+
+    if (!isset($ary['user_password'])) {
+        $ary['user_password'] = generate_default_password();
+    }
+
     $ary['user_upw']      = $ary['user_password'];
     $ary['username_base'] = simple_alias($ary['username']);
     $ary['user_password'] = HashPassword($ary['user_password']);
 
-    return sql_create('_members', $ary);
+    $user_id = sql_create('_members', $ary);
+
+    set_config('max_users', $config->max_users + 1);
+
+    return $user_id;
+}
+
+function build_table($list) {
+    $format_table = '<table style="border: 1px solid black;border-collapse: collapse;">%s</table><br /><br />';
+    $format_tr    = '<tr>%s</tr>';
+    $format_td    = '<td style="border: 1px solid black;border-collapse: collapse;padding: 3px;">%s</td>';
+
+    $header = [];
+    $cells  = [];
+
+    foreach ($list as $i => $row) {
+        $content = [];
+
+        foreach ($row as $field => $value) {
+            if (!$i) {
+                $header[] = sprintf($format_td, $field);
+            }
+            $content[] = sprintf($format_td, $value);
+        }
+
+        if (!$i) {
+            $cells[] = sprintf($format_tr, implode($header));
+        }
+
+        $cells[] = sprintf($format_tr, implode($content));
+    }
+
+    return sprintf($format_table, implode($cells));
 }
 
 function build_submit($value = 'Continuar') {

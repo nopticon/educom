@@ -191,9 +191,6 @@ foreach ($build as $i => $row) {
 // Compile all students
 //
 foreach ($build as $i => $row) {
-    $user_full     = $row['firstname'] . ' ' . $row['lastname'];
-    $user_base     = simple_alias($user_full);
-    $user_password = substr(md5(unique_id()), 0, 8);
     $user_gender   = isset($gender_select[$row['gender']]) ? $gender_select[$row['gender']] : 1;
     $user_grade    = $row['grade'] . ' ' . $row['section'];
 
@@ -201,9 +198,7 @@ foreach ($build as $i => $row) {
         'gender'     => $user_gender,
         'firstname'  => $row['firstname'],
         'lastname'   => $row['lastname'],
-        'fullname'   => $user_full,
-        'base'       => $user_base,
-        'password'   => $user_password,
+        'fullname'   => [$row['firstname'], $row['lastname']],
         'code'       => (int) $row['code'],
         'grade'      => $grade[$row['grade']],
         'section'    => $section[$user_grade],
@@ -212,7 +207,6 @@ foreach ($build as $i => $row) {
 
     $insert_member = array(
         'username'      => $compile->fullname,
-        'user_password' => $user_password,
         'user_gender'   => $compile->gender
     );
     $member_id = create_user_account($insert_member);

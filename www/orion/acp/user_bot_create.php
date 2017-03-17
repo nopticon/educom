@@ -16,10 +16,10 @@ class __user_bot_create extends mac {
             return false;
         }
 
-        $bot_name = request_var('bot_name', '');
+        $bot_name  = request_var('bot_name', '');
         $bot_agent = request_var('bot_agent', '');
-        $bot_ip = request_var('bot_ip', '');
-        $bot_base = get_username_base($bot_name);
+        $bot_ip    = request_var('bot_ip', '');
+        $bot_base  = get_username_base($bot_name);
 
         $sql = 'SELECT *
             FROM _bots
@@ -39,20 +39,16 @@ class __user_bot_create extends mac {
         if ($insert) {
             $insert_member = array(
                 'user_type' => 2,
-                'user_active' => 1,
-                'username' => $bot_name,
-                'username_base' => $bot_base,
-                'user_timezone' => -6.00,
-                'user_lang' => 'spanish'
+                'username'  => $bot_name
             );
-            $bot_id = sql_insert('members', $insert_member);
+            $bot_id = create_user_account($insert_member);
 
             $insert_bot = array(
                 'bot_active' => 1,
-                'bot_name' => $bot_name,
-                'user_id' => $bot_id,
-                'bot_agent' => $bot_agent,
-                'bot_ip' => $bot_ip,
+                'bot_name'   => $bot_name,
+                'user_id'    => $bot_id,
+                'bot_agent'  => $bot_agent,
+                'bot_ip'     => $bot_ip,
             );
             sql_insert('bots', $insert_bot);
         }

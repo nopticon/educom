@@ -1,8 +1,6 @@
 
 # Migration commands
 
-USE educom;
-
 DROP TABLE IF EXISTS `usuarios`;
 DROP TABLE IF EXISTS `_commentmeta`;
 DROP TABLE IF EXISTS `_comments`;
@@ -139,4 +137,3 @@ INSERT INTO `examenes` (examen, observacion, status, fecha_ingreso) VALUES ('Ter
 INSERT INTO `examenes` (examen, observacion, status, fecha_ingreso) VALUES ('Cuarto Bimestre', '', 'Alta', '2015-02-23');
 INSERT INTO `examenes` (examen, observacion, status, fecha_ingreso) VALUES ('Primera Recuperaci&oacute;n', '', 'Alta', '2015-02-23');
 INSERT INTO `examenes` (examen, observacion, status, fecha_ingreso) VALUES ('Segunda Recuperaci&oacute;n', '', 'Alta', '2015-02-23');
-

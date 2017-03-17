@@ -265,51 +265,17 @@ if (request_var('submit', '')) {
 
     $full_name = $nombre . ' ' . $apellido;
     $username_base = simple_alias($full_name);
-    $user_password = substr(md5(unique_id()), 0, 8);
 
     $member_data = array(
-        'user_type'         => USER_NORMAL,
-        'user_active'       => 1,
-        'username'          => $full_name,
-        'username_base'     => $username_base,
-        'user_password'     => HashPassword($user_password),
-        'user_regip'        => $user->ip,
-        'user_session_time' => 0,
-        'user_lastpage'     => '',
-        'user_lastvisit'    => time(),
-        'user_regdate'      => time(),
-        'user_level'        => 0,
-        'user_posts'        => 0,
-        'userpage_posts'    => 0,
-        'user_points'       => 0,
-        'user_timezone'     => $config->board_timezone,
-        'user_dst'          => $config->board_dst,
-        'user_lang'         => $config->default_lang,
-        'user_dateformat'   => $config->default_dateformat,
-        'user_country'      => $country,
-        'user_rank'         => 0,
-        'user_avatar'       => '',
-        'user_avatar_type'  => 0,
-        'user_email'        => $email,
-        'user_lastlogon'    => 0,
-        'user_totaltime'    => 0,
-        'user_totallogon'   => 0,
-        'user_totalpages'   => 0,
-        'user_gender'       => $gender,
-        'user_birthday'     => $birthdate,
-        'user_upw'          => $user_password,
-        'user_mark_items'   => 0,
-        'user_topic_order'  => 0,
-        'user_email_dc'     => 1,
-        'user_refop'        => 0,
-        'user_refby'        => ''
+        'username'      => $full_name,
+        'user_email'    => $email,
+        'user_gender'   => $gender,
+        'user_birthday' => $birthdate
     );
-    $user_id = sql_insert('members', $member_data);
-
-    set_config('max_users', $config->max_users + 1);
+    $user_id = create_user_account($member_data);
 
     $update_alumno = array(
-        'carne' => $carne,
+        'carne'     => $carne,
         'id_member' => $user_id
     );
     $sql = 'UPDATE alumno SET' . $db->sql_build('UPDATE', $update_alumno) . sql_filter('
@@ -321,50 +287,17 @@ if (request_var('submit', '')) {
     //
     if (trim($encargado)) {
         $supervisor_base = simple_alias($encargado);
-        $supervisor_password = substr(md5(unique_id()), 0, 8);
 
         $sql = 'SELECT user_id
             FROM _members
             WHERE username_base = ?';
         if (!$supervisor_id = sql_field(sql_filter($sql, $supervisor_base), 'user_id', 0)) {
             $supervisor_data = array(
-                'user_type'         => USER_NORMAL,
-                'user_active'       => 1,
-                'username'          => $encargado,
-                'username_base'     => $supervisor_base,
-                'user_password'     => HashPassword($supervisor_password),
-                'user_regip'        => $user->ip,
-                'user_session_time' => 0,
-                'user_lastpage'     => '',
-                'user_lastvisit'    => time(),
-                'user_regdate'      => time(),
-                'user_level'        => 0,
-                'user_posts'        => 0,
-                'userpage_posts'    => 0,
-                'user_points'       => 0,
-                'user_timezone'     => $config->board_timezone,
-                'user_dst'          => $config->board_dst,
-                'user_lang'         => $config->default_lang,
-                'user_dateformat'   => $config->default_dateformat,
-                'user_country'      => $country,
-                'user_rank'         => 0,
-                'user_avatar'       => '',
-                'user_avatar_type'  => 0,
-                'user_email'        => $encargado_email,
-                'user_lastlogon'    => 0,
-                'user_totaltime'    => 0,
-                'user_totallogon'   => 0,
-                'user_totalpages'   => 0,
-                'user_gender'       => 1,
-                'user_birthday'     => $birthdate,
-                'user_upw'          => $supervisor_password,
-                'user_mark_items'   => 0,
-                'user_topic_order'  => 0,
-                'user_email_dc'     => 1,
-                'user_refop'        => 0,
-                'user_refby'        => ''
+                'username'      => $encargado,
+                'user_email'    => $encargado_email,
+                'user_birthday' => $birthdate
             );
-            $supervisor_id = sql_insert('members', $supervisor_data);
+            $supervisor_id = create_user_account($supervisor_data);
         }
 
         $supervisor_student = array(

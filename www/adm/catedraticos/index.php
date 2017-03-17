@@ -15,57 +15,16 @@ if (request_var('submit', '')) {
     $registro = '';
     $status = 'Alta';
 
-    $country = 90;
-    $birthdate = '';
-
     if (empty($nombre) || empty($apellido)) {
         location('.');
     }
 
-    $full_name     = $nombre . ' ' . $apellido;
-    $username_base = simple_alias($full_name);
-    $user_password = substr(md5(unique_id()), 0, 8);
-
     $member_data = array(
-        'user_type'         => USER_NORMAL,
-        'user_active'       => 1,
-        'username'          => $full_name,
-        'username_base'     => $username_base,
-        'user_password'     => HashPassword($user_password),
-        'user_regip'        => $user->ip,
-        'user_session_time' => 0,
-        'user_lastpage'     => '',
-        'user_lastvisit'    => time(),
-        'user_regdate'      => time(),
-        'user_level'        => 0,
-        'user_posts'        => 0,
-        'userpage_posts'    => 0,
-        'user_points'       => 0,
-        'user_timezone'     => $config->board_timezone,
-        'user_dst'          => $config->board_dst,
-        'user_lang'         => $config->default_lang,
-        'user_dateformat'   => $config->default_dateformat,
-        'user_country'      => $country,
-        'user_rank'         => 0,
-        'user_avatar'       => '',
-        'user_avatar_type'  => 0,
-        'user_email'        => $email,
-        'user_lastlogon'    => 0,
-        'user_totaltime'    => 0,
-        'user_totallogon'   => 0,
-        'user_totalpages'   => 0,
-        'user_gender'       => $gender,
-        'user_birthday'     => $birthdate,
-        'user_upw'          => $user_password,
-        'user_mark_items'   => 0,
-        'user_topic_order'  => 0,
-        'user_email_dc'     => 1,
-        'user_refop'        => 0,
-        'user_refby'        => ''
+        'username'      => [$nombre, $apellido],
+        'user_email'    => $email,
+        'user_gender'   => $gender
     );
-    $user_id = sql_insert('members', $member_data);
-
-    set_config('max_users', $config->max_users + 1);
+    $user_id = create_user_account($member_data);
 
     $sql_insert = array(
         'id_member'          => $user_id,

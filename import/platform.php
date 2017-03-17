@@ -1,5 +1,7 @@
 <?php
 
+define('NO_LOGIN', true);
+
 require __DIR__.'/../vendor/autoload.php';
 require __DIR__.'/../www/adm/conexion.php';
 
@@ -104,7 +106,9 @@ foreach ($build['alumnos'] as $i => $row) {
         switch ($col) {
             case 'alumno':
             case 'encargado':
-                $val = str_replace(',', '', $val);
+                $val_e = array_map('trim', explode(',', $val));
+                $val = implode(' ', array_reverse($val_e));
+
                 $row[$col] = implode(' ', preg_split($split_words, $val));
                 break;
             case 'grado':
@@ -212,7 +216,6 @@ $required_users = array(
     ),
     array(
         'user_type'     => USER_FOUNDER,
-        'user_active'   => 1,
         'username'      => 'Guillermo Azurdia',
         'user_password' => '4otatkan',
     )
@@ -287,8 +290,6 @@ foreach ($students as $i => $row) {
     $user_full = trim($row['firstname'] . ' ' . $row['lastname']);
     $user_base = simple_alias($user_full);
 
-    $user_password            = substr(md5(unique_id()), 0, 8);
-    $user_password_supervisor = substr(md5(unique_id()), 0, 8);
     $user_gender              = isset($gender_select[$row['genero']]) ? $gender_select[$row['genero']] : 1;
     $user_gender_supervisor   = isset($gender_select[$row['genero_supervisor']]) ? $gender_select[$row['genero_supervisor']] : 1;
     $user_grade               = $row['grade'] . ' ' . $row['section'];
@@ -299,7 +300,6 @@ foreach ($students as $i => $row) {
         'lastname'   => $row['lastname'],
         'fullname'   => $user_full,
         'base'       => $user_base,
-        'password'   => $user_password,
         'code'       => (int) $row['code'],
         'grade'      => $grade[$row['grade']],
         'section'    => $section[$user_grade],
@@ -308,7 +308,6 @@ foreach ($students as $i => $row) {
 
     $insert_member = array(
         'username'      => $compile->fullname,
-        'user_password' => $user_password,
         'user_gender'   => $compile->gender
     );
     $member_id = create_user_account($insert_member);
@@ -356,7 +355,6 @@ foreach ($students as $i => $row) {
     if (!empty($row['encargado'])) {
         $insert_supervisor = array(
             'username'      => $row['encargado'],
-            'user_password' => $user_password_supervisor,
             'user_gender'   => $user_gender_supervisor
         );
         $supervisor_id = create_user_account($insert_supervisor);
@@ -377,11 +375,8 @@ $general_area = 0;
 
 foreach ($pensum as $i => $row) {
     if (!isset($docente[$row['docente']])) {
-        $password_docente = substr(md5(unique_id()), 0, 8);
-
         $insert_docente = array(
-            'username'      => $row['docente'],
-            'user_password' => $password_docente
+            'username'      => $row['docente']
         );
         $docente_id = create_user_account($insert_docente);
 
@@ -426,5 +421,6 @@ foreach ($pensum as $i => $row) {
     $cursos[$row['materia']] = sql_create('cursos', $insert_course);
 }
 
-echo '<pre>';
-dd($all);
+foreach ($all as $row) {
+    echo build_table($row);
+}
