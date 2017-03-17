@@ -287,6 +287,9 @@ foreach ($students as $i => $row) {
         $row['encargado'] = '';
     }
 
+    $str_encargado = 'Encargado de ';
+    $row['encargado'] = $str_encargado . str_replace($str_encargado, '', $row['encargado']);
+
     $user_full = trim($row['firstname'] . ' ' . $row['lastname']);
     $user_base = simple_alias($user_full);
 
