@@ -2706,7 +2706,7 @@ if (!function_exists('dd')) {
 }
 
 function remove_zero_o($str) {
-    return str_replace(['0', 'o'], '', $str);
+    return str_replace(['0', 'o', 'e', 'f'], '', $str);
 }
 
 function generate_default_password($length = 8) {
