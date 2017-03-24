@@ -3,8 +3,10 @@
 if (!defined('IN_APP')) exit;
 
 class cache {
-    public $cache = array();
+    public $cache = [];
     public $use = true;
+
+    private $buffer = [];
     private $extension = '.json';
 
     public function __construct() {
@@ -38,6 +40,10 @@ class cache {
 
         $filename = $this->path($var);
 
+        if (isset($this->buffer[$var]) && !empty($this->buffer[$var])) {
+            return $this->buffer[$var];
+        }
+
         if (@file_exists($filename)) {
             ob_start();
             require_once($filename);
@@ -46,10 +52,11 @@ class cache {
             ob_end_clean();
 
             if (!empty($content)) {
-                return json_decode($content);
+                $this->buffer[$var] = json_decode($content);
+                return $this->buffer[$var];
             }
 
-            return true;
+            return;
         }
 
         $this->delete($var);
@@ -67,10 +74,10 @@ class cache {
         $filename = $this->path($var);
 
         if ($fp = @fopen($filename, 'w')) {
-            $file_buffer = json_encode($data);
+            $this->buffer[$var] = json_encode($data);
 
             @flock($fp, LOCK_EX);
-            @fwrite($fp, $file_buffer);
+            @fwrite($fp, $this->buffer[$var]);
             @flock($fp, LOCK_UN);
             @fclose($fp);
 
@@ -88,6 +95,7 @@ class cache {
         }
 
         foreach (w($list) as $var) {
+            unset($this->buffer[$var]);
             _rm($this->path($var));
         }
 

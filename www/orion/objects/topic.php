@@ -290,7 +290,7 @@ class topic {
                 FROM _forum_topics_fav
                 WHERE topic_id = ?
                     AND user_id = ?';
-            if (!sql_field(sql_filter($sql, $topic_id, $user->d('user_id')))) {
+            if (!sql_field(sql_filter($sql, $topic_id, $user->d('user_id')), 'notify_status', 0)) {
                 if (_button('watch')) {
                     $sql_insert = array(
                         'user_id' => $user->d('user_id'),

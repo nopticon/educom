@@ -702,7 +702,6 @@ class user extends session {
                         WHERE c.status = ?
                         ORDER BY m.user_id';
                     $response = sql_rowset(sql_filter($sql, 'Alta'), false, 'user_id');
-
                     $cache->save('team_teacher', $response);
                 }
                 break;

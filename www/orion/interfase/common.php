@@ -69,6 +69,7 @@ if (!defined('REQC')) {
 require_once(ROOT.'interfase/constants.php');
 require_once(VENDOR.'npi/cliws.php');
 require_once(ROOT.'interfase/functions.php');
+require_once(ROOT.'interfase/actions.php');
 require_once(ROOT.'interfase/database.php');
 require_once(ROOT.'interfase/fileupload.php');
 

@@ -4,14 +4,6 @@ require_once('../conexion.php');
 
 encabezado('Lista de Alumnos');
 
-$sql = 'SELECT a.id_alumno, a.carne, a.fecha, a.nombre_alumno, a.apellido, g.nombre, s.nombre_seccion
-    FROM alumno a, reinscripcion r, grado g, secciones s
-    WHERE a.id_alumno = r.id_alumno
-        AND r.id_grado = g.id_grado
-        AND r.id_seccion = s.id_seccion
-    ORDER BY a.id_alumno ASC' ;
-$rowset = $db->sql_rowset($sql);
-
 ?>
 
 <div id="list"></div>
@@ -19,7 +11,7 @@ $rowset = $db->sql_rowset($sql);
 <script type="text/javascript">
 var target, grid;
 
-<?php echo 'var kdata = ' . json_encode($rowset) . ';'; ?>
+<?php echo 'var kdata = ' . json_encode(all_students()) . ';'; ?>
 
 $(function() {
     target = $('#list');
@@ -54,4 +46,4 @@ function t_editar(a) {
 }
 </script>
 
-<?php pie(); ?>
+<?php pie();

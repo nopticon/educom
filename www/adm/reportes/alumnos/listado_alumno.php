@@ -4,15 +4,8 @@ require_once('../../conexion.php');
 
 encabezado('Listado de alumnos');
 
-$sql = "SELECT *
-    FROM grado
-    WHERE status = 'Alta'";
-$grados = $db->sql_rowset($sql);
-
-$sql = 'SELECT *
-    FROM secciones
-    WHERE id_grado = 1';
-$secciones = $db->sql_rowset($sql);
+$grados    = get_grades();
+$secciones = get_sections();
 
 $form = [[
     'grado' => [

@@ -9,12 +9,12 @@ $grado = request_var('grado', 0);
 $sql = 'SELECT *
     FROM cursos c, catedratico g
     WHERE c.id_grado = ?
-        AND g.id_catedratico = c.id_catedratico';
+        AND g.id_member = c.id_catedratico';
 $list = $db->sql_rowset(sql_filter($sql, $grado));
 
 ?>
 
-<table width="100%">
+<table class="table table-striped">
     <thead>
         <td>Nombre de curso</td>
         <td>Nombre de catedr&aacute;tico</td>

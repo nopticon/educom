@@ -17,16 +17,7 @@ if (!$alumno = $db->sql_fieldrow(sql_filter($sql, $carne, date('Y')))) {
 
 encabezado('Ingreso de Faltas Acad&eacute;micas');
 
-//
-// Get assigned courses for student
-//
-$sql = 'SELECT c.id_curso, c.nombre_curso
-    FROM cursos c
-    INNER JOIN reinscripcion r ON r.id_seccion = c.id_section
-    INNER JOIN catedratico a ON a.id_catedratico = c.id_catedratico
-    WHERE r.id_alumno = ?
-        AND a.id_member = ?';
-$courses = sql_rowset(sql_filter($sql, $alumno->id_alumno, $user->d('user_id')));
+$courses = get_assigned_courses($alumno->id_alumno);
 
 ?>
 

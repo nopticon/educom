@@ -15,30 +15,10 @@ $teacher         = $user->d('user_id');
 $calculated_date = date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $dateselect) . ' +6 hours'));
 // $schedule = 315;
 
-$sql = 'SELECT *
-    FROM grado g, secciones s
-    WHERE g.id_grado = ?
-        AND s.id_seccion = ?
-        AND g.id_grado = s.id_grado';
-$grado_seccion = $db->sql_fieldrow(sql_filter($sql, $grado, $seccion));
+$grado_seccion = get_grade_section($grado, $seccion);
+$list = get_students_grade_section($grado, $seccion, $anio);
 
-$sql = 'SELECT *
-    FROM alumno a, grado g, reinscripcion r
-    WHERE r.id_alumno = a.id_alumno
-        AND g.id_grado = r.id_grado
-        AND r.id_grado = ?
-        AND r.id_seccion = ?
-        AND r.anio = ?
-    ORDER BY a.apellido, a.nombre_alumno ASC';
-$list = $db->sql_rowset(sql_filter($sql, $grado, $seccion, $anio));
-
-$sql = 'SELECT u.id_curso, u.nombre_curso
-    FROM catedratico c
-    INNER JOIN cursos u ON u.id_catedratico = c.id_catedratico
-    WHERE c.id_member = ?
-        AND u.id_section = ?
-    ORDER BY u.nombre_curso';
-$assigned_courses = sql_rowset(sql_filter($sql, $teacher, $seccion));
+$assigned_courses = get_assigned_grade_courses($seccion, $teacher);
 
 // $sql = 'SELECT *
 //     FROM _student_attends
