@@ -11,7 +11,7 @@ $ary_date = explode('/', $dateselect);
 $anio     = $ary_date[2];
 
 $teacher         = $user->d('user_id');
-$calculated_date = date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $dateselect) . ' +6 hours'));
+$calculated_date = get_datetime($dateselect);
 
 $sql = 'SELECT a.id_alumno, a.id_member, a.nombre_alumno
     FROM alumno a, grado g, reinscripcion r

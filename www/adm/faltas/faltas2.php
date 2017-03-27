@@ -2,25 +2,13 @@
 
 require_once('../conexion.php');
 
-$carne = request_var('carne1', '');
+$carne = request_var('carne', '');
 
-$sql = 'SELECT a.id_alumno, a.carne, a.nombre_alumno, a.apellido, g.nombre AS nombre_grado, s.nombre_seccion
-    FROM alumno a
-    INNER JOIN reinscripcion r ON r.id_alumno = a.id_alumno
-    INNER JOIN grado g ON g.id_grado = r.id_grado
-    INNER JOIN secciones s ON s.id_seccion = r.id_seccion
-    WHERE r.carne = ?';
-if (!$alumno = sql_fieldrow(sql_filter($sql, $carne))) {
+if (!$alumno = get_student_info($carne)) {
     location('.');
 }
 
-$sql = 'SELECT *
-    FROM faltas f
-    INNER JOIN cursos c ON c.id_curso = f.course_id
-    INNER JOIN catedratico a ON a.id_member = f.teacher_id
-    WHERE f.id_alumno = ?
-    ORDER BY f.id_falta DESC';
-$list = sql_rowset(sql_filter($sql, $alumno->id_alumno));
+$list = get_student_faults($alumno->id_alumno);
 
 encabezado('Historial de Faltas ' . date('Y'));
 

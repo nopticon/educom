@@ -5,22 +5,15 @@ require_once('../conexion.php');
 if (request_var('submit', '')) {
     $carne = request_var('carne', '');
 
-    $sql = 'SELECT *
-        FROM alumno
-        WHERE carne = ?';
-    if (!$alumno = $db->sql_fieldrow(sql_filter($sql, $carne))) {
+    if (!$alumno = get_student_by_id($carne, 'carne, nombre_alumno, apellido, madre, padre', 'carne')) {
         location('.');
     }
 
-    $sql = 'SELECT *
-        FROM reinscripcion r, alumno a, grado g, secciones s
-        WHERE r.id_alumno = a.id_alumno
-            AND r.id_grado = g.id_grado
-            AND s.id_seccion = r.id_seccion
-            AND s.id_grado = r.id_grado
-            AND r.carne = ?
-        ORDER BY r.anio DESC';
-    $list = $db->sql_rowset(sql_filter($sql, $carne));
+    $list = get_student_info($carne, 'r.anio, g.nombre, s.nombre_seccion, r.encargado_reinscripcion, r.id_alumno, s.id_grado, s.id_seccion');
+
+    if (!is_array($list)) {
+        $list = [$list];
+    }
 
     foreach ($list as $i => $row) {
         if (!$i) {

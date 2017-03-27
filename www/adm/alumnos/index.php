@@ -9,17 +9,9 @@ switch ($action) {
     case 'created':
         _style('student_created');
 
-        $sql = 'SELECT a.id_alumno, a.carne, a.fecha, a.nombre_alumno, a.apellido, g.nombre, s.nombre_seccion
-            FROM alumno a, reinscripcion r, grado g, secciones s
-            WHERE a.id_alumno = r.id_alumno
-                AND r.id_grado = g.id_grado
-                AND r.id_seccion = s.id_seccion
-                AND r.anio = ?
-            ORDER BY a.id_alumno DESC
-            LIMIT 25';
-        $rowset = $db->sql_rowset(sql_filter($sql, $year));
+        $recent_students = get_recent_students();
 
-        foreach ($rowset as $i => $row) {
+        foreach ($recent_students as $i => $row) {
             if (!$i) {
                 _style('student_created.recent');
             }
@@ -28,16 +20,6 @@ switch ($action) {
         }
         break;
     default:
-        $sql = 'SELECT *
-            FROM grado
-            WHERE status = ?';
-        $grado = $db->sql_rowset(sql_filter($sql, 'Alta'));
-
-        $sql = 'SELECT *
-            FROM secciones
-            WHERE id_grado = 1';
-        $seccion = $db->sql_rowset($sql);
-
         //
         // Create fields
         //
@@ -149,6 +131,9 @@ switch ($action) {
             )
         );
 
+        $grado   = get_grades();
+        $seccion = get_sections();
+
         foreach ($grado as $row) {
             $form['Inscripci&oacute;n ' . $year]['grado']['value'][$row->id_grado] = $row->nombre;
         }
@@ -158,15 +143,13 @@ switch ($action) {
         }
 
         _style('create_student', [
-            'form' => build_form($form),
+            'form'   => build_form($form),
             'submit' => build_submit('Crear alumno')
         ]);
         break;
 }
 
 if (request_var('submit', '')) {
-    location('.?mode=created');
-
     $nombre           = request_var('nombre', '');
     $apellido         = request_var('apellido', '');
     $direccion        = request_var('direccion', '');
@@ -193,7 +176,6 @@ if (request_var('submit', '')) {
     $seccion          = request_var('seccion', 0);
 
     $status           = 'Inscrito';
-    $carne            = $year . $sexo;
 
     //
     // Process information
@@ -202,19 +184,14 @@ if (request_var('submit', '')) {
         location('.');
     }
 
-    $edad = sprintf("%02d", $edad);
-
     //
     // Build array to insert
     //
     $insert_alumno = array(
-        'carne'            => $carne,
         'codigo_alumno'    => $codigo,
         'nombre_alumno'    => $nombre,
         'apellido'         => $apellido,
         'direccion'        => $direccion,
-        'orden'            => '',
-        'registro'         => '',
         'telefono1'        => $telefono1,
         'edad'             => $edad,
         'sexo'             => $sexo,
@@ -229,82 +206,48 @@ if (request_var('submit', '')) {
         'dpi'              => $dpi,
         'extendida'        => $extendido,
         'emergencia'       => $emergencia,
-        'telefono2'        => $telefono2,
-        'status'           => $status
+        'telefono2'        => $telefono2
     );
-    $student_id = sql_create('alumno', $insert_alumno);
-
-    //
-    // Add student id to carne
-    //
-    $carne .= $student_id;
+    $student_info = create_student_info($insert_alumno);
 
     $insert_inscripcion = array(
-        'id_alumno'               => $student_id,
-        'carne'                   => $carne,
+        'id_alumno'               => $student_info['student_id'],
+        'carne'                   => $student_info['student_carne'],
         'id_grado'                => $grado,
         'id_seccion'              => $seccion,
         'encargado_reinscripcion' => $encargado,
-        'telefonos'               => $telefono2,
-        'status'                  => $status,
-        'anio'                    => $year
+        'telefonos'               => $telefono2
     );
-    $reinscription_id = sql_create('reinscripcion', $insert_inscripcion);
+    $reinscription_id = create_current_student($insert_inscripcion);
 
     //
     // Insert user into main system.
     //
-    $gender_select = array(
-        'M' => 1,
-        'F' => 2
-    );
-    $gender = isset($gender_select[$sexo]) ? $gender_select[$sexo] : 1;
-
-    $country = 90;
-    $birthdate = '';
-
-    $full_name = $nombre . ' ' . $apellido;
-    $username_base = simple_alias($full_name);
-
     $member_data = array(
-        'username'      => $full_name,
-        'user_email'    => $email,
-        'user_gender'   => $gender,
-        'user_birthday' => $birthdate
+        'username'    => $nombre . ' ' . $apellido,
+        'user_email'  => $email,
+        'user_gender' => choose_gender($sexo)
     );
     $user_id = create_user_account($member_data);
 
     $update_alumno = array(
-        'carne'     => $carne,
         'id_member' => $user_id
     );
-    $sql = 'UPDATE alumno SET' . $db->sql_build('UPDATE', $update_alumno) . sql_filter('
-        WHERE id_alumno = ?', $student_id);
-    $db->sql_query($sql);
+    update_student_info($student_id, $update_alumno);
 
     //
     // Create user login for supervisor
     //
-    if (trim($encargado)) {
-        $supervisor_base = simple_alias($encargado);
-
-        $sql = 'SELECT user_id
-            FROM _members
-            WHERE username_base = ?';
-        if (!$supervisor_id = sql_field(sql_filter($sql, $supervisor_base), 'user_id', 0)) {
+    if ($encargado) {
+        if (!$supervisor_id = get_user_id($encargado)) {
             $supervisor_data = array(
-                'username'      => $encargado,
-                'user_email'    => $encargado_email,
-                'user_birthday' => $birthdate
+                'username'   => $encargado,
+                'user_email' => $encargado_email
             );
             $supervisor_id = create_user_account($supervisor_data);
         }
 
-        $supervisor_student = array(
-            'supervisor' => $supervisor_id,
-            'student'    => $user_id
-        );
-        $rel_id = sql_create('alumnos_encargados', $supervisor_student);
+        $rel_id = create_student_supervisor($supervisor_id, $user_id);
     }
 
     location('.?action=created');

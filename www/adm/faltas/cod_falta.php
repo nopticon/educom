@@ -13,10 +13,7 @@ if (empty($fault_description)) {
     location('.');
 }
 
-$sql = 'SELECT *
-    FROM alumno
-    WHERE id_alumno = ?';
-if (!$student = sql_fieldrow(sql_filter($sql, $id_alumno))) {
+if (!$student = get_student_by_id($id_alumno, 'carne')) {
     location('.');
 }
 
@@ -26,11 +23,10 @@ $sql_insert = array(
     'teacher_id'  => $teacher_id,
     'tipo_falta'  => $tipo_falta,
     'falta'       => $fault_description,
-    'fecha_falta' => date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $fault_date) . ' +6 hours'))
+    'fecha_falta' => get_datetime($fault_date)
 );
-$sql = 'INSERT INTO faltas' . $db->sql_build('INSERT', $sql_insert);
-$db->sql_query($sql);
+sql_create('faltas', $sql_insert);
 
 $_SESSION['guardar'] = 1;
 
-location('faltas2.php?carne1=' . $student->carne . '&submit=Continuar');
+location('faltas2.php?carne=' . $student->carne . '&submit=Continuar');

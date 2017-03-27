@@ -37,7 +37,7 @@ if ($alumno) {
     $sql2 = 'SELECT id_alumno
         FROM alumno
         WHERE id_alumno = ?';
-    if ($db->sql_field(sql_filter($sql2, $alumno))) {
+    if ($db->sql_field(sql_filter($sql2, $alumno), 'id_alumno', 0)) {
         $sql .= sql_filter(' AND a.id_alumno = ?', $alumno);
     }
 }

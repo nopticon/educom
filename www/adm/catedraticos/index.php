@@ -38,8 +38,7 @@ if (request_var('submit', '')) {
         'observacion'        => $observacion,
         'status'             => $status
     );
-    $sql = 'INSERT INTO catedratico' . $db->sql_build('INSERT', $sql_insert);
-    $db->sql_query($sql);
+    sql_create('catedratico', $sql_insert);
 
     $cache->delete('team_teacher');
 
@@ -49,10 +48,7 @@ if (request_var('submit', '')) {
 $can_edit = $user->is('founder');
 $can_edit = true;
 
-$sql = 'SELECT *
-    FROM catedratico
-    ORDER BY nombre_catedratico, apellido';
-$catedraticos = $db->sql_rowset($sql);
+$catedraticos = get_all_teachers();
 
 foreach ($catedraticos as $i => $row) {
     if (!$i) {

@@ -4,10 +4,7 @@ require_once('../../conexion.php');
 
 $carne = request_var('carne', '');
 
-$sql = 'SELECT *
-    FROM alumno
-    WHERE carne = ?';
-if (!$alumno = $db->sql_fieldrow(sql_filter($sql, $carne))) {
+if (!$alumno = get_student_by_id($carne, false, 'carne')) {
     location('.');
 }
 

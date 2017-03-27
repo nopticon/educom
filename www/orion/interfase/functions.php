@@ -2775,6 +2775,10 @@ function create_date_field() {
     return date('Y-m-d');
 }
 
+function json_header() {
+    header('Content-Type: application/json');
+}
+
 function build_table($list) {
     $format_table = '<table style="border: 1px solid black;border-collapse: collapse;">%s</table><br /><br />';
     $format_tr    = '<tr>%s</tr>';
@@ -2820,9 +2824,13 @@ function build_form($fields) {
         }
 
         foreach ($ary as $field_name => $field_data) {
-            if (!isset($field_data['show'])) $field_data['show'] = $field_name;
+            if (!isset($field_data['show'])) {
+                $field_data['show'] = $field_name;
+            }
 
-            if (!isset($field_data['default'])) $field_data['default'] = '';
+            if (!isset($field_data['default'])) {
+                $field_data['default'] = '';
+            }
 
             switch ($field_data['type']) {
                 case 'radio':
@@ -2892,9 +2900,13 @@ function build($fields) {
         }
 
         foreach ($ary as $field_name => $field_data) {
-            if (!isset($field_data['show'])) $field_data['show'] = $field_name;
+            if (!isset($field_data['show'])) {
+                $field_data['show'] = $field_name;
+            }
 
-            if (!isset($field_data['default'])) $field_data['default'] = '';
+            if (!isset($field_data['default'])) {
+                $field_data['default'] = '';
+            }
 
             switch ($field_data['type']) {
                 case 'radio':
@@ -2995,8 +3007,8 @@ function pie() {
 function get_header($page_title = '', $ruta = '', $full = true) {
     global $config, $user;
 
-    $assets = page_assets();
-    $is_member = $user->is('member');
+    $assets          = page_assets();
+    $is_member       = $user->is('member');
     $real_page_title = $config->sitename . (($page_title) ? ': ' . $page_title : '');
 
 ?><!DOCTYPE HTML>
@@ -3106,7 +3118,6 @@ function encabezado($page_title = '', $ruta = '', $full = true) {
     </nav>
 
     <div id="content">
-
         <?php if ($user->is('member')) { ?>
         <div class="a_right">
         Hola, <strong><?php echo $user->d('username'); ?></strong>
@@ -3115,7 +3126,6 @@ function encabezado($page_title = '', $ruta = '', $full = true) {
         <?php } ?>
 
         <div class="h"><h3><?php echo $page_title; ?></h3></div>
-
 <?php
 
 }

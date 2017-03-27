@@ -14,20 +14,16 @@ if (request_var('submit', '')) {
         'nombre'      => $grado,
         'status'      => $status,
         'seccion'     => '',
-        'fecha_grado' => ''
+        'fecha_grado' => get_now()
     );
-    $sql = 'INSERT INTO grado' . $db->sql_build('INSERT', $sql_insert);
-    $db->sql_query($sql);
+    sql_create('grado', $sql_insert);
 
     location('.');
 }
 
 $can_edit = $user->is('founder');
 
-$sql = 'SELECT id_grado, nombre, status
-    FROM grado g
-    ORDER BY id_grado';
-$list = $db->sql_rowset($sql);
+$list = get_grades();
 
 foreach ($list as $i => $row) {
     if (!$i) {

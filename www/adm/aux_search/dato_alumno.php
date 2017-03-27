@@ -2,12 +2,9 @@
 
 require_once('../conexion.php');
 
-$id_alumno = request_var('id_alumno', 0);
+$student_id = request_var('id_alumno', 0);
 
-$sql = 'SELECT *
-    FROM alumno
-    WHERE id_alumno = ?';
-if (!$alumno = $db->sql_fieldrow(sql_filter($sql, $id_alumno))) {
+if (!$student_info = get_student_by_id($student_id)) {
     location('index.php');
 }
 
@@ -28,12 +25,10 @@ $list = array(
 ?>
 
 <table class="table table-striped">
-    <?php
-
-    foreach ($list as $list_name => $list_show) { ?>
+    <?php foreach ($list as $list_name => $list_show) { ?>
     <tr>
         <td><?php echo $list_show; ?></td>
-        <td><?php echo $alumno->$list_name; ?></td>
+        <td><?php echo $student_info->{$list_name}; ?></td>
     </tr>
     <?php } ?>
 </table>

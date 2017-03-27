@@ -18,35 +18,15 @@ if (request_var('submit', '')) {
         'id_grado'       => $grado,
         'id_catedratico' => $catedratico,
     );
-    $sql = 'INSERT INTO cursos' . $db->sql_build('INSERT', $sql_insert);
-    $db->sql_query($sql);
+    sql_create('cursos', $sql_insert);
 
     location('.');
 }
 
-$sql = 'SELECT *
-    FROM areas_cursos
-    ORDER BY rel_order';
-$areas_cursos = $db->sql_rowset($sql);
-
-$sql = 'SELECT *
-    FROM grado
-    WHERE status = ?
-    ORDER BY grade_order';
-$grado = $db->sql_rowset(sql_filter($sql, 'Alta'));
-
-$sql = 'SELECT *
-    FROM catedratico
-    ORDER BY nombre_catedratico, apellido';
-$catedratico = $db->sql_rowset($sql);
-
-$sql = 'SELECT *
-    FROM cursos c, grado g, catedratico x
-    WHERE c.id_grado = g.id_grado
-        AND x.id_catedratico = c.id_catedratico
-        AND g.status = ?
-    ORDER BY c.id_grado';
-$relacion = $db->sql_rowset(sql_filter($sql, 'Alta'));
+$areas_cursos = get_area_courses();
+$grado        = get_grades();
+$catedratico  = get_all_teachers();
+$relacion     = get_course_grades_teachers();
 
 $form = [[
     'areas_cursos' => [

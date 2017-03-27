@@ -7,13 +7,7 @@ encabezado('Faltas Acad&eacute;micas');
 //
 // Existing records
 //
-$sql = 'SELECT DISTINCT *
-    FROM alumno a, faltas f
-    WHERE a.id_alumno = f.id_alumno
-    GROUP BY a.carne
-    ORDER BY a.apellido, a.nombre_alumno DESC
-    LIMIT 50';
-$list = $db->sql_rowset($sql);
+$list = get_faults_list();
 
 $form1 = [
     'Ingresar faltas' => [
@@ -71,9 +65,9 @@ $form2 = [
     <tbody>
         <?php foreach ($list as $row) { ?>
         <tr>
-            <td><a href="ver_faltas.php?id_falta=<?php echo $row->id_falta; ?>"><?php echo $row->carne; ?></a></td>
-            <td><a href="ver_faltas.php?id_falta=<?php echo $row->id_falta; ?>"><?php echo $row->apellido; ?></a></td>
-            <td><a href="ver_faltas.php?id_falta=<?php echo $row->id_falta; ?>"><?php echo $row->nombre_alumno; ?></a></td>
+            <td><a href="faltas2.php?carne=<?php echo $row->carne; ?>"><?php echo $row->carne; ?></a></td>
+            <td><a href="faltas2.php?carne=<?php echo $row->carne; ?>"><?php echo $row->apellido; ?></a></td>
+            <td><a href="faltas2.php?carne=<?php echo $row->carne; ?>"><?php echo $row->nombre_alumno; ?></a></td>
         </tr>
         <?php } ?>
     </tbody>

@@ -13,9 +13,7 @@ if (request_var('submit2', '')) {
         $sql_update = array(
             'codigo_alumno' => $codigo
         );
-        $sql = 'UPDATE alumno SET' . $db->sql_build('UPDATE', $sql_update) . sql_filter('
-            WHERE id_alumno = ?', $alumno);
-        $db->sql_query($sql);
+        sql_update_table('alumno', $sql_update, 'id_alumno', $alumno);
     }
 
     location('.');
@@ -26,22 +24,8 @@ if (request_var('submit', '')) {
     $seccion = request_var('seccion', 0);
     $anio    = request_var('anio', 0);
 
-    $sql = 'SELECT *
-        FROM grado g, secciones s
-        WHERE g.id_grado = s.id_grado
-            AND g.id_grado = ?
-            AND s.id_seccion = ?';
-    $grados = $db->sql_fieldrow(sql_filter($sql, $grado, $seccion));
-
-    $sql = 'SELECT *
-        FROM alumno a, grado g, reinscripcion r
-        WHERE r.id_alumno = a.id_alumno
-            AND g.id_grado = r.id_grado
-            AND r.id_grado = ?
-            AND r.id_seccion = ?
-            AND r.anio = ?
-        ORDER BY a.apellido, a.nombre_alumno ASC';
-    $alumnos = $db->sql_rowset(sql_filter($sql, $grado, $seccion, $anio));
+    $grados  = get_grade_section($grado, $seccion);
+    $alumnos = get_students_grade_section($grado, $seccion, $anio);
 
     _style('grade', [
         'NAME'    => $grados->nombre,
@@ -56,16 +40,6 @@ if (request_var('submit', '')) {
         _style('results.row', $row);
     }
 } else {
-    $sql = 'SELECT *
-        FROM grado
-        WHERE status = ?';
-    $grado = $db->sql_rowset(sql_filter($sql, 'Alta'));
-
-    $sql = 'SELECT *
-        FROM secciones
-        WHERE id_grado = 1';
-    $seccion = $db->sql_rowset($sql);
-
     $form = [[
         'grado' => [
             'type'  => 'select',
@@ -83,6 +57,9 @@ if (request_var('submit', '')) {
             'value' => '*'
         ]
     ]];
+
+    $grado   = get_grades();
+    $seccion = get_sections();
 
     foreach ($grado as $row) {
         $form[0]['grado']['value'][$row->id_grado] = $row->nombre;

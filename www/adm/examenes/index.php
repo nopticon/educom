@@ -16,8 +16,7 @@ if (request_var('submit', '')) {
         'observacion' => $observacion,
         'status'      => $status
     );
-    $sql = 'INSERT INTO examenes' . $db->sql_build('INSERT', $sql_insert);
-    $db->sql_query($sql);
+    sql_create('examenes', $sql_insert);
 
     location('.');
 }

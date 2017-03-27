@@ -11,7 +11,7 @@ $sql = 'SELECT m.username, m.user_upw, g.nombre, s.nombre_seccion
         AND r.id_grado = g.id_grado
         AND r.id_seccion = s.id_seccion
     ORDER BY user_id';
-$rowset = $db->sql_rowset($sql);
+$rowset = sql_rowset($sql);
 
 echo build_table($rowset);
 
@@ -23,7 +23,7 @@ $sql = 'SELECT m.username, m.user_upw, g.nombre, s.nombre_seccion
         AND r.id_seccion = s.id_seccion
         AND ae.supervisor = m.user_id
         AND ae.student = m2.user_id';
-$rowset = $db->sql_rowset($sql);
+$rowset = sql_rowset($sql);
 
 echo build_table($rowset);
 
@@ -31,6 +31,6 @@ $sql = 'SELECT m.username, m.user_upw
     FROM _members m, catedratico c
     WHERE m.user_id = c.id_member
     ORDER BY m.user_id';
-$rowset = $db->sql_rowset($sql);
+$rowset = sql_rowset($sql);
 
 echo build_table($rowset);

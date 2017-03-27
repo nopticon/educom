@@ -10,26 +10,12 @@ $dateselect = request_var('dateselect', '');
 
 $ary_date = explode('/', $dateselect);
 $anio     = $ary_date[2];
+$teacher  = $user->d('user_id');
 
-$teacher         = $user->d('user_id');
-$calculated_date = date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $dateselect) . ' +6 hours'));
-// $schedule = 315;
-
-$grado_seccion = get_grade_section($grado, $seccion);
-$list = get_students_grade_section($grado, $seccion, $anio);
-
+$grado_seccion    = get_grade_section($grado, $seccion);
+$list             = get_students_grade_section($grado, $seccion, $anio);
 $assigned_courses = get_assigned_grade_courses($seccion, $teacher);
-
-// $sql = 'SELECT *
-//     FROM _student_attends
-//     WHERE attend_schedule = ?
-//         AND attend_teacher = ?
-//         AND attend_group = ?
-//         AND attend_date = ?';
-// $existing = sql_rowset(sql_filter($sql, $schedule, $teacher, $seccion, $calculated_date));
-
-// _pre(sql_filter($sql, $schedule, $teacher, $seccion, $calculated_date));
-// _pre($existing, true);
+// $existing         = get_daily_student_attends(315, $seccion, get_datetime($dateselect));
 
 ?>
 
@@ -40,53 +26,52 @@ $assigned_courses = get_assigned_grade_courses($seccion, $teacher);
     <input type="hidden" name="dateselect" value="<?php echo $dateselect; ?>" />
     <input type="hidden" name="section" value="<?php echo $seccion; ?>" />
 
-<br />
-<table class="table table-bordered">
-    <tr>
-        <td>Asignatura:</td>
-        <td>
-            <select name="schedule">
-                <?php
-
-                foreach ($assigned_courses as $row) {
-                    echo '<option value="' . $row->id_curso . '">' . $row->nombre_curso . '</option>';
-                }
-
-                ?>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>Catedr&aacute;tico:</td>
-        <td><?php echo $user->d('username'); ?></td>
-    </tr>
-</table>
-
-<table class="table table-striped">
-    <thead>
+    <br />
+    <table class="table table-bordered">
         <tr>
-            <td>#</td>
-            <td>Carn&eacute;</td>
-            <td>Apellido</td>
-            <td>Nombre</td>
-            <td>Marcar si asisti&oacute;</td>
+            <td>Asignatura:</td>
+            <td>
+                <select name="schedule">
+                    <?php
+
+                    foreach ($assigned_courses as $row) {
+                        echo '<option value="' . $row->id_curso . '">' . $row->nombre_curso . '</option>';
+                    }
+
+                    ?>
+                </select>
+            </td>
         </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($list as $i => $row) { ?>
         <tr>
-            <th scope="row"><?php echo ($i + 1); ?></th>
-            <td><?php echo $row->carne; ?></td>
-            <td><?php echo $row->apellido; ?></td>
-            <td><?php echo $row->nombre_alumno; ?></td>
-            <td><input type="checkbox" name="marked[<?php echo $row->carne; ?>]" value="1" /></td>
+            <td>Catedr&aacute;tico:</td>
+            <td><?php echo $user->d('username'); ?></td>
         </tr>
-        <?php } ?>
-    </tbody>
-</table>
+    </table>
 
-<?php submit('Guardar asistencia'); ?>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>#</td>
+                <td>Carn&eacute;</td>
+                <td>Apellido</td>
+                <td>Nombre</td>
+                <td>Marcar si asisti&oacute;</td>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($list as $i => $row) { ?>
+            <tr>
+                <th scope="row"><?php echo ($i + 1); ?></th>
+                <td><?php echo $row->carne; ?></td>
+                <td><?php echo $row->apellido; ?></td>
+                <td><?php echo $row->nombre_alumno; ?></td>
+                <td><input type="checkbox" name="marked[<?php echo $row->carne; ?>]" value="1" /></td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 
+    <?php submit('Guardar asistencia'); ?>
 </form>
 
 <script type="text/javascript">
@@ -96,4 +81,4 @@ $(function() {
 });
 </script>
 
-<?php pie(); ?>
+<?php pie();

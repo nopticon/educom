@@ -4,14 +4,7 @@ require_once('../conexion.php');
 
 $carne = request_var('carne', '');
 
-$sql = 'SELECT a.id_alumno, a.carne, a.nombre_alumno, a.apellido, g.nombre AS nombre_grado, s.nombre_seccion
-    FROM alumno a
-    INNER JOIN reinscripcion r ON r.id_alumno = a.id_alumno
-    INNER JOIN grado g ON g.id_grado = r.id_grado
-    INNER JOIN secciones s ON s.id_seccion = r.id_seccion
-    WHERE a.carne = ?
-        AND r.anio = ?';
-if (!$alumno = $db->sql_fieldrow(sql_filter($sql, $carne, date('Y')))) {
+if (!$alumno = get_student_info($carne)) {
     location('.');
 }
 

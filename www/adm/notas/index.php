@@ -18,8 +18,7 @@ if (request_var('submit2', '')) {
             'id_bimestre' => $examen,
             'nota'        => $score,
         );
-        $sql = 'INSERT INTO notas' . $db->sql_build('INSERT', $sql_insert);
-        $db->sql_query($sql);
+        sql_create('notas', $sql_insert);
     }
 
     location('.');

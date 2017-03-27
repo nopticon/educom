@@ -10,6 +10,12 @@ if (!function_exists('sql_filter')) {
     }
 }
 
+function sql_update_table($table, $update, $id, $value) {
+    $sql = 'UPDATE ' . $table . ' SET' . sql_build('UPDATE', $update) . sql_filter('
+        WHERE ?? = ?', $id, $value);
+    sql_query($sql);
+}
+
 function sql_create($table, $insert) {
     global $db;
 

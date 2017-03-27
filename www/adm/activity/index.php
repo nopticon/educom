@@ -13,31 +13,19 @@ switch ($user_role) {
             //
         }
 
+        //
+        // GET Method
+        //
         _style($user_role, [
             'title' => 'Tareas ' . $year
         ]);
 
-        //
-        // GET Method
-        //
-        $group = get_user_grade($year);
-
-        $sql = 'SELECT *, c.apellido as apellido_catedratico
-            FROM alumno a, reinscripcion r, _activities ac, _activities_assigned aa,
-                catedratico c, grado g, secciones s, areas_cursos acu, cursos cu
-            WHERE a.id_member = ?
-                AND aa.assigned_student = a.id_member
-                AND a.id_alumno = r.id_alumno
-                AND aa.assigned_activity = ac.activity_id
-                AND c.id_member = ac.activity_teacher
-                AND s.id_grado = g.id_grado
-                AND s.id_seccion = ac.activity_group
-                AND acu.id_area = cu.id_area
-                AND ac.activity_schedule = cu.id_curso';
-        $activity_list = sql_rowset(sql_filter($sql, $user->d('user_id')));
+        $activity_list = get_student_own_tasks();
 
         foreach ($activity_list as $i => $row) {
-            if (!$i) _style([$user_role, 'activities']);
+            if (!$i) {
+                _style([$user_role, 'activities']);
+            }
 
             foreach (w('start end') as $field) {
                 $row->{'activity_' . $field} = $user->format_date(strtotime($row->{'activity_' . $field}), 'l, ' . lang('date_format'));
@@ -66,23 +54,10 @@ switch ($user_role) {
             // Look up students assignees
             //
             if ($fields->activity_assignees) {
-                $sql = 'SELECT user_id, username
-                    FROM _members
-                    WHERE username IN (' . implode(', ', array_fill(0, count($fields->activity_assignees), '?')) . ')
-                    ORDER BY user_id';
-                $lookup_assignees = sql_rowset(sql_filter($sql, $fields->activity_assignees), 'user_id', 'username');
+                $lookup_assignees = get_students_for_tasks($fields->activity_assignees);
             } else {
-                $sql = 'SELECT m.user_id, m.username
-                    FROM _members m
-                    INNER JOIN alumno a ON m.user_id = a.id_member
-                    INNER JOIN reinscripcion r ON r.id_alumno = a.id_alumno
-                    WHERE r.id_seccion = ?
-                        AND r.anio = ?
-                    ORDER BY m.username';
-                $lookup_assignees = sql_rowset(sql_filter($sql, $fields->activity_group, date('Y')));
+                $lookup_assignees = get_students_for_tasks(false, $fields->activity_group);
             }
-
-            $now = date('Y-m-d H:i:s');
 
             //
             // Insert task
@@ -90,30 +65,15 @@ switch ($user_role) {
             $sql_insert = array(
                 'activity_name'        => $fields->activity_name,
                 'activity_description' => $fields->activity_description,
-                'activity_start'       => date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $fields->activity_start) . ' +6 hours')),
-                'activity_end'         => date('Y-m-d H:i:s', strtotime(str_replace('/', '-', $fields->activity_end) . ' +6 hours')),
-                'activity_show'        => 1,
-                'activity_teacher'     => $user->d('user_id'),
+                'activity_start'       => $fields->activity_start,
+                'activity_end'         => $fields->activity_end,
                 'activity_schedule'    => $fields->activity_schedule,
-                'activity_group'       => $fields->activity_group,
-                'activity_ip'          => $user->ip,
-                'created_at'           => $now,
-                'updated_at'           => $now,
+                'activity_group'       => $fields->activity_group
             );
-
-            $task_id = sql_insert('activities', $sql_insert);
+            $task_id = create_teacher_activity($sql_insert);
 
             foreach ($lookup_assignees as $row) {
-                $sql_insert = array(
-                    'assigned_activity'  => $task_id,
-                    'assigned_student'   => $row->user_id,
-                    'assigned_delivered' => 0,
-                    'assigned_total'     => 0,
-                    'assigned_comments'  => 1,
-                    'created_at'         => $now,
-                    'updated_at'         => $now
-                );
-                $assigned_id = sql_insert('activities_assigned', $sql_insert);
+                create_student_activity($task_id, $row->user_id);
             }
 
             $_SESSION['activity_message'] = 'La tarea fue creada correctamente.';
@@ -124,18 +84,11 @@ switch ($user_role) {
         //
         _style($user_role);
 
-        $sql = 'SELECT DISTINCT g.id_grado, g.nombre, s.id_seccion, s.nombre_seccion
-            FROM catedratico c
-            INNER JOIN cursos u ON u.id_catedratico = c.id_catedratico
-            INNER JOIN grado g ON g.id_grado = u.id_grado
-            INNER JOIN secciones s ON g.id_grado = s.id_grado
-            WHERE c.id_member = ?
-            ORDER BY g.id_grado';
-        $assigned_grades = sql_rowset(sql_filter($sql, $user->d('user_id')));
+        $assigned_grades = get_teacher_grade_section();
 
         $sql = 'SELECT u.id_curso, u.nombre_curso, g.id_grado, g.nombre, s.id_seccion, s.nombre_seccion
             FROM catedratico c
-            INNER JOIN cursos u ON u.id_catedratico = c.id_catedratico
+            INNER JOIN cursos u ON u.id_catedratico = c.id_member
             INNER JOIN grado g ON g.id_grado = u.id_grado
             INNER JOIN secciones s ON g.id_grado = s.id_grado
             WHERE c.id_member = ?
@@ -202,18 +155,11 @@ switch ($user_role) {
         //
         // List of tasks created by current teacher
         //
-        $sql = 'SELECT *
-            FROM _activities a
-            INNER JOIN _activities_assigned d ON d.assigned_activity = a.activity_id
-            INNER JOIN cursos u ON a.activity_schedule = u.id_curso
-            INNER JOIN secciones s ON a.activity_group = s.id_seccion
-            INNER JOIN grado g ON s.id_grado = g.id_grado
-            WHERE activity_teacher = ?
-            GROUP BY d.assigned_activity
-            ORDER BY a.created_at DESC';
-        if ($tasks = sql_rowset(sql_filter($sql, $user->d('user_id')))) {
+        if ($tasks = get_teacher_own_tasks()) {
             foreach ($tasks as $i => $row) {
-                if (!$i) _style('current_tasks');
+                if (!$i) {
+                    _style('current_tasks');
+                }
 
                 foreach (w('start end') as $field) {
                     $row->{'activity_' . $field} = $user->format_date(strtotime($row->{'activity_' . $field}), lang('date_format'));

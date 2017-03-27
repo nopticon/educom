@@ -14,8 +14,7 @@ if (request_var('submit', '')) {
         'nombre_area'      => $area,
         'observacion_area' => $observacion
     ];
-    $sql = 'INSERT INTO areas_cursos' . $db->sql_build('INSERT', $sql_insert);
-    $db->sql_query($sql);
+    sql_create('areas_cursos', $sql_insert);
 
     location('.');
 }
@@ -25,7 +24,7 @@ if (request_var('submit', '')) {
 //
 $sql = 'SELECT *
     FROM areas_cursos';
-$list = $db->sql_rowset($sql);
+$list = sql_rowset($sql);
 
 foreach ($list as $i => $row) {
     if (!$i) {

@@ -7,7 +7,7 @@ $sql = 'SELECT m.user_id, m.username, m.user_upw
     FROM _members m, catedratico c
     WHERE m.user_id = c.id_member
     ORDER BY m.user_id';
-$rowset = $db->sql_rowset($sql);
+$rowset = sql_rowset($sql);
 
 $teachers = array();
 
@@ -42,7 +42,7 @@ $sql = 'SELECT m.user_id, m.username, m.user_upw, c.id_catedratico
     FROM _members m, catedratico c
     WHERE m.user_id = c.id_member
     ORDER BY m.user_id';
-$rowset = $db->sql_rowset($sql);
+$rowset = sql_rowset($sql);
 
 $updated = array();
 foreach ($rowset as $row) {

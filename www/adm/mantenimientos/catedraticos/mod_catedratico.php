@@ -2,12 +2,9 @@
 
 require_once('../../conexion.php');
 
-$id_catedratico = request_var('id_catedratico', 0);
+$teacher_id = request_var('id_catedratico', 0);
 
-$sql = 'SELECT *
-    FROM catedratico
-    WHERE id_catedratico = ?';
-if (!$catedratico = $db->sql_fieldrow(sql_filter($sql, $id_catedratico))) {
+if (!$catedratico = get_teacher_by_id($teacher_id)) {
     location('../../catedraticos/');
 }
 
