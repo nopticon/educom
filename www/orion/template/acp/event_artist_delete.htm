@@ -1,0 +1,16 @@
+<!-- INCLUDE page.header.htm -->
+
+<form action="{MODULE_URL}" method="post">
+<!-- BEGIN events -->
+<select name="event">
+	<!-- BEGIN row -->
+	<option value="{row.ID}">{row.TITLE}</option>
+	<!-- END row -->
+</select>
+<!-- END events -->
+<br />
+<textarea name="artist" cols="50" rows="15"></textarea><br />
+<input type="submit" name="submit" value="Siguiente" />
+</form>
+
+<!-- INCLUDE page.footer.htm -->

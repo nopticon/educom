@@ -1,0 +1,25 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="h"><h3>{TOTAL_A} {L_ARTISTS}<!-- IF SELECTED_LETTER --> <span>&raquo;</span> {SELECTED_LETTER}<!-- ENDIF --></h3></div>
+
+<div class="h"><h3>
+<!-- BEGIN alphabet_item -->
+<!-- IF alphabet_item.S_ROW_COUNT --> &nbsp; <!-- ENDIF --><!-- IF SELECTED_LETTER == alphabet_item.CHAR --><strong>{alphabet_item.CHAR}</strong><!-- ELSE --><a href="{alphabet_item.URL}">{alphabet_item.CHAR}</a><!-- ENDIF -->
+<!-- END alphabet_item -->
+</h3></div>
+
+<!-- BEGIN genres -->
+<ul>
+	<!-- BEGIN row -->
+	<li>{row.GENRE}</li>
+	<!-- END row -->
+</ul>
+<!-- END genres -->
+
+<!-- BEGIN search_match -->
+<div id="ajx-thumbnails" class="ln l4 lf">
+	<!-- INCLUDE artists.thumbs.htm -->
+</div>
+<!-- END search_match -->
+
+<!-- INCLUDE page.footer.htm -->

@@ -1,0 +1,42 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN expired -->
+<div>
+<div class="pad12 a_mid"><a href="http://www.rockrepublik.net/topic/3452/"><img src="http://www.rockrepublik.net/data/events/banners/487.jpg" alt="" /></a></div>
+</div>
+<!-- END expired -->
+
+<!-- BEGIN poll -->
+<!-- IF poll.S_ROW_COUNT == 4 --><div><!-- ENDIF -->
+<div class="m5 a-width-25">
+<!-- BEGIN options -->
+<form method="post" action="{options.S_VOTE_ACTION}">
+<!-- END options -->
+<div class="box color">
+<div class="head">{poll.POLL_TITLE}</div>
+<div class="pad12 a_mid">
+<div class="ie-widthfix">
+<!-- BEGIN results -->
+<div>
+Gracias por tu voto en esta categor&iacute;a.
+</div>
+<!-- END results -->
+<!-- BEGIN options -->
+<div class="a_mid">
+<!-- BEGIN item --><div class="pad3" align="left"><input class="none" type="radio" id="vo_{item.POLL_OPTION_ID}" name="vote_id" value="{item.POLL_OPTION_ID}" />&nbsp;<label for="vo_{item.POLL_OPTION_ID}"><a href="{item.POLL_OPTION_LINK}" target="_blank">{item.POLL_OPTION_CAPTION}</a></label></div><!-- END item -->
+</div>
+<!-- END options -->
+</div>
+<!-- BEGIN options -->
+<div class="sep2-top"><input type="submit" name="vote" value="{L_VOTE}" class="w100p bold" /></div>
+<!-- END options -->
+</div>
+<!-- BEGIN options -->
+</form>
+<!-- END options -->
+</div>
+</div>
+<!-- IF poll.S_ROW_COUNT + 1 == poll.S_NUM_ROWS --></div><!-- ENDIF -->
+<!-- END poll -->
+
+<!-- INCLUDE page.footer.htm -->

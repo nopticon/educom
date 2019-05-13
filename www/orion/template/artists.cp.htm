@@ -1,0 +1,167 @@
+<!-- BEGIN ubcp_items -->
+<div class="h"><h3>{L_UBCP_PANEL}</h3></div>
+
+<!-- BEGIN show_auth -->
+<div>{show_auth.MEMBER_DESC}</div>
+<!-- END show_auth -->
+
+<div class="ls">
+<ul>
+	<!-- BEGIN item -->
+	<li>{item.TITLE}</li>
+	<!-- END item -->
+</ul>
+</div>
+<!-- END ubcp_items -->
+
+<!-- BEGIN ubcp_confirm -->
+<div class="h"><h3>{ubcp_confirm.TITLE}</h3></div>
+
+<form action="{S_ACTION}" method="post">
+	{ubcp_confirm.S_HIDDEN}
+	
+	<div>{ubcp_confirm.MESSAGE}</div>
+	
+	<input type="submit" name="confirm" value="{L_YES}" /> <input type="submit" name="cancel" value="{L_NO}" />
+</form>
+<!-- END ubcp_confirm -->
+
+<!-- BEGIN ubcp_message -->
+<div class="h"><h3>{ubcp_message.TITLE}</h3></div>
+
+<div>{ubcp_message.MESSAGE}</div>
+<!-- END ubcp_message -->
+
+<!-- BEGIN preview -->
+<div class="h"><h3>{L_PREVIEW}</h3></div>
+
+{preview.MESSAGE}
+<!-- END preview -->
+
+<!-- BEGIN ubcp_edit -->
+<div class="h"><h3>{ubcp_edit.TITLE}</h3></div>
+
+<form action="{S_ACTION}" method="post" name="post">
+	{ubcp_edit.S_HIDDEN}
+	
+	<strong>{L_EMOTICONS}</strong>
+	<!-- BEGIN smilies_row -->
+	<!-- BEGIN smilies_col -->
+	<img src="{smilies_col.SMILEY_IMG}" alt="{smilies_col.SMILEY_DESC}" title="{smilies_col.SMILEY_DESC}" /></a>
+	<!-- END smilies_col -->
+	<!-- END smilies_row -->
+	
+	<textarea name="message" rows="3">{ubcp_edit.MESSAGE}</textarea>
+	<input type="submit" name="preview" value=" {L_PREVIEW} " /> <input type="submit" class="bold" name="post" value=" {L_SUBMIT} " />
+</form>
+<!-- END ubcp_edit -->
+
+<!-- BEGIN ubcp_cfg -->
+<div class="h"><h3>{L_UBCP_CFG}</h3></div>
+
+<form action="{S_ACTION}" method="post" name="post">
+	{ubcp_cfg.S_HIDDEN}
+	
+	<!-- BEGIN genre -->
+	{genre.LANG} <input type="{genre.TYPE}" name="{genre.NAME}" maxlength="255" value="{genre.VALUE}" />
+	<!-- END genre -->
+	
+	<!-- BEGIN email -->
+	{email.LANG} <input type="{email.TYPE}" name="{email.NAME}" maxlength="255" value="{email.VALUE}" />
+	<!-- END email -->
+	
+	<!-- BEGIN adl_images -->
+	{adl_images.LANG}
+	<input type="{adl_images.TYPE}" class="none" id="{adl_images.NAME}_1" name="{adl_images.NAME}" {adl_images.CHECKED_YES} value="1" />
+	<label for="{adl_images.NAME}_1">{L_YES}</label>
+	<input type="{adl_images.TYPE}" class="none" id="{adl_images.NAME}_0" name="{adl_images.NAME}" {adl_images.CHECKED_NO} value="0" />
+	<label for="{adl_images.NAME}_0">{L_NO}</label>
+	<!-- END adl_images -->
+	
+	<!-- BEGIN www_awc -->
+	{www_awc.LANG}
+	<input type="{www_awc.TYPE}" class="none" id="{www_awc.NAME}_1" name="{www_awc.NAME}" {www_awc.CHECKED_YES} value="1" />
+	<label for="{www_awc.NAME}_1">{L_YES}</label>
+	<input type="{www_awc.TYPE}" class="none" id="{www_awc.NAME}_0" name="{www_awc.NAME}" {www_awc.CHECKED_NO} value="0" />
+	<label for="{www_awc.NAME}_0">{L_NO}</label>
+	<!-- END www_awc -->
+	
+	<input type="submit" name="confirm" value=" {L_SUBMIT} " /> <input type="submit" name="cancel" value=" {L_CANCEL} " />
+</form>
+<!-- END ubcp_cfg -->
+	
+<!-- BEGIN ubcp_ubn_pe -->
+<div class="h"><h3>{ubcp_ubn_pe.TITLE}</h3></div>
+
+<form action="{S_ACTION}" method="post" name="post">
+	{ubcp_ubn_pe.S_HIDDEN}
+	
+	<strong>{L_EMOTICONS}</strong>
+	<!-- BEGIN smilies_row -->
+	<!-- BEGIN smilies_col -->
+	<img src="{smilies_col.SMILEY_IMG}" alt="{smilies_col.SMILEY_DESC}" title="{smilies_col.SMILEY_DESC}" />
+	<!-- END smilies_col -->
+	<!-- END smilies_row -->
+	
+	<textarea name="message" rows="3">{ubcp_ubn_pe.MESSAGE}</textarea>
+	
+	<input type="submit" name="preview" value="{L_PREVIEW}" /> <input type="submit" name="post" value="{L_SUBMIT}" />
+</form>
+<!-- END ubcp_ubn_pe -->
+
+<!-- BEGIN ubcp_ubb_edit -->
+<div class="h"><h3>{ubcp_ubb_edit.TITLE}</h3></div>
+
+<form action="{S_ACTION}" method="post" name="post">
+	{ubcp_ubb_edit.S_HIDDEN}
+	
+	<strong>{L_EMOTICONS}</strong>
+	<!-- BEGIN smilies_row -->
+	<!-- BEGIN smilies_col -->
+	<img src="{smilies_col.SMILEY_IMG}" alt="{smilies_col.SMILEY_DESC}" title="{smilies_col.SMILEY_DESC}" />
+	<!-- END smilies_col -->
+	<!-- END smilies_row -->
+	
+	<textarea name="message" rows="3">{ubcp_ubb_edit.MESSAGE}</textarea>
+	
+	<input type="submit" name="preview" value="{L_PREVIEW}" /> <input type="submit" name="post" value="{L_SUBMIT}" />
+</form>
+<!-- END ubcp_ubb_edit -->
+
+<!-- BEGIN ubcp_www -->
+<div class="h"><h3>{L_UBCP_WWW_EDIT}</h3</div>
+	
+	<form action="{S_ACTION}" method="post" name="post">
+		{ubcp_www.S_HIDDEN}
+		
+		http:// <input type="text" name="www" value="{ubcp_www.WWW}">
+		
+		<input type="submit" name="check" value="{L_UBCP_WWW_CHECK}" /> <input type="submit" name="confirm" value="{L_SUBMIT}" />
+	</form>
+<!-- END ubcp_www -->
+
+<!-- BEGIN ubcp_ubl_post -->
+<div class="h"><h3>{ubcp_ubl_post.TITLE}</h3></div>
+
+<form action="{S_ACTION}" method="post" name="post">
+	{ubcp_ubl_post.S_HIDDEN}
+	
+	{L_UBCP_UBL_TITLE}: <input type="text" name="title" value="{ubcp_ubl_post.UBL_TITLE}">
+	{L_UBCP_UBL_AUTHOR}: <input type="text" name="author" value="{ubcp_ubl_post.UBL_AUTHOR}">
+	
+	<textarea name="message" rows="30">{ubcp_ubl_post.MESSAGE}</textarea>
+	
+	<input type="submit" name="preview" class="btn100" value="{L_PREVIEW}" /> <input type="submit" name="post" class="btn100b" value="{L_SUBMIT}" />
+</form>
+<!-- END ubcp_ubl_post -->
+
+<!-- BEGIN ubcp_ubl_items -->
+<div class="h"><h3>{L_UBCP_UBL}</h3></div>
+
+<a href="{ubcp_ubl_items.U_POST}"><img src="{ubcp_ubl_items.POST_IMAGE}" border="0"></a>
+
+<!-- BEGIN item -->
+<div class="h"><h3>{item.TITLE}</h3></div>
+<a href="{item.U_DELETE}"><img src="{TEMPLATE}images/mmg/logout.gif"></a>
+<!-- END item -->
+<!-- END ubcp_ubl_items -->

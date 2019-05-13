@@ -1,0 +1,23 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="ls_none ctl">
+	<form action="{S_CONFIRM_ACTION}" method="post">
+		{S_HIDDEN_FIELDS}
+		
+		<div class="h"><h3>{L_CONFIRM}</h3></div>
+		<ul>
+			<li>{MESSAGE_TEXT}</li>
+			<!-- IF isset(DELETE_FOREVER) && DELETE_FOREVER -->
+			<li class="pad_top a_mid"><input type="checkbox" name="delete_forever" value="1" /> {L_CONTROL_A_APOSTS_DELETE_FOREVER}</li>
+			<!-- ENDIF -->
+		</ul>
+		
+		<span class="clear"></span>
+		
+		<div class="pad_top">
+			<input type="submit" name="confirm" value="{L_YES}" /> <input type="submit" name="cancel" value="{L_NO}" />
+		</div>
+	</form>
+</div>
+
+<!-- INCLUDE page.footer.htm -->

@@ -1,0 +1,36 @@
+<!-- INCLUDE page.header.htm -->
+<!-- INCLUDE acp/artist_header.htm -->
+
+<div class="h"><h3>{L_ACP_ARTIST_VIDEO}</h3></div>
+
+<form action="{_SELF}" method="post" enctype="multipart/form-data" name="post">
+	<div class="">
+		<div class="">{L_ACP_ARTIST_VIDEO_ADD_L}</div>
+		<div class="pad_top">T&iacute;tulo del video: <input type="text" name="vname" size="50" /></div>
+		<div class="pad_top"><strong>URL o c&oacute;digo:</strong> &nbsp;&nbsp;&nbsp; <input type="text" name="code" size="50" /></div>
+		<div class="pad_top"><input class="submit" type="submit" name="submit" value="{L_SUBMIT}" /></div>
+		
+		<!-- BEGIN video -->
+		<div class="pad_top ln a_mid">
+			<ul>
+				<!-- BEGIN row -->
+				<li>
+					<br /><input type="checkbox" name="group[]" value="{row.ID}" /> {row.NAME}<br /><br />
+					
+					<object width="425" height="355">
+						<param name="movie" value="http://www.youtube.com/v/{row.CODE}&hl=en"></param>
+						<param name="wmode" value="transparent"></param>
+						<embed src="http://www.youtube.com/v/{row.CODE}&hl=es" type="application/x-shockwave-flash" wmode="transparent" width="425" height="355"></embed>
+					</object>
+				</li>
+				<!-- END row -->
+			</ul>
+		</div>
+		
+		<span class="clear"></span>
+		<div class="x2"><input type="submit" class="remove" name="remove" value="{L_DELETE_MARKED}" /></div>
+		<!-- END video -->
+	</div>
+</form>
+
+<!-- INCLUDE page.footer.htm -->

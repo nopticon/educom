@@ -1,0 +1,102 @@
+<div class="page">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+
+				<a class="navbar-brand" href="{U_HOME}">{L_APPLICATION}</a>
+			</div>
+
+			<!-- IF S_MEMBER -->
+			<!-- BEGIN main_menu -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<!-- BEGIN row -->
+					<!-- IF row.TITLE != 'Administrador' && row.TITLE != 'Cerrar Sesi&oacute;n' -->
+					<li><a href="{row.HREF}" title="{row.TITLE}">{row.TITLE}</a></li>
+					<!-- ENDIF -->
+					<!-- END row -->
+
+					<!-- BEGIN adm_list -->
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Acciones <span class="caret"></span></a>
+
+						<ul class="dropdown-menu" role="menu">
+							<!-- BEGIN row -->
+							<li><a href="{row.HREF}" title="{row.TITLE}">{row.TITLE}</a></li>
+							<!-- END row -->
+						</ul>
+					</li>
+					<!-- END adm_list -->
+
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mi Perfil <span class="caret"></span></a>
+
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="{U_PROFILE}">{L_MEMBER_PROFILE}</a></li>
+							<li><a href="{U_FRIENDS}">{L_MY_FRIENDS}</a></li>
+							<li><a href="{U_EDITPROFILE}">{L_MEMBER_OPTIONS}</a></li>
+							<li><a href="{U_COMMUNITY}">{L_COMMUNITY}</a></li>
+						</ul>
+					</li>
+
+					<!-- BEGIN row -->
+					<!-- IF row.TITLE == 'Cerrar Sesi&oacute;n' -->
+					<li>
+						<form class="navbar-form navbar-right" action="{row.HREF}">
+							<button type="submit" class="btn btn-warning">{row.TITLE}</button>
+						</form>
+					</li>
+					<!-- ENDIF -->
+					<!-- END row -->
+				</ul>
+			</div>
+			<!-- END main_menu -->
+			<!-- ELSE -->
+			<!-- BEGIN main_menu -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<!-- BEGIN hide -->
+					<!-- BEGIN row -->
+					<!-- IF row.TITLE == 'Noticias' -->
+					<li><a href="{row.HREF}" title="{row.TITLE}">{row.TITLE}</a></li>
+					<!-- ENDIF -->
+					<!-- END row -->
+					<!-- END hide -->
+					<li>
+						<form class="navbar-form navbar-right" action="{U_SESSION}">
+							<button type="submit" class="btn btn">{L_EDUCATION_PLATFORM}</button>
+						</form>
+					</li>
+				</ul>
+			</div>
+			<!-- END main_menu -->
+			<!-- ENDIF -->
+		</div>
+	</nav>
+
+	<div class="pad_top ls">
+		<!-- BEGIN error -->
+		<ul>
+			<li>{L_LOGIN_ERROR}</li>
+		</ul>
+		<!-- END error -->
+	</div>
+
+	<!-- IF CUSTOM_MESSAGE -->
+	<div class="pad_top a_mid">{CUSTOM_MESSAGE}</div>
+	<!-- ENDIF -->
+
+	<div id="content">
+
+		<!-- IF S_MEMBER -->
+		<div class="a_right">
+		Hola, <strong>{S_USERNAME}</strong>
+		</div>
+		<br />
+		<!-- ENDIF -->

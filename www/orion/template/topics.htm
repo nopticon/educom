@@ -1,0 +1,68 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="h"><h3><a href="{U_VIEW_FORUM}">{FORUM_NAME}</a></h3></div>
+
+<!-- BEGIN topic_create -->
+<div class="ctl"><a href="#create">{topic_create.L_POST_NEWTOPIC}</a></div>
+<!-- END topic_create -->
+<span class="clear"></span>
+
+<!-- IF PAGES_NUMS != '' -->
+<div class="a_mid">{PAGES_NUMS}</div>
+<span class="clear"></span>
+<!-- ENDIF -->
+
+<!-- BEGIN topics -->
+<!-- BEGIN alias -->
+<!-- IF alias.SHOW -->
+<div class="x2">
+	<div class="h"><h3>{alias.NAME}</h3></div>
+</div>
+<!-- ENDIF -->
+
+<div class="pad_top ls">
+<ul>
+	<!-- BEGIN row -->
+	<li>
+		<a href="{row.U_TOPIC}">{row.TOPIC_TITLE}</a>
+		<div class="_">{row.TOPIC_AUTHOR} @ {row.LAST_POST_TIME}</div>
+	</li>
+	<!-- END row -->
+</ul>
+</div>
+<!-- END alias -->
+<!-- END topics -->
+
+<!-- IF PAGES_NUMS != '' -->
+<div class="a_mid">{PAGES_NUMS}</div>
+<!-- ENDIF -->
+
+<!-- BEGIN publish -->
+<span class="clear"></span>
+
+<div class="pad_top">
+	<div class="h"><h3>{L_POST_NEWTOPIC}</h3></div>
+
+	<form class="form-horizontal" action="{publish.S_POST_ACTION}" method="post">
+		<div class="form-group">
+			<label for="inputTitle" class="col-lg-2 control-label">{L_TOPIC_TITLE}</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" name="topic_title" id="inputTitle" placeholder="{L_TOPIC_TITLE}" value="{publish.TOPIC_TITLE}" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="inputMessage" class="col-lg-2 control-label">Mensaje</label>
+			<div class="col-lg-10">
+				<textarea class="form-control" name="message" id="inputMessage" autocomplete="off">{publish.MESSAGE}</textarea>
+			</div>
+		</div>
+
+		<div align="center">
+			<input type="submit" class="btn btn-danger" name="post" value="{L_SUBMIT}" />
+		</div>
+	</form>
+</div>
+<!-- END publish -->
+
+<!-- INCLUDE page.footer.htm -->

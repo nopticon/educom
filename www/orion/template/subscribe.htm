@@ -1,0 +1,68 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="g1"><h1>{L_NEW_ACCOUNT_SUBJECT}</h1></div>
+
+<!-- BEGIN error -->
+<div class="error_block"><h2>{L_ERROR}</h2><p>{error.MESSAGE}</p></div>
+<!-- END error -->
+
+<div class="pad_top">
+<form action="{S_ACTION}" method="post">
+<div class="a_fix">
+	<div class="ie-widthfix float-holder">
+		<div class="col40 float_left a_right"><label for="username">{L_USERNAME2}&nbsp;&nbsp;</label></div>
+		<div class="col60 float_right a_left"><input<!-- IF E_USERNAME --> class="error"<!-- ENDIF --> type="text" id="username" name="username" autocomplete="off" size="40" maxlength="20" value="{V_USERNAME}" /></div>
+	</div>
+	<div class="pad_top">
+		<div class="col40 float_left a_right"><label for="email">{L_EMAIL}&nbsp;&nbsp;</label></div>
+		<div class="col60 float_right a_left"><input<!-- IF E_EMAIL --> class="error"<!-- ENDIF --> type="text" id="email" name="email" autocomplete="off" size="40" maxlength="255" value="{V_EMAIL}" /></div>
+	</div>
+	<div class="pad_top">
+		<div class="col40 float_left a_right"><label for="key">{L_PASSWORD}&nbsp;&nbsp;</label></div>
+		<div class="col60 float_right a_left"><input<!-- IF E_KEY --> class="error"<!-- ENDIF --> type="password" id="key" name="key" autocomplete="off" size="40" maxlength="32" value="{V_KEY}" /></div>
+	</div>
+	<div class="pad_top">
+		<div class="col40 float_left a_right"><label for="key_confirm">{L_CONFIRM_PASSWORD}&nbsp;&nbsp;</label></div>
+		<div class="col60 float_right a_left"><input<!-- IF E_KEY_CONFIRM --> class="error"<!-- ENDIF --> type="password" id="key_confirm" name="key_confirm" autocomplete="off" size="40" maxlength="32" value="{V_KEY_CONFIRM}" /></div>
+	</div>
+	<div class="pad_top">
+		<div class="col40 float_left a_right"><label for="gender">{L_GENDER}&nbsp;&nbsp;</label></div>
+		<div class="col60 float_right a_left"><select<!-- IF E_GENDER --> class="error"<!-- ENDIF --> id="gender" name="gender">{V_GENDER}</select></div>
+	</div>
+	<div class="pad_top">
+		<div class="col40 float_left a_right"><label>{L_BIRTHDAY} (D&iacute;a, Mes, A&ntilde;o)&nbsp;&nbsp;</label></div>
+		<div class="col60 float_right a_left"><select<!-- IF E_BIRTHDAY --> class="error"<!-- ENDIF --> name="birthday_day">{V_BIRTHDAY_DAY}</select> <select<!-- IF E_BIRTHDAY --> class="error"<!-- ENDIF --> name="birthday_month">{V_BIRTHDAY_MONTH}</select> <select<!-- IF E_BIRTHDAY --> class="error"<!-- ENDIF --> name="birthday_year">{V_BIRTHDAY_YEAR}</select></div>
+	</div>
+	<div class="pad_top">
+		<div class="col40 float_left a_right"><label for="country">{L_COUNTRY}&nbsp;&nbsp;</label></div>
+		<div class="col60 float_right a_left">
+			<select name="country">
+			<!-- BEGIN country -->
+			<option value="{country.OPTION_ID}"<!-- IF country.OPTION_S --> selected="selected"<!-- ENDIF -->>{country.OPTION_NAME}</option>
+			<!-- END country -->
+			</select>
+		</div>
+	</div>
+	<div class="pad_top">
+		<div class="col40 float_left a_right"><label for="refop">{L_AP_PROGRAM_FIELD}&nbsp;&nbsp;</label></div>
+		<div class="col60 float_right a_left">
+			<select name="refop" id="refop">
+			<!-- BEGIN refop -->
+			<option value="{refop.OPTION_ID}"<!-- IF refop.OPTION_S --> selected="selected"<!-- ENDIF -->>{refop.OPTION_NAME}</option>
+			<!-- END refop -->
+			</select>
+		</div>
+	</div>
+	<div class="pad_top">
+		<div class="col40 float_left a_right"><label for="refby"><span id="tag_refby">E-mail de tu amigo</span>&nbsp;&nbsp;</label></div>
+		<div class="col60 float_right a_left"><input type="text" id="refby" name="refby" size="40" maxlength="255" value="{V_REFBY}" /></div>
+	</div>
+	<div class="pad_top">
+		<div class="a_center"><label for="agreetos"><input class="none" type="checkbox" id="tos" name="tos" value="1"{V_TOS}>&nbsp;<span<!-- IF E_TOS --> class="error"<!-- ENDIF -->>{L_AGREE_TOS}</span></label></div>
+	</div>
+</div>
+<div class="pad_top a_mid">{S_HIDDEN_FIELDS}<input class="submit" type="submit" name="submit" value="{L_CONTINUE}" /></div>
+</form>
+</div>
+
+<!-- INCLUDE page.footer.htm -->

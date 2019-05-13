@@ -1,0 +1,111 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN hide -->
+<form action="{U_EDITPROFILE}" method="post" class="form-horizontal">
+<!-- END hide -->
+<form action="{U_EDITPROFILE}" method="post" enctype="multipart/form-data" class="form-horizontal">
+{S_HIDDEN_FIELDS}
+
+	<div class="h"><h3>&iexcl;{L_HI} {S_USERNAME}!</h3></div>
+
+	<div class="pad_top">{L_PROFILE_UPDATE}</div>
+
+	<!-- BEGIN error -->
+	{error.MESSAGE}
+	<!-- END error -->
+	
+	<div class="set_avatar">
+		<div class="h"><h4>{L_AVATAR}</h4></div>
+		<!-- BEGIN current_avatar -->
+		<div class="is_left_i a_mid">
+			<img src="{current_avatar.IMAGE}" alt="" />
+		</div>
+		<!-- END current_avatar -->
+		<div class="is_right_i">
+			<div class="pad_top"><label for="avatar">{L_AVATAR_EXPLAIN}</label></div>
+			<div class="pad_top">
+				<input type="hidden" name="MAX_FILE_SIZE" value="{AVATAR_MAXSIZE}" />
+				<input type="file" name="avatar" id="avatar" size="20" />
+			</div>
+		</div>
+	</div>
+	<span class="clear"></span>
+	
+	<div class="set_info pad_top">
+		<div class="h"><h4>{L_MEMBER_INFO}</h4></div>
+
+		<!-- BEGIN gender -->
+		<div class="form-group">
+			<label for="gender" class="col-lg-2 control-label">{L_GENDER}</label>
+			<div class="col-lg-10">
+				<select id="gender" name="gender">{gender.GENDER_SELECT}</select>
+			</div>
+		</div>
+		<!-- END gender -->
+		
+		<!-- BEGIN birthday -->
+		<div class="form-group">
+			<label class="col-lg-2 control-label">{L_BIRTHDAY}</label>
+			<div class="col-lg-10">
+				<select name="birthday_day" class="width-sm-select">{birthday.DAY}</select>
+				<select name="birthday_month" class="width-md-select">{birthday.MONTH}</select>
+				<select name="birthday_year" class="width-md-select">{birthday.YEAR}</select>
+			</div>
+		</div>
+		<!-- END birthday -->
+
+		<div class="form-group">
+			<label for="location" class="col-lg-2 control-label">{L_LOCATION}</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" name="location" id="location" placeholder="" value="{LOCATION}" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="occ" class="col-lg-2 control-label">{L_OCCUPATION}</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" name="occ" id="occ" placeholder="" value="{OCC}" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="interests" class="col-lg-2 control-label">{L_INTERESTS}</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" name="interests" id="interests" placeholder="" value="{INTERESTS}" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="email" class="col-lg-2 control-label">{L_EMAIL}</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" name="email" id="email" placeholder="" value="{EMAIL}" />
+			</div>
+		</div>
+
+		<!-- BEGIN hide -->
+		<div class="form-group">
+			<label for="website" class="col-lg-2 control-label">{L_WEBSITE}</label>
+			<div class="col-lg-10">
+				<input type="text" class="form-control" name="website" id="website" placeholder="" value="{WEBSITE}" />
+			</div>
+		</div>
+		<!-- END hide -->
+		
+		<!-- BEGIN hidden -->
+		<div class="pad_top">
+			<div class="is_left_i"><label for="password1">{L_PASSWORD}:</label></div>
+			<div class="is_right_i i"><input type="password" id="password1" name="password1" size="20" maxlength="32" value="{PASSWORD1}" /></div>
+		</div>
+		<span class="clear"></span>
+		
+		<div class="pad_top">
+			<div class="is_left_i"><label for="password2">{L_CONFIRM_PASSWORD}:</label></div>
+			<div class="is_right_i i"><input type="password" id="password2" name="password2" size="20" maxlength="32" value="{PASSWORD2}" /></div>
+		</div>
+		<!-- END hidden -->
+	</div>
+	
+	<div class="a_mid pad_top"><input class="btn btn-danger" type="submit" name="submit" value="{L_SAVE_CHANGES}" /></div>
+</form>
+
+<!-- INCLUDE page.footer.htm -->

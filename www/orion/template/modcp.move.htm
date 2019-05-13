@@ -1,0 +1,64 @@
+<!-- INCLUDE page.header.htm -->
+
+<table width="100%" cellpadding="5" cellspacing="0" border="0">
+<form action="{S_MODCP_ACTION}" method="post">{S_HIDDEN_FIELDS}
+	<tr>
+		<td>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td width="100%" valign="top">
+						<table width="100%" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td><img src="{TEMPLATE}images/mmg/h3_01.gif" width="8" height="25" vspace="0"></td>
+								<td width="100%" height="25" background="{TEMPLATE}images/mmg/h3_02.gif">
+									<table width="100%" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td height="1"></td>
+										</tr>
+										<tr>
+											<td valign="middle"><span class="nav"><a href="{U_FORUM}" class="nav">{L_INDEX}</a>{NAV_CAT_DESC}</span></td>
+										</tr>
+									</table>
+								</td>
+								<td><img src="{TEMPLATE}images/mmg/h3_03.gif" width="8" height="25" vspace="0"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td height="3"></td></tr></table>
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td><img src="{TEMPLATE}images/mmg/h6_01.gif" width="8" height="22" vspace="0"></td>
+					<td width="100%" align="center" background="{TEMPLATE}images/mmg/h6_02.gif">
+						<table width="100%" border="0" cellpadding="0" cellspacing="0">
+							<tr><td height="1"></td></tr>
+							<tr>
+								<td align="center"><span class="gen"><b>{MESSAGE_TITLE}</b></span></td>
+							</tr>
+						</table>
+					</td>
+					<td><img src="{TEMPLATE}images/mmg/h6_03.gif" width="8" height="22" vspace="0"></td>
+				</tr>
+				<tr>
+					<td class="h2a" colspan="3" valign="top">
+						<table width="100%" cellpadding="10" cellspacing="0" border="0">
+							<tr> 
+								<td align="center">
+								<span class="gen">{L_MOVE_TO_FORUM} � {S_FORUM_SELECT}<br /><br />
+									<input type="checkbox" name="move_leave_shadow" checked="checked" />{L_LEAVESHADOW}<br /><br />
+									{MESSAGE_TEXT}</span><br /><br /> 
+									<input class="btn100" type="submit" name="confirm" value="{L_YES}" /> 
+									<input class="btn100b" type="submit" name="cancel" value="{L_NO}" />
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</form>
+</table>
+
+<!-- INCLUDE page.footer.htm -->

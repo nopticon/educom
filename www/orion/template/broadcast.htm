@@ -1,0 +1,98 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="h"><h3>{L_RADIO}</h3></div>
+
+<span class="clear"></span>
+
+<!-- BEGIN programs -->
+<div class="x2 a_mid w_broadcast">
+	<!-- BEGIN row -->
+	<!-- IF row.S_ROW_COUNT -->&nbsp;&nbsp;<!-- ENDIF --><a href="{row.URL}"><img width="140" height="250" src="{S_ASSETS}style/official/podcast/{row.IMAGE}.jpg" /></a>
+	<!-- END row -->
+</div>
+<!-- END programs -->
+
+<div class="x3 h"><h3>Programas recientes</h3></div>
+
+<span class="clear"></span>
+
+<div class="is_mid ls w_broadcast">
+	<!-- BEGIN podcast -->
+	<ul>
+		<!-- BEGIN row -->
+		<li>
+			<div><a href="{row.POST_URL}">{row.POST_TITLE}</a></div>
+			<div class="_">{row.POST_DATE}</div>
+		</li>
+		<!-- END row -->
+	</ul>
+	<!-- END podcast -->
+</div>
+
+<div class="is_mid">
+	
+</div>
+
+<!-- BEGIN hide -->
+<div class="is_left">
+	<!-- BEGIN podcast -->
+	<ul>
+		<!-- BEGIN row -->
+		<li>
+			<div class="h"><h3>{row.POST_TITLE}</h3></div>
+			<div>{row.POST_DATE}</div>
+			<div class="pad_top">{row.POST_CONTENT}</div>
+		</li>
+		<!-- END row -->
+	</ul>
+	<!-- END podcast -->
+	
+	<!-- BEGIN category -->
+	<div class="<!-- IF category.S_ROW_COUNT -->pad_top <!-- ENDIF -->ls">
+		<div class="h"><h3>{category.DESCRIPTION}</h3></div>
+		<ul>
+			<!-- BEGIN forums -->
+			<li>
+				<ul>
+					<li><a href="{forums.U_FORUM}">{forums.FORUM_NAME}</a></li>
+					<li class="_">{forums.FORUM_DESC}</li>
+				</ul>
+			</li>
+			<!-- END forums -->
+		</ul>
+	</div>
+	<!-- END category -->
+</div>
+
+<div class="is_right">
+	<!-- BEGIN top_posters -->
+	<div class="pad_top ls_none">
+		<div class="h"><h3>{L_TODAY_BIRTHS}</h3></div>
+		<ul>
+			<!-- BEGIN item -->
+			<li>
+				<ul>
+					<li><a href="{item.PROFILE}">{item.USERNAME}</a></li>
+					<li>{item.POSTS} {L_POSTS}</li>
+					<li><a href="{item.PROFILE}"><img src="{item.AVATAR}" alt="{item.USERNAME}" /></a></li>
+				</ul>
+			</li>
+			<!-- END item -->
+		</ul>
+	</div>
+	<!-- END top_posters -->
+</div>
+
+
+<div id="radio_container">
+	<div id="radio_list">
+	<ul>
+	<!-- BEGIN day -->
+	<li><div><a href="{day.V_LINK}">{day.V_NAME}</a></div><!-- BEGIN row --><!-- IF !(row.S_ROW_COUNT) --><ul><!-- ENDIF --><li><a href="{row.V_LINK}">{row.V_NAME}</a></li><!-- IF row.S_ROW_COUNT + 1 == row.S_NUM_ROWS --></ul><!-- ENDIF --><!-- END row --></li>
+	<!-- END day -->
+	</ul>
+	</div>
+</div>
+<!-- END hide -->
+
+<!-- INCLUDE page.footer.htm -->

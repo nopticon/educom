@@ -1,0 +1,11 @@
+.DS_Store
+ini.*.php
+sftp-config*.json
+cache/*
+vendor/*
+private/
+www/.htaccess
+www/import
+
+!cache/.gitkeep
+!vendor/npi/

@@ -1,0 +1,19 @@
+
+<!-- BEGIN select -->
+<div class="pad_top ls">
+	<ul>
+		<!-- BEGIN item -->
+		<li<!-- IF item.SELECTED --> class="hg"<!-- ENDIF -->><!-- IF !(item.SELECTED) --><a href="{item.URL}"><!-- ENDIF -->{item.TITLE}<!-- IF !(item.SELECTED) --></a><!-- ENDIF --></li>
+		<!-- END item -->
+	</ul>
+</div>
+<!-- END select -->
+
+<div class="pad_top">
+	<!-- BEGIN read -->
+	<a name="read"></a>
+	<div class="h"><h3>{read.TITLE}</h3></div>
+	<!-- IF read.AUTHOR != '' --><div class="read dark_box relevant a_center">{read.AUTHOR}</div><!-- ENDIF -->
+	<div class="nowraptext">{read.TEXT}</div>
+	<!-- END read -->
+</div>

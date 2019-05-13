@@ -1,0 +1,19 @@
+<h1>{PROMO_TITLE}</h1>
+
+<form action="{S_ACTION}" method="post" name="post_form">{S_HIDDEN}
+
+{ERROR_BOX}
+{L_INFO}
+{PROMO_DESC}
+{L_PROMO_FILL_FORM}
+{L_FILL_FORM}
+
+<!-- BEGIN field -->
+<b>{field.TEXT}</b>
+<!-- BEGIN description --><br /><br />{description.TEXT}<!-- END description -->
+{field.FIELD}
+<!-- END field -->
+
+<input type="submit" name="submit" value="{L_PROMO_JOIN}">
+
+</form>

@@ -1,0 +1,32 @@
+<!-- INCLUDE page.header.htm -->
+
+<form class="form-horizontal" action="{MODULE_URL}" method="post">
+	<!-- BEGIN edit -->
+	<input type="hidden" name="news_id" value="{edit.ID}" />
+	T&iacute;tulo<br />
+	<input type="text" name="post_subject" size="100" value="{edit.SUBJECT}" /><br />
+	Resumen<br />
+	<textarea name="post_desc" cols="100" rows="15">{edit.DESC}</textarea><br />
+	
+	<br />
+	<textarea name="post_text" cols="100" rows="15">{edit.TEXT}</textarea><br /><br />
+	
+	<input type="submit" name="submit2" value="Actualizar" />
+	<!-- END edit -->
+
+	<!-- BEGIN category -->
+	<h3>{category.NAME}</h3>
+
+	<table class="table table-striped">
+		<tbody>
+			<!-- BEGIN row -->
+			<tr>
+				<td><a href="{row.URL}">{row.POST_SUBJECT}</a></td>
+			</tr>
+			<!-- END row -->
+		</tbody>
+	</table>
+	<!-- END category -->
+</form>
+
+<!-- INCLUDE page.footer.htm -->

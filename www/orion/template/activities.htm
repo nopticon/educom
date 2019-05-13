@@ -1,0 +1,68 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN student -->
+<div class="h"><h3>{student.TITLE}</h3></div>
+
+<!-- BEGIN activities -->
+<table class="grid">
+	<thead>
+		<tr>
+			<th class="a_mid" width="40%">Nombre de actividad</th>
+			<th class="a_mid" width="25%">Curso y profesor</th>
+			<th class="a_mid" width="15%">Creaci&oacute;n</th>
+			<th class="a_mid" width="15%">Entrega</th>
+		</tr>
+	</thead>
+	<!-- BEGIN row -->
+	<tr>
+		<td>{row.ACTIVITY_NAME}<br /><span class="_">{row.ACTIVITY_DESCRIPTION}</span></td>
+		<td>{row.NOMBRE_CURSO}<br /><span class="_">{row.NOMBRE_CATEDRATICO} {row.APELLIDO_CATEDRATICO}</span></td>
+		<td class="a_mid">{row.ACTIVITY_START}</td>
+		<td class="a_mid">{row.ACTIVITY_END}</td>
+	</tr>
+	<!-- END row -->
+</table>
+<!-- END activities -->
+<!-- END student -->
+
+<!-- BEGIN teacher -->
+<!-- BEGIN no_courses_assigned -->
+<div class="a_center">{L_COURSES_NO_ASSIGNED}</div>
+<!-- END no_courses_assigned -->
+
+<!-- BEGIN create_activity -->
+<!-- IF create_activity.MESSAGE -->
+<div class="a_mid">{create_activity.MESSAGE}</div>
+<!-- ENDIF -->
+
+<form class="form-horizontal" action="{U_ADM/ACTIVITY}" method="post">
+{create_activity.FORM}
+{create_activity.SUBMIT}
+</form>
+<!-- END create_activity -->
+<!-- END teacher -->
+
+<!-- BEGIN current_tasks -->
+<table class="grid x3">
+	<thead>
+		<tr>
+			<th class="a_mid" width="40%">Nombre de actividad</th>
+			<th class="a_mid" width="25%">Curso</th>
+			<th class="a_mid" width="25%">Grado</th>
+			<th class="a_mid" width="15%">Creaci&oacute;n</th>
+			<th class="a_mid" width="15%">Entrega</th>
+		</tr>
+	</thead>
+	<!-- BEGIN row -->
+	<tr>
+		<td><a href="{row.URL}">{row.ACTIVITY_NAME}</a></td>
+		<td><a href="{row.URL}">{row.NOMBRE_CURSO}</a></td>
+		<td><a href="{row.URL}">{row.NOMBRE} {row.NOMBRE_SECCION}</a></td>
+		<td class="a_mid"><a href="{row.URL}">{row.ACTIVITY_START}</a></td>
+		<td class="a_mid"><a href="{row.URL}">{row.ACTIVITY_END}</a></td>
+	</tr>
+	<!-- END row -->
+</table>
+<!-- END current_tasks -->
+
+<!-- INCLUDE page.footer.htm -->

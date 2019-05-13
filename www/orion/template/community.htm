@@ -1,0 +1,70 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="pad_top">
+	<div class="is_left_i">
+		<div id="online">
+			<!-- INCLUDE community.online.htm -->
+		</div>
+	</div>
+
+	<div class="is_right_i">
+		<!-- BEGIN hide -->
+		<div class="ln l2">
+		<div class="h"><h3>{L_MEET_TEAM}</h3></div>
+		<ul>
+			<!-- BEGIN founders -->
+			<li class="a_mid">
+				<ul>
+					<!-- BEGIN hide -->
+					<li><a href="{founders.PROFILE}">{founders.USERNAME}</a></li>
+					<!-- END hide -->
+					<li class="_">{founders.REALNAME}</li>
+					<li><a href="{founders.PROFILE}"><img src="{founders.AVATAR}" alt="" /></a></li>
+				</ul>
+			</li>
+			<!-- END founders -->
+		</ul>
+		</div>
+
+		<span class="clear"></span>
+		<!-- END hide -->
+
+		<!-- BEGIN team -->
+		<div class="pad_top ln l6">
+			<div class="h"><h3>{L_COMM_TEAM}</h3></div>
+			<ul>
+				<!-- BEGIN row -->
+				<li class="a_mid">
+					<ul>
+						<li class="_"><a href="{row.PROFILE}">{row.USERNAME}</a></li>
+						<li><a href="{row.PROFILE}"><img src="{row.AVATAR}" alt="{row.USERNAME}" /></a></li>
+					</ul>
+				</li>
+				<!-- END row -->
+			</ul>
+		</div>
+
+		<span class="clear"></span>
+		<!-- END team -->
+	</div>
+</div>
+
+<!-- BEGIN birthday -->
+<span class="clear"></span>
+
+<div class="pad_top ln l6">
+	<div class="h"><h3>{L_TODAY_BIRTHS}</h3></div>
+	<ul>
+		<!-- BEGIN row -->
+		<li class="a_mid pad_top">
+			<ul>
+				<li class="_"><a href="{row.PROFILE}">{row.USERNAME}</a></li>
+				<li><a href="{row.PROFILE}"><img src="{row.AVATAR}" alt="{row.USERNAME}" /></a></li>
+			</ul>
+		</li>
+		<!-- END row -->
+	</ul>
+</div>
+<!-- END birthday -->
+
+<!-- INCLUDE page.footer.htm -->

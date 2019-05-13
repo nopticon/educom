@@ -1,0 +1,88 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="row">
+	<!-- BEGIN search_student -->
+	<form class="form-horizontal" action="{U_ADM/SEARCH}" method="post">
+	{search_student.FORM}
+	{search_student.SUBMIT}
+	</form>
+	<!-- END search_student -->
+
+	<!-- BEGIN results -->
+	<br />
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<td>Carn&eacute;</td>
+				<td>Nombre</td>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN row -->
+			<tr>
+				<td><a href="{row.USERNAME_BASE}">{row.CARNE}</a></td>
+				<td><a href="{row.USERNAME_BASE}">{row.NOMBRE_ALUMNO}</a></td>
+			</tr>
+			<!-- END row -->
+		</tbody>
+	</table>
+	<!-- END results -->
+
+	<!-- BEGIN no_results -->
+	<div class="x2 a_mid alert alert-warning alert-dismissible fade in" role="alert">{L_NO_STUDENT_RESULTS}</div>
+	<!-- END no_results -->
+</div>
+
+<br />
+
+<div class="row">
+	<div class="col-lg-8">
+		<!-- BEGIN alpha -->
+		<nav>
+			<ul class="pagination">
+				<!-- BEGIN row -->
+				<li><a href="{row.URL}">{row.LETTER}</a></li>
+				<!-- END row -->
+			</ul>
+		</nav>
+		<!-- END alpha -->
+
+		<!-- BEGIN results_alpha -->
+		<br />
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td>Carn&eacute;</td>
+					<td>Nombre</td>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- BEGIN row -->
+				<tr>
+					<td><a href="{row.USERNAME_BASE}">{row.CARNE}</a></td>
+					<td><a href="{row.USERNAME_BASE}">{row.NOMBRE_ALUMNO}</a></td>
+				</tr>
+				<!-- END row -->
+			</tbody>
+		</table>
+		<!-- END results_alpha -->
+
+		<!-- BEGIN no_results_alpha -->
+		<div class="x2 a_mid alert alert-warning alert-dismissible fade in" role="alert">{L_NO_STUDENT_RESULTS}</div>
+		<!-- END no_results_alpha -->
+	</div>
+	<div class="col-lg-4">
+		<!-- BEGIN classmates -->
+		<div class="h"><h3>Compa&ntilde;eros de clase</h3></div>
+		<table class="table table-striped">
+			<!-- BEGIN row -->
+			<tr>
+				<td><a href="{row.USERNAME_BASE}">{row.NOMBRE_ALUMNO}</a></td>
+			</tr>
+			<!-- END row -->
+		</table>
+		<!-- END classmates -->
+	</div>
+</div>
+
+<!-- INCLUDE page.footer.htm -->

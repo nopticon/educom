@@ -1,0 +1,144 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="is_left">
+	<form action="{S_UNREAD_ACTION}" method="post">
+	{S_HIDDEN_FIELDS}
+	
+	<!-- BEGIN conversations -->
+	<div class="<!-- IF conversations.PAD -->pad_top <!-- ENDIF -->ls">
+		<div class="h"><h3>{L_CONVERSATIONS}</h3></div>
+		<ul>
+			<!-- BEGIN row -->
+			<li>
+				<ul>
+					<li><a href="{row.U_READ}">{row.SUBJECT}</a></li>
+					<li class="_">Enviado por <a href="{row.U_USERNAME}">{row.USERNAME}</a>, el {row.DATETIME}</li>
+				</ul>
+			</li>
+			<!-- END row -->
+		</ul>
+	</div>
+	<!-- END conversations -->
+	
+	<!-- BEGIN friends -->
+	<div class="<!-- IF friends.PAD -->pad_top <!-- ENDIF -->ls">
+	<div class="h"><h3>{L_FRIENDS_LIST}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN row -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="select[{friends.ID}][]" value="{row.S_MARK_ID}" checked="checked" />&nbsp;<a class="relevant uunique" href="{row.U_PROFILE}">{row.USERNAME}</a> {L_NEW_FRIEND}</div>
+			<div class="float_right col25 a_right">{row.POST_TIME}</div>
+			</div>
+		</li>
+		<!-- END row -->
+	</ul>
+	</div>
+	<!-- END friends -->
+	
+	<!-- BEGIN members_posts -->
+	<div class="<!-- IF members_posts.PAD -->pad_top <!-- ENDIF -->ls">
+	<div class="h"><h3>{L_USERPAGE_UNREAD_MESSAGES}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN row -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="select[{members_posts.ID}][]" value="{row.S_MARK_ID}" checked="checked" />&nbsp;<a class="relevant uunique" href="{row.U_PROFILE}">{row.USERNAME}</a> {L_NEW_USERPAGE_MESSAGE}</div>
+			<div class="float_right col25 a_right">{row.POST_TIME}</div>
+			</div>
+		</li>
+		<!-- END row -->
+	</ul>
+	</div>
+	<!-- END members_posts -->
+	
+	<!-- BEGIN site_news -->
+	<div class="<!-- IF site_news.PAD -->pad_top <!-- ENDIF -->ls">
+	<div class="h"><h3>{L_NEWS}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN row -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="select[{site_news.ID}][]" value="{row.S_MARK_ID}" checked="checked" />&nbsp;<a class="relevant" href="{row.POST_URL}">{row.POST_TITLE}</a></div>
+			<div class="float_right col25 a_right">{row.POST_TIME}</div>
+			</div>
+		</li>
+		<!-- END row -->
+	</ul>
+	</div>
+	<!-- END site_news -->
+	
+	<!-- BEGIN board -->
+	<div class="<!-- IF board.PAD -->pad_top <!-- ENDIF -->ln">
+		<div class="h"><h3>{L_NEW_FORUM}</h3></div>
+		<ul class="vcheck">
+			<!-- BEGIN row -->
+			<li>
+				<ul>
+					<li class="v">
+						<input type="checkbox" name="select[{board.ID}][]" value="{row.S_MARK_ID}" checked="checked" />
+						<span><a <!-- IF row.TOPIC_COLOR -->style="color:#{row.TOPIC_COLOR};" <!-- ENDIF -->href="{row.U_READ}">{row.TOPIC_TITLE}</a> ({row.TOPIC_REPLIES})</span>
+					</li>
+					<li class="_">Enviado por <a href="{row.USER_PROFILE}">{row.USERNAME}</a>, el {row.DATETIME}</li>
+				</ul>
+			</li>
+			<!-- END row -->
+		</ul>
+	</div>
+	<!-- END board -->
+	
+	<!-- BEGIN artists_comments -->
+	<div class="<!-- IF artists_comments.PAD -->pad_top <!-- ENDIF -->ls">
+	<div class="h"><h3>{L_NEW_UB_MSG}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN row -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="select[{artists_comments.ID}][]" value="{row.S_MARK_ID}" checked="checked" />&nbsp;{L_POST} <a class="relevant uunique" href="{row.ITEM_URL}">#{row.S_MARK_ID}</a> {L_IN} <a class="relevant" href="{row.UB_URL}">{row.UB}</a></div>
+			<div class="float_right col25 a_right"><!-- IF row.USER_ID != 1 --><a class="relevant uunique" href="{row.USER_PROFILE}">{row.USERNAME}</a><!-- ELSE --><span class="relevant">*{row.USERNAME}</span><!-- ENDIF --><br />{row.DATETIME}</div>
+			</div>
+		</li>
+		<!-- END row -->
+	</ul>
+	</div>
+	<!-- END artists_comments -->
+	
+	<!-- BEGIN downloads_comments -->
+	<div class="<!-- IF downloads_comments.PAD -->pad_top <!-- ENDIF -->ls">
+	<div class="h"><h3>{L_NEW_DL_MSG}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN row -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="select[{downloads_comments.ID}][]" value="{row.S_MARK_ID}" checked="checked" />&nbsp;[{row.UD_TYPE}] <a class="relevant" href="{row.ITEM_URL}">#{row.S_MARK_ID}</a> {L_IN} <a class="relevant uunique" href="{row.UD_URL}">{row.UD}</a> {L_OF} <a class="relevant" href="{row.UB_URL}">{row.UB}</a></div>
+			<div class="float_right col25 a_right"><!-- IF row.USER_ID != 1 --><a class="relevant uunique" href="{row.USER_PROFILE}">{row.USERNAME}</a><!-- ELSE --><span class="relevant">*{row.USERNAME}</span><!-- ENDIF --><br />{row.DATETIME}</div>
+			</div>
+		</li>
+		<!-- END row -->
+	</ul>
+	</div>
+	<!-- END downloads_comments -->
+	
+	<!-- BEGIN artists_fav -->
+	<div class="<!-- IF artists_fav.PAD -->pad_top <!-- ENDIF -->ls">
+	<div class="h"><h3>{L_NEW_FANS}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN row -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="select[{artists_fav.ELEMENT}][]" value="{row.S_MARK_ID}" checked="checked" />&nbsp;<a class="relevant uunique" href="{row.USER_PROFILE}">{row.USERNAME}</a> {L_NEW_FAN} <a class="relevant" href="{row.UB_URL}">{row.UB}</a></div>
+			<div class="float_right col25 a_right">{row.POST_TIME}</div>
+			</div>
+		</li>
+		<!-- END row -->
+	</ul>
+	</div>
+	<!-- END artists_fav -->
+	</form>
+</div>
+
+<div class="is_right">
+	
+</div>
+
+<!-- INCLUDE page.footer.htm -->

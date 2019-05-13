@@ -1,0 +1,244 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="rows5_top_2 rows5_bot_2">
+<div class="is_left col_3 float_left">
+	<!-- BEGIN items -->
+	<form action="{S_UNREAD_ACTION}" method="post">
+	{S_HIDDEN_FIELDS}
+	<!-- BEGIN notes -->
+	<div class="float-holder ie-widthfix item_block_3">
+	<div class="h"><h3>{L_CONVERSATIONS}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN item -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="items[{notes.ELEMENT}][]" value="{item.S_MARK_ID}" />&nbsp;<a class="bold" href="{item.U_READ}">{item.SUBJECT}</a></div>
+			<div class="float_right col25 a_right">{item.DATETIME}</div>
+			</div>
+		</li>
+		<!-- END item -->
+	</ul>
+	<div class="rows5_top_6"><input class="ctl" type="submit" name="delete[{notes.ELEMENT}]" value="{L_DELETE_MARKED}" /></div>
+	</div>
+	<!-- END notes -->
+
+	<!-- BEGIN friends -->
+	<div class="rows5_top_2 float-holder ie-widthfix item_block_3">
+	<div class="h"><h3>{L_FRIENDS_LIST}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN item -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="items[{friends.ELEMENT}][]" value="{item.S_MARK_ID}" checked="checked" />&nbsp;<a class="relevant uunique" href="{item.U_PROFILE}">{item.USERNAME}</a> {L_NEW_FRIEND}</div>
+			<div class="float_right col25 a_right">{item.POST_TIME}</div>
+			</div>
+		</li>
+		<!-- END item -->
+	</ul>
+	<div class="rows5_top_6"><input class="ctl" type="submit" name="delete[{friends.ELEMENT}]" value="{L_DELETE_MARKED}" /></div>
+	</div>
+	<!-- END friends -->
+
+	<!-- BEGIN userpagem -->
+	<div class="rows5_top_2 float-holder ie-widthfix item_block_3">
+	<div class="h"><h3>{L_USERPAGE_UNREAD_MESSAGES}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN item -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="items[{userpagem.ELEMENT}][]" value="{item.S_MARK_ID}" checked="checked" />&nbsp;<a class="relevant uunique" href="{item.U_PROFILE}">{item.USERNAME}</a> {L_NEW_USERPAGE_MESSAGE}</div>
+			<div class="float_right col25 a_right">{item.POST_TIME}</div>
+			</div>
+		</li>
+		<!-- END item -->
+	</ul>
+	<div class="rows5_top_6"><input class="ctl" type="submit" name="delete[{userpagem.ELEMENT}]" value="{L_DELETE_MARKED}" /></div>
+	</div>
+	<!-- END userpagem -->
+
+	<!-- BEGIN news -->
+	<div class="rows5_top_2 float-holder ie-widthfix item_block_3">
+	<div class="h"><h3>{L_NEWS}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN item -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="items[{news.ELEMENT}][]" value="{item.S_MARK_ID}" checked="checked" />&nbsp;<a class="relevant" href="{item.POST_URL}">{item.POST_TITLE}</a></div>
+			<div class="float_right col25 a_right">{item.POST_TIME}</div>
+			</div>
+		</li>
+		<!-- END item -->
+	</ul>
+	<div class="rows5_top_6"><input class="ctl" type="submit" name="delete[{news.ELEMENT}]" value="{L_DELETE_MARKED}" /></div>
+	</div>
+	<!-- END news -->
+
+	<!-- BEGIN a_news -->
+	<div class="rows5_top_2 float-holder ie-widthfix item_block_3">
+	<div class="h"><h3>{L_NEWS}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN item -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="items[{a_news.ELEMENT}][]" value="{item.S_MARK_ID}" checked="checked" />&nbsp;<a class="relevant" href="{item.POST_URL}">{item.POST_TITLE}</a></div>
+			<div class="float_right col25 a_right">{item.POST_TIME}</div>
+			</div>
+		</li>
+		<!-- END item -->
+	</ul>
+	<div class="rows5_top_6"><input class="ctl" type="submit" name="delete[{a_news.ELEMENT}]" value="{L_DELETE_MARKED}" /></div>
+	</div>
+	<!-- END a_news -->
+
+	<!-- BEGIN artists -->
+	<div class="rows5_top_2 float-holder ie-widthfix item_block_3">
+	<div class="h"><h3>{L_ARTISTS}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN item -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="items[{artists.ELEMENT}][]" value="{item.S_MARK_ID}" checked="checked" />&nbsp;<a class="relevant" href="{item.UB_URL}">{item.NAME}</a></div>
+			<div class="float_right col25 a_right">{item.POST_TIME}</div>
+			</div>
+		</li>
+		<!-- END item -->
+	</ul>
+	<div class="rows5_top_6"><input class="ctl" type="submit" name="delete[{artists.ELEMENT}]" value="{L_DELETE_MARKED}" /></div>
+	</div>
+	<!-- END artists -->
+
+	<!-- BEGIN downloads -->
+	<div class="rows5_top_2 float-holder ie-widthfix item_block_3">
+	<div class="h"><h3>{L_DOWNLOADS}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN item -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="items[{downloads.ELEMENT}][]" value="{item.S_MARK_ID}" checked="checked" />&nbsp;[{item.UD_TYPE}] <a class="relevant" href="{item.UD_URL}">{item.UD}</a> {L_OF} <a class="relevant" href="{item.UB_URL}">{item.UB}</a></div>
+			<div class="float_right col25 a_right">{item.DATETIME}</div>
+			</div>
+		</li>
+		<!-- END item -->
+	</ul>
+	<div class="rows5_top_6"><input class="ctl" type="submit" name="delete[{downloads.ELEMENT}]" value="{L_DELETE_MARKED}" /></div>
+	</div>
+	<!-- END downloads -->
+
+	<!-- BEGIN forums -->
+	<div class="rows5_top_2 float-holder ie-widthfix item_block_3">
+	<div class="h"><h3>{L_NEW_FORUM}</h3></div>
+	<ul class="ul_none">
+		<!-- <a class="bold" href="{item.FORUM_URL}">{item.FORUM_NAME}</a> -->
+		<!-- BEGIN item -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="items[{forums.ELEMENT}][]" value="{item.S_MARK_ID}" checked="checked" />&nbsp;<a class="relevant<!-- IF item.FOR_MODS --> funique<!-- ENDIF -->"<!-- IF item.TOPIC_COLOR --> style="color:#{item.TOPIC_COLOR};"<!-- ENDIF --> href="{item.TOPIC_URL}">{item.TOPIC_TITLE}</a> ({item.TOPIC_REPLIES}m)</div>
+			<div class="float_right col25 a_right"><!-- IF item.USER_ID != 1 --><a class="relevant uunique" href="{item.USER_PROFILE}">{item.USERNAME}</a><!-- ELSE --><span class="relevant">*{item.USERNAME}</span><!-- ENDIF --><br />{item.DATETIME}</div>
+			</div>
+		</li>
+		<!-- END item -->
+	</ul>
+	<div class="rows5_top_6"><input class="ctl" type="submit" name="delete[{forums.ELEMENT}]" value="{L_DELETE_MARKED}" /></div>
+	</div>
+	<!-- END forums -->
+
+	<!-- BEGIN a_messages -->
+	<div class="rows5_top_2 float-holder ie-widthfix item_block_3">
+	<div class="h"><h3>{L_NEW_UB_MSG}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN item -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="items[{a_messages.ELEMENT}][]" value="{item.S_MARK_ID}" checked="checked" />&nbsp;{L_POST} <a class="relevant uunique" href="{item.ITEM_URL}">#{item.S_MARK_ID}</a> {L_IN} <a class="relevant" href="{item.UB_URL}">{item.UB}</a></div>
+			<div class="float_right col25 a_right"><!-- IF item.USER_ID != 1 --><a class="relevant uunique" href="{item.USER_PROFILE}">{item.USERNAME}</a><!-- ELSE --><span class="relevant">*{item.USERNAME}</span><!-- ENDIF --><br />{item.DATETIME}</div>
+			</div>
+		</li>
+		<!-- END item -->
+	</ul>
+	<div class="rows5_top_6"><input class="ctl" type="submit" name="delete[{a_messages.ELEMENT}]" value="{L_DELETE_MARKED}" /></div>
+	</div>
+	<!-- END a_messages -->
+
+	<!-- BEGIN d_messages -->
+	<div class="rows5_top_2 float-holder ie-widthfix item_block_3">
+	<div class="h"><h3>{L_NEW_DL_MSG}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN item -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="items[{d_messages.ELEMENT}][]" value="{item.S_MARK_ID}" checked="checked" />&nbsp;[{item.UD_TYPE}] <a class="relevant" href="{item.ITEM_URL}">#{item.S_MARK_ID}</a> {L_IN} <a class="relevant uunique" href="{item.UD_URL}">{item.UD}</a> {L_OF} <a class="relevant" href="{item.UB_URL}">{item.UB}</a></div>
+			<div class="float_right col25 a_right"><!-- IF item.USER_ID != 1 --><a class="relevant uunique" href="{item.USER_PROFILE}">{item.USERNAME}</a><!-- ELSE --><span class="relevant">*{item.USERNAME}</span><!-- ENDIF --><br />{item.DATETIME}</div>
+			</div>
+		</li>
+		<!-- END item -->
+	</ul>
+	<div class="rows5_top_6"><input class="ctl" type="submit" name="delete[{d_messages.ELEMENT}]" value="{L_DELETE_MARKED}" /></div>
+	</div>
+	<!-- END d_messages -->
+
+	<!-- BEGIN a_fav -->
+	<div class="rows5_top_2 float-holder ie-widthfix item_block_3">
+	<div class="h"><h3>{L_NEW_FANS}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN item -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="items[{a_fav.ELEMENT}][]" value="{item.S_MARK_ID}" checked="checked" />&nbsp;<a class="relevant uunique" href="{item.USER_PROFILE}">{item.USERNAME}</a> {L_NEW_FAN} <a class="relevant" href="{item.UB_URL}">{item.UB}</a></div>
+			<div class="float_right col25 a_right">{item.POST_TIME}</div>
+			</div>
+		</li>
+		<!-- END item -->
+	</ul>
+	<div class="rows5_top_6"><input class="ctl" type="submit" name="delete[{a_fav.ELEMENT}]" value="{L_DELETE_MARKED}" /></div>
+	</div>
+	<!-- END a_fav -->
+
+	<!-- BEGIN users -->
+	<div class="rows5_top_2 float-holder ie-widthfix item_block_3">
+	<div class="h"><h3>{L_USERS}</h3></div>
+	<ul class="ul_none">
+		<!-- BEGIN item -->
+		<li class="rows5_top_1">
+			<div class="float-holder ie-widthfix">
+			<div class="float_left col75"><input type="checkbox" class="none" name="items[{users.ELEMENT}][]" value="{item.S_MARK_ID}" checked="checked" />&nbsp;<a class="relevant uunique" href="{item.USER_PROFILE}">{item.USERNAME}</a></div>
+			<div class="float_right col25 a_right">{item.DATETIME}</div>
+			</div>
+		</li>
+		<!-- END item -->
+	</ul>
+	<div class="rows5_top_6"><input class="ctl" type="submit" name="delete[{users.ELEMENT}]" value="{L_DELETE_MARKED}" /></div>
+	</div>
+	<!-- END users -->
+	<div class="rows5_top_3 a_right"><input class="submit" type="submit" name="delete_all" value="{L_NEW_DELETE_ALL}" /></div>
+	</form>
+	<!-- END items -->
+	<!-- BEGIN no_items -->
+	<div class="black_box a_center">{L_NO_NEW_ITEMS}</div>
+	<!-- END no_items -->
+</div>
+
+<div class="is_right">
+	<script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US"></script>
+	<script type="text/javascript">FB.init("fed8ea7d6067b5b601104fb41cabf9c0");</script>
+	<fb:fan profile_id="48722647107" stream="1" connections="10" width="212"></fb:fan>
+
+	<!-- INCLUDE sidebar/last_event.htm -->
+	<!-- INCLUDE sidebar/music.htm -->
+	<!-- INCLUDE sidebar/a.htm -->
+</div>
+</div>
+
+<!-- BEGIN hide -->
+<div class="a_center">
+	<script type="text/javascript"><!--
+	google_ad_client = "pub-5371491382621943";
+	google_ad_slot = "1741490293";
+	google_ad_width = 728;
+	google_ad_height = 90;
+	//-->
+	</script>
+	<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+</div>
+<!-- END hide -->
+
+<!-- INCLUDE page.footer.htm -->

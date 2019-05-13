@@ -1,0 +1,43 @@
+<!-- INCLUDE page.head.htm -->
+
+<script type="text/javascript" src="{S_ASSETS}b.js"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+<!-- BEGIN podcast -->
+var podlist = [
+	<!-- BEGIN row -->
+	<!-- IF row.S_ROW_COUNT -->, <!-- ENDIF -->
+	{
+		mp3:'{row.MP3}',
+		oga:'{row.OGG}',
+		title:'{row.TITLE}',
+		artist:'{row.ARTIST}',
+		rating: 5,
+		duration:'{row.DURATION}',
+		cover:'{S_ASSETS}style/official/podcast/{row.COVER}.jpg'
+	}
+	<!-- END row -->
+];
+
+
+$(function() {
+	var description = '';
+	
+	$('body').ttwMusicPlayer(podlist, {
+		autoPlay: true,
+		description: description,
+		jPlayer:{
+			swfPath:'{S_ASSETS}broadcast/jplayer'
+		}
+	});
+});
+<!-- END podcast -->
+//]]>
+</script>
+</head>
+
+<body>
+
+</body>
+</html>

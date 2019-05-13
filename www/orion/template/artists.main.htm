@@ -1,0 +1,85 @@
+<div class="pad_top a_mid">
+	<!-- BEGIN ub_image -->
+	<!-- BEGIN view --><a href="{view.URL}"><!-- END view --><img src="{ub_image.IMAGE}" alt="{UNAME}" /><!-- BEGIN view --></a><!-- END view -->
+	<!-- END ub_image -->
+</div>
+
+<!-- BEGIN events_future -->
+<div class="pad_top nowraptext">
+	<div class="h"><h3>{L_EVENTS_NEXT}</h3></div>
+	
+	<!-- BEGIN set -->
+	<div<!-- IF set.S_ROW_COUNT --> class="pad_top"<!-- ENDIF -->>
+		<div class="h"><h3>{set.L_TITLE}</h3></div></div>
+		<ul>
+			<!-- BEGIN row -->
+			<li class="a_mid">
+				<ul>
+					<li><span class="hg">{row.TITLE}</span></li>
+					<li>{row.DATE}</li>
+					<li><img src="{row.SRC}" alt="" /></li>
+				</ul>
+			</li>
+			<!-- END row -->
+	</ul>
+	<!-- END set -->
+</div>
+<!-- END events_future -->
+
+<!-- BEGIN publish -->
+<span class="clear"></span>
+
+<div class="pad_top publish">
+	<div class="h"><h3>{publish.TITLE}</h3></div>
+	<form action="{U_COMMENTS}" method="post" name="post">
+		<input type="hidden" name="ref" value="{publish.URL}" />
+		<textarea id="comment" name="message"></textarea>
+		<input type="submit" name="post" value="{L_SEND_MESSAGE}" />
+	</form>
+</div>
+<!-- END publish -->
+
+<!-- BEGIN news -->
+<div class="pad_top comments">
+	<!-- BEGIN row -->
+	<div id="comment-{item.S_ROW_COUNT}">
+		<h3><strong>{row.S_ROW_COUNT}</strong><span>.</span> <em><a href="{row.PROFILE}"><img src="{row.USER_AVATAR}" alt="{row.USERNAME}'s Avatar" /></a></em><cite><a href="{row.PROFILE}">{row.USERNAME}</a></cite> <span>dijo:</span></h3>
+		<blockquote>
+		<!-- BEGIN controls -->
+		<div class="pad_top ctl a_right"><!-- BEGIN topic --><a href="{topic.VIEW}">{L_COMMENTS}: {item.REPLIES}</a> <a href="{topic.POST}">{L_CMT_REPLY}</a><!-- END topic --><!-- BEGIN auth --> <a href="{auth.EDIT}">{L_CMT_EDIT}</a> <a href="{auth.DELETE}">{L_CMT_DELETE}</a><!-- END auth --></div>
+		<!-- END controls -->
+		<div class="nowraptext">
+			<!-- BEGIN controls -->
+			<!-- BEGIN topic -->
+			<div class="h"><h3><a href="{topic.VIEW}">{item.SUBJECT}</a></h3></div>
+			<!-- END topic -->
+			<!-- END controls -->
+			{row.MESSAGE}
+		</div>
+		<p class="dtposted">{row.DATETIME}</p>
+		</blockquote>
+		<hr />
+	</div>
+	<!-- END row -->
+</div>
+<!-- END news -->
+
+<!-- BEGIN recent_members -->
+<div id="latest" class="pad_top">
+	<!-- BEGIN col -->
+	<div class="is_mid ls">
+	<div class="h"><h3>{col.TITLE}</h3></div>
+	<ul>
+		<!-- BEGIN item -->
+		<li>
+			<ul>
+				<li><a href="{item.PROFILE}">{item.USERNAME}</a></li>
+				<li class="_">{item.DATETIME}</li>
+			</ul>
+		</li>
+		<!-- END item -->
+	</ul>
+	</div>
+	<!-- END col -->
+</div>
+<!-- END recent_members -->

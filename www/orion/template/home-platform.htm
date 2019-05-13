@@ -1,0 +1,293 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="company_title">{L_APPLICATION_WELCOME}</div>
+
+<div class="book-icon"></div>
+
+<div class="levels">
+	<ul>
+		<li class="f1">Pre-Kinder</li>
+		<li class="f2">Kinder</li>
+		<li class="f3">Preparatoria</li>
+		<li class="f4">Primaria</li>
+		<li class="f5">B&aacute;sicos</li>
+		<li class="f6">Diversificado</li>
+		<li class="f7">Fin de Semana</li>
+	</ul>
+</div>
+
+<div class="is_left w50 z">
+	<div class="h"><h3>Niveles Plan Diario</h3></div>
+
+	<ul>
+		<li>Pre-Kinder</li>
+		<li>Kinder</li>
+		<li>Preparatoria</li>
+	</ul>
+
+	<ul>
+		<li>Primero a sexto primaria</li>
+		<li>Primero a tercero b&aacute;sico</li>
+	</ul>
+
+	<ul>
+		<li>Perito en Administración de Empresas con Orientación en Computación</li>
+		<li>Bachillerato en Ciencias y Letras con Orientación en Mecanica Automotríz</li>
+		<li>Bachillerato en Ciencias y Letras con Orientación en Diseño Gráfico</li>
+		<li>Bachillerato en Ciencias y Letras con Orientación en Computación</li>
+		<li>Bachillerato en Ciencias y Letras con Orientación en Electricidad</li>
+		<li>Bachillerato en Ciencias y Letras con Orientación Agroforestal</li>
+		<li>Bachillerato en Ciencias y Letras con Orientación en Textiles</li>
+		<li>Perito Contador con Orientación en Computación</li>
+		<li>Secretariado Bilingüe con Orientación en Computación</li>
+		<li>Perito Contador Bilingüe</li>
+	</ul>
+</div>
+
+<div class="is_right w50 z">
+	<div class="h"><h3>Niveles Plan Fin de Semana</h3></div>
+
+	<ul>
+		<li>Primaria Acelerada</li>
+		<li>Básicos por Madurez</li>
+		<li>Bachillerato por Madurez</li>
+	</ul>
+
+	<ul>
+		<li>Perito Contador</li>
+		<li>Perito en Administración de Empresas</li>
+		<li>Secretariado Bilingüe con Orientación en Computación</li>
+		<li>Secretariado Oficinista</li>
+	</ul>
+</div>
+
+<br />
+
+<div class="row show-grid">
+	<div class="col-md-8">
+		<div role="tabpanel">
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active">
+					<a href="#servicios" aria-controls="servicios" role="tab" data-toggle="tab" class="btn-lg">
+						<div class="text-center">
+							<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+						</div>
+						Servicios
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#niveles-jornadas" aria-controls="niveles-jornadas" role="tab" data-toggle="tab" class="btn-lg">
+						<div class="text-center">
+							<span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+						</div>
+						Niveles y Jornadas
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#nuestro-trabajo" aria-controls="nuestro-trabajo" role="tab" data-toggle="tab" class="btn-lg">
+						<div class="text-center">
+							<span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+						</div>
+						Nuestro Trabajo
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#contactanos" aria-controls="contactanos" role="tab" data-toggle="tab" class="btn-lg">
+						<div class="text-center">
+							<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+						</div>
+						Cont&aacute;ctanos
+					</a>
+				</li>
+			</ul>
+
+			<br />
+			<div class="tab-content">
+				<!-- BEGIN news -->
+				<!-- BEGIN list -->
+				<!-- BEGIN row -->
+
+				<!-- IF list.ALIAS == 'informacion' -->
+				<!-- IF row.NEWS_ALIAS == 'servicios' -->
+				<div role="tabpanel" class="tab-pane active" id="servicios">{row.POST_TEXT}</div>
+				<!-- ENDIF -->
+
+				<!-- IF row.NEWS_ALIAS == 'niveles-jornadas' -->
+				<div role="tabpanel" class="tab-pane" id="niveles-jornadas">{row.POST_TEXT}</div>
+				<!-- ENDIF -->
+				
+				<!-- IF row.NEWS_ALIAS == 'nuestro-trabajo' -->
+				<div role="tabpanel" class="tab-pane" id="nuestro-trabajo">{row.POST_TEXT}</div>
+				<!-- ENDIF -->
+
+				<!-- IF row.NEWS_ALIAS == 'contactanos' -->
+				<div role="tabpanel" class="tab-pane" id="contactanos">{row.POST_TEXT}</div>
+				<!-- ENDIF -->
+				<!-- ENDIF -->
+
+				<!-- END news -->
+				<!-- END list -->
+				<!-- END row -->
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<!-- BEGIN news -->
+		<div class="pad_top pad_left a_right ctl ln">
+			<ul>
+				<!-- BEGIN create -->
+				<li><a href="{create.U_NEWS_CREATE}">{L_A_NEWS_CREATE}</a></li>
+				<!-- END create -->
+				<!-- <li><a href="{U_NEWS}">{L_READ_MORE}</a></li> -->
+			</ul>
+		</div>
+		<!-- END news -->
+
+		<h4>&Uacute;ltimas Noticias</h4>
+		<br />
+
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<td>Hoy salimos a las 4 PM</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h4>Consejo del M&eacute;dico</h4>
+		<br />
+
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<td>Informacion del consejo</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h4>Consejo del Psicopedagogo</h4>
+		<br />
+
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<td>Informacion del consejo</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h4>Consejo del Psic&oacute;logo</h4>
+		<br />
+
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<td>Informacion del consejo</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h4>Enlaces Educativos</h4>
+		<br />
+
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<td>Mineduc.edu.gt</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h4>Escuela de Padres</h4>
+		<br />
+
+		<table class="table table-bordered">
+			<tbody>
+				<tr>
+					<td>Informacion para los Padres</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- BEGIN banners -->
+<div id="images" class="lsn">
+	<div class="z"><h3>{L_IMAGES}</h3></div>
+	<ul>
+		<!-- BEGIN row -->
+		<li><!-- IF row.URL != '' --><a href="{row.URL}"><!-- ENDIF --><img src="{S_SERVER}{row.IMAGE}" alt="" /><!-- IF row.URL != '' --></a><!-- ENDIF --></li>
+		<!-- END row -->
+	</ul>
+</div>
+<!-- END banners -->
+
+<!-- BEGIN next_event -->
+<div class="ln l3 lc">
+	<ul>
+		<!-- BEGIN row -->
+		<li>
+			<ul>
+				<li><a href="{row.URL}"><img src="{row.IMAGE}" alt="" /></a></li>
+				<li class="_"><a href="{row.URL}">{row.TITLE}</a></li>
+			</ul>
+		</li>
+		<!-- END row -->
+	</ul>
+</div>
+<!-- END next_event -->
+
+<!-- BEGIN category -->
+<div class="<!-- IF category.S_ROW_COUNT -->pad_top <!-- ENDIF -->ls">
+	<div class="h"><h3>{L_BOARD}</h3></div>
+
+	<ul class="wm_ls">
+
+	<!-- BEGIN forums -->
+	<li class="wm">
+		<ul>
+			<li><a href="{forums.U_FORUM}">{forums.FORUM_NAME}</a></li>
+			<li class="_">{forums.FORUM_DESC}</li>
+		</ul>
+	</li>
+	<!-- END forums -->
+	</ul>
+</div>
+<span class="clear"></span>
+<!-- END category -->
+
+<!-- BEGIN board_general -->
+<div class="is_mid pad_top ls">
+	<div class="h"><h3>{L_BOARD_LATEST}</h3></div>
+	<ul>
+		<!-- BEGIN item -->
+		<li>
+			<ul>
+				<li><a<!-- IF item.TOPIC_COLOR --> style="color:#{item.TOPIC_COLOR};"<!-- ENDIF --> href="{item.U_TOPIC}">{item.TOPIC_TITLE}</a></li>
+				<li class="_"><a href="{item.PROFILE}">{item.USERNAME}</a> public&oacute; a las {item.POST_TIME}</li>
+			</ul>
+		</li>
+		<!-- END item -->
+	</ul>
+</div>
+<!-- END board_general -->
+
+<!-- BEGIN board_events -->
+<div class="is_mid pad_top ls">
+	<div class="h"><h3>{L_BOARD_EVENTS}</h3></div>
+	<ul>
+		<!-- BEGIN item -->
+		<li>
+			<ul>
+				<li><a<!-- IF item.TOPIC_COLOR --> style="color:#{item.TOPIC_COLOR};"<!-- ENDIF --> href="{item.U_TOPIC}">{item.TOPIC_TITLE} ({item.EVENT_DATE})</a></li>
+				<li class="_"><a href="{item.PROFILE}">{item.USERNAME}</a> public&oacute; a las {item.POST_TIME}</li>
+			</ul>
+		</li>
+		<!-- END item -->
+	</ul>
+</div>
+<!-- END board_events -->
+
+<!-- INCLUDE page.footer.htm -->

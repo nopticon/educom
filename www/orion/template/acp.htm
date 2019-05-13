@@ -1,0 +1,40 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- <div class="h"><h3>{L_ACP}</h3></div> -->
+
+<div class="is_left">
+	<!-- BEGIN acp_list -->
+	<div class="<!-- IF acp_list.S_ROW_COUNT -->pad_top <!-- ENDIF -->ls">
+		<!-- BEGIN group -->
+		<div class="h"><h3>{group.TITLE}</h3></div>
+		<ul class="wm_ls">
+			<!-- BEGIN row -->
+			<li class="wm">
+				<ul>
+					<li><a href="{row.URL}">{row.NAME}</a></li>
+				</ul>
+			</li>
+			<!-- END row -->
+		</ul>
+		<!-- END group -->
+	</div>
+	<span class="clear"></span>
+	<!-- END acp_list -->
+</div>
+
+<div class="is_right">
+	<!-- BEGIN category -->
+	<div class="<!-- IF category.S_ROW_COUNT -->pad_top <!-- ENDIF -->">
+		<div class="h"><h3>{category.DESCRIPTION}</h3></div>
+		<ul class="wms">
+			<!-- BEGIN forums -->
+			<li><a href="{forums.U_FORUM}">{forums.FORUM_NAME}</a></li>
+			<li class="_">{forums.FORUM_DESC}</li>
+			<!-- END forums -->
+		</ul>
+	</div>
+	<span class="clear"></span>
+	<!-- END category -->
+</div>
+
+<!-- INCLUDE page.footer.htm -->

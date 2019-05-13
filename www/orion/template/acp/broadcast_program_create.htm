@@ -1,0 +1,23 @@
+<!-- INCLUDE page.header.htm -->
+
+<form action="{MODULE_URL}" method="post">
+	Nombre: <input type="text" name="name" size="100" /><br />
+	Nombre base: <input type="text" name="base" size="100" /><br />
+	Generos: <input type="text" name="genre" size="100" /><br />
+	Inicio UTC -6: <input type="text" name="start" size="100" /><br />
+	Final UTC -6: <input type="text" name="end" size="100" /><br />
+	D&iacute;a: <select name="day">
+		<option value="1">Lunes</option>
+		<option value="2">Martes</option>
+		<option value="3">Miercoles</option>
+		<option value="4">Jueves</option>
+		<option value="5">Viernes</option>
+		<option value="6">Sabado</option>
+		<option value="7">Domingo </option>
+	</select><br />
+	
+	Locutores: <textarea name="dj" rows="5" cols="15"></textarea><br />
+	<input type="submit" name="submit" value="Enviar" />
+</form>
+
+<!-- INCLUDE page.footer.htm -->

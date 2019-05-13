@@ -1,0 +1,153 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="row schedule-item box-rounded padding-sides">
+	<div class="col-xs-12 col-sm-6 col-md-6">
+		<div class="el_left"><img src="{AVATAR_IMG}" alt="{USERNAME}" /></div>
+
+		<div class="el_left pad_left">
+			<div class="h wm_ls">
+				<h3>{USERNAME}</h3>
+				<p>{POSTER_RANK}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6">
+		<!-- IF CURRENT_GRADE_SECTION -->
+		<div class="a_right">Cursando: <h3 class="no-margin">{CURRENT_GRADE_SECTION}</h3></div>
+		<!-- ENDIF -->
+	</div>
+</div>
+
+<br />
+
+<!-- BEGIN main -->
+<div class="row">
+	<div class="col-lg-3">
+		<!-- BEGIN side_panel -->
+		<!-- BEGIN group -->
+		<div class="{group.CLASS}">
+			<!-- BEGIN row -->
+			<a class="{group.ROW_CLASS}" href="{row.URL}">{row.LANG}</a>
+			<!-- END row -->
+		</div>
+		<!-- END group -->
+		<!-- END side_panel -->
+
+		<!-- BEGIN general -->
+		<br />
+		<div class="list-group">
+			<!-- BEGIN item -->
+			<a href="#" class="list-group-item">
+				<h4 class="list-group-item-heading">{item.KEY}</h4>
+				<p class="list-group-item-text">{item.VALUE}</p>
+			</a>
+			<!-- END item -->
+		</div>
+		<!-- END general -->
+		
+		<!-- BEGIN lastboard -->
+		<div class="h"><h3>{L_BOARD_LATEST}</h3></div>	
+		<!-- BEGIN row -->
+		<dl>
+			<dt><a<!-- IF row.TOPIC_COLOR --> style="color:#{row.TOPIC_COLOR};"<!-- ENDIF --> href="{row.URL}">{row.TITLE}</a></dt>
+			<dd>{row.DATE} a las {row.TIME}</dd>
+		</dl>
+		<!-- END row -->
+		<!-- END lastboard -->
+	</div>
+	<div class="col-lg-9">
+		<!-- BEGIN teacher_schedule -->
+		<div class="h"><h3>{L_TEACHER_SCHEDULE}</h3></div>
+
+		<div class="row">
+			<!-- BEGIN row -->
+			<div class="col-xs-12 col-sm-6 col-md-6">
+				<div class="schedule-item2 box-rounded">{row.NOMBRE_CURSO}</div>
+			</div>
+			<!-- END row -->
+		</div>
+		<!-- END teacher_schedule -->
+
+		<!-- BEGIN supervisor_students -->
+		<div class="h"><h3>{L_SUPERVISOR_STUDENTS}</h3></div>
+
+		<div class="row">
+			<!-- BEGIN row -->
+			<div class="col-xs-12 col-sm-6 col-md-6">
+				<div class="schedule-item2 box-rounded"><a href="{row.USERNAME_BASE}">{row.USERNAME}</a></div>
+			</div>
+			<!-- END row -->
+		</div>
+		<!-- END supervisor_students -->
+
+		<!-- BEGIN post_comment_box -->
+		<div>
+			<div class="h"><h3>{L_SEND_POST}</h3></div>
+
+			<form class="form-horizontal" action="{U_COMMENTS}" method="post">
+				<input type="hidden" name="ref" value="{post_comment_box.REF}" />
+
+				<div class="form-group">
+					<div class="col-lg-12">
+						<textarea class="form-control" name="message" id="message" autocomplete="off"></textarea>
+					</div>
+				</div>
+
+				<div class="text-center">
+					<input type="submit" class="btn btn-danger" name="submit" value="{L_SUBMIT_MESSAGE}" />
+				</div>
+			</form>
+		</div>
+		<!-- END post_comment_box -->
+		
+		<!-- BEGIN posts -->
+		<div class="comments x3">
+			<a name="first"></a>
+			<!-- BEGIN item -->
+			<a name="{item.POST_ID}"></a>
+
+			<div id="comment-{item.S_ROW_COUNT}">
+				<h3><strong>{item.S_ROW_COUNT}</strong><span>.</span> <em><a href="{item.PROFILE}"><img src="{item.USER_AVATAR}" alt="{item.USERNAME}'s Avatar" /></em><cite><a href="{item.PROFILE}">{item.USERNAME}</a></cite> <span>dijo:</span></h3>
+
+				<blockquote>
+					<div class="btn-group">
+						<a class="btn btn-default disabled">{item.DATETIME}</a>
+						<!-- IF item.S_DELETE -->
+						<a class="btn btn-default" href="{item.S_DELETE}">{L_DELETE}</a>
+						<!-- ENDIF -->
+
+						<!-- BEGIN controls -->
+						<!-- BEGIN reply --><a href="{reply.URL}">{L_CMT_REPLY}</a><!-- END reply -->
+						<!-- BEGIN report --><a href="{report.URL}">{L_CMT_REPORT}</a><!-- END report -->
+						<!-- BEGIN edit --><a href="{edit.URL}">{L_CMT_EDIT}</a><!-- END edit -->
+						<!-- BEGIN restore --><a href="{restore.URL}">{L_CMT_RESTORE}</a><!-- END restore -->
+						<!-- BEGIN delete --><a class="ask_remove" href="{delete.URL}">{L_CMT_DELETE}</a><!-- END delete -->
+						<!-- END controls -->
+					</div>
+
+					<div class="x1 col_fr nowraptext">
+						{item.MESSAGE}
+					</div>
+				</blockquote>
+				<hr />
+			</div>
+			<!-- END item -->
+		</div>
+		<!-- END posts -->
+	</div>
+</div>
+<!-- END main -->
+
+<!-- BEGIN friends -->
+<div class="pad_top ln l6">
+	<ul>
+		<!-- BEGIN row -->
+		<li class="a_mid pad_top">
+			<div><a href="{row.PROFILE}">{row.USERNAME}</a><br />{row.DATETIME}</div>
+			<div class="pad_top"><a href="{row.PROFILE}"><img src="{row.AVATAR}" alt="{row.USERNAME}" /></a></div></li>
+		<!-- END row -->
+	</ul>
+</div>
+<!-- END friends -->
+
+<!-- INCLUDE page.footer.htm

@@ -1,0 +1,151 @@
+<div class="pad_top">
+	<form action="{S_DOWNLOAD_ACTION}" method="post">
+	
+	<div class="ctl_lw">
+		<div class="h"><h3>{DL_TITLE}</h3></div>
+		
+		<div class="pad_top">
+		<script type="text/javascript">
+		//<![CDATA[
+		var params = { };
+		var attributes = { };
+		var flashvars = { };
+		flashvars.a = "{DL_A}";
+		flashvars.b = "{DL_ID}";
+		swfobject.embedSWF("{S_SERVER}/lib/play.swf", "play_", "174", "60", "7.0.0", false, flashvars, params, attributes);
+		//]]>
+		</script>
+		<div id="play_"></div>
+		</div>
+		
+		<div class="pad_top pad_left _">
+			<!-- BEGIN dl_fav -->
+			<a href="{dl_fav.URL}">{L_DL_FAV}</a>
+			<!-- END dl_fav -->
+			
+			<div class="pad_top">
+				<input class="submit" type="submit" id="download" name="download" value="{L_UE_DOWNLOAD}" />
+			</div>
+			
+			<div class="pad_top ls">
+			<ul>
+				<!-- IF DL_ALBUM != '' --><li>{DL_ALBUM}</li><!-- ENDIF -->
+				<!-- IF DL_YEAR != '' --><li>{DL_YEAR}</li><!-- ENDIF -->
+				<li>{DL_DURATION}m - {DL_FILESIZE}</li>
+				<li>{DL_STATS}</li>
+			</ul>
+			</div>
+		</div>
+	</div>
+	
+	</form>
+</div>
+
+<!-- BEGIN hidden -->
+<div class="pad6 sub-color boxt">
+<div class="box color">
+<div class="head">{L_UB_UD_RATE}</div>
+<div class="ie-widthfix">
+<table width="100%" class="t-collapse">
+	<tr>
+		<td width="175" valign="top">
+		<!-- BEGIN ud_poll -->
+		<div class="pad6">
+		<!-- BEGIN options -->
+		<form action="{options.S_VOTE_ACTION}" method="post" name="vote_ub">
+		<!-- END options -->
+		<div class="dark-color box">
+		<div class="head">{L_UB_UD_RATEPOLL}<!-- IF DL_VOTES --> <span class="red">[{DL_VOTES}v]</span><!-- ENDIF --></div>
+		<div class="pad6">
+		<div class="ie-widthfix">
+		<!-- BEGIN results -->
+		<div class="pollresult100">
+		<!-- BEGIN item -->
+		<div class="sep sep3-top bold red">{item.CAPTION} <span>[{item.RESULT}]</span> <span>{item.PERCENT}%</span></div>
+		<div class="box sub-color bar"><div class="small dark2-color" style="width: {item.PERCENT}%;" title="{L_UB_ORDER_VOTES}: {item.RESULT}">&nbsp;</div></div>
+		<!-- END item -->
+		</div>
+		<!-- END results -->
+		<!-- BEGIN options -->
+		<table cellspacing="0" cellpadding="2" border="0">
+			<!-- BEGIN item -->
+			<tr>
+				<td><input class="none" type="radio" id="vo_{item.ID}" name="vote_id" value="{item.ID}" />�</td>
+				<td><label for="vo_{item.ID}">{item.CAPTION}</label></td>
+			</tr>
+			<!-- END item -->
+		</table>
+		<!-- END options -->
+		</div>
+		<!-- BEGIN options -->
+		<div class="sep2-top a_mid"><input type="submit" id="dvote" name="submit" value="{L_VOTE}" /></div>
+		<!-- END options -->
+		</div>
+		</div>
+		<!-- BEGIN options -->
+		</form>
+		<!-- END options -->
+		</div>
+		<!-- END ud_poll -->
+		</td>
+		<td valign="top">
+		<div class="pad6 post-box">
+		<div class="box color">
+		<div class="head">{L_SEND_POST}</div>
+		<!-- BEGIN dl_post_box -->
+		<form action="{U_COMMENTS}" method="post" name="d-messages">
+		<input type="hidden" name="ref" value="{dl_post_box.REF}" />
+		<div class="pad6">
+		<div class="legend"><label for="d-comments">{L_POST}</label></div>
+		<div class="sep"><textarea id="d-comments" cols="57" name="message" rows="5"></textarea></div>
+		<div class="sep3"><input class="w50 bold" type="submit" name="submit" value="{L_SUBMIT}" /></div>
+		</div>
+		</form>
+		<!-- END dl_post_box -->
+		<!-- BEGIN dl_no_post_auth -->
+		<div class="pad6 a_mid">
+		<strong>{L_UB_BAN_POST}</strong>
+		<!-- BEGIN until -->
+		<br /><br />{L_UB_BAN_POST_UNTIL}:<br /><span class="bold red">{until.UNTIL_DATETIME}</span>
+		<!-- END until -->
+		</div>
+		<!-- END dl_no_post_auth -->
+		<!-- BEGIN dl_no_guest_posting -->
+		<div class="pad6 a_mid">{dl_no_guest_posting.LEGEND}</div>
+		<!-- END dl_no_guest_posting -->
+		</div>
+		</div>
+		</td>
+	</tr>
+</table>
+</div>
+</div>
+
+<!-- BEGIN hidden_ud_posts -->
+<a name="dpf"></a>
+<div class="sep-top">
+<div class="dark-color box">
+<div class="head">{L_POSTS} <span class="red">[{DL_POSTS}m]</span></div>
+<!-- BEGIN item -->
+<!-- IF item.S_ROW_COUNT --><div class="boxt"><!-- ENDIF -->
+<div class="pad6 box2b">
+<!-- BEGIN username --><a href="{item.PROFILE}"><!-- END username --><!-- BEGIN guestuser --><span><!-- END guestuser -->{item.USERNAME}<!-- BEGIN guestuser --></span><!-- END guestuser --><!-- BEGIN username --></a><!-- END username --><br />{item.DATETIME}
+<!-- BEGIN controls --><div class="sep-top sgray" align="right"><!-- BEGIN reply --><a href="{reply.REPLY}">{L_CMT_REPLY}</a><!-- END reply --><!-- BEGIN report --> <span class="soft">|</span> <a href="{report.REPORT}">{L_CMT_REPORT}</a><!-- END report --><!-- BEGIN auth --><!-- IF isset(auth.EDIT) --> <span class="soft">|</span> <a href="{auth.EDIT}">{L_CMT_EDIT}</a><!-- ENDIF --> <!-- IF isset(auth.DELETE) --> <span class="soft">|</span> <a href="{auth.DELETE}">{L_CMT_DELETE}</a><!-- ENDIF --><!-- END auth --></div><!-- END controls -->
+</div>
+<div class="pad_top">{item.MESSAGE}</div>
+<!-- IF item.S_ROW_COUNT --></div><!-- ENDIF -->
+<!-- END item -->
+</div>
+</div>
+
+<!-- IF DMSG_PAGES_PREV != '' || DMSG_PAGES_NEXT != '' -->
+<div class="sep2-top pad6 box3 dark-color ie-widthfix float-holder">
+	<div class="pages"><!-- IF DMSG_PAGES_PREV -->{DMSG_PAGES_PREV}<!-- ELSE -->&nbsp;<!-- ENDIF --></div>
+	<div class="pages a_mid">{DMSG_PAGES_ON}</div>
+	<div class="pages" align="right"><!-- IF DMSG_PAGES_NEXT -->{DMSG_PAGES_NEXT}<!-- ELSE -->&nbsp;<!-- ENDIF --></div>
+</div>
+<!-- ENDIF -->
+
+<!-- END hidden_ud_posts -->
+</div>
+<!-- END hidden -->

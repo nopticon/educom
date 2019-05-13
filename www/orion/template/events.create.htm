@@ -1,0 +1,15 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="h"><h3><a href="{U_EVENTS}">{L_EVENTS}</a></h3></div>
+
+<form action="{S_UPLOAD_ACTION}" name="post" method="post" enctype="multipart/form-data">
+<input type="hidden" name="MAX_FILE_SIZE" value="{MAX_FILESIZE}" /><input type="file" name="add_image[]" size="25" />
+
+<br /><br />Titulo:<br /><input type="text" name="e_title" value="" />
+<br /><br />Fecha (d/m/y//h:m):<br /><input type="text" name="e_day" size="2" value="" /> <input type="text" name="e_month" size="2" value="" /> <input type="text" name="e_year" size="5" value="" /> ////  <input type="text" name="e_hour" size="2" value="" /> <input type="text" name="e_mins" size="2" value="" />
+<br /><br />Artistas:<br /><textarea name="e_artist" cols="50" rows="15"></textarea>
+
+<div class="a_center">{S_HIDDEN}<input type="submit" class="bold w100p" name="submit" value="{L_SUBMIT}" /></div>
+</form>
+
+<!-- INCLUDE page.footer.htm -->

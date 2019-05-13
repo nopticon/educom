@@ -1,0 +1,33 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN create -->
+<div class="h"><h3>Crear secci&oacute;n</h3></div>
+
+<form class="form-horizontal" action="{U_ADM/SECCIONES}" method="post">
+{create.FORM}
+{create.SUBMIT}
+</form>
+<!-- END create -->
+
+<!-- BEGIN results -->
+<div class="h"><h3>Secciones actuales</h3></div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>Grado</td>
+			<td>Secci&oacute;n</td>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN row -->
+		<tr>
+			<td>{row.NOMBRE}</td>
+			<td>{row.NOMBRE_SECCION}</td>
+		</tr>
+		<!-- END row -->
+	</tbody>
+</table>
+<!-- END results -->
+
+<!-- INCLUDE page.footer.htm -->

@@ -1,0 +1,37 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN create -->
+<form class="form-horizontal" action="{U_ADM/CURSOS}" method="post">
+{create.FORM}
+{create.SUBMIT}
+</form>
+<!-- END create -->
+
+<!-- BEGIN results -->
+<div class="h"><h3>Cursos - Grados - Profesores</h3></div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>Curso</td>
+			<td>Grado</td>
+			<td>Secci&oacute;n</td>
+			<td>Capacidad</td>
+			<td>Catedr&aacute;tico</td>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN row -->
+		<tr>
+			<td>{row.NOMBRE_CURSO}</td>
+			<td>{row.NOMBRE}</td>
+			<td>{row.NOMBRE_SECCION}</td>
+			<td>{row.CAPACIDAD}</td>
+			<td>{row.NOMBRE_CATEDRATICO} {row.APELLIDO}</td>
+		</tr>
+		<!-- END row -->
+	</tbody>
+</table>
+<!-- END results -->
+
+<!-- INCLUDE page.footer.htm -->

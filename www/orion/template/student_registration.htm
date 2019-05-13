@@ -1,0 +1,57 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN no_create -->
+<div class="text-center">El alumno ha cursado todos los grados disponibles.</div>
+<!-- END no_create -->
+
+<!-- BEGIN create -->
+<div class="h"><h3>Registro de alumnos</h3></div>
+
+<form class="form-horizontal" action="{U_ADM/REINSCRIPCION}" method="post">
+{create.FORM}
+{create.SUBMIT}
+</form>
+<!-- END create -->
+
+<!-- BEGIN create_results -->
+<form class="form-horizontal" action="{U_ADM/REINSCRIPCION}" method="post">
+	<input name="id_alumno" type="hidden" id="id_alumno" value="{create_results.ID_ALUMNO}" />
+	<input name="carnet" type="hidden" id="carnet" value="{create_results.CARNE}<?php echo $row->carne; ?>" />
+
+	{create_results.FORM}
+
+	<div align="center">
+		<input type="submit" class="btn btn-danger" name="submit2" value="Guardar registro" />
+	</div>
+</form>
+<!-- END create_results -->
+
+<!-- BEGIN results -->
+<br />
+<div class="h"><h3>Historial de Grados</h3></div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>A&ntilde;o</td>
+			<td>Encargado</td>
+			<td>Grado</td>
+			<td>Secci&oacute;n</td>
+			<td>Fecha</td>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN row -->
+		<tr>
+			<td>{row.ANIO}</td>
+			<td>{row.ENCARGADO_REINSCRIPCION}</td>
+			<td>{row.NOMBRE}</td>
+			<td>{row.NOMBRE_SECCION}</td>
+			<td>{row.FECHA_REINSCRIPCION}</td>
+		</tr>
+		<!-- END row -->
+	</tbody>
+</table>
+<!-- END results -->
+
+<!-- INCLUDE page.footer.htm -->

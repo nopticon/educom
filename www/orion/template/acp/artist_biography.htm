@@ -1,0 +1,18 @@
+<!-- INCLUDE page.header.htm -->
+<!-- INCLUDE acp/artist_header.htm -->
+
+<!-- BEGIN updated -->
+<div class="a_center w">{L_ACP_ARTIST_BIOGRAPHY_UPDATE}</div>
+<!-- END updated -->
+
+<form action="{S_CONTROL}" method="post">
+	{S_HIDDEN}
+	<div class="publish">
+		<div class="h"><h3>{L_ACP_ARTIST_BIOGRAPHY}</h3></div>
+		
+		<div class="pad_top"><textarea id="comment" name="message" rows="20">{MESSAGE}</textarea></div>
+		<div class="pad_top"><input class="submit" type="submit" name="submit" value="{L_SUBMIT}" /></div>
+	</div>
+</form>
+
+<!-- INCLUDE page.footer.htm -->

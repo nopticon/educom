@@ -1,0 +1,27 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN error -->
+<div class="rows5_top_2"><div class="error_block"><h2>{L_ERROR}</h2><p>{error.MESSAGE}</p></div></div>
+<!-- END error -->
+
+<form action="{S_UPLOAD_ACTION}" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="MAX_FILE_SIZE" value="{S_UPLOAD}" />
+	
+	<div>{L_ACP_NEWS_IMAGE_ADD}</div>
+	<div class="pad_top"><input type="file" name="add_image" size="25" /></div>
+	
+	<div class="pad_top">Noticia<br />
+		<select name="news_id">
+			<!-- BEGIN news_list -->
+			<option value="{news_list.NEWS_ID}">{news_list.NEWS_TITLE}</option>
+			<!-- END news_list -->
+		</select>
+	</div>
+	
+	<div class="pad_top a_center">
+		{S_HIDDEN}
+		<input type="submit" class="submit" name="submit" value="{L_SUBMIT}" />
+	</div>
+</form>
+
+<!-- INCLUDE page.footer.htm -->

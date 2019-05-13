@@ -1,0 +1,22 @@
+<!-- INCLUDE page.header.htm -->
+
+<form action="{MODULE_URL}" method="post">
+	<!-- BEGIN edit -->
+	<input type="hidden" name="news_id" value="{edit.ID}" />
+	T&iacute;tulo<br />
+	<input type="text" name="post_subject" size="100" value="{edit.SUBJECT}" /><br />
+	Descripci&oacute;n<br />
+	<textarea name="post_desc" cols="100" rows="15">{edit.DESC}</textarea><br />
+	
+	Texto<br />
+	<textarea name="post_text" cols="100" rows="15">{edit.TEXT}</textarea><br /><br />
+	
+	<input type="submit" name="submit2" value="Actualizar" />
+	<!-- END edit -->
+	
+	<!-- BEGIN field -->
+	# Noticia: <input type="text" name="news_id" value="" size="8" /> <input type="submit" name="submit" value="Consultar" />
+	<!-- END field -->
+</form>
+
+<!-- INCLUDE page.footer.htm -->

@@ -1,0 +1,24 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN create_area -->
+<form class="form-horizontal" action="{U_ADM/AREAS}" method="post">
+{create_area.FORM}
+{create_area.SUBMIT}
+</form>
+<!-- END create_area -->
+
+<!-- BEGIN results -->
+<div class="h"><h3>Lista de &Aacute;reas</h3></div>
+
+<table class="table table-striped">
+	<tbody>
+		<!-- BEGIN row -->
+		<tr>
+			<td>{row.NOMBRE_AREA}</td>
+		</tr>
+		<!-- END row -->
+	</tbody>
+</table>
+<!-- END results -->
+
+<!-- INCLUDE page.footer.htm -->

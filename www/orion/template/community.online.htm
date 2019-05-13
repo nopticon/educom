@@ -1,0 +1,33 @@
+<!-- BEGIN online -->
+<div class="<!-- IF online.S_ROW_COUNT -->pad_top<!-- ENDIF --> ls_none">
+	<div class="h"><h3>{online.L_TITLE}</h3></div>
+	<ul>
+		<!-- BEGIN legend -->
+		<!-- BEGIN item -->
+		<li><strong>{item.ONLINE_VALUE}</strong> {item.L_MEMBERS}</li>
+		<!-- END item -->
+		<!-- END legend -->
+		<!-- BEGIN members -->
+		<!-- BEGIN item -->
+		<li><a href="{item.PROFILE}">{item.USERNAME}</a></li>
+		<!-- END item -->
+		<!-- BEGIN none -->
+		<li>{L_NONE}</li>
+		<!-- END none -->
+		<!-- END members -->
+	</ul>
+</div>
+<!-- END online -->
+
+<!-- BEGIN hide -->
+<!-- BEGIN recent_members -->
+<div class="pad_top ls_none">
+	<div class="h"><h3>{L_MEMBERS_LASTEST}</h3></div>
+	<ul>
+		<!-- BEGIN item -->
+		<li><a href="{item.PROFILE}">{item.USERNAME}</a></li>
+		<!-- END item -->
+	</ul>
+</div>
+<!-- END recent_members -->
+<!-- END hide -->

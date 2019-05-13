@@ -1,0 +1,63 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN create -->
+<div class="h"><h3>Areas Ocupacionales</h3></div>
+
+<form class="form-horizontal" action="{U_ADM/OCUPACIONAL}" method="post">
+{create.FORM}
+{create.SUBMIT}
+</form>
+<!-- END create -->
+
+<!-- BEGIN results -->
+<table class="table table-bordered">
+	<tr>
+		<td>Grado</td>
+		<td>Secci&oacute;n</td>
+	</tr>
+	<tr>
+		<td>{results.GRADE_NAME}</td>
+		<td>{results.SECTION_NAME}</td>
+	</tr>
+</table>
+
+<form class="form-horizontal" action="{U_ADM/OCUPACIONAL}" method="post">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<td>Carn&eacute;</td>
+				<td>Apellido</td>
+				<td>Nombre</td>
+				<td>Ocupacional</td>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN row -->
+			<tr>
+				<td>{row.CARNE}</td>
+				<td>{row.APELLIDO}</td>
+				<td>{row.NOMBRE_ALUMNO}</td>
+				<td width="25%">
+					<select name="nombre_ocupacion[{row.ID_ALUMNO}]">
+						<option value="0">Ninguno</option>
+						<!-- BEGIN select -->
+						<option value="{select.ID_OCUPACION}"<!-- IF select.SELECT --> selected="selected"<!-- ENDIF -->>{select.NOMBRE_OCUPACION}</option>
+						<!-- END select -->
+					</select>
+				</td>
+			</tr>
+			<!-- END row -->
+		</tbody>
+	</table>
+
+	<div class="text-center">
+		<input class="btn btn-danger" type="submit" name="submit2" value="Continuar" />
+	</div>
+</form>
+<!-- END results -->
+
+<!-- BEGIN no_results -->
+<div align="center">No se encuentran alumnos.</div>
+<!-- END no_results -->
+
+<!-- INCLUDE page.footer.htm -->

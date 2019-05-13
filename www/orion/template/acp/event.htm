@@ -1,0 +1,103 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- INCLUDE acp/error.htm -->
+
+<div class="pad_top publish">
+	<div class="h"><h3>{L_EVENTS}</h3></div>
+	<form class="fileupload_single form_align" action="{MODULE_URL}" method="POST" enctype="multipart/form-data">
+		{S_HIDDEN}
+
+		<span class="btn btn-success fileinput-button">
+			<i class="glyphicon glyphicon-plus"></i>
+			<span>Agregar archivo de imagen</span>
+			<input type="file" name="event_image[]" accept="audio/mpeg">
+		</span>
+		<br>
+		<br>
+		<!-- The global progress bar -->
+		<div id="progress" class="progress">
+			<div class="progress-bar progress-bar-success"></div>
+		</div>
+		<!-- The container for the uploaded files -->
+		<div id="files" class="files"></div>
+
+		<span class="clear"></span>
+
+		<label for="event_name">Nombre de evento</label>
+		<input class="f ff" id="event_name" name="event_name" value="" />
+
+		<span class="clear"></span>
+
+		<label for="event_day">Fecha</label>
+
+		<select class="ff" name="event_day">
+			<!-- BEGIN event_day -->
+			<option value="{event_day.VALUE}"{event_day.SELECTED}>{event_day.TEXT}</option>
+			<!-- END event_day -->
+		</select>
+
+		<select class="ff" name="event_month">
+			<!-- BEGIN event_month -->
+			<option value="{event_month.VALUE}"{event_month.SELECTED}>{event_month.TEXT}</option>
+			<!-- END event_month -->
+		</select>
+
+		<select class="ff" name="event_year">
+			<!-- BEGIN event_year -->
+			<option value="{event_year.VALUE}"{event_year.SELECTED}>{event_year.TEXT}</option>
+			<!-- END event_year -->
+		</select>
+
+		<span class="clear"></span>
+
+		<label for="event_hours">Hora (24 horas)</label>
+
+		<select class="ff" name="event_hours">
+			<!-- BEGIN event_hours -->
+			<option value="{event_hours.VALUE}"{event_hours.SELECTED}>{event_hours.TEXT}</option>
+			<!-- END event_hours -->
+		</select>
+
+		<select class="ff" name="event_minutes">
+			<!-- BEGIN event_minutes -->
+			<option value="{event_minutes.VALUE}"{event_minutes.SELECTED}>{event_minutes.TEXT}</option>
+			<!-- END event_minutes -->
+		</select>
+
+		<span class="clear"></span>
+
+		<label for="event_artists">Artistas de Rock Republik</label>
+		<select id="event_artists" name="event_artists">
+			<!-- BEGIN artists -->
+			<!-- BEGIN row -->
+			<option value="{row.SUBDOMAIN}" class="selected">{row.NAME}</option>
+			<!-- END row -->
+			<!-- END artists -->
+        </select>
+
+		<span class="clear"></span>
+
+		<!-- BEGIN topics -->
+		<div class="pad_top">
+			<label for="event_current_topic">Tema actual (opcional)</label>
+		<select name="event_current_topic">
+			<option value="0">--</option>
+			<!-- BEGIN row -->
+			<option value="{row.TOPIC_ID}">{row.TOPIC_TITLE}</option>
+			<!-- END row -->
+		</select>
+		</div>
+		<!-- END topics -->
+
+		<!-- <input type="submit" class="btn btn-primary start" value="{L_SUBMIT}" /> -->
+
+		<!-- <button type="submit" class="btn btn-primary start">
+            <i class="glyphicon glyphicon-upload"></i>
+            <span>{L_SUBMIT}</span>
+        </button> -->
+
+		<input type="submit" class="start" name="submit" value="{L_SUBMIT}" />
+	</form>
+</div>
+
+<!-- INCLUDE page.footer.htm -->

@@ -1,0 +1,76 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN create -->
+<form class="form-horizontal" action="{U_ADM/NOTAS}" method="post">
+{create.FORM}
+{create.SUBMIT}
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+$(function() {
+	$('#grado').change(function() {
+		$.ajax({
+			type: "POST",
+			url: "./index2.php",
+			data: "grado=" + $(this).val(),
+			success: function(msg) {
+				$('#curso').html(msg);
+			}
+		});
+	});
+});
+//]]>
+</script>
+<!-- END create -->
+
+<!-- BEGIN results -->
+<form class="form-horizontal" action="{U_ADM/NOTAS}" method="post">
+	<input name="grado" type="hidden" id="grado" value="{results.GRADE_ID}" />
+	<input name="curso" type="hidden" id="curso" value="{results.COURSE_ID}" />
+	<input name="examen" type="hidden" id="examen" value="{results.UNIT_ID}" />
+
+	<table class="table table-bordered">
+		<tr>
+			<td width="50%">Grado: {results.GRADE_NAME} {results.GRADE_SECTION}</td>
+			<td>Unidad: {results.UNIT_NAME}</td>
+		</tr>
+		<tr>
+			<td>Curso: {results.COURSE_NAME}</td>
+			<td>A&ntilde;o: {results.YEAR}</td>
+		</tr>
+	</table>
+
+	<table class="table table-striped">
+		<thead>
+			<td>Carn&eacute;</td>
+			<td>Apellidos</td>
+			<td>Nombres</td>
+			<td>Nota</td>
+		</thead>
+
+		<tbody>
+			<!-- BEGIN row -->
+			<tr>
+				<td align="center">{row.CARNE}</td>
+				<td>{row.APELLIDO}</td>
+				<td>{row.NOMBRE_ALUMNO}</td>
+				<td align="center">
+					<!-- IF row.SCORE -->
+					<div>{row.SCORE}</div>
+					<!-- ELSE -->
+					<input class="form-control" name="nota[{row.ID_ALUMNO}]" type="text" size="5" />
+					<!-- ENDIF -->
+				</td>
+			</tr>
+			<!-- END row -->
+		</tbody>
+	</table>
+
+	<div class="text-center">
+		<input class="btn btn-danger" type="submit" name="submit2" value="Guardar Notas" />
+	</div>
+</form>
+<!-- END results -->
+
+<!-- INCLUDE page.footer.htm -->

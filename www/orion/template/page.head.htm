@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title><!-- IF PAGE_TITLE != 'Inicio' -->{PAGE_TITLE} en <!-- ENDIF -->{L_APPLICATION}<!-- IF PAGE_TITLE == 'Inicio' -->, {L_APPLICATION_DESC}<!-- ENDIF --></title>
+<!-- BEGIN header_css -->
+<link rel="stylesheet" type="text/css" href="{header_css.PATH}" />
+<!-- END header_css -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{S_ASSETS}j.js">\x3C/script>')</script>
+<!-- BEGIN header_js -->
+<script type="text/javascript" charset="utf-8" src="{header_js.PATH}"></script>
+<!-- END header_js -->
+
+<link rel="shortcut icon" href="{S_SERVER}/favicon.ico" />
+<!-- IF PAGE_TITLE == 'Inicio' -->
+<meta name="description" content="{S_DESCRIPTION}" />
+<meta name="keywords" content="{S_KEYWORDS}" />
+<!-- ENDIF -->
+
+<!-- IF S_ANALYTICS != '' -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '{S_ANALYTICS}', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- ENDIF -->

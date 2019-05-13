@@ -1,0 +1,25 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN updated -->
+<div class="a_center w">{updated.MESSAGE}</div>
+<!-- END updated -->
+
+<div class="publish">
+	<form action="{MODULE_URL}" method="post">
+		<label for="topic">Tema del foro</label>
+		<!-- BEGIN topics -->
+		<select name="topic" id="topic">
+			<!-- BEGIN forum -->
+			<optgroup label="{forum.FORUM_NAME}">
+			<!-- BEGIN row -->
+			<option value="{row.TOPIC_ID}">{row.TOPIC_TITLE}</option>
+			<!-- END row -->
+			</optgroup>
+			<!-- END forum -->
+		</select>
+		<!-- END topics -->
+		<input type="submit" class="submit" name="submit" value="Normalizar tema" />
+	</form>
+</div>
+
+<!-- INCLUDE page.footer.htm -->

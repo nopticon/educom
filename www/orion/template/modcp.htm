@@ -1,0 +1,157 @@
+<!-- INCLUDE page.header.htm -->
+
+<table width="100%" cellpadding="5" cellspacing="0" border="0">
+<form method="post" id="modcpForm" action="{S_MODCP_ACTION}">{S_HIDDEN_FIELDS}
+	<tr>
+		<td>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td width="100%" valign="top">
+						<table width="100%" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td><img src="{TEMPLATE}images/mmg/h3_01.gif" width="8" height="25" vspace="0"></td>
+								<td width="100%" height="25" background="{TEMPLATE}images/mmg/h3_02.gif">
+									<table width="100%" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td height="1"></td>
+										</tr>
+										<tr>
+											<td valign="middle"><span class="nav"><a href="{U_FORUM}" class="nav">{L_INDEX}</a>{NAV_CAT_DESC}</span></td>
+										</tr>
+									</table>
+								</td>
+								<td><img src="{TEMPLATE}images/mmg/h3_03.gif" width="8" height="25" vspace="0"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td height="3"></td></tr></table>
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td><img src="{TEMPLATE}images/mmg/h8_01.gif" width="8" height="53" vspace="0"></td>
+					<td width="100%" align="center" background="{TEMPLATE}images/mmg/h8_02.gif">
+						<table width="100%" border="0" cellpadding="0" cellspacing="0">
+							<tr><td height="1"></td></tr>
+							<tr>
+								<td align="center"><span class="maintitle">{L_MOD_CP}</span></td>
+							</tr>
+						</table>
+					</td>
+					<td><img src="{TEMPLATE}images/mmg/h8_03.gif" width="8" height="53" vspace="0"></td>
+				</tr>
+				<tr>
+					<td height="3" colspan="3"></td>
+				</tr>
+				<tr>
+					<td colspan="3" valign="top">
+						<table width="100%" cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td><img src="{TEMPLATE}images/mmg/h3_01.gif" width="8" height="25" vspace="0"></td>
+								<td width="100%" height="25" background="{TEMPLATE}images/mmg/h3_02.gif">
+									<table width="100%" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td height="1" colspan="5"></td>
+										</tr>
+										<tr>
+											<td align="right"><span class="gen"><a href="#" onclick="setCheckboxes('modcpForm', 'topic_id_list[]', true); return false;">{L_CHECK_ALL}</a>&nbsp;&nbsp;<a href="#" onclick="setCheckboxes('modcpForm', 'topic_id_list[]', false); return false;">{L_UNCHECK_ALL}</a></span>&nbsp;&nbsp;</td>
+										</tr>
+									</table>
+								</td>
+								<td><img src="{TEMPLATE}images/mmg/h3_03.gif" width="8" height="25" vspace="0"></td>
+							</tr>
+							<tr>
+								<td height="3" colspan="3"></td>
+							</tr>
+							<tr>
+								<td><img src="{TEMPLATE}images/mmg/h3_01.gif" width="8" height="25" vspace="0"></td>
+								<td width="100%" height="25" background="{TEMPLATE}images/mmg/h3_02.gif">
+									<table width="100%" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td height="1" colspan="5"></td>
+										</tr>
+										<tr>
+											<td align="center" valign="middle" width="50">&nbsp;</td>
+											<td valign="middle"><span class="gen"><b>{L_TOPICS}</b></span></td>
+											<td align="center" valign="middle" width="75"><span class="gen"><b>{L_REPLIES}</b></span></td>
+											<td align="center" nowrap="nowrap" width="150"><span class="gen"><b>{L_LASTPOST}</b></span></th>
+											<td align="center" valign="middle" width="75"><span class="gen"><b>{L_SELECT}</b></span></td>
+										</tr>
+									</table>
+								</td>
+								<td><img src="{TEMPLATE}images/mmg/h3_03.gif" width="8" height="25" vspace="0"></td>
+							</tr>
+							<tr>
+								<td height="3" colspan="3"></td>
+							</tr>
+							<!-- BEGIN topicrow -->
+							<tr>
+								<td><img src="{TEMPLATE}images/mmg/h8_01.gif" width="8" height="53" vspace="0"></td>
+								<td width="100%" height="53" background="{TEMPLATE}images/mmg/h8_02.gif">
+									<table width="100%" border="0" cellpadding="0" cellspacing="0">
+										<tr>
+											<td height="1" colspan="5"></td>
+										</tr>
+										<tr>
+											<td align="center" valign="middle" width="50"><img src="{topicrow.TOPIC_FOLDER_IMG}" width="14" height="14" alt="{topicrow.L_TOPIC_FOLDER_ALT}" title="{topicrow.L_TOPIC_FOLDER_ALT}" /></td>
+											<td valign="middle"><span class="gen">{topicrow.TOPIC_TYPE}<a href="{topicrow.U_VIEW_TOPIC}" class="topictitle">{topicrow.TOPIC_TITLE}</a></span></td>
+											<td align="center" valign="middle" width="75"><span class="gen">{topicrow.REPLIES}</span></td>
+											<td align="center" valign="middle" width="150"><span class="name">{topicrow.LAST_POST_TIME}</span></td>
+											<td align="center" valign="middle" width="75"><input type="checkbox" name="topic_id_list[]" value="{topicrow.TOPIC_ID}" /></td>
+										</tr>
+									</table>
+								</td>
+								<td><img src="{TEMPLATE}images/mmg/h8_03.gif" width="8" height="53" vspace="0"></td>
+							</tr>
+							<tr>
+								<td height="3" colspan="3"></td>
+							</tr>
+							<!-- END topicrow -->
+							<tr> 
+								<td align="right" class="" colspan="3" height="29">
+								<!-- BEGIN switch_auth_delete -->
+								<input type="submit" name="delete" class="btn100" value="{L_DELETE}" />
+								<!-- END switch_auth_delete -->
+								
+								<input type="submit" name="move" class="btn100" value="{L_MOVE}" />
+								
+								<input type="submit" name="lock" class="btn100" value="{L_LOCK}" />
+								
+								<input type="submit" name="unlock" class="btn100" value="{L_UNLOCK}" />
+								<br /><br />
+								<!-- BEGIN switch_auth_sticky -->
+								<input type="submit" name="sticky" class="btn100" value="{L_STICKY}" />
+								<!-- END switch_auth_sticky -->
+								<!-- BEGIN switch_auth_announce -->
+								<input type="submit" name="announce" class="btn100" value="{L_ANNOUNCE}" />
+								<!-- END switch_auth_announce -->
+								
+								<input type="submit" name="normalise" class="btn100" value="{L_NORMALISE}" />
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td height="3" colspan="3"></td>
+				</tr>
+				<tr>
+					<td><img src="{TEMPLATE}images/mmg/h3_01.gif" width="8" height="25" vspace="0"></td>
+					<td width="100%" align="center" background="{TEMPLATE}images/mmg/h3_02.gif">
+						<table width="100%" border="0" cellpadding="0" cellspacing="0">
+							<tr><td height="1"></td></tr>
+							<tr>
+								<td align="left"><span class="nav">{PAGE_NUMBER}</span></td>
+								<td align="right"><span class="nav">{PAGINATION}</span></td>
+							</tr>
+						</table>
+					</td>
+					<td><img src="{TEMPLATE}images/mmg/h3_03.gif" width="8" height="25" vspace="0"></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</form>
+</table>
+
+<!-- INCLUDE page.footer.htm -->

@@ -1,0 +1,15 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="pad_top publish">
+	<div class="h"><h3>{L_EDIT_POST}</h3></div>
+	<form action="{MODULE_URL}" method="post">
+		<!-- IF V_TOPIC != '' -->
+		<label for="comment_title">{L_TOPIC_TITLE}</label>
+		<input class="f ff" id="comment_title" name="topic_title" value="{V_TOPIC}" />
+		<!-- ENDIF -->
+		<textarea id="comment" name="message" rows="10">{V_MESSAGE}</textarea>
+		<input type="submit" name="submit" value="{L_SUBMIT}" />
+	</form>
+</div>
+
+<!-- INCLUDE page.footer.htm -->

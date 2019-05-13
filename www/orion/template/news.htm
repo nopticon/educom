@@ -1,0 +1,26 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="h"><h3>{L_NEWS}</h1></div>
+
+<!-- BEGIN cat -->
+<div class="pad_top ls">
+	<ul>
+		<!-- BEGIN row -->
+		<li class="pad_top">
+			<ul>
+				<li><a class="subtitle"href="{row.URL}">{row.POST_SUBJECT}</a></li>
+				<li class="_ pad_top">{row.POST_DESC}</li>
+			</ul>
+		</li>
+		<!-- END row -->
+	</ul>
+</div>
+<!-- END cat -->
+
+<span class="clear"></span>
+
+<!-- IF PAGES_NUMS != '' -->
+<div class="a_mid">{PAGES_NUMS}</div>
+<!-- ENDIF -->
+
+<!-- INCLUDE page.footer.htm -->

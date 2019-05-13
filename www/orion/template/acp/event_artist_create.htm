@@ -1,0 +1,23 @@
+<!-- INCLUDE page.header.htm -->
+<!-- INCLUDE acp/artist_header.htm -->
+
+<div class="h"><h3>{L_ACP_EVENT_ARTIST_CREATE}</h3></div>
+
+<form action="{_SELF}" method="post">
+	<!-- BEGIN events -->
+	<select name="event">
+		<!-- BEGIN month -->
+		<optgroup label="{month.NAME}">
+			<!-- BEGIN row -->
+			<option value="{row.ID}">{row.TITLE} - {row.DATE}</option>
+			<!-- END row -->
+		</optgroup>
+		<!-- END month -->
+		
+	</select>
+	<!-- END events -->
+
+	<input type="submit" class="ctl" name="submit" value="{L_SAVE_CHANGES}" />
+</form>
+
+<!-- INCLUDE page.footer.htm -->

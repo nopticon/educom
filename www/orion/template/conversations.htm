@@ -1,0 +1,108 @@
+<!-- INCLUDE page.header.htm -->
+
+<div class="is_left">
+	<!-- BEGIN conv -->
+	<div class="h el_left"><h3><a href="{conv.URL}">{L_CONVERSATIONS}</a> &mdash; {conv.SUBJECT}</h3></div>
+	<!-- END conv -->
+	<!-- BEGIN messages -->
+	<div class="h el_left"><h3>{L_CONVERSATIONS}</a></h3></div>
+	<span class="clear"></span>
+	<!-- END messages -->
+	
+	<!-- BEGIN conv -->
+	<div class="el_right ctl">
+		<form action="{S_ACTION}" method="post">
+			{S_HIDDEN_FIELDS}
+			<input class="submit" type="submit" name="delete" value="{L_DELETE_DC}" />
+		</form>
+	</div>
+	
+	<span class="clear"></span>
+	<!-- END conv -->
+	
+	<form action="{S_ACTION}" method="post">
+		{S_HIDDEN_FIELDS}
+		<!-- BEGIN error -->
+		<div class="w">{error.MESSAGE}</div>
+		<!-- END error -->
+		
+		<!-- BEGIN dc_start -->
+		<div class="pad_top publish">
+			<div class="h"><h3>{L_USERPAGE_DCONV_START}</h3></div>
+			<textarea id="comment" name="message"></textarea>
+			<label for="comment_member">{L_DC_SEND_TO}</label>
+			<input class="f" id="comment_member" name="member" value="{dc_start.MEMBER}" />
+			<input type="submit" name="post" value="{L_SUBMIT}" />
+		</div>
+		
+		<span class="clear"></span>
+		<!-- END dc_start -->
+		
+		<!-- BEGIN messages -->
+		<!-- IF PAGES_NUMS != '' -->
+		<div class="pad_top p">{PAGES_NUMS}</div>
+		
+		<span class="clear"></span>
+		<!-- ENDIF -->
+		
+		<div class="pad_top ls">
+		<ul>
+			<!-- BEGIN item -->
+			<li>
+				<!-- BEGIN hide -->
+				<input type="checkbox" class="none" name="mark[]2" value="{item.S_MARK_ID}" />
+				<!-- END hide -->
+				<a href="{item.U_READ}">{item.SUBJECT}</a> ({item.ROOT_CONV})
+				<div class="_"><!-- BEGIN hide --><a href="{item.DC_PROFILE}">{item.DC_USERNAME}</a> @ <!-- END hide -->{item.POST_DATE}</div>
+			</li>
+			<!-- END item -->
+		</ul>
+		</div>
+		
+		<!-- BEGIN hide -->
+		<div class="pad_top ctl"><input type="submit" name="delete" value="{L_DELETE_MARKED}" /></div>
+		<!-- END hide -->
+		
+		<!-- IF PAGES_NUMS != '' -->
+		<div class="pad_top p">{PAGES_NUMS}</div>
+		<!-- ENDIF -->
+		<!-- END messages -->
+		
+		<!-- BEGIN no_messages -->
+		<div class="w">{L_EMPTY_DC}</div>
+		<!-- END no_messages -->
+		
+		<!-- BEGIN conv -->
+		<!-- BEGIN row -->
+		<div class="pad_top comments">
+			<div id="comment-{row.POST_ID}">
+				<h3><strong>1</strong><span>.</span> <em><a href="{row.PROFILE}"><img src="{row.AVATAR}" alt="{row.USERNAME}" /></a></em><cite><a href="{row.PROFILE}">{row.USERNAME}</a></cite> <span>dijo:</span></h3>
+				<blockquote>
+					<div class="nowraptext">{row.MESSAGE}</div>
+					<!-- IF row.SIGNATURE != '' -->
+					<div class="nowraptext"><p>--<div>{row.SIGNATURE}</div></p></div>
+					<!-- ENDIF -->
+					<p class="dtposted">{row.POST_DATE}</p>
+				</blockquote>
+				<hr />
+			</div>
+		</div>
+		<!-- END row -->
+		
+		<!-- IF conv.CAN_REPLY -->
+		<div class="pad_top publish">
+			<div class="h"><h3>{L_SEND_REPLY}</h3></div>
+			<textarea id="comment" name="message"></textarea>
+			<input type="submit" name="post" value="{L_SUBMIT}" />
+		</div>
+		<!-- ENDIF -->
+		
+		<!-- END conv -->
+	</form>
+</div>
+
+<div class="is_right">
+	
+</div>
+
+<!-- INCLUDE page.footer.htm -->

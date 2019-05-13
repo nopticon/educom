@@ -1,0 +1,33 @@
+<!-- INCLUDE page.header.htm -->
+
+<!-- BEGIN create -->
+<div class="h"><h3>Crear unidad</h3></div>
+
+<form class="form-horizontal" action="{U_ADM/EXAMENES}" method="post">
+{create.FORM}
+{create.SUBMIT}
+</form>
+<!-- END create -->
+
+<!-- BEGIN results -->
+<div class="h"><h3>Unidades actuales</h3></div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>Unidad</td>
+			<td>Status</td>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN row -->
+		<tr>
+			<td><a href="../mantenimientos/examen/tiempo.php?id_examen={row.ID_EXAMEN}">{row.EXAMEN}</a></td>
+			<td>{row.STATUS}</td>
+		</tr>
+		<!-- END row -->
+	</tbody>
+</table>
+<!-- END results -->
+
+<!-- INCLUDE page.footer.htm -->
