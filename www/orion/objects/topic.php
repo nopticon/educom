@@ -340,7 +340,7 @@ class topic {
                 FROM _forum_posts p, _members u
                 WHERE p.topic_id = ?
                     AND u.user_id = p.poster_id';
-            if ($total = sql_field(sql_filter($sql, $topic_id))) {
+            if ($total = sql_field(sql_filter($sql, $topic_id), 'total')) {
                 $topic_data->topic_replies2 = $total - 1;
             }
         }

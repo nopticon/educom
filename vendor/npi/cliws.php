@@ -295,7 +295,7 @@ class libws extends blowfish {
 
 					if (!$open) {
 						$open = str_replace(w('. -'), '_', strtolower($value));
-						continue;
+						// continue;
 					}
 					break;
 				case $values:

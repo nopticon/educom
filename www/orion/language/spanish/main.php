@@ -9,10 +9,10 @@ $lang += array(
     'APPLICATION_FULL' => 'Comunidad Educativa',
     // 'APPLICATION_DESC' => 'D',/*La comunidad m&aacute;s grande de Rock en Guatemala',*/
     'APPLICATION_START' => 'Apoyando el rock desde el <strong>15 de marzo de 2004</strong>',
-    'APPLICATION_WELCOME' => 'Bienvenido a la comunidad y plataforma educativa de <br /><strong>Colegio San Gabriel</strong>',
-    'APPLICATION_SCHOOL' => 'Tenemos 10 años de brindar excelencia acad&eacute;mica en Guatemala.',
+    'APPLICATION_WELCOME' => 'Bienvenido a la comunidad y plataforma educativa.',
+    'APPLICATION_SCHOOL' => 'Tenemos 10 años de brindar excelencia acad&eacute;mica.',
 
-    'SCHOOL_NAME' => 'Colegio San Gabriel',
+    'SCHOOL_NAME' => 'Educom',
     'EDUCATION_PLATFORM' => 'Plataforma Virtual',
 
     'ENCODING' => "utf-8",
